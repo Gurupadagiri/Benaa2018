@@ -1,0 +1,232 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid logoBar">
+    <div class="row">
+        <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
+            <div class="logoContainer" style="display:none;">
+                <a href="login.html"><img class="img-responsive" src="images/logo1.jpg"></a>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+            <div class="phoneContainer">
+                00956048752136
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+            <div class="jobrunningTotal">
+                Job Running Total : $250,000,000
+            </div>
+        </div>
+
+    </div>
+</div>   
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="popupTopBtnCon">
+                <div class="row">
+                    <div class="col-sm-2 form-group">
+                        <div class="dropdown">
+                            <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                New
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Internal User</a></li>
+                                <li><a href="#">Sub/ Vandor</a></li>
+                                <li><a href="#">Customer Contacts</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 text-right pull-right form-group">
+                        <div class="dropdown combineChecked">
+                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                Checked Actions
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Combine Checked</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="filterContainer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                FILTER YOUR RESULTS
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-2 form-group tooltip-div">
+                                                    <label>Keyword</label>
+                                                    <input type="text" class="form-control" placeholder="Keyword">
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <label>Name</label>
+                                                    <select multiple class="noCheckbox">
+                                                        <option value="Email">Email</option>
+                                                        <option value="Phone/Cell">Phone/Cell</option>
+                                                        <option value="City">City</option>
+                                                        <option value="Street Address">Street Address</option>
+                                                        <option value="Zip">Zip</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="col-sm-2 form-group">
+                                                    <label>Contact Type</label>
+                                                    <select multiple class="withCheckbox">
+                                                        <option value="Owner">Owner</option>
+                                                        <option value="Lead Opportunity">Lead Opportunity</option>
+                                                        <option value="Not used as owner or lead">Not used as owner or lead</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <label>Name</label>
+                                                    <input type="text" class="form-control" placeholder="">
+                                                </div>
+                                                <div class="col-sm-2 pull-right form-group">
+                                                    <label>Saved Filter</label>
+                                                    <select multiple class="noCheckbox">
+                                                        <option value="Standard">Standard Filter</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                            <div class="row">
+                                                <div class="col-sm-6">
+                                                    <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Update Results</button>&nbsp;
+                                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
+                                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                                        Save Filter
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tabsConatiner">
+                    <div class="tabbable boxed parentTabs">
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#set11">Internal User</a></li>
+                            <li><a href="#set22">Subs</a></li>
+                            <li><a href="#set33">Customer Contacts</a></li>
+
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="set11">
+                                <div class="tabConInfo">
+                                    <div class="dataTableConatainer">
+                                        <table id="example" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                            <thead>
+                                                <tr>
+                                                    <th>Name</th>
+                                                    <th>Admin Access</th>
+                                                    <th>Login Enabled</th>
+                                                    <th>Auto Access</th>
+                                                    <th>Email</th>
+                                                    <th>Phone</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>Ahmed Garrash</td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td>shahkhan27@gmail.com</td>
+                                                    <td>00966558322324</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ahmed Garrash</td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td>shahkhan27@gmail.com</td>
+                                                    <td>00966558322324</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ahmed Garrash</td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td>shahkhan27@gmail.com</td>
+                                                    <td>00966558322324</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ahmed Garrash</td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td>shahkhan27@gmail.com</td>
+                                                    <td>00966558322324</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ahmed Garrash</td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td>shahkhan27@gmail.com</td>
+                                                    <td>00966558322324</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ahmed Garrash</td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td>shahkhan27@gmail.com</td>
+                                                    <td>00966558322324</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>Ahmed Garrash</td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td align="center"><span class="fa fa-check"></span></td>
+                                                    <td>shahkhan27@gmail.com</td>
+                                                    <td>00966558322324</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="set22">
+                                <div class="tabConInfo">
+                                    <div class="dataTableConatainer">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="set33">
+                                <div class="tabConInfo">
+                                    <div class="dataTableConatainer">
+                                        fdgfd
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- .tab_container -->
+            </div>
+
+        </div>
+    </div>
+</div>
+

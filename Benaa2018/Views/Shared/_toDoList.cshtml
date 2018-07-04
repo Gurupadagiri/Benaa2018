@@ -1,0 +1,17 @@
+﻿<tr class="grayBg">
+    <td><input type="checkbox" checked></td>
+    <td><a class="underlineLink bold" href="#">Title</a></td>
+    <td><a class="underlineLink bold" href="#">Priority</a></td>
+    <td class="bold">Project Site</td>
+    <td><a class="underlineLink bold" href="#">Due</a></td>
+</tr>
+@foreach (var item in Model.ToDoMasterModels)
+{
+    <tr>
+        <td><input type="checkbox"></td>
+        <td><a class="underlineLink" href="#">@item.Title</a></td>
+        <td>@item.Priority</td>
+        <td>@item.ProjectSite</td>
+        <td><span class="red">@item.DueDate</span></td>
+    </tr>
+}

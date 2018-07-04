@@ -1,0 +1,245 @@
+﻿@model Benaa2018.Helper.ViewModels.HomeViewModel
+<div class="row mrgnRyt0">
+    <div class="col-xs-12 col-sm-6 col-md-6  col-lg-6" id="rightCon1">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Warranty Alert
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" align="center">Added in the last year</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model.WarrentyAlertModels)
+                                {
+                                    <tr><td data-id="@item.WarrentAlertId">@item.WarrentyName :</td><td>-</td></tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Time Clock
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <tbody>
+                                <tr><td>You are currently <span class="fa fa-clock-o"></span>  off the clock</td><td align="right"><a href="#" class="btn btn-success btn-xs">Clock in</a></td></tr>
+                                <tr><td>User Currently Clocked In :</td><td align="right"><a href="#">(0)</a></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Recent Documents
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <tbody>
+                                <tr><td>No Documents</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Pending Recent Change Order Activity Documents
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <tbody>
+                                <tr><td>No Change Orders</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Recent Bill PO Activity
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <tbody>
+                                <tr><td>No Change Orders</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-12 col-sm-12 col-md-5  col-lg-6">
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me1">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        @*To-Do's for @Model.UserMasterModel.FullName*@
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <thead>
+                                <tr>
+                                    <td colspan="3" width="50%">
+                                        <select id="ddlToDoLost" class="form-control">
+                                            <option value="0">Filter To Do List</option>
+                                            <option value="30">Hide To-Do's Over 30 Days</option>
+                                            <option value="7">Hide To-Do's Over 7 Days</option>
+                                        </select>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td align="right"><a href="#" style="display:none" class="btn btn-success btn-sm">New To-Do</a></td>
+                                </tr>
+                            </thead>
+                            <tbody id="tbltodolist">
+                                @Html.Partial("_toDoList", Model)
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me1">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Bid Packages
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" width="50%"><select class="form-control"><option>Ending within 7 days</option><option>option</option><option>option</option><option>option</option><option>option</option></select></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" align="center" class="bold">No Bid Packages</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me1">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Today's Schedule
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+
+                        <table class="table table-striped custab">
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" width="50%"><select class="form-control"><option>Hide Items Over 30 days</option><option>option</option><option>option</option><option>option</option><option>option</option></select></td>
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td colspan="5" align="center" class="bold">No Schedule Items</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 sort-me1">
+                <div class="list-group">
+                    <div class="list-group-item  main-color-bg-pink">
+                        <span class="iconAlignLeft">
+                            <span class="glyphicon glyphicon-resize-vertical handle" aria-hidden="true"></span>
+                        </span>
+                        Bill PO Payment Recent Activity
+                        <span class="iconAlign">
+                            <span class="fa fa-close myColse" aria-hidden="true"></span>
+                        </span>
+                    </div>
+                    <div class="tableContainer">
+                        <table class="table table-striped custab">
+                            <tbody>
+                                <tr class="">
+                                    <td class="bold"><a class="underlineLink" href="#">ID# - Title</a></td>
+                                    <td class="bold">ProjectSite</td>
+                                    <td class="bold">Status</td>
+                                    <td class="bold">Pay To</td>
+                                    <td class="bold">Payment Amount</td>
+                                    <td class="bold">Invoice Date</td>
+                                    <td class="bold">lien Waiver</td>
+                                </tr>
+                                <tr>
+                                    <td><a class="underlineLink" href="#">5767 (11-22-2017)</a></td>
+                                    <td>al shatee</td>
+                                    <td>Paid</td>
+                                    <td>aryan singh</td>
+                                    <td>$ 10.00</td>
+                                    <td>11-23-2017</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

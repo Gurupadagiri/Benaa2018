@@ -1,0 +1,203 @@
+﻿@model Benaa2018.Helper.ViewModels.BaseViewModel
+<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg width94">
+        <div class="panel panel-primary customPopup">
+            <div class="panel-heading themeColor">
+                <button type="button" class="close" id="infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel">Projects List</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popupTopBtnCon">
+                    <div class="row">
+                        <div class="col-sm-2 form-group">
+                            <div class="dropdown">
+                                <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                    New Projects
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#">From Scratch</a></li>
+                                    <li><a href="#">From a Template</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 text-right pull-right form-group">
+                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Map All</button>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="filterContainer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                                    FILTER YOUR RESULTS
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <div class="row">
+                                                    <div class="col-sm-2 form-group">
+                                                        <span>Project Group</span>
+                                                        @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectGroupID, new SelectList(Model.ProjectGroupModels, "ProjectGroupID", "ProjectGroupName"), new { @multiple = "", @class = "withCheckbox" })
+                                                    </div>
+                                                    <div class="col-sm-2 form-group">
+                                                        <span>Project Managers</span>
+                                                        @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectManagerID, new SelectList(Model.ProjectManagerMasterModels, "ManagerID", "ManagerName"), new { @multiple = "", @class = "withCheckbox" })
+                                                    </div>
+                                                    <div class="col-sm-2 form-group">
+                                                        <span>Status</span>
+                                                        @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectStatusID, new SelectList(Model.ProjctStatusMasterModels, "StatusID", "StatusName"), new { @multiple = "", @class = "withCheckbox" })
+                                                    </div>
+                                                    <div class="col-sm-2 form-group">
+                                                        <span>Project Type</span>
+                                                        @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectTypeID, new SelectList(Model.ProjectTypeMasterModels, "ProjectTypeID", "ProjectTypeName"), new { @multiple = "", @class = "withCheckbox" })
+                                                    </div>
+                                                    <div class="col-sm-2 form-group tooltip-div">
+                                                        <div class="input-group">
+                                                            <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
+                                                            <div class="input-group-btn">
+                                                                <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
+                                                                    <span class="glyphicon glyphicon-info-sign"></span>
+                                                                </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-2 form-group">
+                                                        <label>Actual Start Date</label>
+                                                        <div class="input-group">
+                                                            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />  <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2 form-group">
+                                                        <label>Actual End Date</label>
+                                                        <div class="input-group">
+                                                            <input class="form-control" id="date1" name="date" placeholder="MM/DD/YYYY" type="text" />  <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2 form-group tooltip-div">
+                                                        <label>Name</label>
+                                                        <div class="input-group">
+                                                            <input type="text" id="serchtext" class="form-control" placeholder="Keyword">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-6">
+                                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnUpdateResults">Update Results</button>&nbsp;
+                                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
+                                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Save Filter</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabsConatiner">
+                        <ul class="tabs">
+                            <li class="active" rel="tab1">List</li>
+                            <li rel="tab2">Map</li>
+                            <li rel="tab3">Cluster Map</li>
+                        </ul>
+                        <div class="tab_container">
+                            <h3 class="d_active tab_drawer_heading" rel="tab1">List</h3>
+                            <div id="tab1" class="tab_content">
+                                <div class="dataTableConatainer">
+                                    <button id="export">Export to Excel</button>
+                                    <table id="example">
+                                    </table>
+                                </div>
+                            </div>
+                            <!-- #tab1 -->
+                            <h3 class="tab_drawer_heading" rel="tab2">Tab 2</h3>
+                            <div id="tab2" class="tab_content">
+                                <div class="clusterMapCon">
+                                    <div class="row">
+                                        <div class="col-sm-4">
+                                            <div class="filterMap">
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <button class="btn btn-default btn-sm" type="button" disabled>Previous</button>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <button class="btn btn-default btn-sm" type="button" disabled>Next</button>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <select name="select" class="form-control">
+                                                            <option role="option" value="20">20 per page</option>
+                                                            <option role="option" value="50">50 per page</option>
+                                                            <option role="option" value="75">75 per page</option>
+                                                            <option role="option" value="100">100 per page</option>
+                                                            <option role="option" value="250">250 per page</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-12">
+                                                        <div class="listmapCon">
+                                                            <span class="glyphicon glyphicon-map-marker"></span><label> al shatee</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-sm-2">
+                                                        <button class="btn btn-default btn-sm" type="button" disabled>Previous</button>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
+                                                    </div>
+                                                    <div class="col-sm-2">
+                                                        <button class="btn btn-default btn-sm" type="button" disabled>Next</button>
+                                                    </div>
+                                                    <div class="col-sm-4">
+                                                        <select name="select" class="form-control">
+                                                            <option role="option" value="20">20 per page</option>
+                                                            <option role="option" value="50">50 per page</option>
+                                                            <option role="option" value="75">75 per page</option>
+                                                            <option role="option" value="100">100 per page</option>
+                                                            <option role="option" value="250">250 per page</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-8" id="dvMapEdit">
+                                            Map will be placed here
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- #tab2 -->
+                            <h3 class="tab_drawer_heading" rel="tab3">Tab 3</h3>
+                            <div id="tab3" class="tab_content">
+                                <div id="dvMapCluster" class="clusterMapCon">
+                                    
+                                </div>
+                            </div>
+                            <!-- #tab3 -->
+                        </div>
+                    </div>
+                    <!-- .tab_container -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

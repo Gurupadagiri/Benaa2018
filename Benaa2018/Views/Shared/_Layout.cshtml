@@ -1,0 +1,1026 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - SBS2018</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/favicon.ico">
+    <title>Shada</title>
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Custom CSS -->
+    <link href="~/css/jquery.multiselect.css" rel="stylesheet" />
+    <link href="~/css/responsive-tabs.css" rel="stylesheet" />
+    <link href="~/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="~/css/bootstrap-datepicker3.css" />
+    <link href="~/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css">
+
+</head>
+<body>
+    @{
+        Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+    }
+    @if (baseModel != null)
+    {
+        //var lstMenuItem = ViewBag.MenuDetails;
+        <nav class="navbar navbar-inverse myNav" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+                </button>
+            </div>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navLeft">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-home homeIcon"></span> <b class="caret caretMove"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#" data-toggle="modal" id="infoEdit" data-target="#infoModal" data-original-title><span class="fa fa-info-circle"></span> Project Info</a></li>
+                            <li><a href="#" data-toggle="modal" id="infoProject" data-target="#newProject" data-original-title><span class="fa fa-plus"></span> New Project</a></li>
+                            <li><a href="#"><span class="fa fa-file"></span> Project WBS</a></li>
+                            <li><a href="#"><span class="fa fa-map"></span> Poject Base Plan </a></li>
+                            <li><a href="#"><span class="fa fa-dollar"></span> Poject Budget</a></li>
+                            <li><a href="#"><span class="fa fa-list"></span> Project Summary</a></li>
+                            <li>
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+                    @foreach (var item in baseModel.MenuContents)
+                    {
+                        <li class="dropdown inlineIcon">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <div class="liDiv">
+                                    @foreach (var Menu in item.Menus)
+                                    {
+                                        <li>
+                                            <div class="inlineDiv">
+                                                <a href="#" class="icontxt">
+                                                    <span class="@Menu.CssClass"></span>
+                                                    <span>@Menu.MenuName</span>
+                                                </a>
+                                                <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
+                                            </div>
+                                        </li>
+                                    }
+                                    <li class="videocontainer">
+                                        <div class="grayli">
+                                            <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                            <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                                <b>Lorem Lipsum doller sit</b>
+                                                <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </div>
+                            </ul>
+                        </li>
+                    }
+                </ul>
+                <ul class="nav navbar-nav navbar-right user-support">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-user"></span> <b class="caret caretMove"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="fa fa-user"></span> Internal Users</a></li>
+                            <li><a href="#"><span class="fa fa-gavel"></span> Subs</a></li>
+                            <li><a href="#"><span class="fa fa-address-book"></span> Customer Contacts</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-bell"></span><b class="caret caretMove"></b>
+                        </a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-question-sign"></span> <b class="caret caretMove"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="fa fa-phone"></span> Contact Us</a></li>
+                            <li><a href="#"><span class="fa fa-question"></span> Help Center</a></li>
+                            <li><a href="#"><span class="fa fa-refresh"></span> Recent Updates</a></li>
+                            <li><a href="#"><span class="fa fa-calendar"></span> Live Training</a></li>
+                            <li><a href="#"><span class="fa fa-book"></span> Fourm</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            <span class="glyphicon glyphicon-cog"></span> <b class="caret caretMove"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><span class="fa fa-cogs"></span> Setup</a></li>
+                            <li><a href="#"><span class="fa fa-user"></span> My User Preferences</a></li>
+                            <li><a href="#"><span class="fa fa-sign-out"></span> Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+
+        <div class="container-fluid logoBar">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
+                    <div class="logoContainer">
+                        <a href="/home"><img class="img-responsive" src="~/images/logo1.jpg"></a>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3  col-lg-3">
+                    <div class="phoneContainer">
+                        00956048752136
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3  col-lg-3">
+                    <div class="ProjectrunningTotal">
+                        Project Running Total : $250,000,000
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
+            @Html.Partial("_leftMenu", baseModel);
+        </div>
+    }
+
+    @RenderBody()
+    <div class="leftOuterBtn">
+        <p class="jobPickerSliderJobText">al shatee</p>
+        <div class="iconHolder">
+            <img src="images/iconJobInfoSmallWhite.png">
+        </div>
+    </div>
+    @if (baseModel != null)
+    {
+        <section class="footerContainer">
+            <div class="container-fluid">
+                <p class="smallTXT">
+                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                    printer took a galley of type and scrambled it to make a type specimen book. It has survived
+                    not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                    Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
+                    including versions of Lorem Ipsum.
+                </p>
+            </div>
+        </section>
+    }
+
+    <div id="groupAddModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close closeModal" data-dismiss="#groupAddModal">&times;</button>
+                    <h4 class="modal-title">New Project group</h4>
+                </div>
+                <div class="modal-body">
+                    <a class="btn btn-primary" id="btnProjectGroup">Save</a>
+                    <h4>Adding a Project group</h4>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Title</label>
+                            <input type="text" id="Projectgroupname" class="form-control" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="groupMinusModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close closeModal" data-dismiss="#groupMinusModal">&times;</button>
+                    <h4 class="modal-title">Project Group Editor</h4>
+                </div>
+
+                <div class="modal-body">
+                    <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-default">Delete</button>
+                    <h4>Edit this Project group</h4>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <label>Title</label>
+                            <input type="text" class="form-control" />
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="locationModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="z-index:9999">
+        <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close closeModal" data-dismiss="#locationModal">&times;</button>
+                    <h4 class="modal-title">Project Group Editor</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div id="dvMap" class="col-sm-12" style="width:100%;height:500px">
+                            Map Will be placed here
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @if (baseModel != null)
+    {
+        @Html.Partial("_infoModel", baseModel)
+        @Html.Partial("_newProject", baseModel)
+    }
+
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="~/js/jquery-1.12.4.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
+    @*<script src="~/js/jquery.dataTables.min.js"></script>
+        <script src="~/js/dataTables.buttons.min.js"></script>*@
+    @*<script src="~/js/jszip.min.js"></script>*@
+    @*<script src="~/js/jquery.jqGrid.js"></script>*@
+    @*<script src="~/js/pdfmake.min.js"></script>*@
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/responsive-tabs.js"></script>
+    <script src="~/js/jquery.multiselect.js"></script>
+    <script src="~/js/bootstrap-datepicker.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+
+
+                @*$("#example").jqGrid({
+                    colModel: [
+                        { name: "ProjectName", label: "Project Name", width: 53 },
+                        {
+                            name: "StreetAddress", label: "Street Address", width: 75
+                        },
+                        { name: "City", label: "City", width: 65 },
+                        { name: "State", label: "State", width: 41 },
+                        { name: "Zip", label: "Zip", width: 41 },
+                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
+                        { name: "OwnerName", label: "Owner", width: 59 },
+                        { name: "Telephone", label: "Phone", width: 65 },
+                        { name: "MobileNo", label: "Cell", width: 41 },
+                        { name: "Active", label: "Active", width: 51 }
+                    ],
+                    data: @Html.Raw(ViewBag.ProjectGrid),
+
+                    iconSet: "fontAwesome",
+                    idPrefix: "g5_",
+                    rownumbers: true,
+                    sortname: "ProjectName",
+                    sortorder: "desc",
+                    threeStateSort: true,
+                    sortIconsBeforeText: true,
+                    headertitles: true,
+                    toppager: false,
+                    pager: true,
+                    rowNum: 5,
+                    viewrecords: true,
+                    searching: {
+                        defaultSearch: "cn"
+                    },
+                    caption: ""
+            });*@
+                $("#example").jqGrid({
+                    colModel: [
+                        { name: "ProjectName", label: "Project Name", width: 53 },
+                        {
+                            name: "StreetAddress", label: "Street Address", width: 75
+                        },
+                        { name: "City", label: "City", width: 65 },
+                        { name: "State", label: "State", width: 41 },
+                        { name: "Zip", label: "Zip", width: 41 },
+                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
+                        { name: "OwnerName", label: "Owner", width: 59 },
+                        { name: "Telephone", label: "Phone", width: 65 },
+                        { name: "MobileNo", label: "Cell", width: 41 },
+                        { name: "Active", label: "Active", width: 51 }
+                    ],
+                   data: @Html.Raw(ViewBag.ProjectGrid),
+                   iconSet: "fontAwesome",
+                   idPrefix: "g5_",
+                   rownumbers: true,
+                   sortname: "ProjectName",
+                   sortorder: "desc",
+                   threeStateSort: true,
+                   sortIconsBeforeText: true,
+                   headertitles: true,
+                   toppager: false,
+                   pager: true,
+                   rowNum: 5,
+                   viewrecords: true,
+                   searching: {
+                       defaultSearch: "cn"
+                   },
+                   caption: ""
+                });
+                //$("#export").on("click", function () {
+                //    debugger;
+                //    $("#jqGrid").jqGrid("excelExport", {
+                //        includeLabels: true,
+                //        includeGroupHeader: true,
+                //        includeFooter: true,
+                //        fileName: "jqGridExport.xlsx",
+                //        maxlength: 40 // maxlength for visible string data
+                //    })
+                //})
+
+            @*$("#example").jqGrid({
+                colModel: [
+                    { name: "ProjectName", label: "Project Name", width: 53 },
+                    {
+                        name: "StreetAddress", label: "Street Address", width: 75, align: "center"
+                    },
+                    { name: "ContractPrice", label: "Contract Price", width: 65, template: "number" },
+                    {
+                        name: "StreetAddress", label: "Street Address", width: 75,
+                    },
+                    { name: "City", label: "City", width: 41, template: "number" },
+                    { name: "Zip", label: "Zip", width: 51, template: "number" },
+                    { name: "State", label: "State", width: 51, template: "number" },
+                    { name: "State", label: "Proj. Manager", width: 51, template: "number" },
+                    { name: "State", label: "Owner", width: 51, template: "number" },
+                    { name: "State", label: "Phone", width: 51, template: "number" },
+                    { name: "State", label: "Cal. Status", width: 51, template: "number" },
+                    { name: "State", label: "Map", width: 51, template: "number" },
+                    { name: "State", label: "CC Limit", width: 51, template: "number" },
+                    { name: "closed", label: "Closed", width: 59, template: "booleanCheckbox", firstsortorder: "desc" },
+                    {
+                        name: "ship_via", label: "ACH Limit", width: 87
+                    }
+                ],
+                data: @ViewBag.ProjectMasterJson,
+                iconSet: "fontAwesome",
+                idPrefix: "g1_",
+                rownumbers: true,
+                sortname: "ProjectName",
+                sortorder: "desc",
+                caption: "The grid, which uses predefined formatters and templates"
+            });*@
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="popover"]').popover({ html: true });
+            //$('[data-toggle="tooltip"]').tooltip();
+            $(".closeModal").click(function () {
+                $("#groupAddModal").hide();
+            });
+            $(".closeModal").click(function () {
+                $("#groupMinusModal").hide();
+            });
+            $(".closeModal").click(function () {
+                $("#locationModal").hide();
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            var mmWidth = $(".mainContentDiv").outerWidth() + 10;
+            var lftNavWidth = $("#leftNavCon").outerWidth() + 10;
+            var curentmmWidth = mmWidth - lftNavWidth;
+            $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+            $('.openIcon').click(function () {
+                if ($(this).hasClass('openSlide')) {
+                    $(".mainContentDiv").css({ marginLeft: "20px" });
+                    $("#leftNavCon").css({ marginLeft: -lftNavWidth });
+                    $(".openIcon").css({ right: '-23px' });
+                    $(this).removeClass('openSlide').addClass('closeSlide');
+                    $('.leftOuterBtn').show();
+                }
+                else {
+                    $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                    $("#leftNavCon").css({ marginLeft: "0px" });
+                    $(".openIcon").css({ right: '-8px' });
+                    $(this).removeClass('closeSlide').addClass('openSlide');
+                    $('.leftOuterBtn').hide();
+                }
+            });
+            $('.leftOuterBtn').click(function () {
+                $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                $("#leftNavCon").css({ marginLeft: "0px" });
+                $(".openIcon").css({ right: '-23px' });
+                $(".openIcon").removeClass('closeSlide').addClass('openSlide');
+                $(this).hide();
+
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            var date_input = $('.cal'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            });
+        });
+    </script>
+    <script>
+        // tooltip demo
+        $('.tooltip-div').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        });
+    </script>
+    <script>
+        $('.withCheckbox').multiselect({
+            columns: 1,
+            placeholder: '--Select--',
+            search: true,
+            selectAll: true
+        });
+
+        $('.noCheckbox').multiselect({
+            columns: 1,
+            placeholder: '--Select--',
+            search: true,
+            showCheckbox: false  // display the checkbox to the user
+        });
+
+        $('.noCheckboxSearch').multiselect({
+            columns: 1,
+            placeholder: '--Select--',
+            search: false,
+            showCheckbox: false  // display the checkbox to the user
+        });
+    </script>
+    <script>
+        $(function () {
+            // Could also be ['.sort-me', '#also-sort-me']
+            $('.sort-me').sortable({ connectWith: '.sort-me' });
+            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
+        });
+        $(function () {
+            // Could also be ['.sort-me', '#also-sort-me']
+            $('.sort-me1').sortable({ connectWith: '.sort-me1' });
+            $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
+        });
+    </script>
+    <script>
+        $(function () {
+            $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+
+                var $this = $(this),
+                    href = $this.attr('href'),
+                    $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
+                    option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+
+                e.preventDefault();
+                $target
+                    .modal(option)
+                    .one('hide', function () {
+                        $this.focus();
+                    });
+            });
+        });
+        $(document).ready(function (e) {
+            $('.myColse').click(function () {
+                $(this).parent().parent().parent().hide();
+            });
+            $('.grayClose').click(function (e) {
+                $(this).parent().parent().hide();
+            });
+            $(".myPlus").click(function (e) {
+                $(".myPlusContainer").show();
+                $(".myFilterContainer").hide();
+                $(".mySortContainer").hide();
+                e.stopPropagation();
+            });
+            $(".myPlusContainer").click(function (e) {
+                e.stopPropagation();
+            });
+            $(document).click(function () {
+                $(".myPlusContainer").hide();
+            });
+            $(".myFilter").click(function (e) {
+
+                $(".myFilterContainer").show();
+                $(".myPlusContainer").hide();
+                $(".mySortContainer").hide();
+                e.stopPropagation();
+            });
+            $(".myFilterContainer").click(function (e) {
+                e.stopPropagation();
+            });
+            $(document).click(function () {
+                $(".myFilterContainer").hide();
+            });
+            $(".mySort").click(function (e) {
+                $(".mySortContainer").show();
+                $(".myPlusContainer").hide();
+                $(".myFilterContainer").hide();
+                e.stopPropagation();
+            });
+            $(".mySortContainer").click(function (e) {
+                e.stopPropagation();
+            });
+            $(document).click(function () {
+                $(".mySortContainer").hide();
+            });
+            $('.allJobs').click(function (e) {
+                $('.view').show();
+                $('.projectNameContainer').hide();
+                $('.allJobs').addClass('active');
+                $('.allProject').removeClass('active');
+            });
+            $('.allProject').click(function (e) {
+                $('.projectNameContainer').show();
+                $('.view').hide();
+                $('.allProject').addClass('active');
+                $('.allJobs').removeClass('active');
+            });
+            $("ul.nav-tabs a").click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            // Attach event handler to submit button
+            $("#saveJobInfo").click(function () {
+                var infoForm = $("#frmSubmitProjectMaster");
+                if ($('#ProjectMasterModel_ProjectName').val() == '') {
+                    $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'block');
+                    $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                    $('#set1').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set1") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'none');
+                }
+                if ($("select#selectinfo").val() == '') {
+                    $('.owner-existing-info').style('display', 'none');
+                }
+                $("select#selectinfo").on('change', function () {
+                    if ($(this).val() == "1" || $(this).val() == "" ) {
+                        $('.owner-existing-info').style('display', 'block');
+                    }
+                });
+                if ($('#ProjectMasterModel_JobsitePrefix').val() == '') {
+                    $('#ProjectMasterModel_JobsitePrefix').parent().find('.errormessege').css('display', 'block');
+                    $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                    $('#set1').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set1") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                }
+                else {
+                    $('#ProjectMasterModel_JobsitePrefix').parent().find('.errormessege').css('display', 'none');
+                }
+                if ($('#ProjectMasterModel_StreetAddress').val() == '') {
+                    $('#ProjectMasterModel_StreetAddress').parent().find('.errormessege').css('display', 'block');
+                    $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                    $('#set1').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set1") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#ProjectMasterModel_StreetAddress').parent().find('.errormessege').css('display', 'none');
+                }
+                if ($('#ProjectMasterModel_LotInfo').val() == '') {
+                    $('#ProjectMasterModel_LotInfo').parent().find('.errormessege').css('display', 'block');
+                    $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                    $('#set1').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set1") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#ProjectMasterModel_LotInfo').parent().find('.errormessege').css('display', 'none');
+                }
+                ///
+                if ($('#OwnerMasterModel_OwnerName').val() == '') {
+                    $('#OwnerMasterModel_OwnerName').parent().find('.errormessege').css('display', 'block');
+                    $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                    $('#set2').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set2") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#OwnerMasterModel_OwnerName').parent().find('.errormessege').css('display', 'none');
+                }
+                if ($('#OwnerMasterModel_Email').val() == '') {
+                    $('#OwnerMasterModel_Email').parent().find('.errormessege').css('display', 'block');
+                    $('#set2').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set2") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#OwnerMasterModel_Email').parent().find('.errormessege').css('display', 'none');
+                }
+                if ($('#OwnerMasterModel_Telephone').val() == '') {
+                    $('#OwnerMasterModel_Telephone').parent().find('.errormessege').css('display', 'block');
+                    $('#set2').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set2") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#OwnerMasterModel_Telephone').parent().find('.errormessege').css('display', 'none');
+                }
+                if ($('#OwnerMasterModel_MobileNo').val() == '') {
+                    $('#OwnerMasterModel_MobileNo').parent().find('.errormessege').css('display', 'block');
+                    $('#set2').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set2") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#OwnerMasterModel_MobileNo').parent().find('.errormessege').css('display', 'none');
+                }
+                if ($('#OwnerMasterModel_Address').val() == '') {
+                    $('#OwnerMasterModel_Address').parent().find('.errormessege').css('display', 'block');
+                    $('#set2').addClass('in').addClass('active');
+                    $('.parentTabs > ul > li').each(function () {
+                        $(this).removeClass('active');
+                        if ($(this).find('a').attr('href') == "#set2") {
+                            $(this).addClass('active');
+                        }
+                    });
+                    return;
+                } else {
+                    $('#OwnerMasterModel_Address').parent().find('.errormessege').css('display', 'none');
+                }
+                $('.required').each(function () {
+                    var txtval = $(this).val();
+                    if (txtval == '') {
+                        if ($(this).parent().find('.errormessege').length > 0){
+                            $(this).parent().find('.errormessege').css('display', 'block');
+                            event.preventDefault();
+                            return false;
+                         }
+                    }
+                    else {
+                        $(this).parent().find('.errormessege').css('display', 'none');
+                    }
+                });
+                var postData = infoForm.serializeArray();
+                $.ajax({
+                    url: "@(Url.Action("SubmitProjectInfo", "Home",null))",
+                    type: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    data: infoForm.serialize(),
+                    success: function (data) {
+                        if (data == true) {
+                            infoForm.find("input[type='text']").each(function (i, element) {
+                                $(this).val('');
+                            });
+                            alert("Project Details Successfully Added");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+            //Filter Result
+            $('a.filterproject').on('click', function () {
+                var projectGroupId = $('#ddlProjectGroup').val();
+                var ManagerId = $('#ddlProjectManager').val();
+                var postData = { projectGroupId: projectGroupId, managerID: ManagerId };
+                $("#leftNavCon").load('@(Url.Action("FilterProjectDetails", "Home",null))', postData);
+            });
+
+             //Filter Result
+            $(document).on('change', '#ddlToDoLost', function () {
+                var days = parseInt($(this).val());
+                var postData = { days: days };
+                $("#tbltodolist").load('@(Url.Action("FilterToDoList", "Home",null))', postData);
+            });
+
+             //Filter Result
+            $(document).on('click', 'a.allProject', function () {
+                var projectid = parseInt($(this).attr('data-projectid'));
+                var postData = { projectId: projectid };
+                $("div.mainContentDiv").load('@(Url.Action("FilteredMainContent", "Home",null))', postData);
+                $('#spnproject').text($(this).text());
+            });
+
+            $('#btnUpdateResults').click(function () {
+                var projectGroup = $('#ddlProjectGroupID').val();
+                var projectManager = $('#ddlProjectManagerID').val();
+                var projectStatus = $('#ddlStatus').val();
+                var projectType = $('#ddlProjectType').val();
+                var searchKeyWord = $('#txtKeyWord').val();
+                var mappedStatus = $('#ddlMapedStatus').val();
+                var searchText = $('#serchtext').val();
+                var datainfo = {
+                    projectGroups: projectGroup,
+                    projectManagers: projectManager,
+                    status: projectStatus,
+                    projectTypes: projectType,
+                    searchKeyWord: searchKeyWord,
+                    mappedStatus: mappedStatus,
+                    searchText: searchText
+                };
+                $("#example").load('@(Url.Action("FilterProjects", "Home",null))', datainfo);
+            });
+
+            $('#btnJobGroup').off('click').on('click', function () {
+                var jobGroupName = $('#jobgroupname').val();
+                var datainfo = { "jobGroupName": jobGroupName };
+                $.get("home/SaveProjectGroup", datainfo, function (data) {
+                    $('#groupAddModal').removeClass('in').addClass('out');
+                    $('#groupAddModal').hide();
+                });
+            });
+
+            $('span.MapCon > a').on('click', function () {
+                $('#locationModal').css('display', 'block');
+            });
+        });
+        $(window).load(function () {
+            $(document).on("click", "#example tr td.projectinfo", function () {
+                var projectId = parseInt($(this).attr('data-project'));
+                var datainfo = { "projectID": projectId };
+                $.post("home/GetProjectInfoByProjectID", datainfo, function (data) {
+                    $('#infoModal').show();
+                    $('#leftNavCon').css("z-index", "000000");
+                    $('#infoModal').css("z-index", "000000");
+                    $("#ProjectMasterModel_ProjectName").val(data.projectMasterModel.projectName);
+                    $("#ProjectMasterModel_StreetAddress").val(data.projectMasterModel.streetAddress);
+                    $("#ProjectMasterModel_JobsitePrefix").val(data.projectMasterModel.jobsitePrefix);
+                    $("#ProjectMasterModel_LotInfo").val(data.projectMasterModel.LotInfo);
+                    $("#ProjectMasterModel_Permit").val(data.projectMasterModel.permit);
+                    $("#ProjectMasterModel_City").val(data.projectMasterModel.city);
+                    $("#ProjectMasterModel_State").val(data.projectMasterModel.state);
+                    $("#ProjectMasterModel_Zip").val(data.projectMasterModel.zip);
+                    $("#ProjectMasterModel_ContractPrice").val(data.projectMasterModel.contractPrice);
+                    $('#ProjectMasterModel_ProjectID').val(data.projectMasterModel.projectID);
+                    //Project Schedule
+                    $('#OwnerMasterModel_OwnerName').val(data.ownerMasterModel.ownerName);
+                    $('#OwnerMasterModel_Address').val(data.ownerMasterModel.address);
+                    $('#OwnerMasterModel_City').val(data.ownerMasterModel.city);
+                    $('#OwnerMasterModel_State').val(data.ownerMasterModel.state);
+                    $('#OwnerMasterModel_Zip').val(data.ownerMasterModel.zip);
+                    $('#OwnerMasterModel_Telephone').val(data.ownerMasterModel.telephone);
+                    $('#OwnerMasterModel_MobileNo').val(data.ownerMasterModel.mobileNo);
+                    $('#OwnerMasterModel_Email').val(data.ownerMasterModel.email);
+                    $('#OwnerMasterModel_AccessMethod').val(data.ownerMasterModel.accessMethod);
+                    $('#OwnerMasterModel_OwnerCalendar').val(data.ownerMasterModel.ownerCalendar);
+                    $('#OwnerMasterModel_ShowProjectPrice').prop('checked', data.ownerMasterModel.showProjectPrice)
+                    $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.ownerMasterModel.showBudgetPurchaseOrders)
+                    $('#OwnerMasterModel_AllowOrderRequests').prop('checked', data.ownerMasterModel.allowOrderRequests);
+                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.ownerMasterModel.allowLockedSelections)
+                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.ownerMasterModel.allowLockedSelections);
+                    $('#OwnerMasterModel_AllowPaymentsTab').prop('checked', data.ownerMasterModel.allowPaymentsTab);
+
+                });
+            });
+        });
+    </script>
+    <script>
+        $("#txtHomeSearch").keypress(function (e) {
+            if (e.which == 13) {
+                searchProject();
+            }
+        });
+        function searchProject() {
+            // Declare variables
+            var input, filter, listGroup, records, filteredRecord, i;
+            input = $("#txtHomeSearch");
+            filter = input.val().toUpperCase();
+            listGroup = $(".list-group");
+            records = listGroup.find("a.allProject");
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < records.length; i++) {
+                filteredRecord = records[i];
+                if (filteredRecord) {
+                    if (filteredRecord.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        records[i].style.display = "";
+                    } else {
+                        records[i].style.display = "none";
+                    }
+                }
+            }
+        }
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            BindAddress();
+            BindAddressCluster();
+            BindAddressEdit();
+            $('#selectinfo').on('change', function () {
+                if ($(this).val() == "1") {
+                    $("div.owner-existing-info").css('display', 'block');
+                    $('#existingower').css('display', 'none');
+                    $('.owner-existing-info input').each(function () {
+                        $(this).val('');
+                    });
+                }
+                else if ($(this).val() == "2") {
+                    $('#existingower').css('display', 'block');
+                    $("div.owner-existing-info").css('display', 'none');
+                }
+                else {
+                    $("div.owner-existing-info").css('display', 'none');
+                    $('#existingower').css('display', 'none');
+                    $('.owner-existing-info input').each(function () {
+                        $(this).val('');
+                    });
+                }
+            });
+            $('.project-info').on('click', function () {
+                var projectId = $(this).attr('data-projectid');
+                var param = { "projectId": parseInt(projectId) }
+                $.ajax({
+                    url: "@(Url.Action("GetProjectDetailsbyProjectIdAsync", "Home",null))",
+                    type: 'post',
+                    data: param,
+                    success: function (data) {
+                        $('#existingower').css('display', 'none');
+                        $("div.owner-existing-info").css('display', 'block');
+                        $('#OwnerMasterModel_OwnerName').val(data.ownerMasterModel.ownerName);
+                        $('#OwnerMasterModel_Email').val(data.ownerMasterModel.email);
+                        $('#OwnerMasterModel_Telephone').val(data.ownerMasterModel.telephone);
+                        $('#OwnerMasterModel_MobileNo').val(data.ownerMasterModel.mobileNo);
+                        $('#OwnerMasterModel_Address').val(data.ownerMasterModel.address);
+                        $('#OwnerMasterModel_City').val(data.ownerMasterModel.city);
+                        $('#OwnerMasterModel_State').val(data.ownerMasterModel.state);
+                        $('#OwnerMasterModel_Zip').val(data.ownerMasterModel.zip);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
+        });
+         function BindAddress() {
+                var myCenter = new google.maps.LatLng(@ViewBag.Latitude, @ViewBag.Longitude);
+            var mapCanvas = document.getElementById("dvMap");
+            var mapOptions = {
+                center: myCenter,
+                zoom: 13
+            };
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            var marker = new google.maps.Marker({
+                position: myCenter,
+                draggable: true,
+                map: map,
+                title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
+            });
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                var lat = this.position.lat();
+                var lng = this.position.lng();
+                $('#ProjectMasterModel_Latitude').val(lat);
+                $('#ProjectMasterModel_Longitude').val(lng);
+                var latlng = new google.maps.LatLng(lat, lng);
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                        }
+                    }
+                });
+            });
+            marker.setMap(map);
+
+        }
+         function BindAddressCluster() {
+                var myCenter = new google.maps.LatLng(@ViewBag.Latitude, @ViewBag.Longitude);
+                var mapCanvas = document.getElementById("dvMapCluster");
+            var mapOptions = {
+                center: myCenter,
+                zoom: 13
+            };
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            var marker = new google.maps.Marker({
+                position: myCenter,
+                draggable: true,
+                map: map,
+                title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
+            });
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                var lat = this.position.lat();
+                var lng = this.position.lng();
+
+                var latlng = new google.maps.LatLng(lat, lng);
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                            //$('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                        }
+                    }
+                });
+            });
+            marker.setMap(map);
+
+         }
+         function BindAddressEdit() {
+                var myCenter = new google.maps.LatLng(@ViewBag.Latitude, @ViewBag.Longitude);
+                var mapCanvas = document.getElementById("dvMapEdit");
+            var mapOptions = {
+                center: myCenter,
+                zoom: 13
+            };
+            var map = new google.maps.Map(mapCanvas, mapOptions);
+            var marker = new google.maps.Marker({
+                position: myCenter,
+                draggable: true,
+                map: map,
+                title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
+            });
+            google.maps.event.addListener(marker, 'dragend', function (event) {
+                var lat = this.position.lat();
+                var lng = this.position.lng();
+
+                var latlng = new google.maps.LatLng(lat, lng);
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        if (results[1]) {
+                           // $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                        }
+                    }
+                });
+            });
+            marker.setMap(map);
+
+            }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
+</body>
+</html>

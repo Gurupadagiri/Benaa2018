@@ -1,0 +1,247 @@
+﻿@model Benaa2018.Helper.ViewModels.BaseViewModel
+<div class="hideWhenContactNone"> 
+    @*<table>
+            <tbody>
+                <tr>
+                    <td style="vertical-align:top;">
+                        <div class="fieldHeader">
+                            Cell Email (SMS Text)<a href="javascript:void(0);" class="ToolTip" style="margin-left:5px; vertical-align:bottom;" data-tooltip="The <b>Cell Text Messaging</b> allows you to send text message alerts to owner.<br><br>SAMPLE format is 4025551234@messaging.sprintpcs.com <br><br><b>TIP:</b> be sure to click anywhere in the 'Cell Email' box to the left to find someone's cell email" data-hasqtip="6"></a>
+                        </div>
+                        <table style="border-collapse:collapse;">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <span style="color:Red;display:none;">! Please enter a valid <b>Email</b><br></span>
+                                        <input type="text" maxlength="100" size="30" class="flatTextBox">
+                                        @Html.TextBoxFor(model => model.OwnerMasterModel.Email, new { placeholder = "Email" })
+                                        <div style="display:none;z-index:5;">
+                                            <div class="CellEmaiWizardPopup">
+                                                <div class="content">
+                                                    <div class="cellHeader">
+                                                        Setup Text Messaging
+                                                        <a href="javascript:void(0)">
+                                                            <div class="close"></div>
+                                                        </a>
+                                                    </div>
+                                                    <div class="description">
+                                                        Enter your cell phone number and your service provider to receive text updates!
+                                                    </div>
+                                                    <div class="CellPhoneSection">
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="fieldHeader padding" style="padding-right:10px;">Cell Phone #:</td>
+                                                                    <td class="padding">
+                                                                        <input type="text" style="width:35px;" size="4" class="flatTextBox" onkeydown="return CellEmail.OnKeyDown(event, 'ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');" onkeyup="return CellEmail.AutoTabOnKeyUp(this, 3, event, true, 'ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');"> -
+                                                                        <input type="text" style="width:35px;" onkeyup="return CellEmail.AutoTabOnKeyUp(this, 3, event, false);" size="4" maxlength="3" class="flatTextBox" onkeydown="return CellEmail.OnKeyDown(event, 'ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');"> -
+                                                                        <input type="text" style="width:40px;" onkeyup="return CellEmail.AutoTabOnKeyUp(this, 4, event, false);" size="5" maxlength="4" class="flatTextBox" onkeydown="return CellEmail.OnKeyDown(event, 'ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');">
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="fieldHeader padding" style="padding-bottom:5px; padding-right:10px !important;">Service Provider:</td>
+                                                                    <td class="padding" style="padding-bottom:5px;">
+                                                                        <div style="display: none;">
+                                                                        </div>
+                                                                        <div style="display: inline">
+                                                                            <select id="phoneservice">
+                                                                                <option value="none" selected="selected">No Service Provider</option>
+                                                                                <option value="mms.aiowireless.net">Aio Wireless</option>
+                                                                                <option value="msg.acsalaska.com">Alaska Comm (ACS)</option>
+                                                                                <option value="mms.alltelwireless.com">Alltel</option>
+                                                                                <option value="echoemail.net">Amitas Digital</option>
+              
+                                                                            </select>
+                                                                            <div class="chosen-container chosen-container-single" title="" id="ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz_lstCEProviders_DropDownList1_chosen" style="width: 180px;">
+                                                                                <a class="chosen-single">
+                                                                                    <input class="chosen-search-input" type="text" autocomplete="off">
+                                                                                    <span>No Service Provider</span>
+                                                                                    <div><b></b></div>
+                                                                                </a>
+                                                                                <div class="chosen-drop">
+                                                                                    <div class="chosen-search">
+                                                                                    </div>
+                                                                                    <ul class="chosen-results"></ul>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <span style="color:Red;display:none;"></span>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td style="padding-bottom:0px;">&nbsp;</td>
+                                                                    <td style="padding-bottom:0px;">
+                                                                        <input type="button" value="Don't know the service provider?" onclick="CellEmail.Lookup('ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');return false;WebForm_DoPostBackWithOptions(new WebForm_PostBackOptions(&quot;ctl00$ctl00$BaseMain$MainContentHolder$bttabControl2$csContact$cellWiz$btnLookup&quot;, &quot;&quot;, true, &quot;&quot;, &quot;&quot;, false, true))" id="ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz_btnLookup" class="lookupBtn">
+                                                                    </td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="buttonContainer">
+                                                        <input type="button" value="OK" class="blueButton" style="width:70px" onkeydown="return CellEmail.OnKeyDown(event, 'ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');" onclick="CellEmail.SaveCellEmail('ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');CellEmail.ToggleView('ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');return false;">
+                                                        &nbsp;
+                                                        <input type="button" id="" value="Clear" class="mainButton" onclick="CellEmail.ClearCellEmail('ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');CellEmail.ToggleView('ctl00_ctl00_BaseMain_MainContentHolder_bttabControl2_csContact_cellWiz');return false;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ui-widget-overlay" style="z-index: 9999;"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>*@
+    <div class="tabConInfo">
+        <div class="panel panel-default mrgnTop15px">
+            <div class="panel-body">
+                <div class="col-sm-4 form-group">
+                    <label>Owner Information</label>
+                    <select id="selectinfo">
+                        <option value="">None</option>
+                        <option value="1">Create New Contact</option>
+                        <option value="2">Seach Existing Contact</option>
+                    </select>
+                </div> 
+            </div> 
+        </div>
+        <div id="existingower" style="display:none">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close closeModal" data-dismiss="#locationModal">&times;</button>
+                        <h4 class="modal-title">Project Group Editor</h4>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="row">
+                            <table class="table table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Project Name</th>
+                                        <th>Street Address</th>
+                                        <th>City</th>
+                                        <th>State</th>
+                                        <th>Zip</th>
+                                        <th>Proj. Manager</th>
+                                        <th>Owner</th>
+                                        <th>Phone</th>
+                                        <th>Cell</th>
+                                        <th>Cal. Status</th>
+                                        <th>Map</th>
+                                        <th>CC Limit</th>
+                                        <th>ACH Limit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.ProjectMasterModels)
+                                    {
+                                        <tr>
+                                            <td><button data-projectid="@item.ProjectID" class="project-info" type="button">select</button></td>
+                                            <td data-toggle="modal" data-target="#newProject" class="projectinfo" data-project="@item.ProjectID">@item.ProjectName</td>
+                                            <td>@item.StreetAddress</td>
+                                            <td>@item.City</td>
+                                            <td>@item.State</td>
+                                            <td>@item.Zip</td>
+                                            <td>@Model.ProjectManagerMasterModels.Where(a => a.ManagerID.ToString() == item.ProjectManagerID).Select(a => a.ManagerName).FirstOrDefault()</td>
+                                            <td>@item.OwnerMasterModel.OwnerName</td>
+                                            <td>@item.OwnerMasterModel.Telephone</td>
+                                            <td>@item.OwnerMasterModel.MobileNo</td>
+                                            <td>@item.OwnerMasterModel.Active</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <div class="row owner-existing-info" style="display:none"> 
+            <div class="col-sm-6 form-group">
+                <label>Owner Name<sup>*</sup></label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.OwnerName, new { placeholder = "Owner Name", @class = "form-control" })
+                <span class="errormessege" style="display:none;color:red">Please Enter Owner Name</span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Email<sup>*</sup></label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.Email, new { placeholder = "Email", @class = "form-control" })
+                <span class="errormessege" style="display:none;color:red">Please Enter Email Address</span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Phone<sup>*</sup></label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.Telephone, new { placeholder = "Phone", @class = "form-control" })
+                <span class="errormessege" style="display:none;color:red">Please Enter Phone Number</span>
+            </div>
+            <div class="col-sm-6 form-group">
+                <label>Cell Phone<sup>*</sup></label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.MobileNo, new { placeholder = "Phone", @class = "form-control" })
+                <span class="errormessege" style="display:none;color:red">Please Enter Cell Phone Number</span>
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-6 form-group">
+                <label>Address<sup>*</sup></label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.Address, new { placeholder = "Street Address", @class = "form-control" })
+                <span class="errormessege" style="display:none;color:red">Please Enter Address</span>
+            </div>
+            <div class="col-sm-2 form-group ">
+                <label>City</label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.City, new { placeholder = "City", @class = "form-control" })
+            </div>
+            <div class="col-sm-2 form-group ">
+                <label>State</label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.State, new { placeholder = "State", @class = "form-control" })
+            </div>
+            <div class="col-sm-2 form-group ">
+                <label>Zip</label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.Zip, new { placeholder = "Zip", @class = "form-control" })
+            </div>
+            <div class="clearfix"></div>
+            <div class="col-sm-6 form-group">
+                <label>Cell Email (SMS Text)</label>
+                @Html.TextBoxFor(model => model.OwnerMasterModel.Telephone, new { placeholder = "Cell Email (SMS Text)", @class = "form-control" })
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <div style="margin-top:10px; display:none;">
+        <div class="fieldHeader">Email</div>
+        <div class="email-address-control-holder flatTextBox" style="width: 250px;">
+            <div></div>
+        </div>
+        <div style="display:none;">
+            <input type="text" value="[]" maxlength="500" size="500" class="small_textbox btcontroldisabled2">
+            <input type="text" value="someemailtopass@gmail.com">
+            <input type="text" value="nametovalidate">
+        </div>
+    </div>
+    <div>
+        <div style="margin-top:10px; display:none;">
+            <table style="width: 100%; border-collapse:collapse">
+                <tbody>
+                    <tr>
+                        <td>
+                            name*
+                            <a href="javascript:void(0);" class="ToolTip" data-tooltip="&amp;nbsp;&amp;nbsp;first name" data-hasqtip="7"></a>
+                        </td>
+                        <td style="padding:0px 0px 10px 0px;width:100%;vertical-align:middle;">
+                            <input type="text" class="flatTextBox ValidationErrorBorder">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

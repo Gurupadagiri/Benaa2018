@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+    <RootNamespace>Benaa2018.Helper</RootNamespace>
+    <AssemblyName>Benaa2018.Helper</AssemblyName>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="ImageUpload\ProfileImage.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Benaa2018.Data\Benaa2018.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ImageUpload\" />
+  </ItemGroup>
+
+</Project>

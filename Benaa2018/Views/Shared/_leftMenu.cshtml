@@ -1,0 +1,99 @@
+﻿@model Benaa2018.Helper.ViewModels.BaseViewModel
+<div class="slidebar hidePrint openIcon openSlide">
+    <div id="splitterImages">
+        <div class="ieTopBar">
+            <div class="BarIndicatory top left"></div>
+            <div class="BarIndicatory top middle"></div>
+            <div class="BarIndicatory top right"></div>
+        </div>
+        <div class="ieBottomBar">
+            <div class="BarIndicatory bottom left"></div>
+            <div class="BarIndicatory bottom middle"></div>
+            <div class="BarIndicatory bottom right"></div>
+        </div>
+    </div>
+</div>
+<div class="list-group">
+    <div class="list-group-item  main-color-bg">
+        <div class="dropproject">
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Project Menu <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                    <li><a href="#"> Template Menu</a></li>
+                </ul>
+            </li>
+        </div>
+        <span class="iconAlign mrgn17tp">
+            <span class="glyphicon glyphicon-plus myPlus" aria-hidden="true">
+                <div class="myPlusContainer">
+                    <div class="arrow"></div>
+                    <ul class="list-group">
+                        <li class="list-group-item headerList">Add New Projects</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">From Scratch</a></li>
+                        <li class="list-group-item">
+                            <span class="glyphicon glyphicon-flash text-success"></span>
+                            <a href="#">From Template</a>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+            <span class="glyphicon glyphicon-filter myFilter" aria-hidden="true">
+                <div class="myFilterContainer">
+                    <div class="arrow"></div>
+                    <ul class="list-group">
+                        <li class="list-group-item headerList">Filter Project Sites</li>
+                        <li class="list-group-item">
+                            <div class="btnContainer">
+                                <a class="btn btn-primary btn-xs filterproject">Apply Filters</a>
+                                <a class="btn btn-default btn-xs">Reset</a>
+                            </div>
+                            <div class="form-group">
+                                @Html.DropDownList("ddlProjectGroup", new SelectList(Model.ProjectGroupModels, "ProjectGroupID", "ProjectGroupName"), new { id = "ddlProjectGroup", @multiple = "", @class = "withCheckbox" })
+                            </div>
+                            <div class="form-group">
+                                @Html.DropDownList("ddlProjectManager", new SelectList(Model.ProjectManagerMasterModels, "ManagerID", "ManagerName"), new { id = "ddlProjectManager", @multiple = "", @class = "withCheckbox" })
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </span>
+            <span class="fa fa-sort mySort" aria-hidden="true">
+                <div class="mySortContainer" style="display: none;">
+                    <div class="arrow"></div>
+                    <ul class="list-group">
+                        <li class="list-group-item headerList">Sort Projects</li>
+                        <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">Alphabetically</a></li>
+
+                        <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="#">Projected Completion</a></li>
+
+                    </ul>
+                </div>
+            </span>
+        </span>
+    </div>
+    <div class="list-group-item">
+        <input type="text" id="txtHomeSearch" class="form-control" placeholder="Search">
+        <a href="javascript:void(0)" onclick="javascript:searchProject()" id="searchItem" class="fa fa-search searchIcon"></a>
+    </div>
+    <div class="view list-group-item" style="display:block">
+        @Model.ProjectMasterModels.Count
+    </div>
+    <div class="projectNameContainer list-group-item" style="display:none">
+        <span class="arrow-right"></span>
+        <span id="spnproject"></span>
+        <ul class="rightIconLinks list-unstyled">
+            <li><a href="#" data-toggle="modal" data-target="#infoModal" data-original-title=""><i class="fa fa-info-circle"></i></a></li>
+            <li><a href="#" data-toggle="modal" data-target="#infoModal" data-original-title=""><i class="fa fa-envelope"></i></a></li>
+            <li><a href="#" data-toggle="modal" data-target="#infoModal" data-original-title=""><i class="fa fa-home"></i></a></li>
+        </ul>
+    </div>
+    <a href="#" class="list-group-item allProjects active">
+        All @Model.ProjectMasterModels.Count listed Projects
+        <span class="fa fa-align-right pull-right"></span>
+    </a>
+    @foreach (var item in Model.ProjectMasterModels)
+    {
+        <a data-projectid="@item.ProjectID" class="list-group-item allProject" href="javascript:void(0)">@item.ProjectName</a>
+    }
+</div>
+
