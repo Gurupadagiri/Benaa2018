@@ -12,13 +12,10 @@ namespace Benaa2018.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly IUserMasterRepository _userMasterRepository;
         private readonly IUserMasterHelper _userMasterHelper;
 
-        public LoginController(IUserMasterRepository userMasterRepository, 
-            IUserMasterHelper userMasterHelper)
+        public LoginController(IUserMasterHelper userMasterHelper)
         {
-            _userMasterRepository = userMasterRepository;
             _userMasterHelper = userMasterHelper;
         }
 
