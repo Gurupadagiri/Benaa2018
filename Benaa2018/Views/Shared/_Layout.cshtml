@@ -284,7 +284,11 @@
     <script src="~/js/responsive-tabs.js"></script>
     <script src="~/js/jquery.multiselect.js"></script>
     <script src="~/js/bootstrap-datepicker.min.js"></script>
-
+    <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
+    <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
+    <style></style>
     <script>
 
         $(document).ready(function () {
@@ -324,7 +328,7 @@
                     },
                     caption: ""
             });*@
-                $("#example").jqGrid({
+                @*$("#example").jqGrid({
                     colModel: [
                         { name: "ProjectName", label: "Project Name", width: 53 },
                         {
@@ -356,50 +360,77 @@
                        defaultSearch: "cn"
                    },
                    caption: ""
-                });
-                //$("#export").on("click", function () {
-                //    debugger;
-                //    $("#jqGrid").jqGrid("excelExport", {
-                //        includeLabels: true,
-                //        includeGroupHeader: true,
-                //        includeFooter: true,
-                //        fileName: "jqGridExport.xlsx",
-                //        maxlength: 40 // maxlength for visible string data
-                //    })
-                //})
+                });*@
+               
 
-            @*$("#example").jqGrid({
-                colModel: [
-                    { name: "ProjectName", label: "Project Name", width: 53 },
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listWeek'
+                },
+                defaultDate: '2018-03-12',
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+                events: [
                     {
-                        name: "StreetAddress", label: "Street Address", width: 75, align: "center"
+                        title: 'All Day Event',
+                        start: '2018-03-01',
                     },
-                    { name: "ContractPrice", label: "Contract Price", width: 65, template: "number" },
                     {
-                        name: "StreetAddress", label: "Street Address", width: 75,
+                        title: 'Long Event',
+                        start: '2018-03-07',
+                        end: '2018-03-10'
                     },
-                    { name: "City", label: "City", width: 41, template: "number" },
-                    { name: "Zip", label: "Zip", width: 51, template: "number" },
-                    { name: "State", label: "State", width: 51, template: "number" },
-                    { name: "State", label: "Proj. Manager", width: 51, template: "number" },
-                    { name: "State", label: "Owner", width: 51, template: "number" },
-                    { name: "State", label: "Phone", width: 51, template: "number" },
-                    { name: "State", label: "Cal. Status", width: 51, template: "number" },
-                    { name: "State", label: "Map", width: 51, template: "number" },
-                    { name: "State", label: "CC Limit", width: 51, template: "number" },
-                    { name: "closed", label: "Closed", width: 59, template: "booleanCheckbox", firstsortorder: "desc" },
                     {
-                        name: "ship_via", label: "ACH Limit", width: 87
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: '2018-03-09T16:00:00'
+                    },
+                    {
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: '2018-03-16T16:00:00'
+                    },
+                    {
+                        title: 'Conference',
+                        start: '2018-03-11',
+                        end: '2018-03-13'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2018-03-12T10:30:00',
+                        end: '2018-03-12T12:30:00'
+                    },
+                    {
+                        title: 'Lunch',
+                        start: '2018-03-12T12:00:00'
+                    },
+                    {
+                        title: 'Meeting',
+                        start: '2018-03-12T14:30:00'
+                    },
+                    {
+                        title: 'Happy Hour',
+                        start: '2018-03-12T17:30:00'
+                    },
+                    {
+                        title: 'Dinner',
+                        start: '2018-03-12T20:00:00'
+                    },
+                    {
+                        title: 'Birthday Party',
+                        start: '2018-03-13T07:00:00'
+                    },
+                    {
+                        title: 'Click for Google',
+                        url: 'http://google.com/',
+                        start: '2018-03-28'
                     }
-                ],
-                data: @ViewBag.ProjectMasterJson,
-                iconSet: "fontAwesome",
-                idPrefix: "g1_",
-                rownumbers: true,
-                sortname: "ProjectName",
-                sortorder: "desc",
-                caption: "The grid, which uses predefined formatters and templates"
-            });*@
+                ]
+            });
+
         });
     </script>
     <script>
@@ -878,9 +909,9 @@
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
-            BindAddress();
-            BindAddressCluster();
-            BindAddressEdit();
+            //BindAddress();
+            //BindAddressCluster();
+            //BindAddressEdit();
             $('#selectinfo').on('change', function () {
                 if ($(this).val() == "1") {
                     $("div.owner-existing-info").css('display', 'block');
