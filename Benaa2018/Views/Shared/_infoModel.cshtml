@@ -129,55 +129,38 @@
                                 <div class="clusterMapCon">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            <div class="filterMap">
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled>Previous</button>
+                                            @foreach (var item in Model.ProjectMasterModels.Where(a=>a.ProjectName != null).ToList())
+                                            {
+                                                <div class="filterMap">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="listmapCon" data-project="@item.ProjectID">
+                                                                <span class="glyphicon glyphicon-map-marker"></span><a><label> @item.ProjectName</label></a>
+                                                            </div>
+                                                        </div>
                                                     </div>
-                                                    <div class="col-sm-4">
-                                                        Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled>Next</button>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <select name="select" class="form-control">
-                                                            <option role="option" value="20">20 per page</option>
-                                                            <option role="option" value="50">50 per page</option>
-                                                            <option role="option" value="75">75 per page</option>
-                                                            <option role="option" value="100">100 per page</option>
-                                                            <option role="option" value="250">250 per page</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="listmapCon">
-                                                            <span class="glyphicon glyphicon-map-marker"></span><label> al shatee</label>
+                                                    <div class="row">
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-default btn-sm" type="button" disabled>Previous</button>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <button class="btn btn-default btn-sm" type="button" disabled>Next</button>
+                                                        </div>
+                                                        <div class="col-sm-4">
+                                                            <select name="select" class="form-control">
+                                                                <option role="option" value="20">20 per page</option>
+                                                                <option role="option" value="50">50 per page</option>
+                                                                <option role="option" value="75">75 per page</option>
+                                                                <option role="option" value="100">100 per page</option>
+                                                                <option role="option" value="250">250 per page</option>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled>Previous</button>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled>Next</button>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <select name="select" class="form-control">
-                                                            <option role="option" value="20">20 per page</option>
-                                                            <option role="option" value="50">50 per page</option>
-                                                            <option role="option" value="75">75 per page</option>
-                                                            <option role="option" value="100">100 per page</option>
-                                                            <option role="option" value="250">250 per page</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            }                                            
                                         </div>
                                         <div class="col-sm-8" id="dvMapEdit">
                                             Map will be placed here

@@ -89,7 +89,7 @@
     <div id="calendar">
     </div>
 </div>
-<div class="modal fade" id="calendarmodal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: block;">
+<div class="modal fade" id="calendarmodal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
     <div class="modal-dialog modal-lg width94">
         <div class="panel panel-primary customPopup">
             <div class="panel-heading themeColor">
@@ -209,7 +209,7 @@
                             <div id="tab1" class="tab_content" style="display: block;">
                                 <div class="dataTableConatainer">
                                     <button id="export">Export to Excel</button>
-                                    <table id="example"></table>
+                                    
                                 </div>
                             </div>
                             <!-- #tab1 -->
@@ -286,6 +286,95 @@
                     </div>
                     <!-- .tab_container -->
                 </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div  class="modal fade" id="calendarmodalgeneral" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="header">
+        <h2>New Item</h2>
+        <button class="bt-calendar-quick-add--cancel" data-bind="click: onCancelClick">Cancel</button>
+    </div>
+    <div class="modal-dialog modal-lg width94">
+        <div class="row bt-calendar-quick-add--body-row">
+            <div class="col-xs-4">
+                <span class="fieldHeader">Date:</span>
+            </div>
+            <div class="col-xs-8">
+                <span data-bind="text: dateDisplay">10/07/2018</span>
+            </div>
+        </div>
+        <div class="row bt-calendar-quick-add--body-row">
+            <div class="col-xs-4">
+                <span class="fieldHeader">Title*</span>
+            </div>
+            <div class="col-xs-8">
+                <bt-single-line-text params="value: title, maxLength: 50">
+                    <div class="bt-single-line-text form-group form-group-sm" data-bind="css: formGroupSize">
+                        <label class="bt-single-line-text--label" data-bind="text: title, visible: title().length > 0" style="display: none;"></label>
+                        <input class="bt-single-line-text--value form-control input-sm validation-border required-placeholder" data-bind="value: value, disable: readOnly, addUniqueID: uniqueId, css: inputSize, attr: { maxLength: maxLength, placeholder: placeholder, tabindex: isTabbable }, validationBorder: value, requiredValidationElement: value, valueUpdate: valueUpdate " id="ui-id-15" maxlength="" tabindex="0" placeholder="Required">
+                        <!-- ko if: toolTipText().length > 0 --><!-- /ko -->
+                    </div>
+                    <div>
+                        <span class="valMessage bt-single-line-text-validator" data-bind="btValidationMessage: value" style="display: none;"></span>
+                    </div>
+                </bt-single-line-text>
+            </div>
+        </div>
+        <div class="row bt-calendar-quick-add--body-row">
+            <div class="col-xs-4">
+                <span class="fieldHeader">Assigned To:</span>
+            </div>
+            <div class="col-xs-8">
+                <!-- ko if: assignedUsersLoaded -->
+                <bt-multi-select-dropdown params="serviceObject: assignedUsersServiceObject, optionGroups: assignedUsersServiceObject.value">
+                    <label data-bind="text: title, visible: ko.unwrap(title).length > 0" style="display: none;"></label>
+                    <!-- ko if: toolTipText().length > 0 && ko.unwrap(title).length > 0--><!-- /ko -->
+                    <div class="bt-multi-select-dropdown">
+                        <div class="bt-multi-select-dropdown--dropdown-container">
+                            <!-- ko if: optionGroups && ko.unwrap(optionGroups).length > 0 -->
+                            <select class="multiselect-dropdown bt-multi-select-dropdown--dropdown" style="width: 100%; display: none;" data-bind="disable: readOnly, addUniqueID: uniqueId, foreach: optionGroups, selectedOptions: serviceObject.selectedValues, multiselectDropdown: serviceObject.selectedValues, validationBorder: serviceObject.selectedValues, requiredValidationElement: serviceObject.selectedValues" multiple="" id="ui-id-18" aria-disabled="false">
+                                <optgroup data-bind="attr: { label: name }, foreach: options" label="Internal Users">
+                                    <option data-bind="text: name, value: id, attr: { title: ko.unwrap($component.extraDataToolTip($data)), optgroup: $parent.name, disabled: ko.unwrap($component.extraDataDisabled($data)) || ko.unwrap($component.readOnly) }" value="3154106" title="" optgroup="Internal Users">Ahmed Garrash</option>
+
+                                    <option data-bind="text: name, value: id, attr: { title: ko.unwrap($component.extraDataToolTip($data)), optgroup: $parent.name, disabled: ko.unwrap($component.extraDataDisabled($data)) || ko.unwrap($component.readOnly) }" value="3178591" title="" optgroup="Internal Users">aryan singh</option>
+
+                                    <option data-bind="text: name, value: id, attr: { title: ko.unwrap($component.extraDataToolTip($data)), optgroup: $parent.name, disabled: ko.unwrap($component.extraDataDisabled($data)) || ko.unwrap($component.readOnly) }" value="3178809" title="" optgroup="Internal Users">raja baja</option>
+
+                                    <option data-bind="text: name, value: id, attr: { title: ko.unwrap($component.extraDataToolTip($data)), optgroup: $parent.name, disabled: ko.unwrap($component.extraDataDisabled($data)) || ko.unwrap($component.readOnly) }" value="3137860" title="" optgroup="Internal Users">Shahnawaz Khan</option>
+                                </optgroup>
+
+                                <optgroup data-bind="attr: { label: name }, foreach: options" label="Subs">
+                                    <option data-bind="text: name, value: id, attr: { title: ko.unwrap($component.extraDataToolTip($data)), optgroup: $parent.name, disabled: ko.unwrap($component.extraDataDisabled($data)) || ko.unwrap($component.readOnly) }" value="3178810" title="" optgroup="Subs">Al Asaseya</option>
+
+                                    <option data-bind="text: name, value: id, attr: { title: ko.unwrap($component.extraDataToolTip($data)), optgroup: $parent.name, disabled: ko.unwrap($component.extraDataDisabled($data)) || ko.unwrap($component.readOnly) }" value="3193088" title="" optgroup="Subs">Raja</option>
+                                </optgroup>
+                            </select><button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect" aria-haspopup="true" style="width: 266px;" aria-disabled="false"><span class="ui-icon ui-icon-triangle-1-s"></span><span>-- No Items Selected --</span></button>
+                            <!-- /ko -->
+                            <!-- ko ifnot: optionGroups && ko.unwrap(optionGroups).length > 0 --><!-- /ko -->
+                        </div>
+                        <!-- ko if: (ko.unwrap(canAddItems) || ko.unwrap(canEditItems))--><!-- /ko -->
+                        <!-- ko if: toolTipText().length > 0 && ko.unwrap(title).length === 0 --><!-- /ko -->
+                    </div>
+
+                    <!-- ko if: typeof(options) !== 'undefined' --><!-- /ko -->
+                </bt-multi-select-dropdown>
+                <!-- /ko -->
+            </div>
+        </div>
+        <!-- ko if: isNotifyVisible --><!-- /ko -->
+        <div class="row bt-calendar-quick-add--body-row">
+            <div class="col-xs-4">
+                <span class="fieldHeader">Color:</span>
+            </div>
+            <div class="col-xs-8">
+                <select data-bind="addUniqueID: colorDropDownUniqueId" class="bt-calendar-quick-add--color-picker colorPicker" id="ui-id-3" style="background-color: rgb(68, 33, 33);"><option value="#442121" style="background-color: rgb(68, 33, 33);">Maroon</option><option value="#572A2A" style="background-color: rgb(87, 42, 42);">Merlot</option><option value="#8C4343" style="background-color: rgb(140, 67, 67);">Tuscan Red</option><option value="#AD5252" style="background-color: rgb(173, 82, 82);">Rose</option><option value="#C78888" style="background-color: rgb(199, 136, 136);">Victoria</option><option value="#542C10" style="background-color: rgb(84, 44, 16);">Brown</option><option value="#6C3815" style="background-color: rgb(108, 56, 21);">Coffee</option><option value="#AD5A21" style="background-color: rgb(173, 90, 33);">Amber</option><option value="#D67029" style="background-color: rgb(214, 112, 41);">Peach</option><option value="#E39D6C" style="background-color: rgb(227, 157, 108);">Cream</option><option value="#353F26" style="background-color: rgb(53, 63, 38);">Forest</option><option value="#435130" style="background-color: rgb(67, 81, 48);">Olive</option><option value="#6C824D" style="background-color: rgb(108, 130, 77);">Green</option><option value="#84A05E" style="background-color: rgb(132, 160, 94);">Mint</option><option value="#ABBE91" style="background-color: rgb(171, 190, 145);">Cucumber</option><option value="#2D263E" style="background-color: rgb(45, 38, 62);">Plum</option><option value="#3A3150" style="background-color: rgb(58, 49, 80);">Purple</option><option value="#5C4E81" style="background-color: rgb(92, 78, 129);">Lavender</option><option value="#72609F" style="background-color: rgb(114, 96, 159);">Iris</option><option value="#9E92BD" style="background-color: rgb(158, 146, 189);">Violet</option><option value="#213444" style="background-color: rgb(33, 52, 68);">Navy</option><option value="#2A4257" style="background-color: rgb(42, 66, 87);">Levi</option><option value="#436A8C" style="background-color: rgb(67, 106, 140);">Ocean</option><option value="#5283AD" style="background-color: rgb(82, 131, 173);">Ice</option><option value="#88AAC7" style="background-color: rgb(136, 170, 199);">Sky</option><option value="#323232" style="background-color: rgb(50, 50, 50);">Graphite</option><option value="#404040" style="background-color: rgb(64, 64, 64);">Gunmetal</option><option value="#676767" style="background-color: rgb(103, 103, 103);">Silver</option><option value="#7F7F7F" style="background-color: rgb(127, 127, 127);">Gray</option><option value="#A7A7A7" style="background-color: rgb(167, 167, 167);">Full Moon</option><option value="#1D1D1D" style="background-color: rgb(29, 29, 29);">Black</option><option value="#DD2222" style="background-color: rgb(221, 34, 34);">Alarm Red</option><option value="#ED2591" style="background-color: rgb(237, 37, 145);">Alarm Pink</option><option value="#2222DD" style="background-color: rgb(34, 34, 221);">Alarm Blue</option><option value="#008000" style="background-color: rgb(0, 128, 0);">Alarm Green</option><option value="#6F116F" style="background-color: rgb(111, 17, 111);">Alarm Purple</option><option value="#FF9600" style="background-color: rgb(255, 150, 0);">Alarm Orange</option><option value="#2CD1D2" style="background-color: rgb(44, 209, 210);">Alarm Aqua</option><option value="#9FC62A" style="background-color: rgb(159, 198, 42);">Alarm Lime</option><option value="#DDC817" style="background-color: rgb(221, 200, 23);">Alarm Gold</option></select>
+            </div>
+        </div>
+        <div class="row bt-calendar-quick-add--body-row">
+            <div class="col-xs-8 col-xs-offset-4" id="quickAddEditContainer">
+                <input type="button" id="btnQuickAddSave" class="blueButton" value="Save" data-bind="click: onSaveClick">
+                <a href="#" id="btnQucikAddEditItem" data-bind="click: onEditClick">Edit schedule item »</a>
             </div>
         </div>
     </div>

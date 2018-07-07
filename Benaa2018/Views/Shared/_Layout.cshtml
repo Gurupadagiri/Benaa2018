@@ -37,7 +37,6 @@
     }
     @if (baseModel != null)
     {
-        //var lstMenuItem = ViewBag.MenuDetails;
         <nav class="navbar navbar-inverse myNav" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -142,7 +141,6 @@
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-
         <div class="container-fluid logoBar">
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
@@ -166,16 +164,15 @@
             @Html.Partial("_leftMenu", baseModel);
         </div>
     }
-
-    @RenderBody()
-    <div class="leftOuterBtn">
-        <p class="jobPickerSliderJobText">al shatee</p>
-        <div class="iconHolder">
-            <img src="images/iconJobInfoSmallWhite.png">
-        </div>
-    </div>
+    @RenderBody()    
     @if (baseModel != null)
     {
+        <div class="leftOuterBtn">
+            <p class="jobPickerSliderJobText">al shatee</p>
+            <div class="iconHolder">
+                <img src="images/iconJobInfoSmallWhite.png">
+            </div>
+        </div>
         <section class="footerContainer">
             <div class="container-fluid">
                 <p class="smallTXT">
@@ -189,85 +186,73 @@
                 </p>
             </div>
         </section>
-    }
-
-    <div id="groupAddModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close closeModal" data-dismiss="#groupAddModal">&times;</button>
-                    <h4 class="modal-title">New Project group</h4>
-                </div>
-                <div class="modal-body">
-                    <a class="btn btn-primary" id="btnProjectGroup">Save</a>
-                    <h4>Adding a Project group</h4>
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label>Title</label>
-                            <input type="text" id="Projectgroupname" class="form-control" />
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="groupMinusModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close closeModal" data-dismiss="#groupMinusModal">&times;</button>
-                    <h4 class="modal-title">Project Group Editor</h4>
-                </div>
-
-                <div class="modal-body">
-                    <button class="btn btn-primary">Save</button>
-                    <button class="btn btn-default">Delete</button>
-                    <h4>Edit this Project group</h4>
-
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <label>Title</label>
-                            <input type="text" class="form-control" />
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div id="locationModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="z-index:9999">
-        <div class="modal-dialog">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close closeModal" data-dismiss="#locationModal">&times;</button>
-                    <h4 class="modal-title">Project Group Editor</h4>
-                </div>
-                <div class="modal-body">
-                    <div class="row">
-                        <div id="dvMap" class="col-sm-12" style="width:100%;height:500px">
-                            Map Will be placed here
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    @if (baseModel != null)
-    {
         @Html.Partial("_infoModel", baseModel)
         @Html.Partial("_newProject", baseModel)
+        <div id="groupAddModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close closeModal" data-dismiss="#groupAddModal">&times;</button>
+                        <h4 class="modal-title">New Project group</h4>
+                    </div>
+                    <div class="modal-body">
+                        <a class="btn btn-primary" id="btnProjectGroup">Save</a>
+                        <h4>Adding a Project group</h4>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Title</label>
+                                <input type="text" id="Projectgroupname" class="form-control" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="groupMinusModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close closeModal" data-dismiss="#groupMinusModal">&times;</button>
+                        <h4 class="modal-title">Project Group Editor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <button class="btn btn-primary">Save</button>
+                        <button class="btn btn-default">Delete</button>
+                        <h4>Edit this Project group</h4>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>Title</label>
+                                <input type="text" class="form-control" />
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="locationModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="z-index:9999">
+            <div class="modal-dialog">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close closeModal" data-dismiss="#locationModal">&times;</button>
+                        <h4 class="modal-title">Project Group Editor</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div id="dvMap" class="col-sm-12" style="width:100%;height:500px">
+                                Map Will be placed here
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     }
-
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="~/js/jquery-1.12.4.js"></script>
     <script src="~/js/jquery-ui.js"></script>
@@ -288,160 +273,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
     <style></style>
-    <script>
-
-        $(document).ready(function () {
-                @*$("#example").jqGrid({
-                    colModel: [
-                        { name: "ProjectName", label: "Project Name", width: 53 },
-                        {
-                            name: "StreetAddress", label: "Street Address", width: 75
-                        },
-                        { name: "City", label: "City", width: 65 },
-                        { name: "State", label: "State", width: 41 },
-                        { name: "Zip", label: "Zip", width: 41 },
-                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
-                        { name: "OwnerName", label: "Owner", width: 59 },
-                        { name: "Telephone", label: "Phone", width: 65 },
-                        { name: "MobileNo", label: "Cell", width: 41 },
-                        { name: "Active", label: "Active", width: 51 }
-                    ],
-                    data: @Html.Raw(ViewBag.ProjectGrid),
-                    iconSet: "fontAwesome",
-                    idPrefix: "g5_",
-                    rownumbers: true,
-                    sortname: "ProjectName",
-                    sortorder: "desc",
-                    threeStateSort: true,
-                    sortIconsBeforeText: true,
-                    headertitles: true,
-                    toppager: false,
-                    pager: true,
-                    rowNum: 5,
-                    viewrecords: true,
-                    searching: {
-                        defaultSearch: "cn"
-                    },
-                    caption: ""
-            });*@
-                $("#example").jqGrid({
-                    colModel: [
-                        { name: "ProjectName", label: "Project Name", width: 53 },
-                        {
-                            name: "StreetAddress", label: "Street Address", width: 75
-                        },
-                        { name: "City", label: "City", width: 65 },
-                        { name: "State", label: "State", width: 41 },
-                        { name: "Zip", label: "Zip", width: 41 },
-                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
-                        { name: "OwnerName", label: "Owner", width: 59 },
-                        { name: "Telephone", label: "Phone", width: 65 },
-                        { name: "MobileNo", label: "Cell", width: 41 },
-                        { name: "Active", label: "Active", width: 51 }
-                    ],
-                   data: @Html.Raw(baseModel.ProjectModelJsonString),
-                   iconSet: "fontAwesome",
-                   idPrefix: "g5_",
-                   rownumbers: true,
-                   sortname: "ProjectName",
-                   sortorder: "desc",
-                   threeStateSort: true,
-                   sortIconsBeforeText: true,
-                   headertitles: true,
-                   toppager: false,
-                   pager: true,
-                   rowNum: 5,
-                   viewrecords: true,
-                   searching: {
-                       defaultSearch: "cn"
-                   },
-                   caption: ""
-                });
-               
-
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listWeek'
-                },
-                defaultDate: '2018-03-12',
-                navLinks: true, // can click day/week names to navigate views
-                editable: true,
-                eventLimit: true, // allow "more" link when too many events
-                eventRender: function (event, element) {
-                    $(element).click(function () {
-                        alert('hi');
-                        //$('#calendarmodal').addClass('in');
-                    });
-                },
-                //eventClick: function (event) {
-                //    alert('hi');
-                //    if (event.url) {
-                //        window.open(event.url);
-                //        return false;
-                //    }
-                //},
-                events: [
-                    {
-                        title: 'All Day Event',
-                        start: '2018-03-01',
-                    },
-                    {
-                        title: 'Long Event',
-                        start: '2018-03-07',
-                        end: '2018-03-10'
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2018-03-09T16:00:00'
-                    },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2018-03-16T16:00:00'
-                    },
-                    {
-                        title: 'Conference',
-                        start: '2018-03-11',
-                        end: '2018-03-13'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2018-03-12T10:30:00',
-                        end: '2018-03-12T12:30:00'
-                    },
-                    {
-                        title: 'Lunch',
-                        start: '2018-03-12T12:00:00'
-                    },
-                    {
-                        title: 'Meeting',
-                        start: '2018-03-12T14:30:00'
-                    },
-                    {
-                        title: 'Happy Hour',
-                        start: '2018-03-12T17:30:00'
-                    },
-                    {
-                        title: 'Dinner',
-                        start: '2018-03-12T20:00:00'
-                    },
-                    {
-                        title: 'Birthday Party',
-                        start: '2018-03-13T07:00:00'
-                    },
-                    {
-                        title: 'Click for Google',
-                        url: 'http://google.com/',
-                        start: '2018-03-28'
-                    }
-                ]
-            });
-
-        });
-    </script>
+    
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover({ html: true });
@@ -834,41 +666,41 @@
                 $('#locationModal').css('display', 'block');
             });
         });
-        $(window).load(function () {
-            $(document).on("click", "#example tr td.projectinfo", function () {
+        $(window).load(function () { //#example tr td.projectinfo
+            $(document).on("click", "div.listmapCon", function () {
                 var projectId = parseInt($(this).attr('data-project'));
                 var datainfo = { "projectID": projectId };
                 $.post("home/GetProjectInfoByProjectID", datainfo, function (data) {
                     $('#infoModal').show();
                     $('#leftNavCon').css("z-index", "000000");
                     $('#infoModal').css("z-index", "000000");
-                    $("#ProjectMasterModel_ProjectName").val(data.projectMasterModel.projectName);
-                    $("#ProjectMasterModel_StreetAddress").val(data.projectMasterModel.streetAddress);
-                    $("#ProjectMasterModel_JobsitePrefix").val(data.projectMasterModel.jobsitePrefix);
-                    $("#ProjectMasterModel_LotInfo").val(data.projectMasterModel.LotInfo);
-                    $("#ProjectMasterModel_Permit").val(data.projectMasterModel.permit);
-                    $("#ProjectMasterModel_City").val(data.projectMasterModel.city);
-                    $("#ProjectMasterModel_State").val(data.projectMasterModel.state);
-                    $("#ProjectMasterModel_Zip").val(data.projectMasterModel.zip);
-                    $("#ProjectMasterModel_ContractPrice").val(data.projectMasterModel.contractPrice);
-                    $('#ProjectMasterModel_ProjectID').val(data.projectMasterModel.projectID);
+                    $("#ProjectMasterModel_ProjectName").val(data.item1.projectName);
+                    $("#ProjectMasterModel_StreetAddress").val(data.item1.streetAddress);
+                    $("#ProjectMasterModel_JobsitePrefix").val(data.item1.jobsitePrefix);
+                    $("#ProjectMasterModel_LotInfo").val(data.item1.LotInfo);
+                    $("#ProjectMasterModel_Permit").val(data.item1.permit);
+                    $("#ProjectMasterModel_City").val(data.item1.city);
+                    $("#ProjectMasterModel_State").val(data.item1.state);
+                    $("#ProjectMasterModel_Zip").val(data.item1.zip);
+                    $("#ProjectMasterModel_ContractPrice").val(data.item1.contractPrice);
+                    $('#ProjectMasterModel_ProjectID').val(data.item1.projectID);
                     //Project Schedule
-                    $('#OwnerMasterModel_OwnerName').val(data.ownerMasterModel.ownerName);
-                    $('#OwnerMasterModel_Address').val(data.ownerMasterModel.address);
-                    $('#OwnerMasterModel_City').val(data.ownerMasterModel.city);
-                    $('#OwnerMasterModel_State').val(data.ownerMasterModel.state);
-                    $('#OwnerMasterModel_Zip').val(data.ownerMasterModel.zip);
-                    $('#OwnerMasterModel_Telephone').val(data.ownerMasterModel.telephone);
-                    $('#OwnerMasterModel_MobileNo').val(data.ownerMasterModel.mobileNo);
-                    $('#OwnerMasterModel_Email').val(data.ownerMasterModel.email);
-                    $('#OwnerMasterModel_AccessMethod').val(data.ownerMasterModel.accessMethod);
-                    $('#OwnerMasterModel_OwnerCalendar').val(data.ownerMasterModel.ownerCalendar);
-                    $('#OwnerMasterModel_ShowProjectPrice').prop('checked', data.ownerMasterModel.showProjectPrice)
-                    $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.ownerMasterModel.showBudgetPurchaseOrders)
-                    $('#OwnerMasterModel_AllowOrderRequests').prop('checked', data.ownerMasterModel.allowOrderRequests);
-                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.ownerMasterModel.allowLockedSelections)
-                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.ownerMasterModel.allowLockedSelections);
-                    $('#OwnerMasterModel_AllowPaymentsTab').prop('checked', data.ownerMasterModel.allowPaymentsTab);
+                    $('#OwnerMasterModel_OwnerName').val(data.item2.ownerName);
+                    $('#OwnerMasterModel_Address').val(data.item2.address);
+                    $('#OwnerMasterModel_City').val(data.item2.city);
+                    $('#OwnerMasterModel_State').val(data.item2.state);
+                    $('#OwnerMasterModel_Zip').val(data.item2.zip);
+                    $('#OwnerMasterModel_Telephone').val(data.item2.telephone);
+                    $('#OwnerMasterModel_MobileNo').val(data.item2.mobileNo);
+                    $('#OwnerMasterModel_Email').val(data.item2.email);
+                    $('#OwnerMasterModel_AccessMethod').val(data.item2.accessMethod);
+                    $('#OwnerMasterModel_OwnerCalendar').val(data.item2.ownerCalendar);
+                    $('#OwnerMasterModel_ShowProjectPrice').prop('checked', data.item2.showProjectPrice)
+                    $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.item2.showBudgetPurchaseOrders)
+                    $('#OwnerMasterModel_AllowOrderRequests').prop('checked', data.item2.allowOrderRequests);
+                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections)
+                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections);
+                    $('#OwnerMasterModel_AllowPaymentsTab').prop('checked', data.item2.allowPaymentsTab);
 
                 });
             });
@@ -919,7 +751,7 @@
                     });
                 }
             });
-            $('.project-info').on('click', function () {
+         $('.project-info').on('click', function () {
                 var projectId = $(this).attr('data-projectid');
                 var param = { "projectId": parseInt(projectId) }
                 $.ajax({
@@ -943,10 +775,119 @@
                     }
                 });
             });
+            $('.listmapCon').on('click', function () {
 
+            });
     </script>
     @if (baseModel != null)
     {
+        <script>
+
+        $(document).ready(function () {
+                @*$("#example").jqGrid({
+                    colModel: [
+                        { name: "ProjectName", label: "Project Name", width: 53 },
+                        {
+                            name: "StreetAddress", label: "Street Address", width: 75
+                        },
+                        { name: "City", label: "City", width: 65 },
+                        { name: "State", label: "State", width: 41 },
+                        { name: "Zip", label: "Zip", width: 41 },
+                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
+                        { name: "OwnerName", label: "Owner", width: 59 },
+                        { name: "Telephone", label: "Phone", width: 65 },
+                        { name: "MobileNo", label: "Cell", width: 41 },
+                        { name: "Active", label: "Active", width: 51 }
+                    ],
+                    data: @Html.Raw(ViewBag.ProjectGrid),
+                    iconSet: "fontAwesome",
+                    idPrefix: "g5_",
+                    rownumbers: true,
+                    sortname: "ProjectName",
+                    sortorder: "desc",
+                    threeStateSort: true,
+                    sortIconsBeforeText: true,
+                    headertitles: true,
+                    toppager: false,
+                    pager: true,
+                    rowNum: 5,
+                    viewrecords: true,
+                    searching: {
+                        defaultSearch: "cn"
+                    },
+                    caption: ""
+            });*@
+                $("#example").jqGrid({
+                    colModel: [
+                        { name: "ProjectName", label: "Project Name", width: 53 },
+                        {
+                            name: "StreetAddress", label: "Street Address", width: 75
+                        },
+                        { name: "City", label: "City", width: 65 },
+                        { name: "State", label: "State", width: 41 },
+                        { name: "Zip", label: "Zip", width: 41 },
+                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
+                        { name: "OwnerName", label: "Owner", width: 59 },
+                        { name: "Telephone", label: "Phone", width: 65 },
+                        { name: "MobileNo", label: "Cell", width: 41 },
+                        { name: "Active", label: "Active", width: 51 }
+                    ],
+                   data: @Html.Raw(baseModel.ProjectModelJsonString),
+                   iconSet: "fontAwesome",
+                   idPrefix: "g5_",
+                   rownumbers: true,
+                   sortname: "ProjectName",
+                   sortorder: "desc",
+                   threeStateSort: true,
+                   sortIconsBeforeText: true,
+                   headertitles: true,
+                   toppager: true,
+                   pager: true,
+                   rowNum: 5,
+                   viewrecords: true,
+                   searching: {
+                       defaultSearch: "cn"
+                   },
+                   caption: ""
+                });
+
+
+            $('#calendar').fullCalendar({
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay,listWeek'
+                },
+                defaultDate: '2018-03-12',
+                navLinks: true, // can click day/week names to navigate views
+                editable: true,
+                eventLimit: true, // allow "more" link when too many events
+               
+                eventClick: function (event) {
+                    $('#calendarmodal').addClass('in').css('display', 'block');
+                },
+                events: [
+                    {
+                        title: 'All Day Event',
+                        start: '2018-03-01',
+                    },
+                    {
+                        title: 'Long Event',
+                        start: '2018-03-07',
+                        end: '2018-03-10'
+                    },
+                    {
+                        id: 999,
+                        title: 'Repeating Event',
+                        start: '2018-03-09T16:00:00'
+                    }
+                ]
+            });
+            $('.fc-content-skeleton td').on('click', function () { 
+                $('#calendarmodalgeneral').addClass('in').css('display', 'block');
+            });
+        });
+        </script>
         <script type="text/javascript">
             $(document).ready(function () {
                 BindAddress();

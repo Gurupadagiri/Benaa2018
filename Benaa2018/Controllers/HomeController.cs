@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -64,13 +65,7 @@ namespace Benaa2018.Controllers
             };
             return View(homeModel);
         }
-
-       
-
-        public void ExportToExcel()
-        {
-
-        }
+        
         [HttpPost]
         public async Task<IActionResult> FilteredMainContentAsync(int projectId = 0)
         {
@@ -83,9 +78,7 @@ namespace Benaa2018.Controllers
         }
 
         [HttpPost]
-        [RequestFormSizeLimit(valueCountLimit: 20000)]
-        //[ValidateAntiForgeryToken(Order = 2)]
-        //[RequestFormSizeLimit(valueCountLimit: 20000)]
+        [RequestFormSizeLimit(valueCountLimit: 20000)]     
         public async Task<IActionResult> SubmitProjectInfo(BaseViewModel homeContent)
         {
             if (homeContent != null && homeContent.ProjectMasterModel != null)
@@ -124,16 +117,14 @@ namespace Benaa2018.Controllers
             //ownerMasterViewModel.ProfilePicture. = ownerMasterViewModel.FileName;
         }
 
-        //[HttpPost]
-        //public async Task<JsonResult> GetProjectInfoByProjectID(int projectID)
-        //{
-        //    BaseViewModel homeViewModel = new BaseViewModel
-        //    {
-        //        ProjectMasterModel = await _projectMasterHelper.GetProjectDetailsProjectId(projectID),
-        //        OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(projectID)
-        //    };
-        //    return Json(homeViewModel);
-        //}
+        [HttpPost]
+        public async Task<JsonResult> GetProjectInfoByProjectID(int projectID)
+        {
+            var projectInfo = new Tuple<ProjectMasterViewModel, OwnerMasterViewModel>(
+                await _projectMasterHelper.GetProjectDetailsProjectId(projectID),
+                await _ownerMasterHelper.GetOwnerInfoByInfo(projectID));
+            return Json(projectInfo);
+        }
 
         [HttpGet]
         public JsonResult SaveProjectGroup(string jobGroupName)
