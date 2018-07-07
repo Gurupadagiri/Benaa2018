@@ -30,7 +30,8 @@ namespace Benaa2018.Controllers
             IToDoMasterHelper toDoMasterHelper,
             IUserMasterHelper userMasterHelper,
             IWarrentyAlertHelper warrentyAlertHelper,
-            ICompanyMasterHelper companyMasterHelper) : base(menuMasterHelper,
+            ICompanyMasterHelper companyMasterHelper) 
+            : base(menuMasterHelper,
             ownerMasterHelper,
             projectColorHelper,
             projectGroupHelper,

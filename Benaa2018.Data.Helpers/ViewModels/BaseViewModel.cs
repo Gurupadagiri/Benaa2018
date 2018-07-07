@@ -64,6 +64,6 @@ namespace Benaa2018.Helper.ViewModels
         public ProjectSubcontractorConfigViewModel ProjectSubcontractorConfigModel { get; set; }
              
         public List<ProjectGridModel> ProjectGridModels { get; set; }
-
+        public string ProjectModelJsonString { get; set; }
     }
 }

@@ -262,7 +262,6 @@
             </div>
         </div>
     </div>
-
     @if (baseModel != null)
     {
         @Html.Partial("_infoModel", baseModel)
@@ -292,8 +291,6 @@
     <script>
 
         $(document).ready(function () {
-
-
                 @*$("#example").jqGrid({
                     colModel: [
                         { name: "ProjectName", label: "Project Name", width: 53 },
@@ -310,7 +307,6 @@
                         { name: "Active", label: "Active", width: 51 }
                     ],
                     data: @Html.Raw(ViewBag.ProjectGrid),
-
                     iconSet: "fontAwesome",
                     idPrefix: "g5_",
                     rownumbers: true,
@@ -328,7 +324,7 @@
                     },
                     caption: ""
             });*@
-                @*$("#example").jqGrid({
+                $("#example").jqGrid({
                     colModel: [
                         { name: "ProjectName", label: "Project Name", width: 53 },
                         {
@@ -343,7 +339,7 @@
                         { name: "MobileNo", label: "Cell", width: 41 },
                         { name: "Active", label: "Active", width: 51 }
                     ],
-                   data: @Html.Raw(ViewBag.ProjectGrid),
+                   data: @Html.Raw(baseModel.ProjectModelJsonString),
                    iconSet: "fontAwesome",
                    idPrefix: "g5_",
                    rownumbers: true,
@@ -360,7 +356,7 @@
                        defaultSearch: "cn"
                    },
                    caption: ""
-                });*@
+                });
                
 
             $('#calendar').fullCalendar({
@@ -373,6 +369,19 @@
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
                 eventLimit: true, // allow "more" link when too many events
+                eventRender: function (event, element) {
+                    $(element).click(function () {
+                        alert('hi');
+                        //$('#calendarmodal').addClass('in');
+                    });
+                },
+                //eventClick: function (event) {
+                //    alert('hi');
+                //    if (event.url) {
+                //        window.open(event.url);
+                //        return false;
+                //    }
+                //},
                 events: [
                     {
                         title: 'All Day Event',
@@ -446,10 +455,7 @@
             $(".closeModal").click(function () {
                 $("#locationModal").hide();
             });
-        });
-    </script>
-    <script>
-        $(function () {
+
             var mmWidth = $(".mainContentDiv").outerWidth() + 10;
             var lftNavWidth = $("#leftNavCon").outerWidth() + 10;
             var curentmmWidth = mmWidth - lftNavWidth;
@@ -478,11 +484,6 @@
                 $(this).hide();
 
             });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
             var date_input = $('.cal'); //our date input has the name "date"
             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
             date_input.datepicker({
@@ -492,15 +493,11 @@
                 autoclose: true,
             });
         });
-    </script>
-    <script>
         // tooltip demo
         $('.tooltip-div').tooltip({
             selector: "[data-toggle=tooltip]",
             container: "body"
         });
-    </script>
-    <script>
         $('.withCheckbox').multiselect({
             columns: 1,
             placeholder: '--Select--',
@@ -521,14 +518,10 @@
             search: false,
             showCheckbox: false  // display the checkbox to the user
         });
-    </script>
-    <script>
         $(function () {
             // Could also be ['.sort-me', '#also-sort-me']
             $('.sort-me').sortable({ connectWith: '.sort-me' });
-            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
-        });
-        $(function () {
+            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.        
             // Could also be ['.sort-me', '#also-sort-me']
             $('.sort-me1').sortable({ connectWith: '.sort-me1' });
             $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
@@ -906,13 +899,7 @@
                 }
             }
         }
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            //BindAddress();
-            //BindAddressCluster();
-            //BindAddressEdit();
-            $('#selectinfo').on('change', function () {
+         $('#selectinfo').on('change', function () {
                 if ($(this).val() == "1") {
                     $("div.owner-existing-info").css('display', 'block');
                     $('#existingower').css('display', 'none');
@@ -956,9 +943,18 @@
                     }
                 });
             });
-        });
-         function BindAddress() {
-                var myCenter = new google.maps.LatLng(@ViewBag.Latitude, @ViewBag.Longitude);
+
+    </script>
+    @if (baseModel != null)
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                BindAddress();
+                BindAddressCluster();
+                BindAddressEdit();
+            });
+        function BindAddress() {
+                 var myCenter = new google.maps.LatLng(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude);
             var mapCanvas = document.getElementById("dvMap");
             var mapOptions = {
                 center: myCenter,
@@ -988,70 +984,70 @@
             });
             marker.setMap(map);
 
-        }
-         function BindAddressCluster() {
-                var myCenter = new google.maps.LatLng(@ViewBag.Latitude, @ViewBag.Longitude);
+            }
+        function BindAddressCluster() {
+                var myCenter = new google.maps.LatLng(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude);
                 var mapCanvas = document.getElementById("dvMapCluster");
-            var mapOptions = {
-                center: myCenter,
-                zoom: 13
-            };
-            var map = new google.maps.Map(mapCanvas, mapOptions);
-            var marker = new google.maps.Marker({
-                position: myCenter,
-                draggable: true,
-                map: map,
-                title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
-            });
-            google.maps.event.addListener(marker, 'dragend', function (event) {
-                var lat = this.position.lat();
-                var lng = this.position.lng();
-
-                var latlng = new google.maps.LatLng(lat, lng);
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                            //$('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
-                        }
-                    }
+                var mapOptions = {
+                    center: myCenter,
+                    zoom: 13
+                };
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                    draggable: true,
+                    map: map,
+                    title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
                 });
-            });
-            marker.setMap(map);
+                google.maps.event.addListener(marker, 'dragend', function (event) {
+                    var lat = this.position.lat();
+                    var lng = this.position.lng();
 
-         }
-         function BindAddressEdit() {
-                var myCenter = new google.maps.LatLng(@ViewBag.Latitude, @ViewBag.Longitude);
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            if (results[1]) {
+                                //$('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                            }
+                        }
+                    });
+                });
+                marker.setMap(map);
+            }
+        function BindAddressEdit() {
+                var myCenter = new google.maps.LatLng(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude);
                 var mapCanvas = document.getElementById("dvMapEdit");
-            var mapOptions = {
-                center: myCenter,
-                zoom: 13
-            };
-            var map = new google.maps.Map(mapCanvas, mapOptions);
-            var marker = new google.maps.Marker({
-                position: myCenter,
-                draggable: true,
-                map: map,
-                title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
-            });
-            google.maps.event.addListener(marker, 'dragend', function (event) {
-                var lat = this.position.lat();
-                var lng = this.position.lng();
-
-                var latlng = new google.maps.LatLng(lat, lng);
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                           // $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
-                        }
-                    }
+                var mapOptions = {
+                    center: myCenter,
+                    zoom: 13
+                };
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                    draggable: true,
+                    map: map,
+                    title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
                 });
-            });
-            marker.setMap(map);
+                google.maps.event.addListener(marker, 'dragend', function (event) {
+                    var lat = this.position.lat();
+                    var lng = this.position.lng();
+
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            if (results[1]) {
+                                // $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                            }
+                        }
+                    });
+                });
+                marker.setMap(map);
 
             }
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
+        </script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
+    }
 </body>
 </html>

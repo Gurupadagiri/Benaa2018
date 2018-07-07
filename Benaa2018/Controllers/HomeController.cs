@@ -65,29 +65,7 @@ namespace Benaa2018.Controllers
             return View(homeModel);
         }
 
-        public List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels,
-            List<ProjectManagerMasterViewModel> ProjectManagerMasterModels)
-        {
-            List<ProjectGridModel> lstGridModel = new List<ProjectGridModel>();
-            ProjectMasterModels.ForEach(a =>
-            {
-                lstGridModel.Add(new ProjectGridModel
-                {
-                    ProjectName = a.ProjectName,
-                    City = a.City,
-                    ManagerName = ProjectManagerMasterModels.Where(b => b.ManagerID.ToString() == a.ProjectManagerID).Select(b => b.ManagerName).FirstOrDefault(),
-                    MobileNo = a.OwnerMasterModel.MobileNo,
-                    OwnerName = a.OwnerMasterModel.OwnerName,
-                    ProjectId = a.ProjectID,
-                    State = a.State,
-                    StreetAddress = a.StreetAddress,
-                    Telephone = a.OwnerMasterModel.MobileNo,
-                    Zip = a.Zip,
-                    Active = a.OwnerMasterModel.Active
-                });
-            });
-            return lstGridModel;
-        }
+       
 
         public void ExportToExcel()
         {
