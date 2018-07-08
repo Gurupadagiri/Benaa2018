@@ -650,7 +650,7 @@
                     mappedStatus: mappedStatus,
                     searchText: searchText
                 };
-                $("#example").load('@(Url.Action("FilterProjects", "Home",null))', datainfo);
+                $("#example").load('@(Url.Action("FilterProjectsAsync", "Home",null))', datainfo);
             });
 
             $('#btnJobGroup').off('click').on('click', function () {

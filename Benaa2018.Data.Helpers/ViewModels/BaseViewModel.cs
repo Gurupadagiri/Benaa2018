@@ -16,7 +16,18 @@ namespace Benaa2018.Helper.ViewModels
             ProjectGroupModel = new ProjectGroupViewModel();
             ProjectSubcontractorConfigModel = new ProjectSubcontractorConfigViewModel();
             ProjctStatusMasterModel = new ProjctStatusMasterViewModel();
-            ProjectGridModels = new List<ProjectGridModel>();            
+            ProjectGridModels = new List<ProjectGridModel>();
+            MenuContents = new List<MenuViewModel>();
+            UserMasterModel = new UserMasterViewModel();
+            ProjectTypeMasterModels = new List<ProjectTypeMasterViewModel>();
+            ProjectGroupModels = new List<ProjectGroupViewModel>();
+            ProjectSubcontractorConfigModels = new List<ProjectSubcontractorConfigViewModel>();
+            ProjctStatusMasterModels = new List<ProjctStatusMasterViewModel>();
+            ProjectColorModels = new List<ProjectColorViewModel>();
+            CompanyMasterModel = new CompanyMasterViewModel();
+            UserMasterViewModels = new List<UserMasterViewModel>();
+            ProjectMasterModels = new List<ProjectMasterViewModel>();
+            ProjectManagerMasterModels = new List<ProjectManagerMasterViewModel>();
         }
         public UserMasterViewModel UserMasterModel { get; set; }
         public List<MenuViewModel> MenuContents { get; set; }
