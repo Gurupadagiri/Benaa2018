@@ -8,16 +8,7 @@ namespace Benaa2018.Helper.ViewModels
 {
     public class BaseViewModel : CommonViewModel
     {
-        public BaseViewModel(IMenuMasterHelper menuMasterHelper,
-            IOwnerMasterHelper ownerMasterHelper,
-            IProjectColorHelper projectColorHelper,
-            IProjectGroupHelper projectGroupHelper,
-            IProjectMasterHelper projectMasterHelper,
-            IProjectScheduleMasterHelper projectScheduleMasterHelper,
-            IProjectStatusMasterHelper projectStatusMaster,
-            ISubContractorHelper subContractorHelper,           
-            IUserMasterHelper userMasterHelper,          
-            ICompanyMasterHelper companyMasterHelper)
+        public BaseViewModel()
         {
             ProjectMasterModel = new ProjectMasterViewModel();
             OwnerMasterModel = new OwnerMasterViewModel();
