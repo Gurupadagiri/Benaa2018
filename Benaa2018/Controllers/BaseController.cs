@@ -57,9 +57,7 @@ namespace Benaa2018.Controllers
                 CompanyMasterModel = _companyMasterHelper.GetCompanyByID(1).GetAwaiter().GetResult(),
                 UserMasterViewModels = _userMasterHelper.GetAllInternalUsers().GetAwaiter().GetResult(),
                 ProjectMasterModels = _projectMasterHelper.GetAllProjectByUserId(1).GetAwaiter().GetResult(),
-                ProjectManagerMasterModels = _projectMasterHelper.GetAllManagers().GetAwaiter().GetResult(),
-                //ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels),
-                //ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels)
+                ProjectManagerMasterModels = _projectMasterHelper.GetAllManagers().GetAwaiter().GetResult()
             };
             Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
             Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
