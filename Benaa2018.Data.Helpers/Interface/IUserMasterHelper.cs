@@ -8,8 +8,11 @@ namespace Benaa2018.Helper
     {
         Task<List<UserMasterViewModel>> GetAllInternalUsers(int projectId = 0);
         Task<UserMasterViewModel> GetUserByUserId(int userId);
-        Task<LoginViewModel> GetUserByUserName(string userName);
+       Task<LoginViewModel> GetUserByUserName(string userName);
+        Task<List<UserMasterViewModel>> GetUserByUserNameInDetails(string userName);
         Task SaveUserMaterConfig(int orgId, int projectID, List<UserMasterViewModel> lstUserMasterModel);
         Task UpdateUserMaterConfig(int projectID, List<UserMasterViewModel> lstUserMasterModel);
+
+        Task<UserMasterViewModel> SaveUserMaster(UserMasterViewModel userMasterViewModel);
     }
 }

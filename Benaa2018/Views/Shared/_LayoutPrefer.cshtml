@@ -1,0 +1,1214 @@
+﻿@*@model Benaa2018.Helper.ViewModels.UserMasterViewModel*@
+@model Benaa2018.Helper.ViewModels.UserPreferenceViewModel
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewData["Title"] - SBS2018</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="images/favicon.ico">
+
+    <title>Shada</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Custom Fonts -->
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <!-- Custom CSS -->
+    <link href="~/css/jquery.multiselect.css" rel="stylesheet" />
+    <link href="~/css/responsive-tabs.css" rel="stylesheet" />
+    <link href="~/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link rel="~/stylesheet" href="css/bootstrap-datepicker3.css" />
+    <link href="~/css/style.css" rel="stylesheet">
+</head>
+<body>
+    <!--------------------- Top nav start here------------->
+
+    <nav class="navbar navbar-inverse myNav" role="navigation">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
+            </button>
+
+
+        </div>
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav navLeft">
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-home homeIcon"></span> <b class="caret caretMove"></b></a><ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#infoModal" data-original-title><span class="fa fa-info-circle"></span> Project Info</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#newProject" data-original-title><span class="fa fa-plus"></span> New Project</a></li>
+                        <li><a href="#"><span class="fa fa-file"></span> Project WBS</a></li>
+                        <li><a href="#"><span class="fa fa-map"></span> Poject Base Plan </a></li>
+                        <li><a href="#"><span class="fa fa-dollar"></span> Poject Budget</a></li>
+                        <li><a href="#"><span class="fa fa-list"></span> Project Summary</a></li>
+                        <li>
+                            <div class="grayli">
+                                <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                <a href="#" class="videoThumb"><img src="images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                    <b>Lorem Lipsum doller sit</b>
+                                    <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                </span>
+                            </div>
+                        </li>
+
+
+                    </ul>
+                </li>
+
+                <li class="dropdown inlineIcon">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Todo <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <div class="liDiv">
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-tasks"></span> <span>Task Assignment</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-calendar"></span> <span>Calender</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-thermometer-empty"></span> <span>Quality Management</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+
+                            <li class="videocontainer">
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+                        </div>
+
+                    </ul>
+
+                </li>
+
+                <li class="dropdown inlineIcon">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Tendering <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <div class="liDiv">
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-calendar-plus-o"></span> <span>Tendering Schedule</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Qualify SubCont./Supp.</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-check-square"></span> <span>Quotation Request</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-upload"></span> <span>Quotation Upload</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-thumbs-o-up"></span> <span>Quotation Analysys & Approved</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-files-o"></span> <span>Letter of Intent</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-copyright"></span> <span>Contracts Terms</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-dollar"></span> <span>Payment Schedule</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-trophy"></span> <span>Warranty</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+
+
+                            <li class="videocontainer">
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+
+
+                        </div>
+
+                    </ul>
+                </li>
+
+                <li class="dropdown inlineIcon">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Time Management <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <div class="liDiv">
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-line-chart"></span> <span>GanttActual Time</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li class="videocontainer">
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+
+
+                        </div>
+
+                    </ul>
+
+                </li>
+
+                <li class="dropdown inlineIcon">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cost Management <b class="caret"></b></a>
+
+                    <ul class="dropdown-menu">
+                        <div class="liDiv">
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Construction</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-file-text"></span> <span>Monthly Report</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-check-circle"></span> <span>Request For Changes</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-thumbs-o-up"></span> <span>Change Approval</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-dollar"></span> <span>Budget Revise</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Penalty</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Payment Request</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-sticky-note-o"></span> <span>Manager Notes</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-sticky-note"></span> <span>Client Notes</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-bar-chart"></span> <span>Finance Management</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-file-text-o"></span> <span>Reports</span> </a></div>
+                            </li>
+
+                            <li class="videocontainer">
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+
+                        </div>
+                    </ul>
+
+
+
+
+
+
+
+
+
+                </li>
+
+                <li class="dropdown inlineIcon">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Documentation <b class="caret "></b></a>
+
+
+
+                    <ul class="dropdown-menu">
+                        <div class="liDiv">
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>P.Objective</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Arch.Concept</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>P.Charter</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Spec & Drawing</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>P. Team</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Risk Analysis</span> </a></div>
+                            </li>
+
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-pie-chart"></span> <span>Project Gallery</span> </a></div>
+                            </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+                            <li class="videocontainer">
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+
+
+
+
+
+
+                        </div>
+                    </ul>
+
+
+                </li>
+
+                <li class="dropdown inlineIcon">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Communication <b class="caret "></b></a>
+
+
+
+                    <ul class="dropdown-menu">
+                        <div class="liDiv">
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-envelope"></span> <span>SMS/Email</span> </a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-gavel"></span> <span>Subcont /Supp</span> </a><a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a></div>
+                            </li>
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-users"></span> <span>Team</span> </a></div>
+                            </li>
+
+
+                            <li>
+                                <div class="inlineDiv"><a href="#" class="icontxt"><span class="fa fa-users"></span> <span>Owner</span> </a></div>
+                            </li>
+
+
+
+
+
+                            <li class="videocontainer">
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+
+
+                        </div>
+                    </ul>
+
+
+
+
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sales </a>
+
+
+                </li>
+
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-user"></span> <b class="caret caretMove"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="internalUser.html"><span class="fa fa-user"></span> Internal Users</a>
+                            <a class="plusLink" href="javascript:void(0)"><span class="fa fa-plus-square"></span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="fa fa-gavel"></span> Subs</a>
+                            <a class="plusLink" href="javascript:void(0)"><span class="fa fa-plus-square"></span></a>
+                        </li>
+                        <li>
+                            <a href="#"><span class="fa fa-address-book"></span> Customer Contacts</a>
+                            <a class="plusLink" href="javascript:void(0)"><span class="fa fa-plus-square"></span></a>
+                        </li>
+                    </ul>
+                </li>
+
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-bell"></span><b class="caret caretMove"></b>
+                    </a>
+
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-question-sign"></span> <b class="caret caretMove"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#"><span class="fa fa-phone"></span> Contact Us</a></li>
+                        <li><a href="#"><span class="fa fa-question"></span> Help Center</a></li>
+                        <li><a href="#"><span class="fa fa-refresh"></span> Recent Updates</a></li>
+                        <li><a href="#"><span class="fa fa-calendar"></span> Live Training</a></li>
+                        <li><a href="#"><span class="fa fa-book"></span> Fourm</a></li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="glyphicon glyphicon-cog"></span> <b class="caret caretMove"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#" data-toggle="modal" data-target="#setupModal" data-original-title><span class="fa fa-cogs"></span> Setup</a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#userPreference" data-original-title><span class="fa fa-user"></span> My User Preferences</a></li>
+                        <li><a href="#"><span class="fa fa-sign-out"></span> Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </nav>
+
+    <!--------------------- Top nav end here------------->
+    <!--------------------- Logo header start here------------->
+
+    <div class="container-fluid logoBar">
+        <div class="row">
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
+                <div class="logoContainer" style="display:none;">
+                    <a href="login.html"><img class="img-responsive" src="images/logo1.jpg"></a>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+                <div class="phoneContainer">
+                    00956048752136
+                </div>
+            </div>
+
+
+            <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+                <div class="jobrunningTotal">
+                    Job Running Total : $250,000,000
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!--------------------- Logo header end here------------->
+
+    @RenderBody()
+
+    @using (Html.BeginForm("UserPreferences", "Home", FormMethod.Post))
+    {
+        <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-lg modalWidth1200">
+                <div class="panel panel-primary customPopup">
+                    <div class="panel-heading themeColor">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="panel-title" id="contactLabel">Internal User Details</h4>
+                    </div>
+                    <div id="errorDiv" style="color:red;display:none">
+                        <input style="color:red" type="text" disabled="disabled" id="txtErrorMessage" />
+                    </div>
+
+                    <div class="panel-body">
+
+                        <div class="userPreferenceHolder">
+                            <div class="col-md-12 saveButtonHolder">
+                                <input type="submit" name="" value="Save" id="" class="blueButton button-save">
+                            </div>
+                            <div class="logInHolder">
+                                <div class="logInLeft col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.LabelFor(a => a.usermasters.UserFirstName)
+                                        @Html.TextBoxFor(a => a.usermasters.UserFirstName, "this is default value", new { maxlength = 50, @class = "inputClass" })
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.LabelFor(a => a.usermasters.UserLastName)
+                                        @Html.TextBoxFor(a => a.usermasters.UserLastName, "this is default value", new { maxlength = 50, @class = "inputClass" })
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        @Html.LabelFor(a => a.usermasters.UserEmail)
+                                        @Html.TextBoxFor(a => a.usermasters.UserEmail, "this is default value", new { maxlength = 50, size = 10, @class = "form-control input-lg" })
+
+                                        <div style="width: 115px; float: right;">
+                                            @*<span class="contactLabel"><input type="checkbox" name="" checked="checked" onclick="AdminDetailPage.OnChangeChkUserEnable(this);"><label for="">User Enabled</label></span>*@
+                                            <span class="contactLabel">
+                                                @Html.CheckBoxFor(a => a.usermasters.UserEnabled) @Html.LabelFor(a => a.usermasters.UserEnabled)
+                                                <a href="javascript:void(0);" id="" class="ToolTip  " data-tooltip="Unchecking User Enabled will no longer allow this user login access to Buildertrend.  It will also remove this user from all active lists, however, all historical data will remain." data-hasqtip="0" aria-describedby="qtip-0"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.LabelFor(a => a.usermasters.UserName)
+                                        @Html.TextBoxFor(a => a.usermasters.UserName, "this is default value", new { maxlength = 50, size = 10, @class = "inputClass" })
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12 passwordHolder">
+                                        <div style="width: 115px; float: right;">
+                                            @*<span class="contactLabel"><input type="checkbox" name="" checked="checked" onclick="AdminDetailPage.OnChangeChkUserEnable(this);"><label for="">User Enabled ?</label></span>*@
+                                            <a href="javascript:void(0);" id="" class="ToolTip  " data-tooltip="Unchecking User Enabled will no longer allow this user login access to Buildertrend.  It will also remove this user from all active lists, however, all historical data will remain." data-hasqtip="0" aria-describedby="qtip-0"></a>
+                                        </div>
+                                        @Html.LabelFor(a => a.usermasters.UserPassword)
+                                        @Html.PasswordFor(a => a.usermasters.UserPassword, new { maxlength = 50, size = 10, @class = "inputClass" })
+                                        @*<input type="password" name="flasttname" class="inputClass" />*@
+                                        @*<input type="submit" value="Reset" class="ResetButton" />*@
+                                        <button type="button" class="ResetButton">Login</button>
+
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label>Forum Handle</label>
+                                        <input type="text" name="forumhandle" class="inputClass" />
+
+                                        <div style="width: 115px; float: right;">
+                                            <span class="contactLabel"><input type="checkbox" name="" checked="checked" onclick="AdminDetailPage.OnChangeChkUserEnable(this);"><label for="">User Enabled</label></span>
+                                            <a href="javascript:void(0);" id="" class="ToolTip  " data-tooltip="Unchecking User Enabled will no longer allow this user login access to Buildertrend.  It will also remove this user from all active lists, however, all historical data will remain." data-hasqtip="0" aria-describedby="qtip-0"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="logInRght col-md-6 col-sm-6 col-xs-12">
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.LabelFor(a => a.usermasters.UserPhone)
+                                        @*<input type="phone" name="firstname" class="inputClass" />*@
+                                        @Html.TextBoxFor(a => a.usermasters.UserPhone, "this is default value", new { maxlength = 50, @class = "inputClass", @type = "phone", @name = "firstname" })
+                                    </div>
+                                    <div class="col-md-6 col-sm-6 col-xs-12">
+                                        @Html.LabelFor(a => a.usermasters.UserCellEmail)
+                                        @*<input type="text" name="cell" class="inputClass" />*@
+                                        @Html.TextBoxFor(a => a.usermasters.UserCellEmail, "this is default value", new { maxlength = 50, @class = "inputClass", @type = "text", @name = "cell" })
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label>Contact Info:</label>
+                                        <input type="text" name="forumhandle" class="inputClass" />
+                                    </div>
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <label>Default Time Clock Labor Code:</label>
+                                        <input type="text" name="forumhandle" class="inputClass" />
+
+                                        <div style="width: 115px; float: right;">
+                                            <span class="contactLabel"><input type="checkbox" name="" checked="checked" onclick="AdminDetailPage.OnChangeChkUserEnable(this);"><label for="">User Enabled</label></span>
+                                            <a href="javascript:void(0);" id="" class="ToolTip  " data-tooltip="Unchecking User Enabled will no longer allow this user login access to Buildertrend.  It will also remove this user from all active lists, however, all historical data will remain." data-hasqtip="0" aria-describedby="qtip-0"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div id="" class="spacing contactLabel">
+                                            <label class="adminLabel" for="inputDefaultLaborCost">Default Labor Cost:</label>
+
+                                            <span class="currencySymbol">ر.س.&rlm;</span>
+
+
+                                            <input name="" type="text" value="0.00" maxlength="9" size="7" id="" class="flatTextBox">
+
+                                            <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_ttDefaultLaborCost_hrefToolTip" class="ToolTip " data-tooltip="<div style='width: 200px;'>This allows you to associate a fixed cost rate to a specific internal user. Hourly Rate Tracking needs to be set to &quot;By User&quot; within Time Clock Setup.</div>" data-hasqtip="4"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div id="" class="spacing contactLabel alertMessage">
+                                            <div class="adminLabel">Alert when</div>
+
+                                            <div id="" class="alertInput">
+                                                <input name="" type="text" value="2" size="3" id="" class="flatTextBox" style="text-align: center;">
+                                                <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="The # of schedule items is correlated to the # of simultaneous schedule items that can occur for this User." data-hasqtip="5"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+                                            </div>
+
+                                            <div class="moretext">or more schedule items conflict</div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="contactLabel">
+                                            <span class="jobsiteText">
+                                                <input id="" type="checkbox" name="" checked="checked">
+                                                <label for="">Automatic Access &amp; Notifications on NEW Jobs</label>
+                                            </span>
+                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="Give this user automatic viewing access and notifications for all NEW Jobs. <br /><br /><a href='https://buildertrendsupport.zendesk.com/hc/en-us/categories/200192875-Users' target='blank'>Click Here</a> for the Online Admin tutorial." data-hasqtip="6"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <div class="tabHolder">
+
+                                    <div class="col-md-12">
+                                        <div class="tabHeading">
+                                            <img id="" src="images/edit.gif" style="border-width:0px;float: left; margin-top: 3px; margin-right: 5px;">Custom Fields<span style="font-weight: normal;">(0)</span>
+                                            <span id="spValidationErrors" style="font-weight: normal; font-size: 12px; color: rgb(195, 0, 0); display: none;"></span>
+                                            <div style="clear: both"></div>
+                                        </div>
+
+                                    </div>
+                                    <p>Admin users can add custom fields for Internal Users in Setup.</p>
+                                    <div class="mainTab">
+
+                                        <ul class="nav nav-tabs">
+                                            <li class="active"><a data-toggle="tab" href="#home">Detailed Permissions</a></li>
+                                            <li><a data-toggle="tab" href="#menu1">Jobsite Access</a></li>
+                                            <li><a data-toggle="tab" href="#menu2">User Preferences</a></li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div id="home" class="tab-pane fade in active">
+                                                <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                                    <div class="innerPermission">
+                                                        <div class="tableTitle text">Permissions</div>
+                                                        <span style="padding-left: 0px; float: left; padding: 13px 0 0 5px;">
+                                                            <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_Tooltip3_hrefToolTip" class="ToolTip  " data-tooltip="The <b>User Permissions</b> allow you to regulate your users access to information.<br><br>No matter if you are adding an internal employee, realtor, or any other professional associate, you can make sure they only see and get notified of information on tabs that relate to them. <br><br><a href='https://buildertrendsupport.zendesk.com/hc/en-us/categories/200192875-Users' target='_blank'>Click Here</a> for the online Admin tutorial" data-hasqtip="7"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+
+                                                        </span>
+                                                        <div class="tabAlertBtnHolder" data-toggle="modal" data-target="#tabAlertBtnHolderBox" data-original-title="" style="float: right; padding: 6px 5px 0 0;">
+                                                            <input type="submit" name="" value="Import Permissions" id="" title="Import Permissions From Another User" class="mainButton">
+                                                        </div>
+                                                    </div>
+                                                    <div class="permissionTD" style="padding: 10px;">
+                                                        <div class="permissionTDHolder">
+
+                                                            <ul>
+                                                                <li class="checkAll view">
+                                                                    <div class="adminLabel">View</div>
+                                                                    @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
+                                                                    @Html.CheckBoxFor(a=>a.permissions.IsViewAll, new {@id= "chkAllView" })
+                                                                </li>
+                                                                <li class="checkAll add">
+                                                                    <div class="adminLabel">Add</div>
+                                                                    @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsAddAll, new { @id = "chkAllAdd" })
+                                                                </li>
+                                                                <li class="checkAll edit">
+                                                                    <div class="adminLabel">Edit</div>
+                                                                    @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsEditall, new { @id = "chkAllEdit" })
+                                                                </li>
+                                                                <li class="checkAll delete">
+                                                                    <div class="adminLabel">Delete</div>
+                                                                    @*<input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">*@
+
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsDeleteAll, new { @id = "chkAllDelete" })
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                                    <div class="innerPermission">
+                                                        <div class="tableTitle text">Notifications</div>
+                                                        <div class="tabAlertBtnHolder" style="float: right; padding: 6px 5px 0 0;">
+                                                            <input type="submit" name="" value="Import Permissions" id="" title="Import Permissions From Another User" class="mainButton">
+                                                        </div>
+                                                    </div>
+                                                    <div class="permissionTD" style="padding: 10px;">
+                                                        <div class="permissionTDHolder">
+
+                                                            <ul>
+                                                                <li class="checkAll view">
+                                                                    <div class="adminLabel">Email</div>
+                                                                    @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsEmailAll, new { @id = "chkEmailAll" })
+
+                                                                </li>
+                                                                <li class="checkAll add">
+                                                                    <div class="adminLabel">Text</div>
+                                                                    @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsEmailAll, new { @id = "IsTextAll" })
+                                                                </li>
+                                                                <li class="checkAll edit">
+                                                                    <div class="adminLabel">Push</div>
+
+                                                                    @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsPushOn, new { @id = "IsPushAll" })
+                                                                </li>
+                                                                <li class="checkAll delete">
+                                                                    <div class="adminLabel">All Users</div>
+                                                                    @*<input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsAllUsers, new { @id = "IsAllUsers" })
+                                                                </li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="permissionCheckBoxHolder row">
+                                                    <div class="col-md-12 col-sm-12 col-xs-12 chHolder odd">
+                                                        <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                                            <div class="permissionTD">
+                                                                <div class="fieldHeader">Job Info</div>
+                                                                <div class="permissionTDHolder">
+
+                                                                    <ul>
+                                                                        <li class="checkAll view">
+                                                                            @*<input id="" type="checkbox" title="View">*@
+                                                                            @Html.CheckBoxFor(a => a.permissions.IsJobInfoView, new { @class = "IsChkView" })
+                                                                        </li>
+                                                                        <li class="checkAll add">
+                                                                            @*<input id="" type="checkbox" title="Add">*@
+                                                                            @Html.CheckBoxFor(a => a.permissions.IsJobInfoAdd, new { @class = "IsChkAdd" })
+                                                                        </li>
+                                                                        <li class="checkAll edit">
+                                                                            @*<input id="" type="checkbox" title="Edit">*@
+                                                                            @Html.CheckBoxFor(a => a.permissions.IsJobInfoEdit, new { @class = "IsChkEdit" })
+                                                                        </li>
+                                                                        <li class="checkAll delete">
+                                                                            @*<input id="" type="checkbox" title="Delete">*@
+                                                                            @Html.CheckBoxFor(a => a.permissions.IsJobInfodelete, new { @class = "IsChkDelete" })
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="checkboxLine">
+                                                                    @*<input id="" type="checkbox" name="" checked="checked">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsViewOwnerSite)
+                                                                    View Owner Site
+                                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                                    </a>
+                                                                </div>
+                                                                <div class="checkboxLine">
+                                                                    @*<input id="" type="checkbox" name="" checked="checked">*@
+                                                                    @Html.CheckBoxFor(a => a.permissions.IsPriceViewing)
+                                                                    Price Viewing
+                                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                                            <div class="permissionTD">
+                                                                <div class="fieldHeader" style="float: left">Owner Activated</div>
+                                                                <div class="permissionTDHolder">
+
+                                                                    <ul>
+                                                                        <li class="checkAll view">
+                                                                            @*<input id="" type="checkbox" title="View">*@
+                                                                            @Html.CheckBoxFor(a => a.permissions.IsOwnerActivatedEmail, new { @class = "IsChkNotifyEmail" })
+                                                                        </li>
+
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="menu1" class="tab-pane fade">
+                                                <fieldset class="fieldset">
+                                                    <legend>Filter Your Results </legend>
+                                                    <section class="filtersContainer">
+                                                        test <br>test <br>test <br>test <br>
+                                                        <button class="blueButton" data-bind="click: updateResults">Update Results</button>
+                                                        <button class="mainButton" data-bind="click: resetFilters">Reset</button>
+                                                    </section>
+                                                </fieldset>
+                                                <table class="jobsiteTable" cellspacing="0" border="0" width="100%">
+                                                    <tr>
+                                                        <th>
+                                                            <div class="jobsiteCenter ">
+                                                                <div>Access</div>
+                                                                <input id="chkJob" type="checkbox"
+                                                                       title="Check all Jobs">
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="jobsiteCenter">
+                                                                <div>Notifications</div>
+                                                                <input id="" type="checkbox" title="Check all Jobs">
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="jobname">
+                                                                <div>Job name</div>
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="jobname">
+                                                                <div>Job Status</div>
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="jobname">
+                                                                <div>Job Group</div>
+                                                            </div>
+                                                        </th>
+                                                        <th>
+                                                            <div class="jobname">
+                                                                <div>Open Date</div>
+                                                            </div>
+                                                        </th>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="jobsiteCenter ">
+                                                                <input id="chkJob" type="checkbox"
+                                                                       title="Check all Jobs">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="jobsiteCenter">
+                                                                <input id="" type="checkbox" title="Check all Jobs">
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="jobname">
+                                                                <div>al shatee</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="jobname">
+                                                                <div>open</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="jobname">
+                                                                <div>hotel</div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div class="jobname">
+                                                                <div> 06/07/18</div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
+
+
+                                        </div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+    <script src="~/js/jquery-1.12.4.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="~/js/jquery.dataTables.min.js"></script>
+    <script src="~/js/dataTables.buttons.min.js"></script>
+    <script src="~/js/jszip.min.js"></script>
+    <script src="~/js/pdfmake.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/responsive-tabs.js"></script>
+    <script src="~/js/jquery.multiselect.js"></script>
+    <script src="~/js/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript">
+            $(document).ready(function () {
+                if (@ViewBag.result== 1) {
+
+                    $('#userPreference').modal('show');
+                    $('#errorDiv').show();
+                    $('#txtErrorMessage').text("Please put all necessary information");
+                }
+                else if (@ViewBag.result== 2) {
+
+                    $('#userPreference').modal('show');
+                    $('#errorDiv').show();
+                    $('#txtErrorMessage').text("User Name already exists");
+                }
+                else {
+
+                    //$('#userPreference').modal('show');
+                    //$('#errorDiv').show();
+                    //$('#txtErrorMessage').text("Error occurred");
+                }
+            });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+            var table = $('#example').DataTable({
+                dom: "<'row'<'col-sm-4'l><'col-sm-4'p><'col-sm-4'f>>" +
+                    "<'row'<'col-sm-12 tabelHolder'tr>>" +
+                    "<'row'<'col-sm-4'i><'col-sm-4'p>>",
+
+
+
+            });
+
+
+
+        });
+    </script>
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('[data-toggle="popover"]').popover({ html: true });
+            //$('[data-toggle="tooltip"]').tooltip();
+            $(".closeModal").click(function () {
+                $("#groupAddModal").hide();
+            });
+
+            $(".closeModal").click(function () {
+                $("#groupMinusModal").hide();
+            });
+            $(".closeModal").click(function () {
+                $("#locationModal").hide();
+            });
+
+
+
+        });
+    </script>
+
+    <script>
+
+
+
+
+        $(function () {
+            //var mainDIV = $( ".mainContentDiv" ).css('margin-left');
+            //alert(mainDIV);
+
+            var mmWidth = $(".mainContentDiv").outerWidth();
+            var lftNavWidth = $("#leftNavCon").outerWidth();
+            var curentmmWidth = mmWidth - lftNavWidth;
+            //alert(curentmmWidth)
+            $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+
+            $('.openIcon').click(function () {
+                if ($(this).hasClass('openSlide')) {
+                    $(".mainContentDiv").css({ marginLeft: "20px" });
+                    $("#leftNavCon").css({ marginLeft: -lftNavWidth });
+                    $(".openIcon").css({ right: '-23px' });
+                    $(this).removeClass('openSlide').addClass('closeSlide');
+                    $('.leftOuterBtn').show();
+
+                }
+                else {
+                    $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                    $("#leftNavCon").css({ marginLeft: "0px" });
+                    $(".openIcon").css({ right: '-8px' });
+                    $(this).removeClass('closeSlide').addClass('openSlide');
+                    $('.leftOuterBtn').hide();
+                }
+            });
+
+
+
+
+
+
+            $('.leftOuterBtn').click(function () {
+                $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                $("#leftNavCon").css({ marginLeft: "0px" });
+                $(".openIcon").css({ right: '-23px' });
+                $(".openIcon").removeClass('closeSlide').addClass('openSlide');
+                $(this).hide();
+
+            });
+
+
+
+
+
+        });
+
+    </script>
+
+
+
+
+
+    <script>
+        $(document).ready(function () {
+            var date_input = $('input[name="date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            })
+        })
+    </script>
+
+
+
+    <script>
+        // tooltip demo
+        $('.tooltip-div').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        });
+    </script>
+    <script>
+        $('.withCheckbox').multiselect({
+            columns: 1,
+            placeholder: '--Select--',
+            search: true,
+            selectAll: true
+        });
+
+        $('.noCheckbox').multiselect({
+            columns: 1,
+            placeholder: '--Select--',
+            search: true,
+            showCheckbox: false  // display the checkbox to the user
+        });
+
+        $('.noCheckboxSearch').multiselect({
+            columns: 1,
+            placeholder: '--Select--',
+            search: false,
+            showCheckbox: false  // display the checkbox to the user
+        });
+
+
+
+
+
+
+    </script>
+
+
+    <script>
+
+        $(function () {
+            // Could also be ['.sort-me', '#also-sort-me']
+            $('.sort-me').sortable({ connectWith: '.sort-me' });
+            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
+        });
+
+        $(function () {
+            // Could also be ['.sort-me', '#also-sort-me']
+            $('.sort-me1').sortable({ connectWith: '.sort-me1' });
+            $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
+        });
+
+
+
+
+    </script>
+
+
+
+    <script>
+
+
+
+        $(document).ready(function (e) {
+
+            //$('#InternalUser').modal('show');
+
+            $('.myColse').click(function () {
+                $(this).parent().parent().parent().hide();
+            });
+
+
+
+
+
+
+            $('.grayClose').click(function (e) {
+                //$(this).parent().parent().parent().addClass('blockUL');
+                $(this).parent().parent().hide();
+                //alert('Video is going to remove')
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+            $(".myPlus").click(function (e) {
+                $(".myPlusContainer").show();
+
+                $(".myFilterContainer").hide();
+                $(".mySortContainer").hide();
+
+
+                e.stopPropagation();
+
+
+            });
+
+            $(".myPlusContainer").click(function (e) {
+                e.stopPropagation();
+            });
+
+            $(document).click(function () {
+                $(".myPlusContainer").hide();
+            });
+
+
+
+            $(".myFilter").click(function (e) {
+                $(".myFilterContainer").show();
+
+                $(".myPlusContainer").hide();
+                $(".mySortContainer").hide();
+
+                e.stopPropagation();
+            });
+
+            $(".myFilterContainer").click(function (e) {
+                e.stopPropagation();
+            });
+
+            $(document).click(function () {
+                $(".myFilterContainer").hide();
+            });
+
+
+
+            $(".mySort").click(function (e) {
+                $(".mySortContainer").show();
+
+                $(".myPlusContainer").hide();
+                $(".myFilterContainer").hide();
+
+                e.stopPropagation();
+            });
+
+            $(".mySortContainer").click(function (e) {
+                e.stopPropagation();
+            });
+
+            $(document).click(function () {
+                $(".mySortContainer").hide();
+            });
+
+
+
+
+
+            $('.allJobs').click(function (e) {
+                $('.view').show();
+                $('.projectNameContainer').hide();
+                $('.allJobs').addClass('active');
+                $('.allProject').removeClass('active');
+
+            });
+
+            $('.allProject').click(function (e) {
+                $('.projectNameContainer').show();
+                $('.view').hide();
+                $('.allProject').addClass('active');
+                $('.allJobs').removeClass('active');
+            });
+
+
+
+
+
+
+            $("ul.nav-tabs a").click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+
+
+
+        });
+
+
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#chkAllView').click(function () {
+                $(this).prop('checked') == true){
+                $(this).prop('checked', false);
+                $('.IsChkView').prop('checked', false);
+            }
+            else {
+                $(this).prop('checked', true);
+                $('.IsChkView').prop('checked', true);
+
+            }
+            });
+        });
+    </script>
+
+</body>
+</html>

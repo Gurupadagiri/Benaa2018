@@ -74,6 +74,7 @@ namespace Benaa2018
             services.AddTransient<IProjectColorRepoisitory, ProjectColorRepoisitory>();
             services.AddTransient<ICompanyMasterRespository, CompanyMasterRespository>();
             services.AddTransient<ICompanyMasterHelper, CompanyMasterHelper>();
+            services.AddTransient<IDetaildPermissionRepository, DetaildPermissionRepository>();
 
             services.AddTransient<IMenuMasterHelper, MenuMasterHelper>();
             services.AddTransient<IOwnerMasterHelper, OwnerMasterHelper>();
@@ -86,7 +87,8 @@ namespace Benaa2018
             services.AddTransient<IToDoMasterHelper, ToDoMasterHelper>();
             services.AddTransient<IUserMasterHelper, UserMasterHelper>();
             services.AddTransient<IWarrentyAlertHelper, WarrentyAlertHelper>();
-            
+            services.AddTransient<IDetaildPermissionHelper, DetaildPermissionHelper>();
+
             services.AddMvc();
         }
 
@@ -109,7 +111,7 @@ namespace Benaa2018
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Login}/{action=Index}/{id?}");
+                    template: "{controller=Home}/{action=UserPreferences}/{id?}");
             });
         }
     }

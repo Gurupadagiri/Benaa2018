@@ -121,5 +121,62 @@ namespace Benaa2018.Helper
                 }                
             }
         }
+
+
+        public async Task<List<UserMasterViewModel>> GetUserByUserNameInDetails(string userName)
+        {
+            List<UserMasterViewModel> lstUserMasterModel = new List<UserMasterViewModel>();
+            IEnumerable<UserMaster> lstUserMaster = null;
+            lstUserMaster = await _userMasterRepository.GetAllAsync();
+            lstUserMaster = lstUserMaster.Where(a => a.UserName == userName).ToList();
+            if (lstUserMaster != null)
+            {
+                foreach (var item in lstUserMaster)
+                {
+                    lstUserMasterModel.Add(new UserMasterViewModel
+                    {
+                        UserName = item.UserName,
+                        UserPassword = item.Password
+                    });
+                }
+            }
+            return lstUserMasterModel;
+        }
+
+
+        public async Task<UserMasterViewModel> SaveUserMaster(UserMasterViewModel userMasterViewModel)
+        {
+            UserMaster userConfig = new UserMaster
+            {
+                User_First_Name = userMasterViewModel.UserFirstName,
+                User_Last_Name = userMasterViewModel.UserLastName,
+                User_Email = userMasterViewModel.UserEmail,
+                User_Enabled = userMasterViewModel.UserEnabled,
+                User_Login_Enabled = userMasterViewModel.UserLoginEnabled,
+                User_Phone = userMasterViewModel.UserPhone,
+                User_Cell_Email = userMasterViewModel.UserCellEmail,
+                User_Contact_Info = userMasterViewModel.UserContactInfo,
+                User_Default_Time_Clock = userMasterViewModel.UserDefaultTimeClock,
+                User_Default_Labour_Cost = userMasterViewModel.UserDefaultLabourCost,
+                User_Is_Alert = userMasterViewModel.UserIsAlert,
+                User_Alert_Schedule = userMasterViewModel.UserAlertSchedule,
+                User_Is_Automatic_Access = userMasterViewModel.UserIsAutomaticAccess,
+                UserName = userMasterViewModel.UserName,
+                Password = userMasterViewModel.UserPassword,
+                User_Is_Forum_Handle = userMasterViewModel.UserIsForumHandle,
+                User_Forum_Handle = userMasterViewModel.UserForumHandle,
+                Created_By = "aaaa",
+                Modified_By = "aaa",
+                Created_Date = DateTime.Today,
+                Modified_Date = DateTime.Today
+            };
+            var userObj = await _userMasterRepository.CreateAsync(userConfig);
+            UserMasterViewModel userMasterViewModel1 = new UserMasterViewModel
+            {
+                UserID = Convert.ToInt32(userObj.UserID)
+            };
+
+            return userMasterViewModel1;
+        }
     }
 }
