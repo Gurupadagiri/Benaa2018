@@ -28,7 +28,7 @@ namespace Benaa2018.Helper
                     MenuUrl = string.Empty,
                     CssClass = item.CssClass
                 };
-                var menusByID = await _menuMasterRepoisitory.GetMenuItemsById(item.Menu_ID);
+                var menusByID = _menuMasterRepoisitory.GetMenuItemsById(item.Menu_ID);
                 menusByID.ForEach(menu =>
                 {
                     MenuViewModel subMenuModel = new MenuViewModel

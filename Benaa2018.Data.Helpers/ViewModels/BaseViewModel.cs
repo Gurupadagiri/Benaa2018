@@ -8,16 +8,7 @@ namespace Benaa2018.Helper.ViewModels
 {
     public class BaseViewModel : CommonViewModel
     {
-        public BaseViewModel(IMenuMasterHelper menuMasterHelper,
-            IOwnerMasterHelper ownerMasterHelper,
-            IProjectColorHelper projectColorHelper,
-            IProjectGroupHelper projectGroupHelper,
-            IProjectMasterHelper projectMasterHelper,
-            IProjectScheduleMasterHelper projectScheduleMasterHelper,
-            IProjectStatusMasterHelper projectStatusMaster,
-            ISubContractorHelper subContractorHelper,           
-            IUserMasterHelper userMasterHelper,          
-            ICompanyMasterHelper companyMasterHelper)
+        public BaseViewModel()
         {
             ProjectMasterModel = new ProjectMasterViewModel();
             OwnerMasterModel = new OwnerMasterViewModel();
@@ -25,18 +16,7 @@ namespace Benaa2018.Helper.ViewModels
             ProjectGroupModel = new ProjectGroupViewModel();
             ProjectSubcontractorConfigModel = new ProjectSubcontractorConfigViewModel();
             ProjctStatusMasterModel = new ProjctStatusMasterViewModel();
-            ProjectGridModels = new List<ProjectGridModel>();
-            MenuContents = menuMasterHelper.GetMenuItems().GetAwaiter().GetResult();
-            UserMasterModel = userMasterHelper.GetUserByUserId(1).GetAwaiter().GetResult();
-            ProjectTypeMasterModels = projectMasterHelper.GetAllProjectType().GetAwaiter().GetResult();
-            ProjectGroupModels = projectGroupHelper.GetProjectGroupByUserID(1).GetAwaiter().GetResult();
-            ProjectSubcontractorConfigModels = subContractorHelper.GetAllSubContractorByOrg(1).GetAwaiter().GetResult();
-            ProjctStatusMasterModels = projectStatusMaster.GetAllProjectStatus().GetAwaiter().GetResult();
-            ProjectColorModels = projectColorHelper.GetAllProjectColor().GetAwaiter().GetResult();
-            CompanyMasterModel = companyMasterHelper.GetCompanyByID(1).GetAwaiter().GetResult();
-            UserMasterViewModels = userMasterHelper.GetAllInternalUsers().GetAwaiter().GetResult();
-            ProjectMasterModels = projectMasterHelper.GetAllProjectByUserId(1).GetAwaiter().GetResult();
-            ProjectManagerMasterModels = projectMasterHelper.GetAllManagers().GetAwaiter().GetResult();
+            ProjectGridModels = new List<ProjectGridModel>();            
         }
         public UserMasterViewModel UserMasterModel { get; set; }
         public List<MenuViewModel> MenuContents { get; set; }

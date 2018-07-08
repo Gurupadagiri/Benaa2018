@@ -12,9 +12,9 @@ namespace Benaa2018.Data.Repository
     {
         public MenuMasterRepository(SBSDbContext context) : base(context) { }
 
-        public async Task<List<MenuMaster>> GetMenuItemsById(int menuId)
+        public List<MenuMaster> GetMenuItemsById(int menuId)
         {
-            return await Task.Factory.StartNew(() => _context.MenuMasters.Where(a => a.PatentId == menuId).ToList());            
+            return _context.MenuMasters.Where(a => a.PatentId == menuId).ToList();            
         }
     }
 }

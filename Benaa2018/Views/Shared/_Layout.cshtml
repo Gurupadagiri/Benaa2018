@@ -861,11 +861,11 @@
                 defaultDate: '2018-03-12',
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
-                eventLimit: true, // allow "more" link when too many events
-               
+                eventLimit: true, // allow "more" link when too many events               
                 eventClick: function (event) {
                     $('#calendarmodal').addClass('in').css('display', 'block');
                 },
+                eventColor: '#378006',
                 events: [
                     {
                         title: 'All Day Event',
@@ -883,8 +883,10 @@
                     }
                 ]
             });
-            $('.fc-content-skeleton td').on('click', function () { 
-                $('#calendarmodalgeneral').addClass('in').css('display', 'block');
+            $('.fc-content-skeleton td').on('click', function () {
+                if ($(this).attr('class') === undefined) {
+                    $('#calendarmodalgeneral').addClass('in').css('display', 'block');
+                }                
             });
         });
         </script>

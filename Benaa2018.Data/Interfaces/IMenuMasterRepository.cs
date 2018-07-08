@@ -8,6 +8,6 @@ namespace Benaa2018.Data.Interfaces
 {
     public interface IMenuMasterRepository : IRepository<MenuMaster>
     {
-        Task<List<MenuMaster>> GetMenuItemsById(int menuId);
+        List<MenuMaster> GetMenuItemsById(int menuId);
     }
 }
