@@ -133,18 +133,18 @@ namespace Benaa2018.Controllers
             return Json("success");
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> FilterProjectDetailsAsync(string[] projectGroupId, string[] managerID)
-        //{
-        //    BaseViewModel homeViewModel = new BaseViewModel
-        //    {
-        //        ProjectMasterModels = await _projectMasterHelper.FilterProjectInfo(projectGroupId, managerID),
-        //        ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
-        //        ProjectGroupModels = await _projectGroupHelper.GetProjectGroupByUserID(1),
-        //        ToDoMasterModels = await _toDoMasterHelper.GetAllToDoList()
-        //    };
-        //    return PartialView("_leftMenu", homeViewModel);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> FilterProjectDetailsAsync(string[] projectGroupId, string[] managerID)
+        {
+            BaseViewModel homeViewModel = new BaseViewModel
+            {
+                ProjectMasterModels = await _projectMasterHelper.FilterProjectInfo(projectGroupId, managerID),
+                ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
+                ProjectGroupModels = await _projectGroupHelper.GetProjectGroupByUserID(1),
+                //ToDoMasterModels = await _toDoMasterHelper.GetAllToDoList()
+            };
+            return PartialView("_leftMenu", homeViewModel);
+        }
 
         [HttpPost]
         public async Task<IActionResult> FilterToDoListAsync(int days)
@@ -156,19 +156,21 @@ namespace Benaa2018.Controllers
             return PartialView("_toDoList", homeViewModel);
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> FilterProjectsAsync(string[] projectGroups,
-        //    string[] projectManagers,
-        //    string[] status,
-        //    string[] projectTypes,
-        //    string searchKeyWord,
-        //    string[] mappedStatus,
-        //    string searchText)
-        //{
-        //    BaseViewModel homeViewModel = new BaseViewModel();
-        //    homeViewModel.ProjectMasterModels = await _projectMasterHelper.FilterProjectResults(projectGroups, projectManagers, status, projectTypes, searchKeyWord, mappedStatus, searchText);
-        //    return PartialView("_infoModel", homeViewModel);
-        //}
+        [HttpPost]
+        public async Task<IActionResult> FilterProjectsAsync(string[] projectGroups,
+            string[] projectManagers,
+            string[] status,
+            string[] projectTypes,
+            string searchKeyWord,
+            string[] mappedStatus,
+            string searchText)
+        {
+            BaseViewModel homeViewModel = new BaseViewModel
+            {
+                ProjectMasterModels = await _projectMasterHelper.FilterProjectResults(projectGroups, projectManagers, status, projectTypes, searchKeyWord, mappedStatus, searchText)
+            };
+            return PartialView("_infoModel", homeViewModel);
+        }
 
         [HttpPost]
         public async Task<JsonResult> GetProjectDetailsbyProjectIdAsync(int projectId)
