@@ -40,7 +40,7 @@ namespace Benaa2018.Helper
             if (projectId != 0)
             {
                 lstProjectUser = await _projectUserIntConfigMasterRepository.GetAllAsync();
-                lstProjectUser = lstProjectUser. Where(a => a.Project_ID == projectId).ToList();
+                lstProjectUser = lstProjectUser.Where(a => a.Project_ID == projectId).ToList();
             }
             userInfo.ToList().ForEach(item =>
             {
@@ -57,21 +57,24 @@ namespace Benaa2018.Helper
             return lstUserMasterModel;
         }
 
-        public async Task<LoginViewModel> GetUserByUserName(string userName)
+        public async Task<List<UserMasterViewModel>> GetUserByUserName(string userName)
         {
-            LoginViewModel userInfo = new LoginViewModel();
-            var user = await _userMasterRepository.GetAllAsync();
-            user = user.Where(a => a.UserName == userName);
-            if (user != null)
+            List<UserMasterViewModel> lstUserMasterModel = new List<UserMasterViewModel>();
+            IEnumerable<UserMaster> lstUserMaster = null;
+            lstUserMaster = await _userMasterRepository.GetAllAsync();
+            lstUserMaster = lstUserMaster.Where(a => a.UserName == userName).ToList();
+            if(lstUserMaster!=null)
             {
-                userInfo = new LoginViewModel
+                foreach(var item in lstUserMaster)
+                { 
+                lstUserMasterModel.Add(new UserMasterViewModel
                 {
-                    UserId = user.FirstOrDefault().UserID,
-                    Password = user.FirstOrDefault().Password,
-                    UserName = user.FirstOrDefault().UserName
-                };
+                    UserName=item.UserName,
+                    UserPassword=item.Password
+                });
+                }
             }
-            return userInfo;
+            return lstUserMasterModel;
         }
 
         public async Task<UserMasterViewModel> GetUserByUserId(int userId)
@@ -91,7 +94,7 @@ namespace Benaa2018.Helper
             return userInfo;
         }
 
-        public async Task SaveUserMaterConfig(int orgId,int projectID, List<UserMasterViewModel> lstUserMasterModel)
+        public async Task SaveUserMaterConfig(int orgId, int projectID, List<UserMasterViewModel> lstUserMasterModel)
         {
             foreach (var item in lstUserMasterModel)
             {
@@ -101,7 +104,7 @@ namespace Benaa2018.Helper
                     Project_ID = projectID,
                     Recive_Notification = item.JobNotification,
                     UserID = item.UserID,
-                    View_Access= item.ViewAccess
+                    View_Access = item.ViewAccess
                 };
                 await _projectUserIntConfigMasterRepository.CreateAsync(userConfig);
             }
@@ -118,31 +121,9 @@ namespace Benaa2018.Helper
                     projetUserInfo.Recive_Notification = item.JobNotification;
                     projetUserInfo.View_Access = item.ViewAccess;
                     await _projectUserIntConfigMasterRepository.UpdateAsync(projetUserInfo);
-                }                
-            }
-        }
-
-
-        public async Task<List<UserMasterViewModel>> GetUserByUserNameInDetails(string userName)
-        {
-            List<UserMasterViewModel> lstUserMasterModel = new List<UserMasterViewModel>();
-            IEnumerable<UserMaster> lstUserMaster = null;
-            lstUserMaster = await _userMasterRepository.GetAllAsync();
-            lstUserMaster = lstUserMaster.Where(a => a.UserName == userName).ToList();
-            if (lstUserMaster != null)
-            {
-                foreach (var item in lstUserMaster)
-                {
-                    lstUserMasterModel.Add(new UserMasterViewModel
-                    {
-                        UserName = item.UserName,
-                        UserPassword = item.Password
-                    });
                 }
             }
-            return lstUserMasterModel;
         }
-
 
         public async Task<UserMasterViewModel> SaveUserMaster(UserMasterViewModel userMasterViewModel)
         {

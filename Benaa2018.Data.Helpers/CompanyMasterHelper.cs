@@ -18,27 +18,15 @@ namespace Benaa2018.Helper
         public async Task<CompanyMasterViewModel> GetCompanyByID(int CompanyId)
         {
             var companyObj = await _companyMasterRespository.GetByIdAsync(CompanyId);
+            if (companyObj == null) return new CompanyMasterViewModel();
             return new CompanyMasterViewModel
             {
-                CompanyName = companyObj.Company_Name,
+                CompanyName = companyObj?.Company_Name,
                 Org_ID = companyObj.Org_ID,
                 IsActive = companyObj.IsActive,
-                Latitude = companyObj.Latitude,
-                Longitude = companyObj.Longitude
+                Latitude = companyObj?.Latitude,
+                Longitude = companyObj?.Longitude
             };
         }
-
-        //public CompanyMasterViewModel GetCompanyByID(int CompanyId)
-        //{
-        //    var companyObj = _companyMasterRespository.GetByIdAsync(CompanyId);
-        //    return new CompanyMasterViewModel
-        //    {
-        //        CompanyName = companyObj.Result.Company_Name,
-        //        Org_ID = companyObj.Result.Org_ID,
-        //        IsActive = companyObj.Result.IsActive,
-        //        Latitude = companyObj.Result.Latitude,
-        //        Longitude = companyObj.Result.Longitude
-        //    };
-        //}
     }
 }

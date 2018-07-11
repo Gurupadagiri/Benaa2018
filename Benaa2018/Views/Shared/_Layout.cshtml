@@ -34,6 +34,7 @@
 <body>
     @{
         Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+        Benaa2018.Helper.ViewModels.UserPreferenceViewModel baseModel1 = ViewBag.Basemodel1;
     }
     @if (baseModel != null)
     {
@@ -133,7 +134,8 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><span class="fa fa-cogs"></span> Setup</a></li>
-                            <li><a href="#"><span class="fa fa-user"></span> My User Preferences</a></li>
+                            @*<li><a href="#"><span class="fa fa-user"></span> My User Preferences</a></li>*@
+                            <li><a href="#" data-toggle="modal" data-target="#userPreference" data-original-title><span class="fa fa-user"></span> My User Preferences</a></li>
                             <li><a href="#"><span class="fa fa-sign-out"></span> Logout</a></li>
                         </ul>
                     </li>
@@ -163,8 +165,46 @@
         <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
             @Html.Partial("_leftMenu", baseModel);
         </div>
+
+        <div class="container-fluid logoBar">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
+                    <div class="logoContainer" style="display:none;">
+                        <a href="login.html"><img class="img-responsive" src="images/logo1.jpg"></a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+                    <div class="phoneContainer">
+                        00956048752136
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+                    <div class="jobrunningTotal">
+                        Job Running Total : $250,000,000
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--------------------- Logo header end here------------->
+
+
+        @RenderBody()
+        @*@{
+
+                Benaa2018.Helper.ViewModels.UserPreferenceViewModel baseModel1 = ViewBag.Basemodel1;
+            }*@
+
+        <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+            @Html.Partial("_userPreference", baseModel1);
+        </div>
+
     }
-    @RenderBody()    
+    @RenderBody()
     @if (baseModel != null)
     {
         <div class="leftOuterBtn">
@@ -272,8 +312,60 @@
     <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
-    <style></style>
-    
+    @*<style></style>*@
+    <script type="text/javascript">
+            @*$(document).ready(function () {
+                if (@ViewBag.result== 1) {2
+
+                    $('#userPreference').modal('show');
+                    $('#errorDiv').show();
+                    $('#spnErrorMessgae').text("Please put all necessary information");
+                }
+                else if (@ViewBag.result== 2) {
+
+                    $('#userPreference').modal('show');
+                    $('#errorDiv').show();
+                    $('#spnErrorMessgae').text("User Name already exists");
+                }
+                else {
+
+                    //$('#userPreference').modal('show');
+                    //$('#errorDiv').show();
+                    //$('#txtErrorMessage').text("Error occurred");
+                }
+            });*@
+
+        $(document).ready(function () {
+            $("#saveUserPreference").click(function (e) {
+                e.preventDefault();
+                debugger;
+                alert('Clicked on button');
+
+                var infoForm = $("#frmSubmitUserPreference");
+
+                var postData = infoForm.serializeArray();
+                $.ajax({
+                    url: "@(Url.Action("UserPreferences", "Home",null))",
+                    type: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    data: infoForm.serialize(),
+                    success: function (data) {
+                        if (data == true) {
+                            infoForm.find("input[type='text']").each(function (i, element) {
+                                $(this).val('');
+                            });
+                            alert("Project Details Successfully Added");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover({ html: true });
@@ -353,7 +445,7 @@
         $(function () {
             // Could also be ['.sort-me', '#also-sort-me']
             $('.sort-me').sortable({ connectWith: '.sort-me' });
-            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.        
+            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
             // Could also be ['.sort-me', '#also-sort-me']
             $('.sort-me1').sortable({ connectWith: '.sort-me1' });
             $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
@@ -861,7 +953,7 @@
                 defaultDate: '2018-03-12',
                 navLinks: true, // can click day/week names to navigate views
                 editable: true,
-                eventLimit: true, // allow "more" link when too many events               
+                eventLimit: true, // allow "more" link when too many events
                 eventClick: function (event) {
                     $('#calendarmodal').addClass('in').css('display', 'block');
                 },
@@ -886,7 +978,7 @@
             $('.fc-content-skeleton td').on('click', function () {
                 if ($(this).attr('class') === undefined) {
                     $('#calendarmodalgeneral').addClass('in').css('display', 'block');
-                }                
+                }
             });
         });
         </script>

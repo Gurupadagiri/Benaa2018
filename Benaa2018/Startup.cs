@@ -25,7 +25,7 @@ namespace Benaa2018
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=kuttu;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddAuthentication("SBSSecurityScheme")
                     .AddCookie("SBSSecurityScheme", options =>
                     {
@@ -107,11 +107,17 @@ namespace Benaa2018
 
             app.UseStaticFiles();
 
+            //app.UseMvc(routes =>
+            //{
+            //    routes.MapRoute(
+            //        name: "default",
+            //        template: "{controller=Home}/{action=Index}/{id?}");
+            //});
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=UserPreferences}/{id?}");
+                    template: "{controller=Login}/{action=Index}/{id?}");
             });
         }
     }

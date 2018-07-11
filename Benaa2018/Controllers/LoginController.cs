@@ -27,11 +27,11 @@ namespace Benaa2018.Controllers
         [HttpPost]
         public async Task<IActionResult> Index(LoginViewModel inputModel)
         {
-            if (!await IsAuthentic(inputModel.UserName, inputModel.Password))
-            {
-                inputModel.Message = "Please Enter Correct UserName and Password";
-                return View(inputModel);
-            }
+            //if (!await IsAuthentic(inputModel.UserName, inputModel.Password))
+            //{
+            //    inputModel.Message = "Please Enter Correct UserName and Password";
+            //    return View(inputModel);
+            //}
             // create claims
             List<Claim> claims = new List<Claim>
             {
@@ -55,20 +55,20 @@ namespace Benaa2018.Controllers
         }
 
         #region " Private "
-        private async Task<bool> IsAuthentic(string userName, string password)
-        {
-            var userInfo = await _userMasterHelper.GetUserByUserName(userName);
-            if(userInfo != null)
-            {
-                if (userInfo.Password == password.Trim())
-                    return true;
-                else
-                {
-                    return false;
-                }                   
-            }
-            return false;
-        }
+        //private async Task<bool> IsAuthentic(string userName, string password)
+        //{
+        //    var userInfo = await _userMasterHelper.GetUserByUserName(userName);
+        //    if(userInfo != null)
+        //    {
+        //        if (userInfo.Password == password.Trim())
+        //            return true;
+        //        else
+        //        {
+        //            return false;
+        //        }                   
+        //    }
+        //    return false;
+        //}
         #endregion
     }
 }
