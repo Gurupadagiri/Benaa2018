@@ -513,36 +513,6 @@ namespace Benaa2018.Data.Migrations
 
                     b.Property<string>("UserName");
 
-                    b.Property<int>("User_Alert_Schedule");
-
-                    b.Property<string>("User_Cell_Email");
-
-                    b.Property<string>("User_Contact_Info");
-
-                    b.Property<string>("User_Default_Labour_Cost");
-
-                    b.Property<int>("User_Default_Time_Clock");
-
-                    b.Property<string>("User_Email");
-
-                    b.Property<bool>("User_Enabled");
-
-                    b.Property<string>("User_First_Name");
-
-                    b.Property<string>("User_Forum_Handle");
-
-                    b.Property<bool>("User_Is_Alert");
-
-                    b.Property<bool>("User_Is_Automatic_Access");
-
-                    b.Property<bool>("User_Is_Forum_Handle");
-
-                    b.Property<string>("User_Last_Name");
-
-                    b.Property<bool>("User_Login_Enabled");
-
-                    b.Property<string>("User_Phone");
-
                     b.HasKey("UserID");
 
                     b.ToTable("User_Master");

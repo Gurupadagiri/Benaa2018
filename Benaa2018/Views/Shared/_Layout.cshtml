@@ -166,13 +166,39 @@
             @Html.Partial("_leftMenu", baseModel);
         </div>
 
-        
+        <div class="container-fluid logoBar">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
+                    <div class="logoContainer" style="display:none;">
+                        <a href="login.html"><img class="img-responsive" src="images/logo1.jpg"></a>
+                    </div>
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+                    <div class="phoneContainer">
+                        00956048752136
+                    </div>
+                </div>
+
+
+                <div class="col-xs-12 col-sm-4 col-md-3  col-lg-2">
+                    <div class="jobrunningTotal">
+                        Job Running Total : $250,000,000
+                    </div>
+                </div>
+
+            </div>
+        </div>
 
         <!--------------------- Logo header end here------------->
 
 
         @RenderBody()
-        
+        @*@{
+
+                Benaa2018.Helper.ViewModels.UserPreferenceViewModel baseModel1 = ViewBag.Basemodel1;
+            }*@
+
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
         </div>
@@ -338,7 +364,6 @@
                         alert(errorThrown);
                     }
                 });
-            });
         });
     </script>
     <script>

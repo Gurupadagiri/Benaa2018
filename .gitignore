@@ -259,9 +259,3 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
-Benaa2018.Data/Migrations/20180708082643_initial.cs
-Benaa2018.Data/Migrations/20180708082643_initial.Designer.cs
-Benaa2018.Data/Migrations/SBSDbContextModelSnapshot.cs
-Benaa2018.Data/Migrations/SBSDbContextModelSnapshot.cs
-Benaa2018.Data/Migrations/SBSDbContextModelSnapshot.cs
-Benaa2018.Data/Migrations/SBSDbContextModelSnapshot.cs
