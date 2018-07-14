@@ -145,654 +145,435 @@
 
                             </div>
                             <p>Admin users can add custom fields for Internal Users in Setup.</p>
-                            <div class="mainTab">
 
-                                <ul class="nav nav-tabs">
-                                    <li class="active"><a data-toggle="tab" href="#home">Detailed Permissions</a></li>
-                                    <li><a data-toggle="tab" href="#menu1">Jobsite Access</a></li>
-                                    <li><a data-toggle="tab" href="#menu2">User Preferences</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div id="home" class="tab-pane fade in active">
+
+
+
+                        </div>
+                    </div>
+                    <div class="mainTab">
+
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a data-toggle="tab" href="#home">Detailed Permissions</a></li>
+                            <li><a data-toggle="tab" href="#menu1">Jobsite Access</a></li>
+                            <li><a data-toggle="tab" href="#menu2">User Preferences</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active">
+                                <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                    <div class="innerPermission">
+                                        <div class="tableTitle text">Permissions</div>
+                                        <span style="padding-left: 0px; float: left; padding: 13px 0 0 5px;">
+                                            <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_Tooltip3_hrefToolTip" class="ToolTip  " data-tooltip="The <b>User Permissions</b> allow you to regulate your users access to information.<br><br>No matter if you are adding an internal employee, realtor, or any other professional associate, you can make sure they only see and get notified of information on tabs that relate to them. <br><br><a href='https://buildertrendsupport.zendesk.com/hc/en-us/categories/200192875-Users' target='_blank'>Click Here</a> for the online Admin tutorial" data-hasqtip="7"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
+
+                                        </span>
+                                        <div class="tabAlertBtnHolder" data-toggle="modal" data-target="#tabAlertBtnHolderBox" data-original-title="" style="float: right; padding: 6px 5px 0 0;">
+                                            <input type="submit" name="" value="Import Permissions" id="" title="Import Permissions From Another User" class="mainButton">
+                                        </div>
+                                    </div>
+                                    <div class="permissionTD" style="padding: 10px;">
+                                        <div class="permissionTDHolder">
+
+                                            <ul>
+                                                <li class="checkAll view">
+                                                    <div class="adminLabel">View</div>
+                                                    <input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">
+                                                </li>
+                                                <li class="checkAll add">
+                                                    <div class="adminLabel">Add</div>
+                                                    <input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">
+                                                </li>
+                                                <li class="checkAll edit">
+                                                    <div class="adminLabel">Edit</div>
+                                                    <input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">
+                                                </li>
+                                                <li class="checkAll delete">
+                                                    <div class="adminLabel">Delete</div>
+                                                    <input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder seconHolder">
+                                    <div class="innerPermission">
+                                        <div class="tableTitle text">Notifications</div>
+                                        <div class="tabAlertBtnHolder" style="float: right; padding: 6px 5px 0 0;">
+                                            <input type="submit" name="" value="Import Permissions" id="" title="Import Permissions From Another User" class="mainButton">
+                                        </div>
+                                    </div>
+                                    <div class="permissionTD" style="padding: 10px;">
+                                        <div class="permissionTDHolder">
+
+                                            <ul>
+                                                <li class="checkAll view">
+                                                    <div class="adminLabel">Email</div>
+                                                    <input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">
+                                                </li>
+                                                <li class="checkAll add">
+                                                    <div class="adminLabel">Text</div>
+                                                    <input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">
+                                                </li>
+                                                <li class="checkAll edit">
+                                                    <div class="adminLabel">Push</div>
+
+                                                    <input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">
+                                                </li>
+                                                <li class="checkAll delete">
+                                                    <div class="adminLabel">All Users</div>
+                                                    <input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="permissionCheckBoxHolder row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 chHolder odd">
                                         <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                            <div class="innerPermission">
-                                                <div class="tableTitle text">Permissions</div>
-                                                <span style="padding-left: 0px; float: left; padding: 13px 0 0 5px;">
-                                                    <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_Tooltip3_hrefToolTip" class="ToolTip  " data-tooltip="The <b>User Permissions</b> allow you to regulate your users access to information.<br><br>No matter if you are adding an internal employee, realtor, or any other professional associate, you can make sure they only see and get notified of information on tabs that relate to them. <br><br><a href='https://buildertrendsupport.zendesk.com/hc/en-us/categories/200192875-Users' target='_blank'>Click Here</a> for the online Admin tutorial" data-hasqtip="7"><img src="images/iconToolTip.png" id="" border="0" align="absmiddle"></a>
-
-                                                </span>
-                                                <div class="tabAlertBtnHolder" data-toggle="modal" data-target="#tabAlertBtnHolderBox" data-original-title="" style="float: right; padding: 6px 5px 0 0;">
-                                                    <input type="button" name="" value="Import Permissions"  title="Import Permissions From Another User" class="mainButton">
-                                                </div>
-                                            </div>
-                                            <div class="permissionTD" style="padding: 10px;">
+                                            <div class="permissionTD">
+                                                <div class="fieldHeader">Job Info</div>
                                                 <div class="permissionTDHolder">
 
-                                                    <ul style="list-style-type: none; width:100%;height:20px;">
-                                                        @*<li class="checkAll view">*@
-                                                        <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">View</div>
-                                                            @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsViewAll, new { @class = "chkAllView", @title = "Check all View" })
+                                                    <ul>
+                                                        <li class="checkAll view">
+                                                            <input id="" type="checkbox" title="View">
                                                         </li>
-                                                        <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">Add</div>
-                                                            @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsAddAll, new { @class="chkAllAdd" })
+                                                        <li class="checkAll add">
+                                                            <input id="" type="checkbox" title="Add">
                                                         </li>
-                                                        <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">Edit</div>
-                                                            @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsEditall, new { @class= "chkAllEdit" })
+                                                        <li class="checkAll edit">
+                                                            <input id="" type="checkbox" title="Edit">
                                                         </li>
-                                                        <li class="checkAll delete" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">Delete</div>
-                                                            @*<input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">*@
+                                                        <li class="checkAll delete">
+                                                            <input id="" type="checkbox" title="Delete">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="checkboxLine">
+                                                    <input id="" type="checkbox" name="" checked="checked">
+                                                    View Owner Site
+                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                    </a>
+                                                </div>
+                                                <div class="checkboxLine">
+                                                    <input id="" type="checkbox" name="" checked="checked">
+                                                    Price Viewing
+                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                    </a>
+                                                </div>
+                                            </div>
 
-                                                            @Html.CheckBoxFor(a => a.permissions.IsDeleteAll, new { @class="chkAllDelete" })
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                            <div class="permissionTD">
+                                                <div class="fieldHeader" style="float: left">Owner Activated</div>
+                                                <div class="permissionTDHolder">
+
+                                                    <ul>
+                                                        <li class="checkAll view">
+                                                            <input id="" type="checkbox" title="View">
                                                         </li>
+
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="permissionCheckBoxHolder row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 chHolder ">
                                         <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                            <div class="innerPermission">
-                                                <div class="tableTitle text">Notifications</div>
-                                                <div class="tabAlertBtnHolder" style="float: right; padding: 6px 5px 0 0;">
-                                                    <input type="submit" name="" value="Import Permissions"  title="Import Permissions From Another User" class="mainButton">
-                                                </div>
-                                            </div>
-                                            <div class="permissionTD" style="padding: 39px;float: right;">
+                                            <div class="permissionTD">
+                                                <div class="fieldHeader">Job Info</div>
                                                 <div class="permissionTDHolder">
 
-                                                    <ul style="list-style-type: none; width:100%;height:20px;">
-                                                        @*<li class="checkAll view">*@
-                                                        <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">Email</div>
-                                                            @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsEmailAll, new { @id = "chkEmailAll" })
+                                                    <ul>
+                                                        <li class="checkAll view">
+                                                            <input id="" type="checkbox" title="View">
+                                                        </li>
+                                                        <li class="checkAll add">
+                                                            <input id="" type="checkbox" title="Add">
+                                                        </li>
+                                                        <li class="checkAll edit">
+                                                            <input id="" type="checkbox" title="Edit">
+                                                        </li>
+                                                        <li class="checkAll delete">
+                                                            <input id="" type="checkbox" title="Delete">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="checkboxLine">
+                                                    <input id="" type="checkbox" name="" checked="checked">
+                                                    View Owner Site
+                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                    </a>
+                                                </div>
+                                                <div class="checkboxLine">
+                                                    <input id="" type="checkbox" name="" checked="checked">
+                                                    Price Viewing
+                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                    </a>
+                                                </div>
+                                            </div>
 
-                                                        </li>
-                                                        <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">Text</div>
-                                                            @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsEmailAll, new { @id = "IsTextAll" })
-                                                        </li>
-                                                        <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">Push</div>
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                            <div class="permissionTD">
+                                                <div class="fieldHeader" style="float: left">Owner Activated</div>
+                                                <div class="permissionTDHolder">
 
-                                                            @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsPushOn, new { @id = "IsPushAll" })
+                                                    <ul>
+                                                        <li class="checkAll view">
+                                                            <input id="" type="checkbox" title="View">
                                                         </li>
-                                                        <li class="checkAll delete" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            <div class="adminLabel">All Users</div>
-                                                            @*<input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsAllUsers, new { @id = "IsAllUsers" })
-                                                        </li>
+
                                                     </ul>
                                                 </div>
                                             </div>
                                         </div>
 
-                                        <div class="permissionCheckBoxHolder row">
-                                            <div class="col-md-12 col-sm-12 col-xs-12 chHolder odd">
-                                                <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                                    <div class="permissionTD">
-                                                        <div class="fieldHeader">Job Info</div>
-                                                        <div class="permissionTDHolder">
-
-                                                            <ul class="ulstyle" style="list-style-type: none; width:100%;height:20px;">
-                                                                @*<li class="checkAll view">*@
-                                                                <li class="checkAll liStyle" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                    @*<input id="" type="checkbox" title="View">*@
-                                                                    @Html.CheckBoxFor(a => a.permissions.IsJobInfoView, new { @class = "IsChkView" })
-                                                                </li>
-                                                                <li class="checkAll add liStyle" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                    @*<input id="" type="checkbox" title="Add">*@
-                                                                    @Html.CheckBoxFor(a => a.permissions.IsJobInfoAdd, new { @class = "IsChkAdd" })
-                                                                </li>
-                                                                <li class="checkAll edit liStyle" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                    @*<input id="" type="checkbox" title="Edit">*@
-                                                                    @Html.CheckBoxFor(a => a.permissions.IsJobInfoEdit, new { @class = "IsChkEdit" })
-                                                                </li>
-                                                                <li class="checkAll delete liStyle" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                    @*<input id="" type="checkbox" title="Delete">*@
-                                                                    @Html.CheckBoxFor(a => a.permissions.IsJobInfodelete, new { @class = "IsChkDelete" })
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="checkboxLine">
-                                                            @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsViewOwnerSite)
-                                                            View Owner Site
-                                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                            </a>
-                                                        </div>
-                                                        <div class="checkboxLine">
-                                                            @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                            @Html.CheckBoxFor(a => a.permissions.IsPriceViewing)
-                                                            Price Viewing
-                                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                            </a>
-                                                        </div>
-                                                    </div>
-
-                                                </div>
-                                                <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                                    <div class="permissionTD">
-                                                        <div class="fieldHeader" style="float: left">Owner Activated</div>
-                                                        <div class="permissionTDHolder">
-
-                                                            <ul class="ulstyle">
-                                                                @*<li class="checkAll view">*@
-                                                                <li class="checkAll liStyle">
-                                                                    @*<input id="" type="checkbox" title="View">*@
-                                                                    @Html.CheckBoxFor(a => a.permissions.IsOwnerActivatedEmail, new { @class = "IsChkNotifyEmail" })
-                                                                </li>
-
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-
-
-                                            </div>
-
-
-                                            <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                                <div class="permissionTD">
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;"> <b> Owner Payments</b> </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">View</div>
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentsView, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">Add</div>
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentsAdd, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">Edit</div>
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentsEdit, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                            <li class="checkAll delete" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">Delete</div>
-                                                                @*<input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">*@
-
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentsDelete, new { @class="chkAllDelete" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                                <div class="permissionTD">
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Owner Payment Updated</span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentUpdatedEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentUpdatedText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentUpdatedPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Owner Payment Reminder </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentReminderEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentReminderText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentReminderPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Owner Payment Past Due </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentPastDueEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentPastDueText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentPastDuePush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Owner Payment Discussion Added </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentDiscussionText, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentDiscussionEmail, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentDiscussionPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;"> Owner Payment Added </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentAddedText, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentAddedEmail, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentAddedPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-
-
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                                <div class="permissionTD">
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;"> <b>Leads</b> </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">View</div>
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadsView, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">Add</div>
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadsAdd, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">Edit</div>
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadsEdit, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                            <li class="checkAll delete" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                <div class="adminLabel">Delete</div>
-                                                                @*<input id="chkAllDelete" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'd');" title="Check all Delete">*@
-
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadsDelete, new { @class="chkAllDelete" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="checkboxLine">
-                                                        @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                        @Html.CheckBoxFor(a => a.permissions.IsLeadsAssignSalesperson)
-                                                        Assign Salesperson
-                                                        <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                            <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                        </a>
-                                                    </div>
-                                                    <div class="checkboxLine">
-                                                        @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                        @Html.CheckBoxFor(a => a.permissions.IsLeadsViewOtherSalesperson)
-                                                        View Other Salesperson Leads & Activities
-                                                        <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                            <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                        </a>
-                                                    </div>
-                                                    <div class="checkboxLine">
-                                                        @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                        @Html.CheckBoxFor(a => a.permissions.IsLeadsConvertToJobsite)
-                                                        Convert to Jobsite
-                                                        <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                            <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                        </a>
-                                                    </div>
-                                                    <div class="checkboxLine">
-                                                        @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                        @Html.CheckBoxFor(a => a.permissions.IsLeadsExportToExcel)
-                                                        Export To Excel
-                                                        <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                            <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                        </a>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
-                                                <div class="permissionTD">
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Other Employee Contact</span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOtherEmployeeContactEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsOtherEmployeeContactText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  New Lead from Contact Form </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsNewLeadEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsNewLeadText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsNewLeadPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Lead Notify Sales Person Changed </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadNotifyEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadNotifyText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadNotifyPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Activity Reminder </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsActivityRemainderEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsActivityRemainderText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsActivityRemainderPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsActivityRemainderAllUsers, new { @class= "chkAllEdit" })
-                                                            </li>
-
-                                                            <li style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                                <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                                    <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;"> Email Quota Alerts </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsEmailQuotesAlertEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsEmailQuotesAlertText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;"> Assigned to Lead Activity by Another Internal User </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsAssignedToLeadActivityEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsAssignedToLeadActivityText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsAssignedToLeadActivityPush, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                            </li>
-                                                            <li style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                                <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                                    <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;">  Lead Proposal Accepted/Declined </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadProposalAcceptedEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadProposalAcceptedText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadProposalAcceptedPush, new { @class= "chkAllEdit" })
-                                                            </li>
-                                                            <li class="checkAll edit" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllEdit" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'e');" title="Check all Edit">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadProposalAcceptedAllUsers, new { @class= "chkAllEdit" })
-                                                            </li>
-
-                                                            <li style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="" type="checkbox" name="" checked="checked">*@
-                                                                <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
-                                                                    <img src="images/iconToolTip.png" id="" align="absmiddle">
-                                                                </a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;"> Lead Proposal Viewed </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadProposalViewedEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadProposalViewedText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLeadProposalViewedPush, new { @class="chkAllAdd" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-
-
-                                                    <div class="permissionTDHolder">
-                                                        <span style="float:left;padding-right: 119px;"> Link Clicked By Lead </span>
-                                                        <ul style="list-style-type: none; width:100%;height:20px;">
-                                                            @*<li class="checkAll view">*@
-                                                            <li class="checkAll" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllView" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'v');" title="Check all View">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLinkedClickedByLeadEmail, new { @class = "chkAllView", @title = "Check all View" })
-                                                            </li>
-                                                            <li class="checkAll add" style="display:inline-block;*display:inline;*zoom:1;margin-right:10px;">
-                                                                @*<input id="chkAllAdd" type="checkbox" onclick="AdminDetailPage.AdminCheckAll(this.id, 'a');" title="Check all Add">*@
-                                                                @Html.CheckBoxFor(a => a.permissions.IsLinkedClickedByLeadText, new { @class="chkAllAdd" })
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                        </div>
                                     </div>
-                                    <div id="menu1" class="tab-pane fade">
-                                        <fieldset class="fieldset">
-                                            <legend>Filter Your Results </legend>
-                                            <section class="filtersContainer">
-                                                test <br>test <br>test <br>test <br>
-                                                <button class="blueButton" data-bind="click: updateResults">Update Results</button>
-                                                <button class="mainButton" data-bind="click: resetFilters">Reset</button>
-                                            </section>
-                                        </fieldset>
-                                        <table class="jobsiteTable" cellspacing="0" border="0" width="100%">
-                                            <tr>
-                                                <th>
-                                                    <div class="jobsiteCenter ">
-                                                        <div>Access</div>
-                                                        <input class="chkJob" type="checkbox"
-                                                               title="Check all Jobs">
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div class="jobsiteCenter">
-                                                        <div>Notifications</div>
-                                                        <input  type="checkbox" title="Check all Jobs">
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div class="jobname">
-                                                        <div>Job name</div>
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div class="jobname">
-                                                        <div>Job Status</div>
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div class="jobname">
-                                                        <div>Job Group</div>
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div class="jobname">
-                                                        <div>Open Date</div>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <div class="jobsiteCenter ">
-                                                        <input class="chkJob" type="checkbox"
-                                                               title="Check all Jobs">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="jobsiteCenter">
-                                                        <input  type="checkbox" title="Check all Jobs">
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="jobname">
-                                                        <div>al shatee</div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="jobname">
-                                                        <div>open</div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="jobname">
-                                                        <div>hotel</div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="jobname">
-                                                        <div> 06/07/18</div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        </table>
-
-                                    </div>
-
-
                                 </div>
 
 
+                                <div class="permissionCheckBoxHolder row">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 chHolder odd">
+                                        <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                            <div class="permissionTD">
+                                                <div class="fieldHeader">Job Info</div>
+                                                <div class="permissionTDHolder">
+
+                                                    <ul>
+                                                        <li class="checkAll view">
+                                                            <input id="" type="checkbox" title="View">
+                                                        </li>
+                                                        <li class="checkAll add">
+                                                            <input id="" type="checkbox" title="Add">
+                                                        </li>
+                                                        <li class="checkAll edit">
+                                                            <input id="" type="checkbox" title="Edit">
+                                                        </li>
+                                                        <li class="checkAll delete">
+                                                            <input id="" type="checkbox" title="Delete">
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                                <div class="checkboxLine">
+                                                    <input id="" type="checkbox" name="" checked="checked">
+                                                    View Owner Site
+                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                    </a>
+                                                </div>
+                                                <div class="checkboxLine">
+                                                    <input id="" type="checkbox" name="" checked="checked">
+                                                    Price Viewing
+                                                    <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                        <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                    </a>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="col-md-6 col-sm-6 col-xs-6 permissionHolder">
+                                            <div class="permissionTD">
+                                                <div class="fieldHeader" style="float: left">Owner Activated</div>
+                                                <div class="permissionTDHolder">
+
+                                                    <ul>
+                                                        <li class="checkAll view">
+                                                            <input id="" type="checkbox" title="View">
+                                                        </li>
+
+                                                    </ul>
+                                                </div>
+                                                <div class="col-md-12">
+                                                    <div class="checkboxLine">
+                                                        <input id="" type="checkbox" name="" checked="checked">
+                                                        View Owner Site
+                                                        <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                            <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                                        </a>
+                                                    </div>
+                                                    <div class="permissionTDHolder">
+
+                                                        <ul>
+                                                            <li class="checkAll view">
+                                                                <input id="" type="checkbox" title="View">
+                                                            </li>
+                                                            <li class="checkAll add">
+                                                                <input id="" type="checkbox" title="Add">
+                                                            </li>
+                                                            <li class="checkAll edit">
+                                                                <input id="" type="checkbox" title="Edit">
+                                                            </li>
+                                                            <li class="checkAll delete">
+                                                                <input id="" type="checkbox" title="Delete">
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                    </div>
+                                </div>
+
                             </div>
+                            <div id="menu1" class="tab-pane fade">
+                                <fieldset class="fieldset">
+                                    <legend>Filter Your Results </legend>
+                                    <section class="filtersContainer">
+                                        <div class="statusolderMain">
+                                            <div class="statusolder">
+
+                                                <div class="dropdownHolder">
+                                                    <p>Status</p>
+                                                    <div class="statusActionBtn">
+                                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
+                                                        <span>--All Items Selected--permissionHolder</span>
+                                                    </div>
+                                                    <div class="statusActionToggle">
+                                                        <div class="toggleSearch">
+                                                            <input type="search">
+                                                        </div>
+                                                        <ul class="ui-helper-reset">
+                                                            <li><a class="ui-multiselect-all" href="#"><span class="ui-icon ui-icon-check"></span><span>Check all</span></a></li>
+                                                            <li><a class="ui-multiselect-none" href="#"><span class="ui-icon ui-icon-closethick"></span><span>Uncheck all</span></a></li>
+                                                            <li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>
+                                                        </ul>
+
+                                                        <ul class="ui-multiselect-checkboxes ui-helper-reset" style="height: 176px;">
+                                                            <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-0" title="" class="ui-corner-all ui-state-hover-multiselect"><input id="ui-multiselect-ui-id-16-option-0" name="multiselect_ui-id-16" type="checkbox" value="1" title="Open Jobsites" checked="checked" aria-selected="true"><span>Open Jobsites</span></label></li>
+                                                            <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-1" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-1" name="multiselect_ui-id-16" type="checkbox" value="2" title="Closed Jobsites"><span>Closed Jobsites</span></label></li>
+                                                            <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-2" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-2" name="multiselect_ui-id-16" type="checkbox" value="8" title="Standalone Templates"><span>Standalone Templates</span></label></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                                <div class="dropdownHolder">
+                                                    <p>Groups</p>
+                                                    <div class="groupholder">
+                                                        <div class="statusActionBtn">
+                                                            <span class="ui-icon ui-icon-triangle-1-s"></span>
+                                                            <span>--All Items Selected--</span>
+                                                        </div>
+                                                        <div class="statusActionToggle">
+                                                            <div class="toggleSearch">
+                                                                <input type="search">
+                                                            </div>
+                                                            <ul class="ui-helper-reset">
+                                                                <li><a class="ui-multiselect-all" href="#"><span class="ui-icon ui-icon-check"></span><span>Check all</span></a></li>
+                                                                <li><a class="ui-multiselect-none" href="#"><span class="ui-icon ui-icon-closethick"></span><span>Uncheck all</span></a></li>
+                                                                <li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>
+                                                            </ul>
+
+                                                            <ul class="ui-multiselect-checkboxes ui-helper-reset" style="height: 176px;">
+                                                                <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-0" title="" class="ui-corner-all ui-state-hover-multiselect"><input id="ui-multiselect-ui-id-16-option-0" name="multiselect_ui-id-16" type="checkbox" value="1" title="Open Jobsites" checked="checked" aria-selected="true"><span>Open Jobsites</span></label></li>
+                                                                <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-1" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-1" name="multiselect_ui-id-16" type="checkbox" value="2" title="Closed Jobsites"><span>Closed Jobsites</span></label></li>
+                                                                <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-2" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-2" name="multiselect_ui-id-16" type="checkbox" value="8" title="Standalone Templates"><span>Standalone Templates</span></label></li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <button class="blueButton" data-bind="click: updateResults">Update Results</button>
+                                                <button class="mainButton" data-bind="click: resetFilters">Reset</button>
+                                    </section>
+                                </fieldset>
+                                <table class="jobsiteTable" cellspacing="0" border="0" width="100%">
+                                    <tr>
+                                        <th>
+                                            <div class="jobsiteCenter ">
+                                                <div>Access</div>
+                                                <input id="chkJob" type="checkbox"
+                                                       title="Check all Jobs">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="jobsiteCenter">
+                                                <div>Notifications</div>
+                                                <input id="" type="checkbox" title="Check all Jobs">
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="jobname">
+                                                <div>Job name</div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="jobname">
+                                                <div>Job Status</div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="jobname">
+                                                <div>Job Group</div>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div class="jobname">
+                                                <div>Open Date</div>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="jobsiteCenter ">
+                                                <input id="chkJob" type="checkbox"
+                                                       title="Check all Jobs">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="jobsiteCenter">
+                                                <input id="" type="checkbox" title="Check all Jobs">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="jobname">
+                                                <div>al shatee</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="jobname">
+                                                <div>open</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="jobname">
+                                                <div>hotel</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="jobname">
+                                                <div> 06/07/18</div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+
+                            </div>
+
+
                         </div>
+
+
                     </div>
-
                 </div>
-
             </div>
+
+
         </div>
     </div>
-    </form>
+    
+
+</form>

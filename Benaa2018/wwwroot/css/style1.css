@@ -1,4 +1,4 @@
-﻿@charset "utf-8";
+@charset "utf-8";
 
 *{ 
 box-sizing: border-box;
@@ -351,6 +351,7 @@ display: block;
 }
 
 
+
 .datepicker table tr td.today, .datepicker table tr td.today:hover, .datepicker table tr td.today.disabled, .datepicker table tr td.today.disabled:hover{
 
     color: #fff!important;
@@ -418,28 +419,7 @@ table.dataTable td:first-child{ position:relative; }
 
 .tab-content.nested .tab-pane{ padding:10px 0;}
 .modalWidth1200{ width:1100px;}
-.modalWidth1200 .customPopup .panel-body{
-height: 85vh;
-    overflow-y: scroll;
-}
-.chHolder.odd{
-    background: #fff;
-}
-.chHolder.odd .permissionTD, .chHolder.odd  .innerPermission {
-    border-bottom: 1px solid #e9e9e9;
-    border-right: 1px solid #e9e9e9;
-    border-left: 1px solid #e9e9e9;
-    background: #fff;
-    width: 100%;
-    float: left;
-}
-.innerPermission {
-    border-left: 1px solid #e9e9e9;
-}
-  .permissionTD {
-   min-height: 77px;
-    padding: 7px 12px;
-}
+
 .mrgnTop15px{ margin-top:15px;}
 .mrgnBot15px{ margin-bottom:15px;}
 
@@ -886,9 +866,6 @@ font-size:35px; color:#999;vertical-align: middle;margin-right: 5px;
 .tab-pane .permissionHolder{
   padding: 0;
 }
-.seconHolder.permissionHolder .checkAll  .adminLabel{
-    font-weight: 400;
-}
 .permissionTD,
 .innerPermission{
     border-bottom: 1px solid #e9e9e9;
@@ -896,7 +873,6 @@ font-size:35px; color:#999;vertical-align: middle;margin-right: 5px;
     background: #f7f7f7;
     width: 100%;
     float: left;
-    border-left: 1px solid #e9e9e9;
 }
 .permissionTD .view:before,
 .permissionTD .view:after{
@@ -908,15 +884,8 @@ display: none;
     display: inline-block;
     background: transparent;
     font-size: 12px;  
-    padding: 0 0 0 9px;
+    padding: 0;
 }
-.chHolder .permissionTDHolder ul {
-    padding: 0 20px 0 0;
-}
-.chHolder .permissionTDHolder .checkAll {
-    padding: 0 0 0 18px;
-}
-
 .permissionTD .checkAll .adminLabel {
     font-size: 12px; 
     font-family: Arial;
@@ -977,7 +946,7 @@ legend:after{
 @media (min-width: 1200px) 
 {   
     /*default so you don't need this*/
-    div[class^="col"]{padding-left:15px; padding-right:15px;}
+    div[class^="col"]{padding-left:10px; padding-right:15px;}
 }
 
 @media(max-width: 1240px){
