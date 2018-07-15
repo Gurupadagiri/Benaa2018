@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Benaa2018.Helper;
 using Microsoft.AspNetCore.Mvc;
-using Benaa2018.Helper;
+using System.Threading.Tasks;
 
 namespace Benaa2018.Controllers
 {

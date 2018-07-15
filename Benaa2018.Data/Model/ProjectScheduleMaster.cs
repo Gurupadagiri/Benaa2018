@@ -14,12 +14,12 @@ namespace Benaa2018.Data.Model
         public int Schedule_ID { get; set; }
         public int Org_ID { get; set; }
         public int Project_ID { get; set; }
-        public int ProjectColorId { get; set; }
+        public string ProjectColorId { get; set; }
         public DateTime Projected_Start { get; set; }
         public DateTime Projected_Completion { get; set; }
         public DateTime Actual_Start { get; set; }
         public DateTime Actual_Completion { get; set; }
-        public int Project_Color_ID { get; set; }
+        public string Project_Color_ID { get; set; }
         public string Works_Days { get; set; }        
     }
 }

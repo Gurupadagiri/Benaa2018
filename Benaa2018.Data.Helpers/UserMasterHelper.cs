@@ -18,14 +18,6 @@ namespace Benaa2018.Helper
             _userMasterRepository = userMasterRepository;
             _projectUserIntConfigMasterRepository = projectUserIntConfigMasterRepository;
         }
-        public UserMasterHelper(IUserMasterRepository userMasterRepository)
-        {
-            _userMasterRepository = userMasterRepository;
-        }
-        public UserMasterHelper(IProjectUserIntConfigMasterRepository projectUserIntConfigMasterRepository)
-        {
-            _projectUserIntConfigMasterRepository = projectUserIntConfigMasterRepository;
-        }
 
         /// <summary>
         ///  Get All Internal Users and Projects By ID
@@ -67,11 +59,11 @@ namespace Benaa2018.Helper
             {
                 foreach(var item in lstUserMaster)
                 { 
-                lstUserMasterModel.Add(new UserMasterViewModel
-                {
-                    UserName=item.UserName,
-                    UserPassword=item.Password
-                });
+                    lstUserMasterModel.Add(new UserMasterViewModel
+                    {
+                        UserName=item.UserName,
+                        UserPassword=item.Password
+                    });
                 }
             }
             return lstUserMasterModel;
@@ -110,6 +102,7 @@ namespace Benaa2018.Helper
             }
 
         }
+
         public async Task UpdateUserMaterConfig(int projectID, List<UserMasterViewModel> lstUserMasterModel)
         {
             foreach (var item in lstUserMasterModel)

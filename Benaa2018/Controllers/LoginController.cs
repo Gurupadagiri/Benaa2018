@@ -1,5 +1,4 @@
-﻿using Benaa2018.Data.Interfaces;
-using Benaa2018.Helper;
+﻿using Benaa2018.Helper;
 using Benaa2018.Helper.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;

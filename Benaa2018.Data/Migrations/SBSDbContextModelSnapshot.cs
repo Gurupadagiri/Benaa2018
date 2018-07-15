@@ -147,7 +147,17 @@ namespace Benaa2018.Data.Migrations
                     b.Property<int>("ProjectColorId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<string>("ColorCode");
+
+                    b.Property<string>("Created_By");
+
+                    b.Property<DateTime>("Created_Date");
+
                     b.Property<bool>("IsDisable");
+
+                    b.Property<string>("Modified_By");
+
+                    b.Property<DateTime>("Modified_Date");
 
                     b.Property<string>("ProjectColorName");
 
@@ -289,9 +299,9 @@ namespace Benaa2018.Data.Migrations
 
                     b.Property<int>("Org_ID");
 
-                    b.Property<int>("ProjectColorId");
+                    b.Property<string>("ProjectColorId");
 
-                    b.Property<int>("Project_Color_ID");
+                    b.Property<string>("Project_Color_ID");
 
                     b.Property<int>("Project_ID");
 
@@ -512,6 +522,36 @@ namespace Benaa2018.Data.Migrations
                     b.Property<string>("Password");
 
                     b.Property<string>("UserName");
+
+                    b.Property<int>("User_Alert_Schedule");
+
+                    b.Property<string>("User_Cell_Email");
+
+                    b.Property<string>("User_Contact_Info");
+
+                    b.Property<string>("User_Default_Labour_Cost");
+
+                    b.Property<int>("User_Default_Time_Clock");
+
+                    b.Property<string>("User_Email");
+
+                    b.Property<bool>("User_Enabled");
+
+                    b.Property<string>("User_First_Name");
+
+                    b.Property<string>("User_Forum_Handle");
+
+                    b.Property<bool>("User_Is_Alert");
+
+                    b.Property<bool>("User_Is_Automatic_Access");
+
+                    b.Property<bool>("User_Is_Forum_Handle");
+
+                    b.Property<string>("User_Last_Name");
+
+                    b.Property<bool>("User_Login_Enabled");
+
+                    b.Property<string>("User_Phone");
 
                     b.HasKey("UserID");
 

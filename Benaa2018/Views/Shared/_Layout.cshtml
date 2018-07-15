@@ -70,34 +70,34 @@
                     </li>
                     @foreach (var item in baseModel.MenuContents)
                     {
-                        <li class="dropdown inlineIcon">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <div class="liDiv">
-                                    @foreach (var Menu in item.Menus)
+                    <li class="dropdown inlineIcon">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <div class="liDiv">
+                                @foreach (var Menu in item.Menus)
                                     {
-                                        <li>
-                                            <div class="inlineDiv">
-                                                <a href="#" class="icontxt">
-                                                    <span class="@Menu.CssClass"></span>
-                                                    <span>@Menu.MenuName</span>
-                                                </a>
-                                                <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
-                                            </div>
-                                        </li>
+                                <li>
+                                    <div class="inlineDiv">
+                                        <a href="#" class="icontxt">
+                                            <span class="@Menu.CssClass"></span>
+                                            <span>@Menu.MenuName</span>
+                                        </a>
+                                        <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
+                                    </div>
+                                </li>
                                     }
-                                    <li class="videocontainer">
-                                        <div class="grayli">
-                                            <span class="fa fa-close grayClose" aria-hidden="true"></span>
-                                            <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
-                                                <b>Lorem Lipsum doller sit</b>
-                                                <p>Lorem Ipsum is simply dummy text of the printing</p>
-                                            </span>
-                                        </div>
-                                    </li>
-                                </div>
-                            </ul>
-                        </li>
+                                <li class="videocontainer">
+                                    <div class="grayli">
+                                        <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                        <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                            <b>Lorem Lipsum doller sit</b>
+                                            <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                        </span>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right user-support">
@@ -166,13 +166,13 @@
             @Html.Partial("_leftMenu", baseModel);
         </div>
 
-        
+
 
         <!--------------------- Logo header end here------------->
 
 
         @RenderBody()
-        
+
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
         </div>
@@ -732,8 +732,26 @@
             $('span.MapCon > a').on('click', function () {
                 $('#locationModal').css('display', 'block');
             });
+            $('input[id^=worksdays_]').change(function () {
+                var workdays = $('#ProjectScheduleMasterModel_WorkDays').val();
+                var arrworkDays = new Array();
+                if (workdays !== "") {
+                    arrworkDays = workdays.split(',');
+                }
+                if (arrworkDays.indexOf($(this).val()) > -1) {
+                    arrworkDays.splice(arrworkDays.indexOf($(this).val()));
+                }
+                else {
+                    arrworkDays.push($(this).val());
+                }
+                var strDays = '';
+                for (var i = 0; i < arrworkDays.length; i++) {
+                    strDays = strDays + arrworkDays[i] + ',';
+                }
+                $('#ProjectScheduleMasterModel_WorkDays').val(strDays.replace(/,\s*$/, ""));
+            });
         });
-        $(window).load(function () { //#example tr td.projectinfo
+        $(window).load(function () {
             $(document).on("click", "div.listmapCon", function () {
                 var projectId = parseInt($(this).attr('data-project'));
                 var datainfo = { "projectID": projectId };

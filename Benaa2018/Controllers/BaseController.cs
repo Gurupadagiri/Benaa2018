@@ -46,8 +46,7 @@ namespace Benaa2018.Controllers
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             Basemodel = new BaseViewModel
-            {
-                MenuContents = _menuMasterHelper.GetMenuItems().GetAwaiter().GetResult(),
+            {               
                 UserMasterModel = _userMasterHelper.GetUserByUserId(1).GetAwaiter().GetResult(),
                 ProjectTypeMasterModels = _projectMasterHelper.GetAllProjectType().GetAwaiter().GetResult(),
                 ProjectGroupModels = _projectGroupHelper.GetProjectGroupByUserID(1).GetAwaiter().GetResult(),
@@ -57,10 +56,11 @@ namespace Benaa2018.Controllers
                 CompanyMasterModel = _companyMasterHelper.GetCompanyByID(1).GetAwaiter().GetResult(),
                 UserMasterViewModels = _userMasterHelper.GetAllInternalUsers().GetAwaiter().GetResult(),
                 ProjectMasterModels = _projectMasterHelper.GetAllProjectByUserId(1).GetAwaiter().GetResult(),
-                ProjectManagerMasterModels = _projectMasterHelper.GetAllManagers().GetAwaiter().GetResult()
-            };
+                ProjectManagerMasterModels = _projectMasterHelper.GetAllManagers().GetAwaiter().GetResult(),
+                MenuContents = _menuMasterHelper.GetMenuItems().GetAwaiter().GetResult()
+        };
             Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
-            Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
+            Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);            
             ViewBag.Basemodel = Basemodel;
             base.OnActionExecuting(filterContext);
         }

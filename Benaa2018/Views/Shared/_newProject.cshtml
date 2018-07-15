@@ -177,10 +177,16 @@
                                             <div class="col-sm-6 form-group">
                                                 <label>
                                                     Project Color
-                                                    <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="sdfgdfgdfgdfgdfgdf" data-original-title="" title="">
+                                                    <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right">
                                                         <span class="glyphicon glyphicon-info-sign"></span>
                                                     </small>
-                                                    @Html.DropDownListFor(a => a.ProjectScheduleMasterModel.ProjectColorId, new SelectList(Model.ProjectColorModels, "ProjectColorId", "ProjectColorName"), new { @class = "form-control required" })
+                                                    <select asp-for="ProjectScheduleMasterModel.ProjectColorId" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required." >
+                                                        <option value="">Select</option>
+                                                        @foreach (var item in Model.ProjectColorModels)
+                                                        {
+                                                            <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
+                                                        }
+                                                    </select>
                                                 </label>
                                             </div>
                                             <div class="clearfix"></div>
@@ -208,28 +214,13 @@
                                             <div class="col-sm-6 form-group">
                                                 <label>Work Days<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="sdfgdfgdfgdfgdfgdf" data-original-title="" title=""><span class="glyphicon glyphicon-info-sign"></span></small></label>
                                                 <div class="clearfix"></div>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="" disabled checked>Sun
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="" disabled checked>Mon
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="" disabled checked>Tue
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="" disabled checked>Wed
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="" disabled checked>Thu
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="" disabled>Fri
-                                                </label>
-                                                <label class="checkbox-inline">
-                                                    <input type="checkbox" value="" disabled>Sat
-                                                </label>
-
+                                                @foreach (var item in Model.ProjectScheduleMasterModel.DaysList)
+                                                {
+                                                    <label class="checkbox-inline">
+                                                        <input type="checkbox" id="worksdays_@item.Value" value="@item.Value">@item.Key
+                                                    </label>
+                                                }
+                                                @Html.HiddenFor(a => a.ProjectScheduleMasterModel.WorkDays)
                                             </div>
                                         </div>
                                     </div>
