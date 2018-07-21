@@ -118,9 +118,12 @@
                             <h3 class="d_active tab_drawer_heading" rel="tab1">List</h3>
                             <div id="tab1" class="tab_content">
                                 <div class="dataTableConatainer">
-                                    <button id="export">Export to Excel</button>
-                                    <table id="example">
-                                    </table>
+                                    <span>
+                                        <button id="export">
+                                            <span class="ui-icon ui-icon-excel"></span>
+                                        </button>
+                                    </span>
+                                    <table id="example"></table>
                                 </div>
                             </div>
                             <!-- #tab1 -->
@@ -129,13 +132,13 @@
                                 <div class="clusterMapCon">
                                     <div class="row">
                                         <div class="col-sm-4">
-                                            @foreach (var item in Model.ProjectMasterModels.Where(a=>a.ProjectName != null).ToList())
+                                            @foreach (var item in Model.ProjectMasterModels.Where(a => a.ProjectName != null).ToList())
                                             {
                                                 <div class="filterMap">
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <div class="listmapCon" data-project="@item.ProjectID">
-                                                                <span class="glyphicon glyphicon-map-marker"></span><a><label> @item.ProjectName</label></a>
+                                                                <span class="glyphicon glyphicon-map-marker" data-coordinate="@item.Latitude,@item.Longitude" ></span><a class="lnk" data-toggle="modal" data-target="#newProject"><label> @item.ProjectName</label></a>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -160,7 +163,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                            }                                            
+                                            }
                                         </div>
                                         <div class="col-sm-8" id="dvMapEdit">
                                             Map will be placed here
@@ -172,7 +175,7 @@
                             <h3 class="tab_drawer_heading" rel="tab3">Tab 3</h3>
                             <div id="tab3" class="tab_content">
                                 <div id="dvMapCluster" class="clusterMapCon">
-                                    
+
                                 </div>
                             </div>
                             <!-- #tab3 -->

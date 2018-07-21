@@ -70,34 +70,34 @@
                     </li>
                     @foreach (var item in baseModel.MenuContents)
                     {
-                    <li class="dropdown inlineIcon">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
-                        <ul class="dropdown-menu">
-                            <div class="liDiv">
-                                @foreach (var Menu in item.Menus)
+                        <li class="dropdown inlineIcon">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <div class="liDiv">
+                                    @foreach (var Menu in item.Menus)
                                     {
-                                <li>
-                                    <div class="inlineDiv">
-                                        <a href="#" class="icontxt">
-                                            <span class="@Menu.CssClass"></span>
-                                            <span>@Menu.MenuName</span>
-                                        </a>
-                                        <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
-                                    </div>
-                                </li>
+                                        <li>
+                                            <div class="inlineDiv">
+                                                <a href="#" class="icontxt">
+                                                    <span class="@Menu.CssClass"></span>
+                                                    <span>@Menu.MenuName</span>
+                                                </a>
+                                                <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
+                                            </div>
+                                        </li>
                                     }
-                                <li class="videocontainer">
-                                    <div class="grayli">
-                                        <span class="fa fa-close grayClose" aria-hidden="true"></span>
-                                        <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
-                                            <b>Lorem Lipsum doller sit</b>
-                                            <p>Lorem Ipsum is simply dummy text of the printing</p>
-                                        </span>
-                                    </div>
-                                </li>
-                            </div>
-                        </ul>
-                    </li>
+                                    <li class="videocontainer">
+                                        <div class="grayli">
+                                            <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                            <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                                <b>Lorem Lipsum doller sit</b>
+                                                <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                            </span>
+                                        </div>
+                                    </li>
+                                </div>
+                            </ul>
+                        </li>
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right user-support">
@@ -162,21 +162,17 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
-            @Html.Partial("_leftMenu", baseModel);
-        </div>
-
-
-
+        @if (ViewBag.IsleftMenuVisible != false)
+        {
+            <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
+                @Html.Partial("_leftMenu", baseModel);
+            </div>
+        }
         <!--------------------- Logo header end here------------->
-
-
         @RenderBody()
-
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
         </div>
-
     }
     @RenderBody()
     @if (baseModel != null)
@@ -288,35 +284,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
     @*<style></style>*@
     <script type="text/javascript">
-            @*$(document).ready(function () {
-                if (@ViewBag.result== 1) {2
-
-                    $('#userPreference').modal('show');
-                    $('#errorDiv').show();
-                    $('#spnErrorMessgae').text("Please put all necessary information");
-                }
-                else if (@ViewBag.result== 2) {
-
-                    $('#userPreference').modal('show');
-                    $('#errorDiv').show();
-                    $('#spnErrorMessgae').text("User Name already exists");
-                }
-                else {
-
-                    //$('#userPreference').modal('show');
-                    //$('#errorDiv').show();
-                    //$('#txtErrorMessage').text("Error occurred");
-                }
-            });*@
-
         $(document).ready(function () {
             $("#saveUserPreference").click(function (e) {
                 e.preventDefault();
-                debugger;
-                alert('Clicked on button');
-
                 var infoForm = $("#frmSubmitUserPreference");
-
                 var postData = infoForm.serializeArray();
                 $.ajax({
                     url: "@(Url.Action("UserPreferences", "Home",null))",
@@ -344,7 +315,6 @@
     <script>
         $(document).ready(function () {
             $('[data-toggle="popover"]').popover({ html: true });
-            //$('[data-toggle="tooltip"]').tooltip();
             $(".closeModal").click(function () {
                 $("#groupAddModal").hide();
             });
@@ -524,14 +494,14 @@
                 } else {
                     $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'none');
                 }
-                if ($("select#selectinfo").val() == '') {
-                    $('.owner-existing-info').style('display', 'none');
-                }
-                $("select#selectinfo").on('change', function () {
-                    if ($(this).val() == "1" || $(this).val() == "" ) {
-                        $('.owner-existing-info').style('display', 'block');
-                    }
-                });
+                //if ($("select#selectinfo").val() == '') {
+                //    $('.owner-existing-info').style('display', 'none');
+                //}
+                //$("select#selectinfo").on('change', function () {
+                //    if ($(this).val() == "1" || $(this).val() == "" ) {
+                //        $('.owner-existing-info').style('display', 'block');
+                //    }
+                //});
                 if ($('#ProjectMasterModel_JobsitePrefix').val() == '') {
                     $('#ProjectMasterModel_JobsitePrefix').parent().find('.errormessege').css('display', 'block');
                     $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
@@ -655,7 +625,7 @@
                         $(this).parent().find('.errormessege').css('display', 'none');
                     }
                 });
-                var postData = infoForm.serializeArray();
+                var postData = infoForm.serialize();
                 $.ajax({
                     url: "@(Url.Action("SubmitProjectInfo", "Home",null))",
                     type: 'POST',
@@ -682,21 +652,21 @@
                 var projectGroupId = $('#ddlProjectGroup').val();
                 var ManagerId = $('#ddlProjectManager').val();
                 var postData = { projectGroupId: projectGroupId, managerID: ManagerId };
-                $("#leftNavCon").load('@(Url.Action("FilterProjectDetails", "Home",null))', postData);
+                $("#leftNavCon").load('@(Url.Action("FilterProjectDetailsAsync", "Home",null))', postData);
             });
 
              //Filter Result
             $(document).on('change', '#ddlToDoLost', function () {
                 var days = parseInt($(this).val());
                 var postData = { days: days };
-                $("#tbltodolist").load('@(Url.Action("FilterToDoList", "Home",null))', postData);
+                $("#tbltodolist").load('@(Url.Action("FilterToDoListAsync", "Home",null))', postData);
             });
 
              //Filter Result
             $(document).on('click', 'a.allProject', function () {
                 var projectid = parseInt($(this).attr('data-projectid'));
                 var postData = { projectId: projectid };
-                $("div.mainContentDiv").load('@(Url.Action("FilteredMainContent", "Home",null))', postData);
+                $("div.mainContentDiv").load('@(Url.Action("FilteredMainContentAsync", "Home",null))', postData);
                 $('#spnproject').text($(this).text());
             });
 
@@ -720,13 +690,20 @@
                 $("#example").load('@(Url.Action("FilterProjectsAsync", "Home",null))', datainfo);
             });
 
-            $('#btnJobGroup').off('click').on('click', function () {
-                var jobGroupName = $('#jobgroupname').val();
-                var datainfo = { "jobGroupName": jobGroupName };
-                $.get("home/SaveProjectGroup", datainfo, function (data) {
-                    $('#groupAddModal').removeClass('in').addClass('out');
-                    $('#groupAddModal').hide();
-                });
+            $('#btnProjectGroup').off('click').on('click', function () {
+                var jobGroupName = $('#Projectgroupname').val();
+                if (jobGroupName != '') {
+                    var datainfo = { "jobGroupName": jobGroupName };
+                    $.get("home/SaveProjectGroup", datainfo, function (data) {
+                        $('#ProjectMasterModel_ProjectGroupID')
+                            .append($("<option></option>")
+                            .attr("value", data.result)
+                            .text(jobGroupName));
+                        var resjobstr = '<li data-search-term="' + jobGroupName + '"><label for="ms-opt-18"><input type="checkbox" title="' + jobGroupName + '" id="ms-opt-18" value="' + data.result + '">"' + jobGroupName + '"</label></li>'
+                        $('#ProjectMasterModel_ProjectGroupID').next().find('ul').append(resjobstr);
+                        $('#groupAddModal').hide();
+                    });
+                }
             });
 
             $('span.MapCon > a').on('click', function () {
@@ -750,10 +727,13 @@
                 }
                 $('#ProjectScheduleMasterModel_WorkDays').val(strDays.replace(/,\s*$/, ""));
             });
+            $('.close').click(function () {
+                $('#existingower').hide();
+            });
         });
         $(window).load(function () {
-            $(document).on("click", "div.listmapCon", function () {
-                var projectId = parseInt($(this).attr('data-project'));
+
+            function SetProjectDetails(projectId) {
                 var datainfo = { "projectID": projectId };
                 $.post("home/GetProjectInfoByProjectID", datainfo, function (data) {
                     $('#infoModal').show();
@@ -786,9 +766,23 @@
                     $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections)
                     $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections);
                     $('#OwnerMasterModel_AllowPaymentsTab').prop('checked', data.item2.allowPaymentsTab);
-
+                });
+            }
+            $(document).on("click", "div.listmapCon > a", function () {
+                var projectId = parseInt($(this).attr('data-project'));
+                SetProjectDetails(projectId);
+            });
+            $(document).on("click", "td[aria-describedby='example_ProjectName']", function () {
+                var projectId = parseInt($(this).prev().text());
+                SetProjectDetails(projectId);
+                $('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');
+                $('#projectclose').on('click', function () {
+                    $('#newProject').removeClass('in').removeAttr('style').attr('style', 'display:none');
                 });
             });
+            var innerexport = $('div.dataTableConatainer').children('span').html();
+            $('#example_toppager_left').html(innerexport);
+            $('#export').remove();
         });
     </script>
     <script>
@@ -867,75 +861,42 @@
     @if (baseModel != null)
     {
         <script>
-
         $(document).ready(function () {
-                @*$("#example").jqGrid({
-                    colModel: [
-                        { name: "ProjectName", label: "Project Name", width: 53 },
-                        {
-                            name: "StreetAddress", label: "Street Address", width: 75
-                        },
-                        { name: "City", label: "City", width: 65 },
-                        { name: "State", label: "State", width: 41 },
-                        { name: "Zip", label: "Zip", width: 41 },
-                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
-                        { name: "OwnerName", label: "Owner", width: 59 },
-                        { name: "Telephone", label: "Phone", width: 65 },
-                        { name: "MobileNo", label: "Cell", width: 41 },
-                        { name: "Active", label: "Active", width: 51 }
-                    ],
-                    data: @Html.Raw(ViewBag.ProjectGrid),
-                    iconSet: "fontAwesome",
-                    idPrefix: "g5_",
-                    rownumbers: true,
-                    sortname: "ProjectName",
-                    sortorder: "desc",
-                    threeStateSort: true,
-                    sortIconsBeforeText: true,
-                    headertitles: true,
-                    toppager: false,
-                    pager: true,
-                    rowNum: 5,
-                    viewrecords: true,
-                    searching: {
-                        defaultSearch: "cn"
+            $("#example").jqGrid({
+                colModel: [
+                    { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
+                    { name: "ProjectName", label: "Project Name", width: 53 },
+                    {
+                        name: "StreetAddress", label: "Street Address", width: 75
                     },
-                    caption: ""
-            });*@
-                $("#example").jqGrid({
-                    colModel: [
-                        { name: "ProjectName", label: "Project Name", width: 53 },
-                        {
-                            name: "StreetAddress", label: "Street Address", width: 75
-                        },
-                        { name: "City", label: "City", width: 65 },
-                        { name: "State", label: "State", width: 41 },
-                        { name: "Zip", label: "Zip", width: 41 },
-                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
-                        { name: "OwnerName", label: "Owner", width: 59 },
-                        { name: "Telephone", label: "Phone", width: 65 },
-                        { name: "MobileNo", label: "Cell", width: 41 },
-                        { name: "Active", label: "Active", width: 51 }
-                    ],
-                   data: @Html.Raw(baseModel.ProjectModelJsonString),
-                   iconSet: "fontAwesome",
-                   idPrefix: "g5_",
-                   rownumbers: true,
-                   sortname: "ProjectName",
-                   sortorder: "desc",
-                   threeStateSort: true,
-                   sortIconsBeforeText: true,
-                   headertitles: true,
-                   toppager: true,
-                   pager: true,
-                   rowNum: 5,
-                   viewrecords: true,
-                   searching: {
-                       defaultSearch: "cn"
-                   },
-                   caption: ""
-                });
+                    { name: "City", label: "City", width: 65 },
+                    { name: "State", label: "State", width: 41 },
+                    { name: "Zip", label: "Zip", width: 41 },
+                    { name: "ManagerName", label: "Proj. Manager", width: 51 },
+                    { name: "OwnerName", label: "Owner", width: 59 },
+                    { name: "Telephone", label: "Phone", width: 65 },
+                    { name: "MobileNo", label: "Cell", width: 41 },
+                    { name: "Active", label: "Active", width: 51 }
+                ],
+                data: @Html.Raw(baseModel.ProjectModelJsonString),
+                iconSet: "fontAwesome",
+                idPrefix: "g5_",
+                rownumbers: true,
+                sortname: "ProjectName",
+                sortorder: "desc",
+                threeStateSort: true,
+                sortIconsBeforeText: true,
+                headertitles: true,
+                toppager: true,
+                pager: true,
 
+                rowNum: 5,
+                viewrecords: true,
+                searching: {
+                    defaultSearch: "cn"
+                },
+                caption: ""
+            });
 
             $('#calendar').fullCalendar({
                 header: {
@@ -973,17 +934,19 @@
                     $('#calendarmodalgeneral').addClass('in').css('display', 'block');
                 }
             });
-        });
-        </script>
-        <script type="text/javascript">
-            $(document).ready(function () {
-                BindAddress();
-                BindAddressCluster();
-                BindAddressEdit();
+            BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMap"));
+            BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapCluster"));
+            BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapEdit"));
+            $('span.glyphicon-map-marker').on('click', function () {
+                var coordinate = $(this).attr('data-coordinate');
+                var lat = coordinate.split(',')[0];
+                var lan = coordinate.split(',')[1];
+                $('#dvMapEdit').empty().removeAttr('style');
+                BindAddress(lat, lan, document.getElementById("dvMapEdit"));
             });
-        function BindAddress() {
-                 var myCenter = new google.maps.LatLng(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude);
-            var mapCanvas = document.getElementById("dvMap");
+        });
+        function BindAddress(latitude, longitude, mapCanvas) {
+            var myCenter = new google.maps.LatLng(latitude, longitude);
             var mapOptions = {
                 center: myCenter,
                 zoom: 13
@@ -1011,69 +974,7 @@
                 });
             });
             marker.setMap(map);
-
-            }
-        function BindAddressCluster() {
-                var myCenter = new google.maps.LatLng(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude);
-                var mapCanvas = document.getElementById("dvMapCluster");
-                var mapOptions = {
-                    center: myCenter,
-                    zoom: 13
-                };
-                var map = new google.maps.Map(mapCanvas, mapOptions);
-                var marker = new google.maps.Marker({
-                    position: myCenter,
-                    draggable: true,
-                    map: map,
-                    title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
-                });
-                google.maps.event.addListener(marker, 'dragend', function (event) {
-                    var lat = this.position.lat();
-                    var lng = this.position.lng();
-
-                    var latlng = new google.maps.LatLng(lat, lng);
-                    var geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            if (results[1]) {
-                                //$('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
-                            }
-                        }
-                    });
-                });
-                marker.setMap(map);
-            }
-        function BindAddressEdit() {
-                var myCenter = new google.maps.LatLng(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude);
-                var mapCanvas = document.getElementById("dvMapEdit");
-                var mapOptions = {
-                    center: myCenter,
-                    zoom: 13
-                };
-                var map = new google.maps.Map(mapCanvas, mapOptions);
-                var marker = new google.maps.Marker({
-                    position: myCenter,
-                    draggable: true,
-                    map: map,
-                    title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
-                });
-                google.maps.event.addListener(marker, 'dragend', function (event) {
-                    var lat = this.position.lat();
-                    var lng = this.position.lng();
-
-                    var latlng = new google.maps.LatLng(lat, lng);
-                    var geocoder = new google.maps.Geocoder();
-                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                        if (status == google.maps.GeocoderStatus.OK) {
-                            if (results[1]) {
-                                // $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
-                            }
-                        }
-                    });
-                });
-                marker.setMap(map);
-
-            }
+        }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
     }

@@ -88,7 +88,7 @@ namespace Benaa2018.Helper
         public async Task<List<ProjectMasterViewModel>> GetAllProjectByUserId(int userId)
         {
             List<ProjectMasterViewModel> lstProjectScheduleMaster = new List<ProjectMasterViewModel>();
-            var projectSchedules = await _projectMasterRepository.GetProjectByUserID(userId);
+            var projectSchedules = _projectMasterRepository.GetProjectByUserID(userId).Result.Where(a=>a.Project_Name != null).ToList();
             foreach(var item in projectSchedules)
             {
                 lstProjectScheduleMaster.Add(new ProjectMasterViewModel
@@ -112,35 +112,11 @@ namespace Benaa2018.Helper
                     Zip = item.Zip,
                     ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID).ConfigureAwait(true),
                     OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(item.Project_ID).ConfigureAwait(true),
-                    OrgID = Convert.ToInt32(item.Org_ID)
+                    OrgID = Convert.ToInt32(item.Org_ID),
+                    Latitude= item.Latitude,
+                    Longitude= item.Longitude
                 });
-            }
-            //projectSchedules.ForEach(async item =>
-            //{
-            //    lstProjectScheduleMaster.Add(new ProjectMasterViewModel
-            //    {
-            //        ProjectID = item.Project_ID,
-            //        City = item.City,
-            //        ContractPrice = item.Contract_Price,
-            //        InternalNotes = item.Internal_Notes,
-            //        JobsitePrefix = item.Project_Prefix,
-            //        LotInfo = item.Lot_Info,
-            //        Permit = item.Permit_No,
-            //        ProjectGroupID = item.Project_Group_ID,
-            //        ProjectManagerID = item.Project_Manager_id,
-            //        ProjectName = item.Project_Name,
-            //        ProjectStatusID = item.Status_ID,
-            //        ProjectTypeID = item.Project_Type_ID,
-            //        State = item.State,
-            //        StreetAddress = item.Address,
-            //        SubNotes = item.Sub_Notes,
-            //        UserID = item.User_ID,
-            //        Zip = item.Zip,
-            //        ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID).ConfigureAwait(true),
-            //        OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(item.Project_ID).ConfigureAwait(true),
-            //        OrgID = Convert.ToInt32(item.Org_ID)
-            //    });
-            //});
+            }            
             return lstProjectScheduleMaster;
         }
 

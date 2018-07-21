@@ -81,7 +81,7 @@ namespace Benaa2018.Controllers
         }
 
         [HttpPost]
-        [RequestFormSizeLimit(valueCountLimit: 20000)]
+        //[RequestFormSizeLimit(valueCountLimit: 20000)]
         public async Task<IActionResult> SubmitProjectInfo(BaseViewModel homeContent)
         {
             if (homeContent != null && homeContent.ProjectMasterModel != null)
@@ -130,10 +130,10 @@ namespace Benaa2018.Controllers
         }
 
         [HttpGet]
-        public JsonResult SaveProjectGroup(string jobGroupName)
+        public async Task<JsonResult> SaveProjectGroup(string jobGroupName)
         {
-            var projectIngo = _projectGroupHelper.SaveProjectGroup(1, jobGroupName);
-            return Json("success");
+            var projectGroupId = await _projectGroupHelper.SaveProjectGroup(1, jobGroupName);
+            return Json(projectGroupId);
         }
 
         [HttpPost]
