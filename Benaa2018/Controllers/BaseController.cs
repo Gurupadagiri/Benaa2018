@@ -59,34 +59,12 @@ namespace Benaa2018.Controllers
                 ProjectManagerMasterModels = _projectMasterHelper.GetAllManagers().GetAwaiter().GetResult(),
                 MenuContents = _menuMasterHelper.GetMenuItems().GetAwaiter().GetResult()
         };
-            Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
+            Basemodel.ProjectGridModels = _projectMasterHelper.BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
             Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);            
             ViewBag.Basemodel = Basemodel;
             base.OnActionExecuting(filterContext);
         }
 
-        public List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels,
-           List<ProjectManagerMasterViewModel> ProjectManagerMasterModels)
-        {
-            List<ProjectGridModel> lstGridModel = new List<ProjectGridModel>();
-            ProjectMasterModels.ForEach(a =>
-            {
-                lstGridModel.Add(new ProjectGridModel
-                {
-                    ProjectName = a.ProjectName,
-                    City = a.City,
-                    ManagerName = ProjectManagerMasterModels.Where(b => b.ManagerID.ToString() == a.ProjectManagerID).Select(b => b.ManagerName).FirstOrDefault(),
-                    MobileNo = a.OwnerMasterModel.MobileNo,
-                    OwnerName = a.OwnerMasterModel.OwnerName,
-                    ProjectId = a.ProjectID,
-                    State = a.State,
-                    StreetAddress = a.StreetAddress,
-                    Telephone = a.OwnerMasterModel.MobileNo,
-                    Zip = a.Zip,
-                    Active = a.OwnerMasterModel.Active
-                });
-            });
-            return lstGridModel;
-        }
+        
     }
 }

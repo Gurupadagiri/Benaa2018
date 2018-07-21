@@ -170,8 +170,11 @@ namespace Benaa2018.Controllers
         {
             BaseViewModel homeViewModel = new BaseViewModel
             {
+                ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
                 ProjectMasterModels = await _projectMasterHelper.FilterProjectResults(projectGroups, projectManagers, status, projectTypes, searchKeyWord, mappedStatus, searchText)
             };
+            Basemodel.ProjectGridModels = _projectMasterHelper.BindProjectGrid(homeViewModel.ProjectMasterModels, homeViewModel.ProjectManagerMasterModels);
+            Basemodel.ProjectModelJsonString = JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
             return PartialView("_infoModel", homeViewModel);
         }
 

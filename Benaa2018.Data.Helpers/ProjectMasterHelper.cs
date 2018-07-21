@@ -1,6 +1,7 @@
 ﻿using Benaa2018.Data.Interfaces;
 using Benaa2018.Data.Model;
 using Benaa2018.Data.Repository;
+using Benaa2018.Helper.Model;
 using Benaa2018.Helper.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -224,13 +225,13 @@ namespace Benaa2018.Helper
 
             if (searchKeyWord != null)
             {
-                var projectNames = lstManagers.Where(a => a.Project_Name.StartsWith(searchKeyWord)).ToList();
+                var projectNames = lstManagers.Where(a => a.Project_Name != null && a.Project_Name.StartsWith(searchKeyWord)).ToList();
                 if(projectNames != null)
                 {
                     lstProjectMasterInfo.AddRange(projectNames);
                 }                
             }
-            lstProjectMasterInfo.ForEach(async item =>
+            lstProjectMasterInfo.ForEach(item =>
             {
                 lstProjectMasterModel.Add(new ProjectMasterViewModel
                 {
@@ -251,7 +252,7 @@ namespace Benaa2018.Helper
                     SubNotes = item.Sub_Notes,
                     UserID = item.User_ID,
                     Zip = item.Zip,
-                    ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID)
+                    ProjectScheduleMasterModel = _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID).Result
                 });
             });
             return lstProjectMasterModel;
@@ -285,6 +286,30 @@ namespace Benaa2018.Helper
                 });
             });
             return ProjectTypeMasterModelLst;
+        }
+
+        public List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels,
+           List<ProjectManagerMasterViewModel> ProjectManagerMasterModels)
+        {
+            List<ProjectGridModel> lstGridModel = new List<ProjectGridModel>();
+            ProjectMasterModels.ForEach(a =>
+            {
+                lstGridModel.Add(new ProjectGridModel
+                {
+                    ProjectName = a.ProjectName,
+                    City = a.City,
+                    ManagerName = ProjectManagerMasterModels.Where(b => b.ManagerID.ToString() == a.ProjectManagerID).Select(b => b.ManagerName).FirstOrDefault(),
+                    MobileNo = a.OwnerMasterModel.MobileNo,
+                    OwnerName = a.OwnerMasterModel.OwnerName,
+                    ProjectId = a.ProjectID,
+                    State = a.State,
+                    StreetAddress = a.StreetAddress,
+                    Telephone = a.OwnerMasterModel.MobileNo,
+                    Zip = a.Zip,
+                    Active = a.OwnerMasterModel.Active
+                });
+            });
+            return lstGridModel;
         }
     }
 }

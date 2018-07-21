@@ -705,6 +705,9 @@
                     });
                 }
             });
+            $('.btn-print').on('click', function () {
+                window.print();
+            });
 
             $('span.MapCon > a').on('click', function () {
                 $('#locationModal').css('display', 'block');
