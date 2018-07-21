@@ -86,4 +86,10 @@ namespace Benaa2018.Helper.ViewModels
         public bool UserIsForumHandle { get; set; }
         public string UserForumHandle { get; set; }
     }
+
+    public class SelectListUser
+    {
+        public int UserID { get; set; }
+        public string FullName { get; set; }
+    }
 }

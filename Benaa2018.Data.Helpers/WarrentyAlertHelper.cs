@@ -19,16 +19,21 @@ namespace Benaa2018.Helper
         {
             List<WarrentyAlertViewModel> lstWarrentyModel = new List<WarrentyAlertViewModel>();
             var warrenties = await _warrentyAlertRepoisitory.GetAllAsync();
-            warrenties.ToList().ForEach(item =>
+            if (warrenties.ToList()!=null)
             {
-                lstWarrentyModel.Add(new WarrentyAlertViewModel
+
+
+                warrenties.ToList().ForEach(item =>
                 {
-                    UserID = item.User_ID,
-                    WarrentAlertId = item.Warrent_Alert_Id,
-                    WarrentyName = item.Warrenty_Name,
-                    WarrentyYear = item.Warrenty_Year                   
+                    lstWarrentyModel.Add(new WarrentyAlertViewModel
+                    {
+                        UserID = item.User_ID,
+                        WarrentAlertId = item.Warrent_Alert_Id,
+                        WarrentyName = item.Warrenty_Name,
+                        WarrentyYear = item.Warrenty_Year
+                    });
                 });
-            });
+            }
             return lstWarrentyModel;
         }
     }

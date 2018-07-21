@@ -38,6 +38,7 @@ namespace Benaa2018.Helper
             {
                 lstUserMasterModel.Add(new UserMasterViewModel
                 {
+                    FullName = item.FullName,
                     UserID = item.UserID,
                     UserName = item.UserName,
                     JobNotification = lstProjectUser != null ? lstProjectUser.Where(a => a.UserID == item.UserID).Select(a => a.Recive_Notification).FirstOrDefault() : false,

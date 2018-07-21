@@ -8,7 +8,9 @@ namespace Benaa2018.Helper
 {
     public interface IDetaildPermissionHelper
     {
-        Task<DetaildPermissionViewModel> GetUserDetailsInfoByInfo(int UserId);
+        //Task<DetaildPermissionViewModel> GetUserDetailsInfoByInfo(int UserId);
+        Task<List<DetaildPermissionViewModel>> GetUserDetailsInfoByInfo(int UserId, int caseSet);
+
         Task<DetaildPermissionViewModel> SaveUserDetailsAsync(DetaildPermissionViewModel detaildPermissionViewModel);
         Task<int> UpdateUserDetails(int UserId, DetaildPermissionViewModel detaildPermissionViewModel);
     }

@@ -310,6 +310,68 @@
             });*@
 
         $(document).ready(function () {
+
+            $("#chkAllView").click(function (e) {
+               // alert('Check all view');
+                if ($('#chkAllView').prop('checked')) {
+                   // alert('Checkbox is checked');
+                   // $('.chkAllViewPermission').prop('checked');
+                    $('.IsChkViewPermission').attr('checked', true);
+                }
+                else
+                {
+                   // alert('Checkbox is unchecked');
+                    $('.IsChkViewPermission').attr('checked', false);
+                   
+                }
+
+            });
+
+            $("#chkAllAdd").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllAdd').prop('checked')) {
+                    //alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.IsChkAddPermission').attr('checked', true);
+                }
+                else {
+                    //alert('Checkbox is unchecked');
+                    $('.IsChkAddPermission').attr('checked', false);
+
+                }
+
+            });
+
+            $("#chkAllEdit").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllEdit').prop('checked')) {
+                    //alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.chkAllEditPermission').attr('checked', true);
+                }
+                else {
+                    //alert('Checkbox is unchecked');
+                    $('.chkAllEditPermission').attr('checked', false);
+
+                }
+
+            });
+
+            $("#chkAllDelete").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllDelete').prop('checked')) {
+                    //alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.IsChkDeletePermission').attr('checked', true);
+                }
+                else {
+                    //alert('Checkbox is unchecked');
+                    $('.IsChkDeletePermission').attr('checked', false);
+
+                }
+
+            });
+
             $("#saveUserPreference").click(function (e) {
                 e.preventDefault();
                 debugger;
@@ -339,7 +401,48 @@
                     }
                 });
             });
+
+
+
+            
         });
+
+         $("#btnPermissionUser").click(function () {
+           alert('Hi' + $("#ddlPermission").val());
+
+            // e.preventDefault();
+                debugger;
+                alert('Clicked on button');
+
+                var infoForm = $("#frmSubmitUserPreference");
+
+                var postData = infoForm.serializeArray();
+            $.ajax({
+                url: "@(Url.Action("SetUserPreference", "Home",null))",
+                type: 'Get',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                data: {
+                    userPreferenceViewModel: postData,
+                    caseSet: 1,
+                    setUserId: 23
+                },
+                    success: function (data) {
+                        if (data == true) {
+                            infoForm.find("input[type='text']").each(function (i, element) {
+                                infoForm.serialize();
+                            });
+                            alert("Project Details Successfully Added");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+        });
+       
     </script>
     <script>
         $(document).ready(function () {

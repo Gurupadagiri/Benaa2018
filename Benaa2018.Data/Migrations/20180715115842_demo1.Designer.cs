@@ -11,16 +11,17 @@ using System;
 namespace Benaa2018.Data.Migrations
 {
     [DbContext(typeof(SBSDbContext))]
-    partial class SBSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180715115842_demo1")]
+    partial class demo1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            
+           
 
             modelBuilder.Entity("Benaa2018.Data.Model.ProjectColorMaster", b =>
                 {
@@ -47,6 +48,8 @@ namespace Benaa2018.Data.Migrations
                 });
 
            
+
+            
 #pragma warning restore 612, 618
         }
     }

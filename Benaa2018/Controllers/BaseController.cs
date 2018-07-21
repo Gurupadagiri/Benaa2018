@@ -3,8 +3,10 @@ using Benaa2018.Helper.Model;
 using Benaa2018.Helper.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Benaa2018.Controllers
 {
@@ -46,7 +48,7 @@ namespace Benaa2018.Controllers
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             Basemodel = new BaseViewModel
-            {               
+            {
                 UserMasterModel = _userMasterHelper.GetUserByUserId(1).GetAwaiter().GetResult(),
                 ProjectTypeMasterModels = _projectMasterHelper.GetAllProjectType().GetAwaiter().GetResult(),
                 ProjectGroupModels = _projectGroupHelper.GetProjectGroupByUserID(1).GetAwaiter().GetResult(),
@@ -58,10 +60,11 @@ namespace Benaa2018.Controllers
                 ProjectMasterModels = _projectMasterHelper.GetAllProjectByUserId(1).GetAwaiter().GetResult(),
                 ProjectManagerMasterModels = _projectMasterHelper.GetAllManagers().GetAwaiter().GetResult(),
                 MenuContents = _menuMasterHelper.GetMenuItems().GetAwaiter().GetResult()
-        };
+            };
             Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
-            Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);            
+            Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
             ViewBag.Basemodel = Basemodel;
+            ViewBag.UsersList = GetAllUsers();
             base.OnActionExecuting(filterContext);
         }
 
@@ -88,5 +91,41 @@ namespace Benaa2018.Controllers
             });
             return lstGridModel;
         }
+
+
+
+        private async Task<List<UserMasterViewModel>> GetAllUsers()
+        {
+            List<UserMasterViewModel> lstUsers = new List<UserMasterViewModel>();
+            try
+            {
+                var obj1 = await _userMasterHelper.GetAllInternalUsers();
+                if (obj1.Count > 0)
+                {
+                    //    return lstUsers = new List<SelectListUser>
+                    //    {
+                    //        lstUsers.Add(obj1.SelectMany());
+                    //};
+                    foreach (var item in obj1)
+                    {
+                        UserMasterViewModel selectListUser = new UserMasterViewModel
+                        {
+                            UserID = item.UserID,
+                            FullName = item.FullName
+                        };
+                        lstUsers.Add(selectListUser);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return lstUsers;
+        }
+
+
+
+
     }
 }
