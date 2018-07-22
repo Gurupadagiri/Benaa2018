@@ -91,7 +91,7 @@
         All @Model.ProjectMasterModels.Count listed Projects
         <span class="fa fa-align-right pull-right"></span>
     </a>
-    @foreach (var item in Model.ProjectMasterModels)
+    @foreach (var item in Model.ProjectMasterModels.Where(a=>a.ProjectName != null))
     {
         <a data-projectid="@item.ProjectID" class="list-group-item allProject" href="javascript:void(0)">@item.ProjectName</a>
     }

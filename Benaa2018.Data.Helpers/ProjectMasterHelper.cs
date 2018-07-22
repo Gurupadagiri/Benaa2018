@@ -1,6 +1,7 @@
 ﻿using Benaa2018.Data.Interfaces;
 using Benaa2018.Data.Model;
 using Benaa2018.Data.Repository;
+using Benaa2018.Helper.Model;
 using Benaa2018.Helper.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -88,7 +89,7 @@ namespace Benaa2018.Helper
         public async Task<List<ProjectMasterViewModel>> GetAllProjectByUserId(int userId)
         {
             List<ProjectMasterViewModel> lstProjectScheduleMaster = new List<ProjectMasterViewModel>();
-            var projectSchedules = await _projectMasterRepository.GetProjectByUserID(userId);
+            var projectSchedules = _projectMasterRepository.GetProjectByUserID(userId).Result.Where(a=>a.Project_Name != null).ToList();
             foreach(var item in projectSchedules)
             {
                 lstProjectScheduleMaster.Add(new ProjectMasterViewModel
@@ -112,35 +113,11 @@ namespace Benaa2018.Helper
                     Zip = item.Zip,
                     ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID).ConfigureAwait(true),
                     OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(item.Project_ID).ConfigureAwait(true),
-                    OrgID = Convert.ToInt32(item.Org_ID)
+                    OrgID = Convert.ToInt32(item.Org_ID),
+                    Latitude= item.Latitude,
+                    Longitude= item.Longitude
                 });
-            }
-            //projectSchedules.ForEach(async item =>
-            //{
-            //    lstProjectScheduleMaster.Add(new ProjectMasterViewModel
-            //    {
-            //        ProjectID = item.Project_ID,
-            //        City = item.City,
-            //        ContractPrice = item.Contract_Price,
-            //        InternalNotes = item.Internal_Notes,
-            //        JobsitePrefix = item.Project_Prefix,
-            //        LotInfo = item.Lot_Info,
-            //        Permit = item.Permit_No,
-            //        ProjectGroupID = item.Project_Group_ID,
-            //        ProjectManagerID = item.Project_Manager_id,
-            //        ProjectName = item.Project_Name,
-            //        ProjectStatusID = item.Status_ID,
-            //        ProjectTypeID = item.Project_Type_ID,
-            //        State = item.State,
-            //        StreetAddress = item.Address,
-            //        SubNotes = item.Sub_Notes,
-            //        UserID = item.User_ID,
-            //        Zip = item.Zip,
-            //        ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID).ConfigureAwait(true),
-            //        OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(item.Project_ID).ConfigureAwait(true),
-            //        OrgID = Convert.ToInt32(item.Org_ID)
-            //    });
-            //});
+            }            
             return lstProjectScheduleMaster;
         }
 
@@ -248,13 +225,13 @@ namespace Benaa2018.Helper
 
             if (searchKeyWord != null)
             {
-                var projectNames = lstManagers.Where(a => a.Project_Name.StartsWith(searchKeyWord)).ToList();
+                var projectNames = lstManagers.Where(a => a.Project_Name != null && a.Project_Name.StartsWith(searchKeyWord)).ToList();
                 if(projectNames != null)
                 {
                     lstProjectMasterInfo.AddRange(projectNames);
                 }                
             }
-            lstProjectMasterInfo.ForEach(async item =>
+            lstProjectMasterInfo.ForEach(item =>
             {
                 lstProjectMasterModel.Add(new ProjectMasterViewModel
                 {
@@ -275,7 +252,7 @@ namespace Benaa2018.Helper
                     SubNotes = item.Sub_Notes,
                     UserID = item.User_ID,
                     Zip = item.Zip,
-                    ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID)
+                    ProjectScheduleMasterModel = _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID).Result
                 });
             });
             return lstProjectMasterModel;
@@ -309,6 +286,30 @@ namespace Benaa2018.Helper
                 });
             });
             return ProjectTypeMasterModelLst;
+        }
+
+        public List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels,
+           List<ProjectManagerMasterViewModel> ProjectManagerMasterModels)
+        {
+            List<ProjectGridModel> lstGridModel = new List<ProjectGridModel>();
+            ProjectMasterModels.ForEach(a =>
+            {
+                lstGridModel.Add(new ProjectGridModel
+                {
+                    ProjectName = a.ProjectName,
+                    City = a.City,
+                    ManagerName = ProjectManagerMasterModels.Where(b => b.ManagerID.ToString() == a.ProjectManagerID).Select(b => b.ManagerName).FirstOrDefault(),
+                    MobileNo = a.OwnerMasterModel.MobileNo,
+                    OwnerName = a.OwnerMasterModel.OwnerName,
+                    ProjectId = a.ProjectID,
+                    State = a.State,
+                    StreetAddress = a.StreetAddress,
+                    Telephone = a.OwnerMasterModel.MobileNo,
+                    Zip = a.Zip,
+                    Active = a.OwnerMasterModel.Active
+                });
+            });
+            return lstGridModel;
         }
     }
 }

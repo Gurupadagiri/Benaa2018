@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Benaa2018.Helper.ViewModels;
+using Benaa2018.Helper.Model;
 
 namespace Benaa2018.Helper
 {
@@ -15,5 +16,6 @@ namespace Benaa2018.Helper
         Task<int> UpdateProjectMaster(int userID, ProjectMasterViewModel projectMasterModel);
         Task<List<ProjectManagerMasterViewModel>> GetAllManagers();
         Task<List<ProjectTypeMasterViewModel>> GetAllProjectType();
+        List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels, List<ProjectManagerMasterViewModel> ProjectManagerMasterModels);
     }
 }

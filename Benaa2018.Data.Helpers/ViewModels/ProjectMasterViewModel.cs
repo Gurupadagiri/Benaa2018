@@ -75,7 +75,7 @@ namespace Benaa2018.Helper.ViewModels
                 
         public string SubNotes { get; set; }
         public string InternalNotes { get; set; }
-        public IFormFile ProfilePicture { get; set; }
+        public string ProfilePicture { get; set; }
 
         public ProjectScheduleMasterViewModel ProjectScheduleMasterModel { get; set; }
         public OwnerMasterViewModel OwnerMasterModel { get; set; }
