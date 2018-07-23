@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 
 *{ 
 box-sizing: border-box;
@@ -1340,11 +1340,12 @@ legend:after{
          padding: 10px 0;
     }
 }
+.modalWidth1200 .customPopup .panel-body {
+    height: 85vh;
+    overflow-y: scroll;
+}
 
-
-
-
-
-
-
-
+.modalWidth1200 .customPopup #frmSubmitProjectMaster .panel-body {
+    height: auto;
+    overflow: hidden;
+}

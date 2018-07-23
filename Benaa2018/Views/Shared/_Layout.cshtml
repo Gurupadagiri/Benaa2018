@@ -134,7 +134,6 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a href="#"><span class="fa fa-cogs"></span> Setup</a></li>
-                            @*<li><a href="#"><span class="fa fa-user"></span> My User Preferences</a></li>*@
                             <li><a href="#" data-toggle="modal" data-target="#userPreference" data-original-title><span class="fa fa-user"></span> My User Preferences</a></li>
                             <li><a href="#"><span class="fa fa-sign-out"></span> Logout</a></li>
                         </ul>
@@ -266,12 +265,8 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="~/js/jquery-1.12.4.js"></script>
     <script src="~/js/jquery-ui.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
-    @*<script src="~/js/jquery.dataTables.min.js"></script>
-        <script src="~/js/dataTables.buttons.min.js"></script>*@
-    @*<script src="~/js/jszip.min.js"></script>*@
-    @*<script src="~/js/jquery.jqGrid.js"></script>*@
-    @*<script src="~/js/pdfmake.min.js"></script>*@
+    <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>    
     <script src="~/js/vfs_fonts.js"></script>
     <script src="~/js/buttons.html5.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
@@ -282,71 +277,40 @@
     <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
-    @*<style></style>*@
     <script type="text/javascript">
         $(document).ready(function () {
-
             $("#chkAllView").click(function (e) {
-               // alert('Check all view');
                 if ($('#chkAllView').prop('checked')) {
-                   // alert('Checkbox is checked');
-                   // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkViewPermission').attr('checked', true);
                 }
-                else
-                {
-                   // alert('Checkbox is unchecked');
+                else {
                     $('.IsChkViewPermission').attr('checked', false);
-                   
                 }
-
             });
-
             $("#chkAllAdd").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllAdd').prop('checked')) {
-                    //alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkAddPermission').attr('checked', true);
                 }
                 else {
-                    //alert('Checkbox is unchecked');
                     $('.IsChkAddPermission').attr('checked', false);
-
                 }
-
             });
-
             $("#chkAllEdit").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllEdit').prop('checked')) {
-                    //alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.chkAllEditPermission').attr('checked', true);
                 }
                 else {
-                    //alert('Checkbox is unchecked');
                     $('.chkAllEditPermission').attr('checked', false);
-
                 }
-
             });
-
             $("#chkAllDelete").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllDelete').prop('checked')) {
-                    //alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkDeletePermission').attr('checked', true);
                 }
                 else {
-                    //alert('Checkbox is unchecked');
                     $('.IsChkDeletePermission').attr('checked', false);
-
                 }
-
             });
-
             $("#saveUserPreference").click(function (e) {
                 e.preventDefault();
                 var infoForm = $("#frmSubmitUserPreference");
@@ -372,22 +336,9 @@
                     }
                 });
             });
-
-
-
-            
         });
-
-         $("#btnPermissionUser").click(function () {
-           alert('Hi' + $("#ddlPermission").val());
-
-            // e.preventDefault();
-                debugger;
-                alert('Clicked on button');
-
-                var infoForm = $("#frmSubmitUserPreference");
-
-                var postData = infoForm.serializeArray();
+        $("#btnPermissionUser").click(function () {
+            var postData = $("#frmSubmitUserPreference").serializeArray();
             $.ajax({
                 url: "@(Url.Action("SetUserPreference", "Home",null))",
                 type: 'Get',
@@ -400,183 +351,180 @@
                     caseSet: 1,
                     setUserId: 23
                 },
-                    success: function (data) {
-                        if (data == true) {
-                            infoForm.find("input[type='text']").each(function (i, element) {
-                                infoForm.serialize();
-                            });
-                            alert("Project Details Successfully Added");
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(errorThrown);
+                success: function (data) {
+                    if (data == true) {
+                        infoForm.find("input[type='text']").each(function (i, element) {
+                            infoForm.serialize();
+                        });
+                        alert("Project Details Successfully Added");
                     }
-                });
-        });
-       
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('[data-toggle="popover"]').popover({ html: true });
-            $(".closeModal").click(function () {
-                $("#groupAddModal").hide();
-            });
-            $(".closeModal").click(function () {
-                $("#groupMinusModal").hide();
-            });
-            $(".closeModal").click(function () {
-                $("#locationModal").hide();
-            });
-
-            var mmWidth = $(".mainContentDiv").outerWidth() + 10;
-            var lftNavWidth = $("#leftNavCon").outerWidth() + 10;
-            var curentmmWidth = mmWidth - lftNavWidth;
-            $(".mainContentDiv").css({ marginLeft: lftNavWidth });
-            $('.openIcon').click(function () {
-                if ($(this).hasClass('openSlide')) {
-                    $(".mainContentDiv").css({ marginLeft: "20px" });
-                    $("#leftNavCon").css({ marginLeft: -lftNavWidth });
-                    $(".openIcon").css({ right: '-23px' });
-                    $(this).removeClass('openSlide').addClass('closeSlide');
-                    $('.leftOuterBtn').show();
-                }
-                else {
-                    $(".mainContentDiv").css({ marginLeft: lftNavWidth });
-                    $("#leftNavCon").css({ marginLeft: "0px" });
-                    $(".openIcon").css({ right: '-8px' });
-                    $(this).removeClass('closeSlide').addClass('openSlide');
-                    $('.leftOuterBtn').hide();
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
                 }
             });
-            $('.leftOuterBtn').click(function () {
-                $(".mainContentDiv").css({ marginLeft: lftNavWidth });
-                $("#leftNavCon").css({ marginLeft: "0px" });
-                $(".openIcon").css({ right: '-23px' });
-                $(".openIcon").removeClass('closeSlide').addClass('openSlide');
-                $(this).hide();
-
-            });
-            var date_input = $('.cal'); //our date input has the name "date"
-            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-            date_input.datepicker({
-                format: 'mm/dd/yyyy',
-                container: container,
-                todayHighlight: true,
-                autoclose: true,
-            });
-        });
-        // tooltip demo
-        $('.tooltip-div').tooltip({
-            selector: "[data-toggle=tooltip]",
-            container: "body"
-        });
-        $('.withCheckbox').multiselect({
-            columns: 1,
-            placeholder: '--Select--',
-            search: true,
-            selectAll: true
-        });
-
-        $('.noCheckbox').multiselect({
-            columns: 1,
-            placeholder: '--Select--',
-            search: true,
-            showCheckbox: false  // display the checkbox to the user
-        });
-
-        $('.noCheckboxSearch').multiselect({
-            columns: 1,
-            placeholder: '--Select--',
-            search: false,
-            showCheckbox: false  // display the checkbox to the user
-        });
-        $(function () {
-            // Could also be ['.sort-me', '#also-sort-me']
-            $('.sort-me').sortable({ connectWith: '.sort-me' });
-            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
-            // Could also be ['.sort-me', '#also-sort-me']
-            $('.sort-me1').sortable({ connectWith: '.sort-me1' });
-            $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
         });
     </script>
     <script>
-        $(function () {
-            $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+         $(document).ready(function () {
+             $('[data-toggle="popover"]').popover({ html: true });
+             $(".closeModal").click(function () {
+                 $("#groupAddModal").hide();
+             });
+             $(".closeModal").click(function () {
+                 $("#groupMinusModal").hide();
+             });
+             $(".closeModal").click(function () {
+                 $("#locationModal").hide();
+             });
 
-                var $this = $(this),
-                    href = $this.attr('href'),
-                    $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
-                    option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+             var mmWidth = $(".mainContentDiv").outerWidth() + 10;
+             var lftNavWidth = $("#leftNavCon").outerWidth() + 10;
+             var curentmmWidth = mmWidth - lftNavWidth;
+             $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+             $('.openIcon').click(function () {
+                 if ($(this).hasClass('openSlide')) {
+                     $(".mainContentDiv").css({ marginLeft: "20px" });
+                     $("#leftNavCon").css({ marginLeft: -lftNavWidth });
+                     $(".openIcon").css({ right: '-23px' });
+                     $(this).removeClass('openSlide').addClass('closeSlide');
+                     $('.leftOuterBtn').show();
+                 }
+                 else {
+                     $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                     $("#leftNavCon").css({ marginLeft: "0px" });
+                     $(".openIcon").css({ right: '-8px' });
+                     $(this).removeClass('closeSlide').addClass('openSlide');
+                     $('.leftOuterBtn').hide();
+                 }
+             });
+             $('.leftOuterBtn').click(function () {
+                 $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                 $("#leftNavCon").css({ marginLeft: "0px" });
+                 $(".openIcon").css({ right: '-23px' });
+                 $(".openIcon").removeClass('closeSlide').addClass('openSlide');
+                 $(this).hide();
 
-                e.preventDefault();
-                $target
-                    .modal(option)
-                    .one('hide', function () {
-                        $this.focus();
-                    });
-            });
-        });
-        $(document).ready(function (e) {
-            $('.myColse').click(function () {
-                $(this).parent().parent().parent().hide();
-            });
-            $('.grayClose').click(function (e) {
-                $(this).parent().parent().hide();
-            });
-            $(".myPlus").click(function (e) {
-                $(".myPlusContainer").show();
-                $(".myFilterContainer").hide();
-                $(".mySortContainer").hide();
-                e.stopPropagation();
-            });
-            $(".myPlusContainer").click(function (e) {
-                e.stopPropagation();
-            });
-            $(document).click(function () {
-                $(".myPlusContainer").hide();
-            });
-            $(".myFilter").click(function (e) {
+             });
+             var date_input = $('.cal'); //our date input has the name "date"
+             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+             date_input.datepicker({
+                 format: 'mm/dd/yyyy',
+                 container: container,
+                 todayHighlight: true,
+                 autoclose: true,
+             });
+         });
+         // tooltip demo
+         $('.tooltip-div').tooltip({
+             selector: "[data-toggle=tooltip]",
+             container: "body"
+         });
+         $('.withCheckbox').multiselect({
+             columns: 1,
+             placeholder: '--Select--',
+             search: true,
+             selectAll: true
+         });
 
-                $(".myFilterContainer").show();
-                $(".myPlusContainer").hide();
-                $(".mySortContainer").hide();
-                e.stopPropagation();
-            });
-            $(".myFilterContainer").click(function (e) {
-                e.stopPropagation();
-            });
-            $(document).click(function () {
-                $(".myFilterContainer").hide();
-            });
-            $(".mySort").click(function (e) {
-                $(".mySortContainer").show();
-                $(".myPlusContainer").hide();
-                $(".myFilterContainer").hide();
-                e.stopPropagation();
-            });
-            $(".mySortContainer").click(function (e) {
-                e.stopPropagation();
-            });
-            $(document).click(function () {
-                $(".mySortContainer").hide();
-            });
-            $('.allJobs').click(function (e) {
-                $('.view').show();
-                $('.projectNameContainer').hide();
-                $('.allJobs').addClass('active');
-                $('.allProject').removeClass('active');
-            });
-            $('.allProject').click(function (e) {
-                $('.projectNameContainer').show();
-                $('.view').hide();
-                $('.allProject').addClass('active');
-                $('.allJobs').removeClass('active');
-            });
-            $("ul.nav-tabs a").click(function (e) {
-                e.preventDefault();
-                $(this).tab('show');
-            });
-        });
+         $('.noCheckbox').multiselect({
+             columns: 1,
+             placeholder: '--Select--',
+             search: true,
+             showCheckbox: false  // display the checkbox to the user
+         });
+
+         $('.noCheckboxSearch').multiselect({
+             columns: 1,
+             placeholder: '--Select--',
+             search: false,
+             showCheckbox: false  // display the checkbox to the user
+         });
+         $(function () {
+             $('.sort-me').sortable({ connectWith: '.sort-me' });
+             $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
+             $('.sort-me1').sortable({ connectWith: '.sort-me1' });
+             $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
+         });
+    </script>
+    <script>
+         $(function () {
+             $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+
+                 var $this = $(this),
+                     href = $this.attr('href'),
+                     $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
+                     option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+
+                 e.preventDefault();
+                 $target
+                     .modal(option)
+                     .one('hide', function () {
+                         $this.focus();
+                     });
+             });
+         });
+         $(document).ready(function (e) {
+             $('.myColse').click(function () {
+                 $(this).parent().parent().parent().hide();
+             });
+             $('.grayClose').click(function (e) {
+                 $(this).parent().parent().hide();
+             });
+             $(".myPlus").click(function (e) {
+                 $(".myPlusContainer").show();
+                 $(".myFilterContainer").hide();
+                 $(".mySortContainer").hide();
+                 e.stopPropagation();
+             });
+             $(".myPlusContainer").click(function (e) {
+                 e.stopPropagation();
+             });
+             $(document).click(function () {
+                 $(".myPlusContainer").hide();
+             });
+             $(".myFilter").click(function (e) {
+
+                 $(".myFilterContainer").show();
+                 $(".myPlusContainer").hide();
+                 $(".mySortContainer").hide();
+                 e.stopPropagation();
+             });
+             $(".myFilterContainer").click(function (e) {
+                 e.stopPropagation();
+             });
+             $(document).click(function () {
+                 $(".myFilterContainer").hide();
+             });
+             $(".mySort").click(function (e) {
+                 $(".mySortContainer").show();
+                 $(".myPlusContainer").hide();
+                 $(".myFilterContainer").hide();
+                 e.stopPropagation();
+             });
+             $(".mySortContainer").click(function (e) {
+                 e.stopPropagation();
+             });
+             $(document).click(function () {
+                 $(".mySortContainer").hide();
+             });
+             $('.allJobs').click(function (e) {
+                 $('.view').show();
+                 $('.projectNameContainer').hide();
+                 $('.allJobs').addClass('active');
+                 $('.allProject').removeClass('active');
+             });
+             $('.allProject').click(function (e) {
+                 $('.projectNameContainer').show();
+                 $('.view').hide();
+                 $('.allProject').addClass('active');
+                 $('.allJobs').removeClass('active');
+             });
+             $("ul.nav-tabs a").click(function (e) {
+                 e.preventDefault();
+                 $(this).tab('show');
+             });
+         });
     </script>
     <script>
         $(document).ready(function () {
@@ -728,25 +676,13 @@
                         $(this).parent().find('.errormessege').css('display', 'none');
                     }
                 });
-                var postData = infoForm.serialize();
-                $.ajax({
-                    url: "@(Url.Action("SubmitProjectInfo", "Home",null))",
-                    type: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    data: infoForm.serialize(),
-                    success: function (data) {
-                        if (data == true) {
-                            infoForm.find("input[type='text']").each(function (i, element) {
-                                $(this).val('');
-                            });
-                            alert("Project Details Successfully Added");
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(errorThrown);
+               var postData = infoForm.serialize();
+                $.post("home/SubmitProjectInfo", postData, function (data) {
+                    if (data == true) {
+                        infoForm.find("input[type='text']").each(function (i, element) {
+                            $(this).val('');
+                        });
+                        alert("Project Details Successfully Added");
                     }
                 });
             });
@@ -935,7 +871,22 @@
                         $(this).val('');
                     });
                 }
-            });
+        });
+         $(document).on("click", "#export", function () {
+             createExcelFromGrid('example', 'test');
+             //$("#example").jqGrid("exportToPdf", {
+             //    title: 'jqGrid Export to PDF',
+             //    orientation: 'portrait',
+             //    pageSize: 'A4',
+             //    description: 'description of the exported document',
+             //    customSettings: null,
+             //    download: 'download',
+             //    includeLabels: true,
+             //    includeGroupHeader: true,
+             //    includeFooter: true,
+             //    fileName: "jqGridExport.pdf"
+             //});
+         });
          $('.project-info').on('click', function () {
                 var projectId = $(this).attr('data-projectid');
                 var param = { "projectId": parseInt(projectId) }
@@ -1080,7 +1031,34 @@
                 });
             });
             marker.setMap(map);
-        }
+            }
+            var createExcelFromGrid = function (gridID, filename) {
+                var grid = $('#' + gridID);
+                var rowIDList = grid.getDataIDs();
+                var row = grid.getRowData(rowIDList[0]);
+                var colNames = [];
+                var i = 0;
+                for (var cName in row) {
+                    colNames[i++] = cName; // Capture Column Names
+                }
+                var html = "";
+                for (var j = 0; j < rowIDList.length; j++) {
+                    row = grid.getRowData(rowIDList[j]); // Get Each Row
+                    for (var i = 0; i < colNames.length; i++) {
+                        html += row[colNames[i]] + ';'; // Create a CSV delimited with ;
+                    }
+                    html += '\n';
+                }
+                html += '\n';
+
+                var a = document.createElement('a');
+                a.id = 'ExcelDL';
+                a.href = 'data:application/vnd.ms-excel,' + html;
+                a.download = filename ? filename + ".xls" : 'DataList.xls';
+                document.body.appendChild(a);
+                a.click(); // Downloads the excel document
+                document.getElementById('ExcelDL').remove();
+            }
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
     }
