@@ -30,6 +30,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css">
 
+   
 </head>
 <body>
     @{
@@ -266,7 +267,7 @@
     <script src="~/js/jquery-1.12.4.js"></script>
     <script src="~/js/jquery-ui.js"></script>
     <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
     <script src="~/js/vfs_fonts.js"></script>
     <script src="~/js/buttons.html5.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
@@ -279,7 +280,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#chkAllView").click(function (e) {
+            $("#chkAllView").click(function () {
                 if ($('#chkAllView').prop('checked')) {
                     $('.IsChkViewPermission').attr('checked', true);
                 }
@@ -287,7 +288,7 @@
                     $('.IsChkViewPermission').attr('checked', false);
                 }
             });
-            $("#chkAllAdd").click(function (e) {
+            $("#chkAllAdd").click(function () {
                 if ($('#chkAllAdd').prop('checked')) {
                     $('.IsChkAddPermission').attr('checked', true);
                 }
@@ -295,7 +296,7 @@
                     $('.IsChkAddPermission').attr('checked', false);
                 }
             });
-            $("#chkAllEdit").click(function (e) {
+            $("#chkAllEdit").click(function () {
                 if ($('#chkAllEdit').prop('checked')) {
                     $('.chkAllEditPermission').attr('checked', true);
                 }
@@ -303,7 +304,7 @@
                     $('.chkAllEditPermission').attr('checked', false);
                 }
             });
-            $("#chkAllDelete").click(function (e) {
+            $("#chkAllDelete").click(function () {
                 if ($('#chkAllDelete').prop('checked')) {
                     $('.IsChkDeletePermission').attr('checked', true);
                 }
@@ -311,7 +312,7 @@
                     $('.IsChkDeletePermission').attr('checked', false);
                 }
             });
-            $("#saveUserPreference").click(function (e) {
+            $("#saveUserPreference").click(function () {
                 e.preventDefault();
                 var infoForm = $("#frmSubmitUserPreference");
                 var postData = infoForm.serializeArray();
@@ -336,199 +337,187 @@
                     }
                 });
             });
-        });
-        $("#btnPermissionUser").click(function () {
-            var postData = $("#frmSubmitUserPreference").serializeArray();
-            $.ajax({
-                url: "@(Url.Action("SetUserPreference", "Home",null))",
-                type: 'Get',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                data: {
-                    userPreferenceViewModel: postData,
-                    caseSet: 1,
-                    setUserId: 23
-                },
-                success: function (data) {
-                    if (data == true) {
-                        infoForm.find("input[type='text']").each(function (i, element) {
-                            infoForm.serialize();
-                        });
-                        alert("Project Details Successfully Added");
+
+            $("#btnPermissionUser").click(function () {
+                var postData = $("#frmSubmitUserPreference").serializeArray();
+                $.ajax({
+                    url: "@(Url.Action("SetUserPreference", "Home",null))",
+                    type: 'Get',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    data: {
+                        userPreferenceViewModel: postData,
+                        caseSet: 1,
+                        setUserId: 23
+                    },
+                    success: function (data) {
+                        if (data == true) {
+                            infoForm.find("input[type='text']").each(function (i, element) {
+                                infoForm.serialize();
+                            });
+                            alert("Project Details Successfully Added");
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
                     }
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
+                });
+            });
+            $('[data-toggle="popover"]').popover({ html: true });
+            $(".closeModal").click(function () {
+                $("#groupAddModal").hide();
+            });
+            $(".closeModal").click(function () {
+                $("#groupMinusModal").hide();
+            });
+            $(".closeModal").click(function () {
+                $("#locationModal").hide();
+            });
+            var mmWidth = $(".mainContentDiv").outerWidth() + 10;
+            var lftNavWidth = $("#leftNavCon").outerWidth() + 10;
+            var curentmmWidth = mmWidth - lftNavWidth;
+            $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+            $('.openIcon').click(function () {
+                if ($(this).hasClass('openSlide')) {
+                    $(".mainContentDiv").css({ marginLeft: "20px" });
+                    $("#leftNavCon").css({ marginLeft: -lftNavWidth });
+                    $(".openIcon").css({ right: '-23px' });
+                    $(this).removeClass('openSlide').addClass('closeSlide');
+                    $('.leftOuterBtn').show();
                 }
+                else {
+                    $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                    $("#leftNavCon").css({ marginLeft: "0px" });
+                    $(".openIcon").css({ right: '-8px' });
+                    $(this).removeClass('closeSlide').addClass('openSlide');
+                    $('.leftOuterBtn').hide();
+                }
+            });
+            $('.leftOuterBtn').click(function () {
+                $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                $("#leftNavCon").css({ marginLeft: "0px" });
+                $(".openIcon").css({ right: '-23px' });
+                $(".openIcon").removeClass('closeSlide').addClass('openSlide');
+                $(this).hide();
+
+            });
+            var date_input = $('.cal'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            date_input.datepicker({
+                format: 'mm/dd/yyyy',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            });
+            // tooltip demo
+            $('.tooltip-div').tooltip({
+                selector: "[data-toggle=tooltip]",
+                container: "body"
+            });
+            $('.withCheckbox').multiselect({
+                columns: 1,
+                placeholder: '--Select--',
+                search: true,
+                selectAll: true
+            });
+
+            //$('.noCheckbox').multiselect({
+            //    columns: 1,
+            //    placeholder: '--Select--',
+            //    search: true,
+            //    showCheckbox: false  // display the checkbox to the user
+            //});
+            //$('.noCheckboxSearch').multiselect({
+            //    columns: 1,
+            //    placeholder: '--Select--',
+            //    search: false,
+            //    showCheckbox: false  // display the checkbox to the user
+            //});
+            $('.sort-me').sortable({ connectWith: '.sort-me' });
+            $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
+            $('.sort-me1').sortable({ connectWith: '.sort-me1' });
+            $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
+
+            $('.myColse').click(function () {
+                $(this).parent().parent().parent().hide();
+            });
+            $('.grayClose').click(function (e) {
+                $(this).parent().parent().hide();
+            });
+            $(".myPlus").click(function (e) {
+                $(".myPlusContainer").show();
+                $(".myFilterContainer").hide();
+                $(".mySortContainer").hide();
+                e.stopPropagation();
+            });
+            $(".myPlusContainer").click(function (e) {
+                e.stopPropagation();
+            });
+            $(document).click(function () {
+                $(".myPlusContainer").hide();
+            });
+            $(".myFilter").click(function (e) {
+
+                $(".myFilterContainer").show();
+                $(".myPlusContainer").hide();
+                $(".mySortContainer").hide();
+                e.stopPropagation();
+            });
+            $(".myFilterContainer").click(function (e) {
+                e.stopPropagation();
+            });
+            $(document).click(function () {
+                $(".myFilterContainer").hide();
+            });
+            $(".mySort").click(function (e) {
+                $(".mySortContainer").show();
+                $(".myPlusContainer").hide();
+                $(".myFilterContainer").hide();
+                e.stopPropagation();
+            });
+            $(".mySortContainer").click(function (e) {
+                e.stopPropagation();
+            });
+            $(document).click(function () {
+                $(".mySortContainer").hide();
+            });
+            $('.allJobs').click(function (e) {
+                $('.view').show();
+                $('.projectNameContainer').hide();
+                $('.allJobs').addClass('active');
+                $('.allProject').removeClass('active');
+            });
+            $('.allProject').click(function (e) {
+                $('.projectNameContainer').show();
+                $('.view').hide();
+                $('.allProject').addClass('active');
+                $('.allJobs').removeClass('active');
+            });
+            $("ul.nav-tabs a").click(function (e) {
+                e.preventDefault();
+                $(this).tab('show');
+            });
+        });
+        $(function () {
+            $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+                var $this = $(this),
+                    href = $this.attr('href'),
+                    $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
+                    option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+
+                e.preventDefault();
+                $target
+                    .modal(option)
+                    .one('hide', function () {
+                        $this.focus();
+                    });
             });
         });
     </script>
     <script>
-         $(document).ready(function () {
-             $('[data-toggle="popover"]').popover({ html: true });
-             $(".closeModal").click(function () {
-                 $("#groupAddModal").hide();
-             });
-             $(".closeModal").click(function () {
-                 $("#groupMinusModal").hide();
-             });
-             $(".closeModal").click(function () {
-                 $("#locationModal").hide();
-             });
-
-             var mmWidth = $(".mainContentDiv").outerWidth() + 10;
-             var lftNavWidth = $("#leftNavCon").outerWidth() + 10;
-             var curentmmWidth = mmWidth - lftNavWidth;
-             $(".mainContentDiv").css({ marginLeft: lftNavWidth });
-             $('.openIcon').click(function () {
-                 if ($(this).hasClass('openSlide')) {
-                     $(".mainContentDiv").css({ marginLeft: "20px" });
-                     $("#leftNavCon").css({ marginLeft: -lftNavWidth });
-                     $(".openIcon").css({ right: '-23px' });
-                     $(this).removeClass('openSlide').addClass('closeSlide');
-                     $('.leftOuterBtn').show();
-                 }
-                 else {
-                     $(".mainContentDiv").css({ marginLeft: lftNavWidth });
-                     $("#leftNavCon").css({ marginLeft: "0px" });
-                     $(".openIcon").css({ right: '-8px' });
-                     $(this).removeClass('closeSlide').addClass('openSlide');
-                     $('.leftOuterBtn').hide();
-                 }
-             });
-             $('.leftOuterBtn').click(function () {
-                 $(".mainContentDiv").css({ marginLeft: lftNavWidth });
-                 $("#leftNavCon").css({ marginLeft: "0px" });
-                 $(".openIcon").css({ right: '-23px' });
-                 $(".openIcon").removeClass('closeSlide').addClass('openSlide');
-                 $(this).hide();
-
-             });
-             var date_input = $('.cal'); //our date input has the name "date"
-             var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
-             date_input.datepicker({
-                 format: 'mm/dd/yyyy',
-                 container: container,
-                 todayHighlight: true,
-                 autoclose: true,
-             });
-         });
-         // tooltip demo
-         $('.tooltip-div').tooltip({
-             selector: "[data-toggle=tooltip]",
-             container: "body"
-         });
-         $('.withCheckbox').multiselect({
-             columns: 1,
-             placeholder: '--Select--',
-             search: true,
-             selectAll: true
-         });
-
-         $('.noCheckbox').multiselect({
-             columns: 1,
-             placeholder: '--Select--',
-             search: true,
-             showCheckbox: false  // display the checkbox to the user
-         });
-
-         $('.noCheckboxSearch').multiselect({
-             columns: 1,
-             placeholder: '--Select--',
-             search: false,
-             showCheckbox: false  // display the checkbox to the user
-         });
-         $(function () {
-             $('.sort-me').sortable({ connectWith: '.sort-me' });
-             $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
-             $('.sort-me1').sortable({ connectWith: '.sort-me1' });
-             $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
-         });
-    </script>
-    <script>
-         $(function () {
-             $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
-
-                 var $this = $(this),
-                     href = $this.attr('href'),
-                     $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
-                     option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
-
-                 e.preventDefault();
-                 $target
-                     .modal(option)
-                     .one('hide', function () {
-                         $this.focus();
-                     });
-             });
-         });
-         $(document).ready(function (e) {
-             $('.myColse').click(function () {
-                 $(this).parent().parent().parent().hide();
-             });
-             $('.grayClose').click(function (e) {
-                 $(this).parent().parent().hide();
-             });
-             $(".myPlus").click(function (e) {
-                 $(".myPlusContainer").show();
-                 $(".myFilterContainer").hide();
-                 $(".mySortContainer").hide();
-                 e.stopPropagation();
-             });
-             $(".myPlusContainer").click(function (e) {
-                 e.stopPropagation();
-             });
-             $(document).click(function () {
-                 $(".myPlusContainer").hide();
-             });
-             $(".myFilter").click(function (e) {
-
-                 $(".myFilterContainer").show();
-                 $(".myPlusContainer").hide();
-                 $(".mySortContainer").hide();
-                 e.stopPropagation();
-             });
-             $(".myFilterContainer").click(function (e) {
-                 e.stopPropagation();
-             });
-             $(document).click(function () {
-                 $(".myFilterContainer").hide();
-             });
-             $(".mySort").click(function (e) {
-                 $(".mySortContainer").show();
-                 $(".myPlusContainer").hide();
-                 $(".myFilterContainer").hide();
-                 e.stopPropagation();
-             });
-             $(".mySortContainer").click(function (e) {
-                 e.stopPropagation();
-             });
-             $(document).click(function () {
-                 $(".mySortContainer").hide();
-             });
-             $('.allJobs').click(function (e) {
-                 $('.view').show();
-                 $('.projectNameContainer').hide();
-                 $('.allJobs').addClass('active');
-                 $('.allProject').removeClass('active');
-             });
-             $('.allProject').click(function (e) {
-                 $('.projectNameContainer').show();
-                 $('.view').hide();
-                 $('.allProject').addClass('active');
-                 $('.allJobs').removeClass('active');
-             });
-             $("ul.nav-tabs a").click(function (e) {
-                 e.preventDefault();
-                 $(this).tab('show');
-             });
-         });
-    </script>
-    <script>
-        $(document).ready(function () {
-            // Attach event handler to submit button
+        $(document).ready(function () {         
             $("#saveJobInfo").click(function () {
                 var infoForm = $("#frmSubmitProjectMaster");
                 if ($('#ProjectMasterModel_ProjectName').val() == '') {
@@ -544,15 +533,7 @@
                     return;
                 } else {
                     $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'none');
-                }
-                //if ($("select#selectinfo").val() == '') {
-                //    $('.owner-existing-info').style('display', 'none');
-                //}
-                //$("select#selectinfo").on('change', function () {
-                //    if ($(this).val() == "1" || $(this).val() == "" ) {
-                //        $('.owner-existing-info').style('display', 'block');
-                //    }
-                //});
+                }              
                 if ($('#ProjectMasterModel_JobsitePrefix').val() == '') {
                     $('#ProjectMasterModel_JobsitePrefix').parent().find('.errormessege').css('display', 'block');
                     $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
@@ -596,7 +577,6 @@
                 } else {
                     $('#ProjectMasterModel_LotInfo').parent().find('.errormessege').css('display', 'none');
                 }
-                ///
                 if ($('#OwnerMasterModel_OwnerName').val() == '') {
                     $('#OwnerMasterModel_OwnerName').parent().find('.errormessege').css('display', 'block');
                     $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
@@ -701,7 +681,7 @@
                 $("#tbltodolist").load('@(Url.Action("FilterToDoListAsync", "Home",null))', postData);
             });
 
-             //Filter Result
+            //Filter Result
             $(document).on('click', 'a.allProject', function () {
                 var projectid = parseInt($(this).attr('data-projectid'));
                 var postData = { projectId: projectid };
@@ -772,9 +752,106 @@
             $('.close').click(function () {
                 $('#existingower').hide();
             });
+            
+            $("#txtHomeSearch").keypress(function (e) {
+                if (e.which == 13) {
+                    searchProject();
+                }
+            });
+            function searchProject() {
+                // Declare variables
+                var input, filter, listGroup, records, filteredRecord, i;
+                input = $("#txtHomeSearch");
+                filter = input.val().toUpperCase();
+                listGroup = $(".list-group");
+                records = listGroup.find("a.allProject");
+                // Loop through all table rows, and hide those who don't match the search query
+                for (i = 0; i < records.length; i++) {
+                    filteredRecord = records[i];
+                    if (filteredRecord) {
+                        if (filteredRecord.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            records[i].style.display = "";
+                        } else {
+                            records[i].style.display = "none";
+                        }
+                    }
+                }
+            }
+            $('#selectinfo').on('change', function () {
+                if ($(this).val() == "1") {
+                    $("div.owner-existing-info").css('display', 'block');
+                    $('#existingower').css('display', 'none');
+                    $('.owner-existing-info input').each(function () {
+                        $(this).val('');
+                    });
+                }
+                else if ($(this).val() == "2") {
+                    $('#existingower').css('display', 'block');
+                    $("div.owner-existing-info").css('display', 'none');
+                }
+                else {
+                    $("div.owner-existing-info").css('display', 'none');
+                    $('#existingower').css('display', 'none');
+                    $('.owner-existing-info input').each(function () {
+                        $(this).val('');
+                    });
+                }
+            });
+            $(document).on("click", "#export", function () {
+                createExcelFromGrid('example', 'test');
+            });
+            var createExcelFromGrid = function (gridID, filename) {
+                var grid = $('#' + gridID);
+                var rowIDList = grid.getDataIDs();
+                var row = grid.getRowData(rowIDList[0]);
+                var colNames = [];
+                var i = 0;
+                for (var cName in row) {
+                    colNames[i++] = cName; // Capture Column Names
+                }
+                var html = "";
+                for (var j = 0; j < rowIDList.length; j++) {
+                    row = grid.getRowData(rowIDList[j]); // Get Each Row
+                    for (var i = 0; i < colNames.length; i++) {
+                        html += row[colNames[i]] + ';'; // Create a CSV delimited with ;
+                    }
+                    html += '\n';
+                }
+                html += '\n';
+                var a = document.createElement('a');
+                a.id = 'ExcelDL';
+                a.href = 'data:application/vnd.ms-excel,' + html;
+                a.download = filename ? filename + ".xls" : 'DataList.xls';
+                document.body.appendChild(a);
+                a.click(); // Downloads the excel document
+                document.getElementById('ExcelDL').remove();
+            }
+            $('.project-info').on('click', function () {
+                var projectId = $(this).attr('data-projectid');
+                var param = { "projectId": parseInt(projectId) }
+                $.ajax({
+                    url: "@(Url.Action("GetProjectDetailsbyProjectIdAsync", "Home",null))",
+                    type: 'post',
+                    data: param,
+                    success: function (data) {
+                        $('#existingower').css('display', 'none');
+                        $("div.owner-existing-info").css('display', 'block');
+                        $('#OwnerMasterModel_OwnerName').val(data.ownerMasterModel.ownerName);
+                        $('#OwnerMasterModel_Email').val(data.ownerMasterModel.email);
+                        $('#OwnerMasterModel_Telephone').val(data.ownerMasterModel.telephone);
+                        $('#OwnerMasterModel_MobileNo').val(data.ownerMasterModel.mobileNo);
+                        $('#OwnerMasterModel_Address').val(data.ownerMasterModel.address);
+                        $('#OwnerMasterModel_City').val(data.ownerMasterModel.city);
+                        $('#OwnerMasterModel_State').val(data.ownerMasterModel.state);
+                        $('#OwnerMasterModel_Zip').val(data.ownerMasterModel.zip);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            });
         });
         $(window).load(function () {
-
             function SetProjectDetails(projectId) {
                 var datainfo = { "projectID": projectId };
                 $.post("home/GetProjectInfoByProjectID", datainfo, function (data) {
@@ -827,241 +904,131 @@
             $('#export').remove();
         });
     </script>
-    <script>
-        $("#txtHomeSearch").keypress(function (e) {
-            if (e.which == 13) {
-                searchProject();
-            }
-        });
-        function searchProject() {
-            // Declare variables
-            var input, filter, listGroup, records, filteredRecord, i;
-            input = $("#txtHomeSearch");
-            filter = input.val().toUpperCase();
-            listGroup = $(".list-group");
-            records = listGroup.find("a.allProject");
-            // Loop through all table rows, and hide those who don't match the search query
-            for (i = 0; i < records.length; i++) {
-                filteredRecord = records[i];
-                if (filteredRecord) {
-                    if (filteredRecord.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        records[i].style.display = "";
-                    } else {
-                        records[i].style.display = "none";
-                    }
-                }
-            }
-        }
-         $('#selectinfo').on('change', function () {
-                if ($(this).val() == "1") {
-                    $("div.owner-existing-info").css('display', 'block');
-                    $('#existingower').css('display', 'none');
-                    $('.owner-existing-info input').each(function () {
-                        $(this).val('');
-                    });
-                }
-                else if ($(this).val() == "2") {
-                    $('#existingower').css('display', 'block');
-                    $("div.owner-existing-info").css('display', 'none');
-                }
-                else {
-                    $("div.owner-existing-info").css('display', 'none');
-                    $('#existingower').css('display', 'none');
-                    $('.owner-existing-info input').each(function () {
-                        $(this).val('');
-                    });
-                }
-        });
-         $(document).on("click", "#export", function () {
-             createExcelFromGrid('example', 'test');
-             //$("#example").jqGrid("exportToPdf", {
-             //    title: 'jqGrid Export to PDF',
-             //    orientation: 'portrait',
-             //    pageSize: 'A4',
-             //    description: 'description of the exported document',
-             //    customSettings: null,
-             //    download: 'download',
-             //    includeLabels: true,
-             //    includeGroupHeader: true,
-             //    includeFooter: true,
-             //    fileName: "jqGridExport.pdf"
-             //});
-         });
-         $('.project-info').on('click', function () {
-                var projectId = $(this).attr('data-projectid');
-                var param = { "projectId": parseInt(projectId) }
-                $.ajax({
-                    url: "@(Url.Action("GetProjectDetailsbyProjectIdAsync", "Home",null))",
-                    type: 'post',
-                    data: param,
-                    success: function (data) {
-                        $('#existingower').css('display', 'none');
-                        $("div.owner-existing-info").css('display', 'block');
-                        $('#OwnerMasterModel_OwnerName').val(data.ownerMasterModel.ownerName);
-                        $('#OwnerMasterModel_Email').val(data.ownerMasterModel.email);
-                        $('#OwnerMasterModel_Telephone').val(data.ownerMasterModel.telephone);
-                        $('#OwnerMasterModel_MobileNo').val(data.ownerMasterModel.mobileNo);
-                        $('#OwnerMasterModel_Address').val(data.ownerMasterModel.address);
-                        $('#OwnerMasterModel_City').val(data.ownerMasterModel.city);
-                        $('#OwnerMasterModel_State').val(data.ownerMasterModel.state);
-                        $('#OwnerMasterModel_Zip').val(data.ownerMasterModel.zip);
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(errorThrown);
-                    }
-                });
-            });
-            $('.listmapCon').on('click', function () {
-
-            });
-    </script>
     @if (baseModel != null)
     {
         <script>
-        $(document).ready(function () {
-            $("#example").jqGrid({
-                colModel: [
-                    { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
-                    { name: "ProjectName", label: "Project Name", width: 53 },
-                    {
-                        name: "StreetAddress", label: "Street Address", width: 75
-                    },
-                    { name: "City", label: "City", width: 65 },
-                    { name: "State", label: "State", width: 41 },
-                    { name: "Zip", label: "Zip", width: 41 },
-                    { name: "ManagerName", label: "Proj. Manager", width: 51 },
-                    { name: "OwnerName", label: "Owner", width: 59 },
-                    { name: "Telephone", label: "Phone", width: 65 },
-                    { name: "MobileNo", label: "Cell", width: 41 },
-                    { name: "Active", label: "Active", width: 51 }
-                ],
-                data: @Html.Raw(baseModel.ProjectModelJsonString),
-                iconSet: "fontAwesome",
-                idPrefix: "g5_",
-                rownumbers: true,
-                sortname: "ProjectName",
-                sortorder: "desc",
-                threeStateSort: true,
-                sortIconsBeforeText: true,
-                headertitles: true,
-                toppager: true,
-                pager: true,
+            $(document).ready(function () {
+                $("#example").jqGrid({
+                    colModel: [
+                        { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
+                        { name: "ProjectName", label: "Project Name", width: 53 },
+                        {
+                            name: "StreetAddress", label: "Street Address", width: 75
+                        },
+                        { name: "City", label: "City", width: 65 },
+                        { name: "State", label: "State", width: 41 },
+                        { name: "Zip", label: "Zip", width: 41 },
+                        { name: "ManagerName", label: "Proj. Manager", width: 51 },
+                        { name: "OwnerName", label: "Owner", width: 59 },
+                        { name: "Telephone", label: "Phone", width: 65 },
+                        { name: "MobileNo", label: "Cell", width: 41 },
+                        { name: "Active", label: "Active", width: 51 }
+                    ],
+                    data: @Html.Raw(baseModel.ProjectModelJsonString),
+                    iconSet: "fontAwesome",
+                    idPrefix: "g5_",
+                    rownumbers: true,
+                    sortname: "ProjectName",
+                    sortorder: "desc",
+                    threeStateSort: true,
+                    sortIconsBeforeText: true,
+                    headertitles: true,
+                    toppager: true,
+                    pager: true,
 
-                rowNum: 5,
-                viewrecords: true,
-                searching: {
-                    defaultSearch: "cn"
-                },
-                caption: ""
-            });
+                    rowNum: 5,
+                    viewrecords: true,
+                    searching: {
+                        defaultSearch: "cn"
+                    },
+                    caption: ""
+                });
 
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,listWeek'
-                },
-                defaultDate: '2018-03-12',
-                navLinks: true, // can click day/week names to navigate views
-                editable: true,
-                eventLimit: true, // allow "more" link when too many events
-                eventClick: function (event) {
-                    $('#calendarmodal').addClass('in').css('display', 'block');
-                },
-                eventColor: '#378006',
-                events: [
-                    {
-                        title: 'All Day Event',
-                        start: '2018-03-01',
+                $('#calendar').fullCalendar({
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay,listWeek'
                     },
-                    {
-                        title: 'Long Event',
-                        start: '2018-03-07',
-                        end: '2018-03-10'
+                    defaultDate: '2018-03-12',
+                    navLinks: true, // can click day/week names to navigate views
+                    editable: true,
+                    eventLimit: true, // allow "more" link when too many events
+                    eventClick: function (event) {
+                        $('#calendarmodal').addClass('in').css('display', 'block');
                     },
-                    {
-                        id: 999,
-                        title: 'Repeating Event',
-                        start: '2018-03-09T16:00:00'
-                    }
-                ]
-            });
-            $('.fc-content-skeleton td').on('click', function () {
-                if ($(this).attr('class') === undefined) {
-                    $('#calendarmodalgeneral').addClass('in').css('display', 'block');
-                }
-            });
-            BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMap"));
-            BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapCluster"));
-            BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapEdit"));
-            $('span.glyphicon-map-marker').on('click', function () {
-                var coordinate = $(this).attr('data-coordinate');
-                var lat = coordinate.split(',')[0];
-                var lan = coordinate.split(',')[1];
-                $('#dvMapEdit').empty().removeAttr('style');
-                BindAddress(lat, lan, document.getElementById("dvMapEdit"));
-            });
-        });
-        function BindAddress(latitude, longitude, mapCanvas) {
-            var myCenter = new google.maps.LatLng(latitude, longitude);
-            var mapOptions = {
-                center: myCenter,
-                zoom: 13
-            };
-            var map = new google.maps.Map(mapCanvas, mapOptions);
-            var marker = new google.maps.Marker({
-                position: myCenter,
-                draggable: true,
-                map: map,
-                title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
-            });
-            google.maps.event.addListener(marker, 'dragend', function (event) {
-                var lat = this.position.lat();
-                var lng = this.position.lng();
-                $('#ProjectMasterModel_Latitude').val(lat);
-                $('#ProjectMasterModel_Longitude').val(lng);
-                var latlng = new google.maps.LatLng(lat, lng);
-                var geocoder = new google.maps.Geocoder();
-                geocoder.geocode({ 'latLng': latlng }, function (results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        if (results[1]) {
-                            $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                    eventColor: '#378006',
+                    events: [
+                        {
+                            title: 'All Day Event',
+                            start: '2018-03-01',
+                        },
+                        {
+                            title: 'Long Event',
+                            start: '2018-03-07',
+                            end: '2018-03-10'
+                        },
+                        {
+                            id: 999,
+                            title: 'Repeating Event',
+                            start: '2018-03-09T16:00:00'
                         }
+                    ]
+                });
+                $('.fc-content-skeleton td').on('click', function () {
+                    if ($(this).attr('class') === undefined) {
+                        $('#calendarmodalgeneral').addClass('in').css('display', 'block');
                     }
                 });
+                BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMap"));
+                BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapCluster"));
+                BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapEdit"));
+                $('span.glyphicon-map-marker').on('click', function () {
+                    var coordinate = $(this).attr('data-coordinate');
+                    var lat = coordinate.split(',')[0];
+                    var lan = coordinate.split(',')[1];
+                    $('#dvMapEdit').empty().removeAttr('style');
+                    BindAddress(lat, lan, document.getElementById("dvMapEdit"));
+                });
             });
-            marker.setMap(map);
-            }
-            var createExcelFromGrid = function (gridID, filename) {
-                var grid = $('#' + gridID);
-
-                var rowIDList = grid.getDataIDs();
-                var row = grid.getRowData(rowIDList[0]);
-                var colNames = [];
-                var i = 0;
-                for (var cName in row) {
-                    colNames[i++] = cName; // Capture Column Names
+            function BindAddress(latitude, longitude, mapCanvas) {
+                var myCenter = new google.maps.LatLng(latitude, longitude);
+                var mapOptions = {
+                    center: myCenter,
+                    zoom: 13
+                };
+                var map = new google.maps.Map(mapCanvas, mapOptions);
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                    draggable: true,
+                    map: map,
+                    title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
+                });
+                google.maps.event.addListener(marker, 'dragend', function (event) {
+                    var lat = this.position.lat();
+                    var lng = this.position.lng();
+                    $('#ProjectMasterModel_Latitude').val(lat);
+                    $('#ProjectMasterModel_Longitude').val(lng);
+                    var latlng = new google.maps.LatLng(lat, lng);
+                    var geocoder = new google.maps.Geocoder();
+                    geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            if (results[1]) {
+                                $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                            }
+                        }
+                    });
+                });
+                marker.setMap(map);
                 }
-                var html = "";
-                for (var j = 0; j < rowIDList.length; j++) {
-                    row = grid.getRowData(rowIDList[j]); // Get Each Row
-                    for (var i = 0; i < colNames.length; i++) {
-                        html += row[colNames[i]] + ';'; // Create a CSV delimited with ;
-                    }
-                    html += '\n';
-                }
-                html += '\n';
-
-                var a = document.createElement('a');
-                a.id = 'ExcelDL';
-                a.href = 'data:application/vnd.ms-excel,' + html;
-                a.download = filename ? filename + ".xls" : 'DataList.xls';
-                document.body.appendChild(a);
-                a.click(); // Downloads the excel document
-                document.getElementById('ExcelDL').remove();
-            }
+            
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
     }
+    <script>
+            $(document).ready(function () {
+                alert('a');
+            });
+    </script>
 </body>
 </html>

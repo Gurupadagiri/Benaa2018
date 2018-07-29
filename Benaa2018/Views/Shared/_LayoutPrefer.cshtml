@@ -506,38 +506,15 @@
     <script src="~/js/jszip.min.js"></script>
     <script src="~/js/pdfmake.min.js"></script>
     <script src="~/js/vfs_fonts.js"></script>
-    <script src="~/js/buttons.html5.min.js"></script>
+    @*<script src="~/js/buttons.html5.min.js"></script>*@
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/responsive-tabs.js"></script>
     <script src="~/js/jquery.multiselect.js"></script>
     <script src="~/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript">
-            @*$(document).ready(function () {
-                if (@ViewBag.result== 1) {2
-
-                    $('#userPreference').modal('show');
-                    $('#errorDiv').show();
-                    $('#spnErrorMessgae').text("Please put all necessary information");
-                }
-                else if (@ViewBag.result== 2) {
-
-                    $('#userPreference').modal('show');
-                    $('#errorDiv').show();
-                    $('#spnErrorMessgae').text("User Name already exists");
-                }
-                else {
-
-                    //$('#userPreference').modal('show');
-                    //$('#errorDiv').show();
-                    //$('#txtErrorMessage').text("Error occurred");
-                }
-            });*@
-
+    <script type="text/javascript">           
         $(document).ready(function () {
             $("#saveJobInfo").click(function () {
-                var infoForm = $("#frmSubmitUserPreference");
-
-                var postData = infoForm.serializeArray();
+                var postData = $("#frmSubmitUserPreference").serializeArray();
                 $.ajax({
                     url: "@(Url.Action("UserPreferencesDetails", "Home",null))",
                     type: 'POST',

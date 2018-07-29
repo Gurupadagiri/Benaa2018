@@ -38,7 +38,7 @@
                                     </div>
                                     <div class="col-sm-2 form-group tooltip-div">
                                         <div class="input-group">
-                                            <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
+                                            <input type="text" id="txtKeyWord1" class="form-control" placeholder="Keyword">
                                             <div class="input-group-btn">
                                                 <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
                                                     <span class="glyphicon glyphicon-info-sign"></span>
@@ -129,10 +129,10 @@
                                                 </div>
                                                 <div class="col-sm-2 form-group">
                                                     @{
-                                                        var ss = Model.ProjectColorViewModels;
+                                                            Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
                                                     }
                                                     <span>Display Color</span>
-                                                    @Html.DropDownListFor(a => a.ColorCode, new SelectList(Model.ProjectColorViewModels, "ColorCode", "ProjectColorName"))                                                    
+                                                    @Html.DropDownListFor(a => a.ColorCode, new SelectList(baseModel.ProjectColorModels, "ColorCode", "ProjectColorName"))                                                    
                                                 </div>
                                                 <div class="col-sm-2 form-group">
                                                     <span>Status</span>
@@ -144,7 +144,7 @@
                                                 </div>
                                                 <div class="col-sm-2 form-group tooltip-div">
                                                     <div class="input-group">
-                                                        <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
+                                                        <input type="text" id="txtKeyWord2" class="form-control" placeholder="Keyword">
                                                         <div class="input-group-btn">
                                                             <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
                                                                 <span class="glyphicon glyphicon-info-sign"></span>

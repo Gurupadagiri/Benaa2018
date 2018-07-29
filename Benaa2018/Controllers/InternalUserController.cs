@@ -1,5 +1,9 @@
 ﻿using Benaa2018.Helper;
+using Benaa2018.Helper.Model;
+using Benaa2018.Helper.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Benaa2018.Controllers
 {
@@ -43,10 +47,30 @@ namespace Benaa2018.Controllers
             _companyMasterHelper = companyMasterHelper;
             _detaildPermissionHelper = detaildPermissionHelper;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
+            // User Grid
+            List<InternalUserGridModel> userGrid = new List<InternalUserGridModel>();
+            var objInterUser = await _userMasterHelper.GetAllInternalUsers();
+            objInterUser.ForEach(a =>
+            {
+                userGrid.Add(new InternalUserGridModel
+                {
+                    AdminAccess = a.UserEnabled,
+                    AutoAccess = a.UserIsAutomaticAccess,
+                    Email = a.UserEmail,
+                    LoginEnabled = a.UserEnabled,
+                    Name = a.FullName,
+                    Phone = a.UserPhone,
+                    UserId = a.UserID
+                });
+            });
+            InternalUserViewModel objInternalUser = new InternalUserViewModel
+            {
+                InternalUserGrid = userGrid
+            };
             ViewBag.IsleftMenuVisible = false;
-            return View();            
+            return View();
         }
     }
 }

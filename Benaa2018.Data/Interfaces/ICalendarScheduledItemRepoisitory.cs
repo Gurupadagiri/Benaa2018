@@ -7,5 +7,6 @@ namespace Benaa2018.Data.Interfaces
 {
     public interface ICalendarScheduledItemRepoisitory : IRepository<CalendarScheduledItem>
     {
+        List<CalendarScheduledItem> GetScheduledItemByProjectId(int companyId, int projectId);
     }
 }

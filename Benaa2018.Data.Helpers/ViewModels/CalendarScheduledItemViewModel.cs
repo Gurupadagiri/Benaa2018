@@ -11,6 +11,8 @@ namespace Benaa2018.Helper.ViewModels
         }
         public int ScheduledItemId { get; set; }
         public string Title { get; set; }
+        public int CompanyId { get; set; }
+        public int ProjectId { get; set; }
         public string ColorCode { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }

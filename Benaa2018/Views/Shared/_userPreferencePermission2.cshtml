@@ -1,0 +1,1385 @@
+﻿@model Benaa2018.Helper.ViewModels.UserPreferenceViewModel
+<div class="chHolder odd">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">RFIs</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsRFIView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsRFIAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsRFIEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsRFIDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">RFI Added By Builder</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIAddedByBuilderEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIAddedByBuilderText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIAddedByBuilderPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">RFI Response Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIResponseAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIResponseAddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIResponseAddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">RFI Added By Sub</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIAddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIAddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">RFI Completed/Reopened</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFICompletedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFICompletedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFICompletedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">RFI Past Due</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIPastDueEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsRFIPastDueText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Change Orders</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsChangeOrdersView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsChangeOrdersAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsChangeOrdersEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsChangeOrdersDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrdersCostViewing)
+                            Cost/Price Viewing
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">Change Order Approved</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderapprovedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderapprovedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderapprovedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderaddedEmail, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Change Order Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderaddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderaddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderaddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Change Order Files Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderfilesaddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderfilesaddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderfilesaddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Change Order Discussion Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderDiscussionaddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderDiscussionaddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderDiscussionaddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderDiscussionaddedAllUsers, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Change Order Approved (Internally)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderApprovedInternallyEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderApprovedInternallyText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderApprovedInternallyPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOwnerRequestedChangeOrderEmail, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Owner Requested Change Order</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOwnerRequestedChangeOrderEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOwnerRequestedChangeOrderText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOwnerRequestedChangeOrderPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Change Order Past Due</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderPastDueEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsChangeOrderPastDueText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder odd">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Selections</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSelectionsView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSelectionsAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSelectionsEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSelectionsDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsSelectionsCostViewing, new { @disabled = "disabled" })
+                            Cost/Price Viewing
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">Selection Approved</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionApprovedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionApprovedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionApprovedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Selection Deadline Reminder</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionDeadlineReminderEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionDeadlineReminderPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Selection Discussion Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionDiscussionAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionDiscussionAddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionDiscussionAddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Selection Choice Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionChoiceAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionChoiceAddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionChoiceAddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Selection Owner Price Requested</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionOwnerPriceEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionOwnerPriceText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionOwnerPricePush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Selection Approved (Internally)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionApprovedInternallyEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionApprovedInternallyText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionApprovedInternallyPush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Selection Sub Price Submitted</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionSubPriceEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionSubPriceText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSelectionSubPricePush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Bills/Purchase Orders</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsBillView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsBillAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsBillEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsBillDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsBillAccounting, new { @disabled = "disabled" })
+                            Accounting
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsBillNoPriceLimit, new { @disabled = "disabled" })
+                            No Price Limit
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="image1" align="absmiddle">
+                            </a>
+                        </div>
+
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsBillCostViewing, new { @disabled = "disabled" })
+                            Cost Viewing
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="image2" align="absmiddle">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">PO Approved</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOApprovedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOApprovedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOApprovedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Payment Marked Ready for Payment</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOPaymentMarkedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll edit">                                            
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Lien Waiver Accepted</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsLienWaiverAcceptedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsLienWaiverAcceptedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Lien Waiver Declined</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsLienWaiverDeclinedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsLienWaiverDeclinedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Approved (Internally)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOApprovedInternallyEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOApprovedInternallyText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOApprovedInternallyPush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Declined</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPODeclinedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPODeclinedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPODeclinedPush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Assigned Internally</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOAssignedInternallyEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOAssignedInternallyText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @*@Html.CheckBoxFor(a => a.permissions.IsSelectionSubPricePush, new { @class = "chkAllAddPermission" })*@
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Inspection/Payment Requested</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOInspectionEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOInspectionPush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Work Completed (Ready for Accounting)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOWorkcompletedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll add">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Bill/PO Payment Made</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOPaymentMadeEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll add">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Bill/PO Discussion Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPODiscussionAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPODiscussionAddedText, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPODiscussionAddedPush, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Bill/PO File Added By Sub</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOFileAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll add"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Inspection Reminder</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOInspectionReminderEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOInspectionReminderText, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOInspectionReminderPush, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">PO Work Complete (Internally Assigned)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOWorkCompleteEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOWorkCompleteText, new { @class = "chkAllViewPermission", @title = "Check all View" })
+
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsPOWorkCompletePush, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Bill/PO Payment Reminder</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsBillPaymentReminderEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                        </td>
+                                        <td class="checkAll add">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder odd">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Warranty</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsWarrantyView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsWarrantyAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsWarrantyEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsWarrantyDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">Warranty Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyAddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyAddedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Warranty Followup</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyFollowUpEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyFollowUpText, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyFollowUpAllUsers, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td>
+                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Warranty Updated Appt (By Owner)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyUpdatedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyUpdatedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Warranty Has Feedback</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyHasFeedbackEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                        </td>
+                                        <td class="checkAll edit">
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Warranty Updated Appt (By Sub)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyUpdatedApptEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyUpdatedApptText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="fieldHeader" style="float: left">Warranty Schedule Changed</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyScheduleChangedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyScheduleChangedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Warranty Added (Internally)</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyAddedInternallyEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyAddedInternallyText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyAddedInternallyPush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Warranty Discussion Added</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyDiscussionAddedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyDiscussionAddedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyDiscussionAddedPush, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyDiscussionAddedAllUsers, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Warranty Service Internally Assigned</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyServiceInternallyAssignedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsWarrantyServiceInternallyAssignedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Time Clock</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsTimeClockView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsTimeClockAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsTimeClockEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsTimeClockDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsTimeClockViewOtherUser)
+                            View Other User Time Sheets
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsTimeClockAdjustOtherUser)
+                            Adjust Other User Time Sheets
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsTimeClockCostViewing)
+                            Cost Viewing
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsTimeClockReviewAndApprove)
+                            Review And Approve User Shifts
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">Time Sheet Adjustment</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsTimeSheetAdjustmentEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsTimeSheetAdjustmentText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsTimeSheetAdjustmentPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsTimeSheetAdjustmentAllUsers, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Overtime Reached</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOverTimeReachedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOverTimeReachedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOverTimeReachedPush, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOverTimeReachedAllUsers, new { @class = "chkAllEditPermission" })
+                                        </td>
+                                        <td class="checkAll edit">
+                                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder odd">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Estimate</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsEstimateGIView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsEstimateGIAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsEstimateGIEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsEstimateGIDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsEstimateGIPriceViewing)
+                            General Item Price Viewing
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">Estimate Accepted/Declined</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsEstimateAcceptedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsEstimateAcceptedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                        <div class="fieldHeader" style="float: left">Estimate Viewed</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsEstimateViewedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsEstimateViewedText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Surveys</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSurveyView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSurveyAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSurveyEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSurveyDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="checkboxLine">
+                            @Html.CheckBoxFor(a => a.permissions.IsSurveyAddReviewWebsite)
+                            Add reviews to website
+                            <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
+                                <img src="images/iconToolTip.png" id="" align="absmiddle">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">Owner Submitted Survey</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOwnerSumittedSurveyEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add">
+                                            @Html.CheckBoxFor(a => a.permissions.IsOwnerSumittedSurveyText, new { @class = "chkAllAddPermission" })
+                                        </td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="chHolder odd">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Subs</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSubsView, new { @class = "IsChkViewPermission" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSubsAdd, new { @class = "IsChkAddPermission" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSubsEdit, new { @class = "IsChkEditPermission" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsSubsDelete, new { @class = "IsChkDeletePermission" })
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left">Sub Insurance Reminder</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSubInsuranceRemiderEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Sub Activated</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsSubActivatedEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="fieldHeader" style="float: left">Trade Agreement Action Taken</div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                            @Html.CheckBoxFor(a => a.permissions.IsTradeAgreementActionTakenEmail, new { @class = "chkAllViewPermission", @title = "Check all View" })
+                                        </td>
+                                        <td class="checkAll add"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="chHolder">
+    <table class="permissionContent floatThead-table">
+        <tr>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="permissionTDHolder">
+                            <div class="fieldHeader">Admin</div>
+                            <ul>
+                                <li class="checkAll view">
+                                    @Html.CheckBoxFor(a => a.permissions.IsAdminView, new { @class = "IsChkViewPermission", @disabled = "disabled" })
+                                </li>
+                                <li class="checkAll add">
+                                    @Html.CheckBoxFor(a => a.permissions.IsAdminAdd, new { @class = "IsChkAddPermission", @disabled = "disabled" })
+                                </li>
+                                <li class="checkAll edit">
+                                    @Html.CheckBoxFor(a => a.permissions.IsAdminEdit, new { @class = "IsChkEditPermission", @disabled = "disabled" })
+                                </li>
+                                <li class="checkAll delete">
+                                    @Html.CheckBoxFor(a => a.permissions.IsAdminDelete, new { @class = "IsChkDeletePermission", @disabled = "disabled" })
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </td>
+            <td>
+                <div class="permissionHolder">
+                    <div class="permissionTD">
+                        <div class="fieldHeader" style="float: left"></div>
+                        <div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="checkAll view">
+                                        </td>
+                                        <td class="checkAll add">
+                                        </td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                        <td class="checkAll edit"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>

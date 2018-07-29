@@ -10,6 +10,8 @@ namespace Benaa2018.Data.Model
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int ScheduledItemId { get; set; }
+        public int CompanyId { get; set; }
+        public int ProjectId { get; set; }
         public string Title { get; set; }
         public string ColorCode { get; set; }
         public DateTime StartDate { get; set; }

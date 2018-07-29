@@ -54,7 +54,7 @@ namespace Benaa2018.Controllers
         public async Task<IActionResult> Index()
         {
             CalendarScheduledItemViewModel calendar = new CalendarScheduledItemViewModel();
-            calendar.ProjectColorViewModels = await _projectColorHelper.GetAllProjectColor();
+            //calendar.ProjectColorViewModels = await _projectColorHelper.GetAllProjectColor();
             return View(calendar);
         }
     }
