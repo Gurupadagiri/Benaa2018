@@ -50,10 +50,10 @@ namespace Benaa2018.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            BaseViewModel baseModel = ViewBag.Basemodel;
             // User Grid
-            List<InternalUserGridModel> userGrid = new List<InternalUserGridModel>();
-            var objInterUser = await _userMasterHelper.GetAllInternalUsers();
-            objInterUser.ForEach(a =>
+            List<InternalUserGridModel> userGrid = new List<InternalUserGridModel>();            
+            baseModel.UserMasterViewModels.ForEach(a =>
             {
                 userGrid.Add(new InternalUserGridModel
                 {

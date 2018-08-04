@@ -64,7 +64,7 @@ namespace Benaa2018.Controllers
             Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
             Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
             ViewBag.Basemodel = Basemodel;
-            ViewBag.UsersList = GetAllUsers();
+            ViewBag.UsersList = Basemodel.UserMasterViewModels;
             base.OnActionExecuting(context);
             await next(); 
         }
