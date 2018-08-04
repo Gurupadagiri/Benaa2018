@@ -45,29 +45,30 @@ namespace Benaa2018.Controllers
             _userMasterHelper = userMasterHelper;
             _companyMasterHelper = companyMasterHelper;
         }
-        public override void OnActionExecuting(ActionExecutingContext filterContext)
+        public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             Basemodel = new BaseViewModel
             {
-                UserMasterModel = _userMasterHelper.GetUserByUserId(1).GetAwaiter().GetResult(),
-                ProjectTypeMasterModels = _projectMasterHelper.GetAllProjectType().GetAwaiter().GetResult(),
-                ProjectGroupModels = _projectGroupHelper.GetProjectGroupByUserID(1).GetAwaiter().GetResult(),
-                ProjectSubcontractorConfigModels = _subContractorHelper.GetAllSubContractorByOrg(1).GetAwaiter().GetResult(),
-                ProjctStatusMasterModels = _projectStatusMasterHelper.GetAllProjectStatus().GetAwaiter().GetResult(),
-                ProjectColorModels = _projectColorHelper.GetAllProjectColor().GetAwaiter().GetResult(),
-                CompanyMasterModel = _companyMasterHelper.GetCompanyByID(1).GetAwaiter().GetResult(),
-                UserMasterViewModels = _userMasterHelper.GetAllInternalUsers().GetAwaiter().GetResult(),
-                ProjectMasterModels = _projectMasterHelper.GetAllProjectByUserId(1).GetAwaiter().GetResult(),
-                ProjectManagerMasterModels = _projectMasterHelper.GetAllManagers().GetAwaiter().GetResult(),
-                MenuContents = _menuMasterHelper.GetMenuItems().GetAwaiter().GetResult()
+                UserMasterModel = await _userMasterHelper.GetUserByUserId(1),
+                ProjectTypeMasterModels = await _projectMasterHelper.GetAllProjectType(),
+                ProjectGroupModels = await _projectGroupHelper.GetProjectGroupByUserID(1),
+                ProjectSubcontractorConfigModels = await _subContractorHelper.GetAllSubContractorByOrg(1),
+                ProjctStatusMasterModels = await _projectStatusMasterHelper.GetAllProjectStatus(),
+                ProjectColorModels = await _projectColorHelper.GetAllProjectColor(),
+                CompanyMasterModel = await _companyMasterHelper.GetCompanyByID(1),
+                UserMasterViewModels = await _userMasterHelper.GetAllInternalUsers(),
+                ProjectMasterModels = await _projectMasterHelper.GetAllProjectByUserId(1),
+                ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
+                MenuContents = await _menuMasterHelper.GetMenuItems()
             };
             Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
             Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
             ViewBag.Basemodel = Basemodel;
             ViewBag.UsersList = GetAllUsers();
-            base.OnActionExecuting(filterContext);
+            base.OnActionExecuting(context);
+            await next(); 
         }
-
+      
         public List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels,
            List<ProjectManagerMasterViewModel> ProjectManagerMasterModels)
         {
@@ -91,22 +92,16 @@ namespace Benaa2018.Controllers
             });
             return lstGridModel;
         }
-
-
-
+        
         private async Task<List<UserMasterViewModel>> GetAllUsers()
         {
             List<UserMasterViewModel> lstUsers = new List<UserMasterViewModel>();
             try
             {
-                var obj1 = await _userMasterHelper.GetAllInternalUsers();
-                if (obj1.Count > 0)
+                var objIntetnaluser = await _userMasterHelper.GetAllInternalUsers();
+                if (objIntetnaluser.Count > 0)
                 {
-                    //    return lstUsers = new List<SelectListUser>
-                    //    {
-                    //        lstUsers.Add(obj1.SelectMany());
-                    //};
-                    foreach (var item in obj1)
+                    foreach (var item in objIntetnaluser)
                     {
                         UserMasterViewModel selectListUser = new UserMasterViewModel
                         {
@@ -123,9 +118,5 @@ namespace Benaa2018.Controllers
             }
             return lstUsers;
         }
-
-
-
-
     }
 }

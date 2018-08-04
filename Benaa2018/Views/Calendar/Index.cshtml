@@ -311,7 +311,6 @@
                     <div class="bt-single-line-text form-group form-group-sm" data-bind="css: formGroupSize">
                         <label class="bt-single-line-text--label" data-bind="text: title, visible: title().length > 0" style="display: none;"></label>
                         <input class="bt-single-line-text--value form-control input-sm validation-border required-placeholder" data-bind="value: value, disable: readOnly, addUniqueID: uniqueId, css: inputSize, attr: { maxLength: maxLength, placeholder: placeholder, tabindex: isTabbable }, validationBorder: value, requiredValidationElement: value, valueUpdate: valueUpdate " id="ui-id-15" maxlength="" tabindex="0" placeholder="Required">
-                        <!-- ko if: toolTipText().length > 0 --><!-- /ko -->
                     </div>
                     <div>
                         <span class="valMessage bt-single-line-text-validator" data-bind="btValidationMessage: value" style="display: none;"></span>
@@ -351,8 +350,6 @@
                             <!-- /ko -->
                             <!-- ko ifnot: optionGroups && ko.unwrap(optionGroups).length > 0 --><!-- /ko -->
                         </div>
-                        <!-- ko if: (ko.unwrap(canAddItems) || ko.unwrap(canEditItems))--><!-- /ko -->
-                        <!-- ko if: toolTipText().length > 0 && ko.unwrap(title).length === 0 --><!-- /ko -->
                     </div>
 
                     <!-- ko if: typeof(options) !== 'undefined' --><!-- /ko -->
@@ -377,3 +374,40 @@
         </div>
     </div>
 </div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+    google.charts.load('current', { 'packages': ['gantt'] });
+    google.charts.setOnLoadCallback(drawChart);
+    function toMilliseconds(minutes) {
+        return minutes * 60 * 1000;
+    }
+    function drawChart() {
+        var otherData = new google.visualization.DataTable();
+        otherData.addColumn('string', 'Task ID');
+        otherData.addColumn('string', 'Task Name');
+        otherData.addColumn('string', 'Resource');
+        otherData.addColumn('date', 'Start');
+        otherData.addColumn('date', 'End');
+        otherData.addColumn('number', 'Duration');
+        otherData.addColumn('number', 'Percent Complete');
+        otherData.addColumn('string', 'Dependencies');
+
+        otherData.addRows([
+            ['toTrain', 'Walk to train stop', 'walk', null, null, toMilliseconds(5), 100, null],
+            ['music', 'Listen to music', 'music', null, null, toMilliseconds(70), 100, null],
+            ['wait', 'Wait for train', 'wait', null, null, toMilliseconds(10), 100, 'toTrain'],
+            ['train', 'Train ride', 'train', null, null, toMilliseconds(45), 75, 'wait'],
+            ['toWork', 'Walk to work', 'walk', null, null, toMilliseconds(10), 0, 'train'],
+            ['work', 'Sit down at desk', null, null, null, toMilliseconds(2), 0, 'toWork']
+        ]);
+        var options = {
+            height: 275,
+            gantt: {
+                defaultStartDateMillis: new Date(2015, 3, 28)
+            }
+        };
+        var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+        chart.draw(otherData, options);
+    }
+</script>   
+<div id="chart_div"></div>

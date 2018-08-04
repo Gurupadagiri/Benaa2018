@@ -66,6 +66,7 @@ namespace Benaa2018.Helper
             {
                 lstCalendarItems.Add(new CalendarScheduledItemViewModel
                 {
+                    ScheduledItemId = a.ScheduledItemId,
                     Title = a.Title,
                     AssignedTo = a.AssignedTo,
                     ColorCode = a.ColorCode,
@@ -74,8 +75,7 @@ namespace Benaa2018.Helper
                     EndDate = a.EndDate,
                     EndTime = a.EndTime,
                     Hourly = a.Hourly,
-                    Reminder = a.Reminder,
-                    ScheduledItemId = a.ScheduledItemId,
+                    Reminder = a.Reminder,                    
                     StartDate = a.StartDate,
                     StartTime = a.StartTime,
                     CompanyId= a.CompanyId,

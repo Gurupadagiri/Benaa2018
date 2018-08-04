@@ -49,7 +49,47 @@ namespace Benaa2018.Helper
             });
             return lstUserMasterModel;
         }
-
+        /// <summary>
+        ///  Get All Internal Users and Projects By ID
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <returns></returns>
+        public async Task<List<UserMasterViewModel>> GetInternalUserByName(int companyId, string name, string status= "")
+        {
+            List<UserMasterViewModel> lstUserMasterModel = new List<UserMasterViewModel>();
+            var userInfo = await _userMasterRepository.GetAllAsync();
+            IEnumerable<ProjectUserIntConfigMaster> lstProjectUser = null;
+            if (name != string.Empty || status != string.Empty)
+            {
+                lstProjectUser = await _projectUserIntConfigMasterRepository.GetAllAsync();
+            }
+            if (companyId != 0)
+            {
+                lstProjectUser = lstProjectUser.Where(a => a.Org_ID == companyId).ToList();
+            }            
+            if (name != string.Empty)
+            {
+                userInfo = userInfo.Where(a => a.UserName.ToLower().Contains(name)).ToList();
+            }
+            if (status != null && status != string.Empty)
+            {
+                lstProjectUser = lstProjectUser.Where(a => a.View_Access == Convert.ToBoolean(status)).ToList();
+            }
+            userInfo.ToList().ForEach(item =>
+            {
+                lstUserMasterModel.Add(new UserMasterViewModel
+                {
+                    FullName = item.FullName,
+                    UserID = item.UserID,
+                    UserName = item.UserName,
+                    JobNotification = lstProjectUser != null ? lstProjectUser.Where(a => a.UserID == item.UserID).Select(a => a.Recive_Notification).FirstOrDefault() : false,
+                    ViewAccess = lstProjectUser != null ? lstProjectUser.Where(a => a.UserID == item.UserID).Select(a => a.View_Access).FirstOrDefault() : false,
+                    ProjectID = lstProjectUser != null ? lstProjectUser.Where(a => a.UserID == item.UserID).Select(a => a.Project_ID).FirstOrDefault() : 0,
+                    OrgID = lstProjectUser != null ? lstProjectUser.Where(a => a.UserID == item.UserID).Select(a => a.Org_ID).FirstOrDefault() : 0,
+                });
+            });
+            return lstUserMasterModel;
+        }
         public async Task<List<UserMasterViewModel>> GetUserByUserName(string userName)
         {
             List<UserMasterViewModel> lstUserMasterModel = new List<UserMasterViewModel>();

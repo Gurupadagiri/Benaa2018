@@ -2,6 +2,7 @@
 using Benaa2018.Helper.Model;
 using Benaa2018.Helper.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -65,12 +66,52 @@ namespace Benaa2018.Controllers
                     UserId = a.UserID
                 });
             });
-            InternalUserViewModel objInternalUser = new InternalUserViewModel
+            List<SubContractorGridModel> subContactorGrid = new List<SubContractorGridModel>();
+            var lstSubContractor = await _subContractorHelper.GetAllSubContractorsByCompanyId(1);
+            lstSubContractor.ForEach(a =>
             {
-                InternalUserGrid = userGrid
+                subContactorGrid.Add(new SubContractorGridModel
+                {
+                    Activation = "",
+                    Cell = a.Mobile,
+                    Email = a.Email,
+                    Company = "",
+                    Division = "",
+                    Phone = a.Tel,
+                    LiabilityExp = "",
+                    PrimaryContact = "",
+                    SubContractorId = a.SubContractorID,
+                    TradeAgreement = "",
+                    WorkCompExp = ""
+                });
+            });
+            InternalUserViewModel internalUser = new InternalUserViewModel
+            {
+                InternalUserJsonGrid = JsonConvert.SerializeObject(userGrid),
+                SubContractorJsonGrid = JsonConvert.SerializeObject(subContactorGrid),
             };
             ViewBag.IsleftMenuVisible = false;
-            return View();
+            return View(internalUser);
+        }
+
+        public async Task<string> FilterInternalUserAsync(int companyId, string name, string status)
+        {
+            List<InternalUserGridModel> userGrid = new List<InternalUserGridModel>();
+            var objInterUser = await _userMasterHelper.GetInternalUserByName(companyId, name, status);
+            objInterUser.ForEach(a =>
+            {
+                userGrid.Add(new InternalUserGridModel
+                {
+                    AdminAccess = a.UserEnabled,
+                    AutoAccess = a.UserIsAutomaticAccess,
+                    Email = a.UserEmail,
+                    LoginEnabled = a.UserEnabled,
+                    Name = a.FullName,
+                    Phone = a.UserPhone,
+                    UserId = a.UserID
+                });
+            });
+            return JsonConvert.SerializeObject(userGrid);
         }
     }
 }

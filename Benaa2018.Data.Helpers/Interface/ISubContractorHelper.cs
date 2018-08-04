@@ -7,5 +7,6 @@ namespace Benaa2018.Helper
     public interface ISubContractorHelper
     {
         Task<List<ProjectSubcontractorConfigViewModel>> GetAllSubContractorByOrg(int OrgId);
+        Task<List<ProjectSubcontractorMasterViewModel>> GetAllSubContractorsByCompanyId(int OrgId);
     }
 }

@@ -16,5 +16,8 @@ namespace Benaa2018.Helper.ViewModels
         public List<InternalUserGridModel> InternalUserGrid { get; set; }
         public List<SubContractorGridModel> SubContractorGrid { get; set; }
         public List<CustomerContactGridModel> CustomerContactGrid { get; set; }
+        public string InternalUserJsonGrid { get; set; }
+        public string SubContractorJsonGrid { get; set; }
+        public string CustomerContactJsonGrid { get; set; }
     }
 }
