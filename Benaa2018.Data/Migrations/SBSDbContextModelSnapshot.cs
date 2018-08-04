@@ -20,33 +20,35 @@ namespace Benaa2018.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            
+           
 
-            modelBuilder.Entity("Benaa2018.Data.Model.ProjectColorMaster", b =>
+          
+
+           
+           
+          
+
+            modelBuilder.Entity("Benaa2018.Data.Model.TagMaster", b =>
                 {
-                    b.Property<int>("ProjectColorId")
+                    b.Property<int>("TagId")
                         .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ColorCode");
 
                     b.Property<string>("Created_By");
 
                     b.Property<DateTime>("Created_Date");
 
-                    b.Property<bool>("IsDisable");
-
                     b.Property<string>("Modified_By");
 
                     b.Property<DateTime>("Modified_Date");
 
-                    b.Property<string>("ProjectColorName");
+                    b.Property<string>("TagName");
 
-                    b.HasKey("ProjectColorId");
+                    b.HasKey("TagId");
 
-                    b.ToTable("Project_Color");
+                    b.ToTable("Tag_Master");
                 });
 
-           
+            
 #pragma warning restore 612, 618
         }
     }

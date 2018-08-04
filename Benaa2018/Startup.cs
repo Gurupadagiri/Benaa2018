@@ -2,6 +2,7 @@
 using Benaa2018.Data.Interfaces;
 using Benaa2018.Data.Repository;
 using Benaa2018.Helper;
+using Benaa2018.Helper.Interface;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -75,6 +76,11 @@ namespace Benaa2018
             services.AddTransient<ICompanyMasterRespository, CompanyMasterRespository>();
             services.AddTransient<ICompanyMasterHelper, CompanyMasterHelper>();
             services.AddTransient<IDetaildPermissionRepository, DetaildPermissionRepository>();
+            services.AddTransient<IToDoMasterDetailsRepository, ToDoMasterDetailsRepository>();
+            services.AddTransient<ITagMasterRepository, TagMasterRepository>();
+            services.AddTransient<IToDoTagRepository, ToDoTagRepository>();
+
+
 
             services.AddTransient<IMenuMasterHelper, MenuMasterHelper>();
             services.AddTransient<IOwnerMasterHelper, OwnerMasterHelper>();
@@ -88,6 +94,9 @@ namespace Benaa2018
             services.AddTransient<IUserMasterHelper, UserMasterHelper>();
             services.AddTransient<IWarrentyAlertHelper, WarrentyAlertHelper>();
             services.AddTransient<IDetaildPermissionHelper, DetaildPermissionHelper>();
+            services.AddTransient<IToDoMasterDetailsHelper, ToDoMasterDetailsHelper>();
+            services.AddTransient<ITagMasterHelper, TagMasterHelper>();
+            services.AddTransient<IToDoTagHelper, ToDoTagHelper>();
 
             services.AddMvc();
         }

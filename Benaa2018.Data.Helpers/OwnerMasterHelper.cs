@@ -1,6 +1,8 @@
 ﻿using Benaa2018.Data.Interfaces;
 using Benaa2018.Data.Model;
 using Benaa2018.Helper.ViewModels;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -118,6 +120,32 @@ namespace Benaa2018.Helper
                 return ownerModel;
             }
             return new OwnerMasterViewModel();
+        }
+
+
+
+        public async Task<List<OwnerMasterViewModel>> GetAllOwner()
+        {
+
+            List<OwnerMasterViewModel> lstOwnerMasterModel = new List<OwnerMasterViewModel>();
+          //  var ownerInfo = await _ownerMasterRepoisitory.GetAllAsync();
+            IEnumerable<OwnerMaster> lstOwnerDet = null;
+            lstOwnerDet = await _ownerMasterRepoisitory.GetAllAsync();
+
+
+           
+            if (lstOwnerDet != null)
+            {
+                foreach (var item in lstOwnerDet)
+                {
+                    lstOwnerMasterModel.Add(new OwnerMasterViewModel
+                    {
+                        OwnerID=item.Owner_ID,
+                        OwnerName=item.Owner_Name
+                    });
+                }
+            }
+            return lstOwnerMasterModel;
         }
     }
 }

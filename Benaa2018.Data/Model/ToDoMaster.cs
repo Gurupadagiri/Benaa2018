@@ -14,11 +14,13 @@ namespace Benaa2018.Data.Model
         public int Todo_ID { get; set; }
         public int Project_ID { get; set; }
         public string Project_Site { get; set; }
-        public string Title { get; set; }
+        public string Title { get; set; }      
         public int Org_ID { get; set; }
         public string Note { get; set; }
+       //public bool IsComplete { get; set; }
+        //public bool IsNotifyNewAssignUsers { get; set; }
         public string Priority { get; set; }
-        public string AssignTo { get; set; }
+      public string AssignTo { get; set; }
         public DateTime Due_Date_Selection { get; set; }
         public DateTime Assign_Date { get; set; }
         public int Time_choosen_ID { get; set; }

@@ -1,4 +1,4 @@
- // tabbed content
+ mainContentDiv // tabbed content
     // http://www.entheosweb.com/tutorials/css/tabs.asp
     $(".tab_content").hide();
     $(".tab_content:first").show();
