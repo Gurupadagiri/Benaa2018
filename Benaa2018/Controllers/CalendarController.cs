@@ -1,4 +1,5 @@
 ﻿using Benaa2018.Helper;
+using Benaa2018.Helper.Interface;
 using Benaa2018.Helper.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -17,6 +18,7 @@ namespace Benaa2018.Controllers
         private readonly ISubContractorHelper _subContractorHelper;
         private readonly IUserMasterHelper _userMasterHelper;
         private readonly ICompanyMasterHelper _companyMasterHelper;
+        private readonly ICalendarScheduleHelper _calendarScheduleHelper;
         public CalendarController(IMenuMasterHelper menuMasterHelper,
             IOwnerMasterHelper ownerMasterHelper,
             IProjectColorHelper projectColorHelper,
@@ -28,7 +30,8 @@ namespace Benaa2018.Controllers
             IToDoMasterHelper toDoMasterHelper,
             IUserMasterHelper userMasterHelper,
             IWarrentyAlertHelper warrentyAlertHelper,
-            ICompanyMasterHelper companyMasterHelper) 
+            ICompanyMasterHelper companyMasterHelper,
+            ICalendarScheduleHelper calendarScheduleHelper) 
             : base(menuMasterHelper,
             ownerMasterHelper,
             projectColorHelper,
@@ -50,12 +53,28 @@ namespace Benaa2018.Controllers
             _subContractorHelper = subContractorHelper;
             _userMasterHelper = userMasterHelper;
             _companyMasterHelper = companyMasterHelper;
+            _calendarScheduleHelper = calendarScheduleHelper;
         }
         public async Task<IActionResult> Index()
         {
-            CalendarScheduledItemViewModel calendar = new CalendarScheduledItemViewModel();
-            //calendar.ProjectColorViewModels = await _projectColorHelper.GetAllProjectColor();
+            CalendarScheduledItemViewModel calendar = new CalendarScheduledItemViewModel
+            {
+                CalendarScheduledItemModels = await _calendarScheduleHelper.GetAllScheduledItems(1)
+            };
             return View(calendar);
+        }
+
+        public async Task<bool> SubmitPredecessorInfoAsync(CalendarScheduledItemViewModel calendarModel)
+        {
+            try
+            {
+                var calendar = await _calendarScheduleHelper.SaveCalendarScheduleItemAsync(calendarModel);
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

@@ -26,7 +26,7 @@ namespace Benaa2018
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=Kuttu;Initial Catalog=SBS-2018-DB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddAuthentication("SBSSecurityScheme")
                     .AddCookie("SBSSecurityScheme", options =>
                     {
@@ -79,8 +79,8 @@ namespace Benaa2018
             services.AddTransient<IToDoMasterDetailsRepository, ToDoMasterDetailsRepository>();
             services.AddTransient<ITagMasterRepository, TagMasterRepository>();
             services.AddTransient<IToDoTagRepository, ToDoTagRepository>();
-
-
+            services.AddTransient<ICalendarScheduledItemRepoisitory, CalendarScheduledItemRepository>();
+            services.AddTransient<IPredecessorInformationRepository, PredecessorInformationRepository>();
 
             services.AddTransient<IMenuMasterHelper, MenuMasterHelper>();
             services.AddTransient<IOwnerMasterHelper, OwnerMasterHelper>();
@@ -97,7 +97,7 @@ namespace Benaa2018
             services.AddTransient<IToDoMasterDetailsHelper, ToDoMasterDetailsHelper>();
             services.AddTransient<ITagMasterHelper, TagMasterHelper>();
             services.AddTransient<IToDoTagHelper, ToDoTagHelper>();
-
+            services.AddTransient<ICalendarScheduleHelper, CalendarScheduleHelper>();
             services.AddMvc();
         }
 

@@ -3,6 +3,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
 <div class="mainContentDiv" style="margin-left: 235px;">
     <button id="btnAddScheule">Add</button>
     <div class="filterContainer">
@@ -90,205 +91,222 @@
     <div id="calendar"></div>
 </div>
 <div class="modal fade" id="calendarmodal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
-    <div class="modal-dialog modal-lg width94">
-        <div class="panel panel-primary customPopup">
-            <div class="panel-heading themeColor">
-                <button type="button" class="close" id="infoclose" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="panel-title" id="contactLabel">Projects List</h4>
-            </div>
-            <div class="panel-body">
-                <div class="popupTopBtnCon">
-                    <div class="row">
-                        <div class="col-sm-2 form-group">
-                            <div class="dropdown">
-                                <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                                    Save
-                                    <span class="caret"></span>
-                                </button>
-                                <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
-                                    Save & New 
-                                    <span class="caret"></span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col-sm-2 text-right pull-right form-group">
-                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Map All</button>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                    <div class="filterContainer">
+    <form id="frmPredecessor" enctype="multipart/form-data" method="post">
+        <div class="modal-dialog modal-lg width94">
+            <div class="panel panel-primary customPopup">
+                <div class="panel-heading themeColor">
+                    <button type="button" class="close" id="infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="panel-title" id="contactLabel">Projects List</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="popupTopBtnCon">
                         <div class="row">
-                            <div class="col-md-12">
-                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" role="tab" id="headingOne">
-                                            <div class="row">
-                                                <div class="col-sm-2 form-group">
-                                                    <span>Title</span>
-                                                    <input asp-for="Title" class="form-control" />
+                            <div class="col-sm-2 form-group">
+                                <div class="dropdown">
+                                    <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown">
+                                        Save
+                                        <span class="caret"></span>
+                                    </button>
+                                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                        Save & New
+                                        <span class="caret"></span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="filterContainer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading" role="tab" id="headingOne">
+                                                <div class="row">
+                                                    <div class="col-sm-2 form-group">
+                                                        <span>Title</span>
+                                                        <input asp-for="Title" class="form-control" />
+                                                    </div>
+                                                    <div class="col-sm-2 form-group">
+                                                        @{
+                                                                Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+                                                        }
+                                                        <span>Display Color</span>
+                                                        <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                            @foreach (var item in baseModel.ProjectColorModels)
+                                                                {
+                                                                <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
+                                                                }
+                                                        </select>
+                                                    </div>
                                                 </div>
-                                                <div class="col-sm-2 form-group">
-                                                    @{
-                                                            Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+                                                <div class="row">
+                                                    <div class="col-sm-2 form-group">
+                                                        <label>Actual Start Date</label>
+                                                        <div class="input-group">
+                                                            <input class="form-control" asp-for="StartDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <input class="form-control" asp-for="Duration" placeholder="MM/DD/YYYY" type="text">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2 form-group">
+                                                        <label>Actual End Date</label>
+                                                        <div class="input-group">
+                                                            <input class="form-control" asp-for="EndDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                            <div class="input-group">
+                                                                <input class="form-control" asp-for="Hourly" placeholder="MM/DD/YYYY" type="checkbox">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2 form-group">
+                                                        <label>Start Time</label>
+                                                        <div class="input-group">
+                                                            @Html.DropDownListFor(a => a.StartTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
+                                                            @Html.DropDownListFor(a => a.EndTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-sm-2 form-group tooltip-div">
+                                                        <label>Assigned To</label>
+                                                        <div class="input-group">
+                                                            @Html.DropDownListFor(a => a.AssignedTo, new SelectList(baseModel.UserMasterViewModels, "UserID", "FullName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tabsConatiner">
+                            <ul class="tabs">
+                                <li class="active" rel="tab1"><a href="#tab1">Predecessor/Links</a></li>
+                                <li rel="tab2"><a href="#tab2">Phase & Tags</a></li>
+                                <li rel="tab3" class="tab_last"><a href="#tab3">Viewing</a></li>
+                                <li rel="tab4" class="tab_last"><a href="#tab4">Notes</a></li>
+                                <li rel="tab5" class="tab_last"><a href="#tab5">Shifts</a></li>
+                                <li rel="tab6" class="tab_last"><a href="#tab6">Files (0)</a></li>
+                            </ul>
+                            <div class="tab_container">
+                                <h3 class="d_active tab_drawer_heading" rel="tab1">List</h3>
+                                <div id="tab1" class="tab_content" style="display: block;">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <div class="row form-group">
+                                            <div class="input-group">
+                                                <label>Name</label>
+                                                <select asp-for="PredecessorInformationModel.ScheduledItemId" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <option value="" selected="selected">-----------</option>
+                                                    @foreach (var item in Model.CalendarScheduledItemModels)
+                                                    {
+                                                        <option value="@item.ScheduledItemId">@(item.Title + " .... " + item.StartDate +" to " + item.EndDate)</option>
                                                     }
-                                                    <span>Display Color</span>
-                                                    @Html.DropDownListFor(a => a.ColorCode, new SelectList(baseModel.ProjectColorModels, "ColorCode", "ProjectColorName"))                                                    
-                                                </div>
-                                                <div class="col-sm-2 form-group">
-                                                    <span>Status</span>
-                                                    <select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Status* field is required." id="ProjectMasterModel_ProjectStatusID" multiple="" name="ProjectMasterModel.ProjectStatusID" style="display: none;"></select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 625px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="#" class="ms-selectall global">Unselect all</a><ul style="column-count: 1; column-gap: 0px;"></ul></div></div>
-                                                </div>
-                                                <div class="col-sm-2 form-group">
-                                                    <span>Project Type</span>
-                                                    <select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Type* field is required." id="ProjectMasterModel_ProjectTypeID" multiple="" name="ProjectMasterModel.ProjectTypeID" style="display: none;"></select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 625px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="#" class="ms-selectall global">Unselect all</a><ul style="column-count: 1; column-gap: 0px;"></ul></div></div>
-                                                </div>
-                                                <div class="col-sm-2 form-group tooltip-div">
-                                                    <div class="input-group">
-                                                        <input type="text" id="txtKeyWord2" class="form-control" placeholder="Keyword">
-                                                        <div class="input-group-btn">
-                                                            <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
-                                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                </select>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-sm-2 form-group">
-                                                    <label>Actual Start Date</label>
-                                                    <div class="input-group">
-                                                        <input class="form-control" asp-for="StartDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
-                                                            <i class="fa fa-calendar">
-                                                            </i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2 form-group">
-                                                    <label>Actual End Date</label>
-                                                    <div class="input-group">
-                                                        <input class="form-control" asp-for="EndDate"  placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
-                                                            <i class="fa fa-calendar">
-                                                            </i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-sm-2 form-group tooltip-div">
-                                                    <label>Name</label>
-                                                    <div class="input-group">
-                                                        <input type="text" id="serchtext" class="form-control" placeholder="Keyword">
-                                                    </div>
-                                                </div>
+                                            <div class="input-group">
+                                                <select asp-for="PredecessorInformationModel.TimeFrame" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <option value="1" selected="selected">Finish-to-Start (FS)</option>
+                                                    <option value="2" selected="selected">Start-to-Start (SS)</option>
+                                                </select>
                                             </div>
-                                        </div>
-                                        <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="panel-body">
-                                                <div class="row">
-                                                    <div class="col-sm-6">
-                                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnUpdateResults">Update Results</button>&nbsp;
-                                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
-                                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Save Filter</button>
-                                                    </div>
-                                                </div>
+                                            <label>Lags</label>
+                                            <div class="input-group">
+                                                <input class="form-control" asp-for="PredecessorInformationModel.Lag" type="text">
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="tabsConatiner">
-                        <ul class="tabs">
-                            <li class="active" rel="tab1">List</li>
-                            <li rel="tab2">Map</li>
-                            <li rel="tab3" class="tab_last">Cluster Map</li>
-                        </ul>
-                        <div class="tab_container">
-                            <h3 class="d_active tab_drawer_heading" rel="tab1">List</h3>
-                            <div id="tab1" class="tab_content" style="display: block;">
-                                <div class="dataTableConatainer">
-                                    <button id="export">Export to Excel</button>
-                                    
-                                </div>
-                            </div>
-                            <!-- #tab1 -->
-                            <h3 class="tab_drawer_heading" rel="tab2">Tab 2</h3>
-                            <div id="tab2" class="tab_content" style="display: none;">
-                                <div class="clusterMapCon">
-                                    <div class="row">
-                                        <div class="col-sm-4">
-                                            <div class="filterMap">
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled="">Previous</button>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled="">Next</button>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <select name="select" class="form-control">
-                                                            <option role="option" value="20">20 per page</option>
-                                                            <option role="option" value="50">50 per page</option>
-                                                            <option role="option" value="75">75 per page</option>
-                                                            <option role="option" value="100">100 per page</option>
-                                                            <option role="option" value="250">250 per page</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-12">
-                                                        <div class="listmapCon">
-                                                            <span class="glyphicon glyphicon-map-marker"></span><label> al shatee</label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled="">Previous</button>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
-                                                    </div>
-                                                    <div class="col-sm-2">
-                                                        <button class="btn btn-default btn-sm" type="button" disabled="">Next</button>
-                                                    </div>
-                                                    <div class="col-sm-4">
-                                                        <select name="select" class="form-control">
-                                                            <option role="option" value="20">20 per page</option>
-                                                            <option role="option" value="50">50 per page</option>
-                                                            <option role="option" value="75">75 per page</option>
-                                                            <option role="option" value="100">100 per page</option>
-                                                            <option role="option" value="250">250 per page</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-8" id="dvMapEdit">
-                                            Map will be placed here
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- #tab2 -->
-                            <h3 class="tab_drawer_heading" rel="tab3">Tab 3</h3>
-                            <div id="tab3" class="tab_content" style="display: none;">
-                                <div id="dvMapCluster" class="clusterMapCon">
+                                    <div class="dataTableConatainer predecessoritem">
 
+                                    </div>
+                                    <button id="morepredecessors" class="btn btn-primary btn-sm" type="button">More Predecessors</button>
                                 </div>
+                                <!-- #tab1 -->
+                                <h3 class="tab_drawer_heading" rel="tab2">Tab 2</h3>
+                                <div id="tab2" class="tab_content" style="display: none;">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <div class="row form-group">
+                                            <div class="input-group">
+                                                <label>Phase</label>
+                                                <select class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <option value="" selected="selected">Unassigned</option>                                                   
+                                                </select>
+                                                <div class="editHolder">
+                                                    <a href="javascript:void(0);" id="" title="Add a Tag">
+                                                        <img id="" border="0" src="images/add.gif" style="border-width:0px;">
+                                                    </a>
+                                                    <a href="javascript:void(0);" title="Edit / Delete a Tag">
+                                                        <img id="" border="0" src="images/edit.gif" style="border-width:0px;">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="input-group">
+                                                <label>Tags</label>
+                                                <select class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <option value="" selected="selected">Unassigned</option>
+                                                </select>
+                                                <div class="editHolder">
+                                                    <a href="javascript:void(0);" id="" title="Add a Tag">
+                                                        <img id="" border="0" src="images/add.gif" style="border-width:0px;">
+                                                    </a>
+                                                    <a href="javascript:void(0);" title="Edit / Delete a Tag">
+                                                        <img id="" border="0" src="images/edit.gif" style="border-width:0px;">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <label>Lags</label>
+                                            <div class="input-group">
+                                                <input class="form-control" asp-for="PredecessorInformationModel.Lag" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #tab2 -->
+                                <h3 class="tab_drawer_heading" rel="tab3">Tab 3</h3>
+                                <div id="tab3" class="tab_content" style="display: none;">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <div class="row form-group">
+                                            <div class="input-group">
+                                                
+                                               <input type="checkbox" />  
+                                                <label>Show on Gantt</label>
+                                                <input type="checkbox" />  
+                                                <label>Show Owner (Full Calendar) </label>
+                                            </div>
+                                            <div class="input-group">
+                                                <label>Tags</label>
+                                                <select class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <option value="" selected="selected">Unassigned</option>
+                                                </select>                                              
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab4" class="tab_content" style="display: none;">
+                                    <div id="dvMapCluster" class="clusterMapCon">
+
+                                    </div>
+                                </div>
+                                <div id="tab5" class="tab_content" style="display: none;">
+                                    <div id="dvMapCluster" class="clusterMapCon">
+
+                                    </div>
+                                </div>
+                                <!-- #tab3 -->
                             </div>
-                            <!-- #tab3 -->
                         </div>
+                        <!-- .tab_container -->
                     </div>
-                    <!-- .tab_container -->
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
-<div  class="modal fade" id="calendarmodalgeneral" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+<div class="modal fade" id="calendarmodalgeneral" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
     <div class="header">
         <h2>New Item</h2>
         <button class="bt-calendar-quick-add--cancel" data-bind="click: onCancelClick">Cancel</button>
@@ -347,17 +365,12 @@
                                     <option data-bind="text: name, value: id, attr: { title: ko.unwrap($component.extraDataToolTip($data)), optgroup: $parent.name, disabled: ko.unwrap($component.extraDataDisabled($data)) || ko.unwrap($component.readOnly) }" value="3193088" title="" optgroup="Subs">Raja</option>
                                 </optgroup>
                             </select><button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect" aria-haspopup="true" style="width: 266px;" aria-disabled="false"><span class="ui-icon ui-icon-triangle-1-s"></span><span>-- No Items Selected --</span></button>
-                            <!-- /ko -->
-                            <!-- ko ifnot: optionGroups && ko.unwrap(optionGroups).length > 0 --><!-- /ko -->
+
                         </div>
                     </div>
-
-                    <!-- ko if: typeof(options) !== 'undefined' --><!-- /ko -->
                 </bt-multi-select-dropdown>
-                <!-- /ko -->
             </div>
         </div>
-        <!-- ko if: isNotifyVisible --><!-- /ko -->
         <div class="row bt-calendar-quick-add--body-row">
             <div class="col-xs-4">
                 <span class="fieldHeader">Color:</span>
@@ -374,6 +387,7 @@
         </div>
     </div>
 </div>
+
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
     google.charts.load('current', { 'packages': ['gantt'] });
@@ -409,5 +423,40 @@
         var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
         chart.draw(otherData, options);
     }
-</script>   
+    $(document).ready(function () {
+        $('#btnAddScheule').on('click', function () {
+            $('#calendarmodal').addClass('in').css('display', 'block');
+        });
+        $('#infoclose').on('click', function () {
+            $('#calendarmodal').removeClass('in').css('display', 'none');
+        });
+        $('#morepredecessors').on('click', function () {
+            var innerhtml = $('.Predecessorlink').html();
+            $('.predecessoritem').append(innerhtml);
+        });
+        $('.btncalendar').on('click', function () { 
+            var postData = $('#frmPredecessor').serialize();
+            $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
+                if (data == true) {
+                    infoForm.find("input[type='text']").each(function (i, element) {
+                        $(this).val('');
+                    });
+                    alert("Predecessor Details Successfully Added");
+                }
+            });
+        });
+        $('.tabs li').on('click', function () {
+            var divid = $(this).find('a').attr('href').replace('#', '');
+            var tabnumber = parseInt(divid.replace('tab', ''));
+            $('.tabs > li').removeClass('active');
+            $(this).addClass('active');
+            $('#' + divid).css('display', 'block');
+            for (var i = 1; i < 6; i++) {
+                if (i !== tabnumber) {
+                    $('#tab' + i).css('display', 'none');
+                }
+            }
+        });
+    });
+</script>
 <div id="chart_div"></div>

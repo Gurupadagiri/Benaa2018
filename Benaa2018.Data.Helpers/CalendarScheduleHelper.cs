@@ -2,6 +2,7 @@
 using Benaa2018.Data.Model;
 using Benaa2018.Helper.Interface;
 using Benaa2018.Helper.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -27,11 +28,11 @@ namespace Benaa2018.Helper
                 AssignedTo = calendarScheuledItem.AssignedTo,
                 ColorCode = calendarScheuledItem.ColorCode,
                 Duration = calendarScheuledItem.Duration,
-                EndDate = calendarScheuledItem.EndDate,
+                EndDate = Convert.ToDateTime(calendarScheuledItem.EndDate),
                 EndTime = calendarScheuledItem.EndTime,
                 Hourly = calendarScheuledItem.Hourly,
                 Reminder = calendarScheuledItem.Reminder,
-                StartDate = calendarScheuledItem.StartDate,
+                StartDate = Convert.ToDateTime(calendarScheuledItem.StartDate),
                 StartTime = calendarScheuledItem.StartTime
             };
             var companyObj = await _calendarScheduledItemRepoisitory.CreateAsync(calendarItem);
@@ -47,11 +48,11 @@ namespace Benaa2018.Helper
                 AssignedTo = calendarScheuledItem.AssignedTo,
                 ColorCode = calendarScheuledItem.ColorCode,
                 Duration = calendarScheuledItem.Duration,
-                EndDate = calendarScheuledItem.EndDate,
+                EndDate = Convert.ToDateTime(calendarScheuledItem.EndDate),
                 EndTime = calendarScheuledItem.EndTime,
                 Hourly = calendarScheuledItem.Hourly,
                 Reminder = calendarScheuledItem.Reminder,
-                StartDate = calendarScheuledItem.StartDate,
+                StartDate = Convert.ToDateTime(calendarScheuledItem.StartDate),
                 StartTime = calendarScheuledItem.StartTime
             };
             var companyObj = await _calendarScheduledItemRepoisitory.UpdateAsync(calendarItem);
@@ -72,13 +73,40 @@ namespace Benaa2018.Helper
                     ColorCode = a.ColorCode,
                     CreatdDate = a.Created_Date,
                     Duration = a.Duration,
-                    EndDate = a.EndDate,
+                    EndDate = a.EndDate.ToString(),
                     EndTime = a.EndTime,
                     Hourly = a.Hourly,
                     Reminder = a.Reminder,                    
-                    StartDate = a.StartDate,
+                    StartDate = a.StartDate.ToString(),
                     StartTime = a.StartTime,
                     CompanyId= a.CompanyId,
+                    ProjectId = a.ProjectId
+                });
+            });
+            return lstCalendarItems;
+        }
+
+        public async Task<List<CalendarScheduledItemViewModel>> GetAllScheduledItems(int companyId)
+        {
+            List<CalendarScheduledItemViewModel> lstCalendarItems = new List<CalendarScheduledItemViewModel>();
+            var scheduledItems = await _calendarScheduledItemRepoisitory.GetAllAsync();
+            scheduledItems.Where(a=>a.CompanyId == companyId).ToList().ForEach(a =>
+            {
+                lstCalendarItems.Add(new CalendarScheduledItemViewModel
+                {
+                    ScheduledItemId = a.ScheduledItemId,
+                    Title = a.Title,
+                    AssignedTo = a.AssignedTo,
+                    ColorCode = a.ColorCode,
+                    CreatdDate = a.Created_Date,
+                    Duration = a.Duration,
+                    EndDate = a.EndDate.ToString(),
+                    EndTime = a.EndTime,
+                    Hourly = a.Hourly,
+                    Reminder = a.Reminder,
+                    StartDate = a.StartDate.ToString(),
+                    StartTime = a.StartTime,
+                    CompanyId = a.CompanyId,
                     ProjectId = a.ProjectId
                 });
             });

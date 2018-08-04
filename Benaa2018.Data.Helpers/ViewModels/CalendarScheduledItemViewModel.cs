@@ -7,15 +7,19 @@ namespace Benaa2018.Helper.ViewModels
     {
         public CalendarScheduledItemViewModel()
         {
+            PredecessorInformationModel = new PredecessorInformationViewModel();
             ProjectColorViewModels = new List<ProjectColorViewModel>();
+            PredecessorInformationModels = new List<PredecessorInformationViewModel>();
+            CalendarScheduledItemModels = new List<CalendarScheduledItemViewModel>();
         }
+
         public int ScheduledItemId { get; set; }
         public string Title { get; set; }
         public int CompanyId { get; set; }
         public int ProjectId { get; set; }
         public string ColorCode { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
         public int Duration { get; set; }
         public string AssignedTo { get; set; }
         public int Reminder { get; set; }
@@ -26,7 +30,9 @@ namespace Benaa2018.Helper.ViewModels
         public List<ProjectColorViewModel> ProjectColorViewModels { get; set; }
         public List<UserMasterViewModel> UserMasterViewModels { get; set; }
         public List<ProjectSubcontractorMasterViewModel> ProjectSubcontractorMasterViewModels { get; set; }
-
+        public PredecessorInformationViewModel PredecessorInformationModel { get; set; }
+        public List<PredecessorInformationViewModel> PredecessorInformationModels { get; set; }
+        public List<CalendarScheduledItemViewModel> CalendarScheduledItemModels { get; set; }
         public List<string> TimeIntervalLists
         {
             get
