@@ -287,7 +287,7 @@
                                     </div>
                                 </div>
                                 <div id="tab4" class="tab_content" style="display: none;">
-                                    <div id="dvMapCluster" class="clusterMapCon">
+                                    <div class="clusterMapCon">
 
                                     </div>
                                 </div>
@@ -387,42 +387,45 @@
         </div>
     </div>
 </div>
-
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
+<script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+@*<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">*@
 <script type="text/javascript">
-    google.charts.load('current', { 'packages': ['gantt'] });
-    google.charts.setOnLoadCallback(drawChart);
-    function toMilliseconds(minutes) {
-        return minutes * 60 * 1000;
-    }
-    function drawChart() {
-        var otherData = new google.visualization.DataTable();
-        otherData.addColumn('string', 'Task ID');
-        otherData.addColumn('string', 'Task Name');
-        otherData.addColumn('string', 'Resource');
-        otherData.addColumn('date', 'Start');
-        otherData.addColumn('date', 'End');
-        otherData.addColumn('number', 'Duration');
-        otherData.addColumn('number', 'Percent Complete');
-        otherData.addColumn('string', 'Dependencies');
+    //google.charts.load('current', { 'packages': ['gantt'] });
+    //google.charts.setOnLoadCallback(drawChart);
+    //function toMilliseconds(minutes) {
+    //    return minutes * 60 * 1000;
+    //}
+    //function drawChart() {
+    //    var otherData = new google.visualization.DataTable();
+    //    otherData.addColumn('string', 'Task ID');
+    //    otherData.addColumn('string', 'Task Name');
+    //    otherData.addColumn('string', 'Resource');
+    //    otherData.addColumn('date', 'Start');
+    //    otherData.addColumn('date', 'End');
+    //    otherData.addColumn('number', 'Duration');
+    //    otherData.addColumn('number', 'Percent Complete');
+    //    otherData.addColumn('string', 'Dependencies');
+    //    otherData.addRows([
+    //        ['toTrain', 'Walk to train stop', 'walk', null, null, toMilliseconds(5), 100, null],
+    //        ['music', 'Listen to music', 'music', null, null, toMilliseconds(70), 100, null],
+    //        ['wait', 'Wait for train', 'wait', null, null, toMilliseconds(10), 100, 'toTrain'],
+    //        ['train', 'Train ride', 'train', null, null, toMilliseconds(45), 75, 'wait'],
+    //        ['toWork', 'Walk to work', 'walk', null, null, toMilliseconds(10), 0, 'train'],
+    //        ['work', 'Sit down at desk', null, null, null, toMilliseconds(2), 0, 'toWork']
+    //    ]);
+    //    var options = {
+    //        height: 275,
+    //        gantt: {
+    //            defaultStartDateMillis: new Date(2015, 3, 28)
+    //        }
+    //    };
+    //    var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
+    //    chart.draw(otherData, options);
+    //}
 
-        otherData.addRows([
-            ['toTrain', 'Walk to train stop', 'walk', null, null, toMilliseconds(5), 100, null],
-            ['music', 'Listen to music', 'music', null, null, toMilliseconds(70), 100, null],
-            ['wait', 'Wait for train', 'wait', null, null, toMilliseconds(10), 100, 'toTrain'],
-            ['train', 'Train ride', 'train', null, null, toMilliseconds(45), 75, 'wait'],
-            ['toWork', 'Walk to work', 'walk', null, null, toMilliseconds(10), 0, 'train'],
-            ['work', 'Sit down at desk', null, null, null, toMilliseconds(2), 0, 'toWork']
-        ]);
-        var options = {
-            height: 275,
-            gantt: {
-                defaultStartDateMillis: new Date(2015, 3, 28)
-            }
-        };
-        var chart = new google.visualization.Gantt(document.getElementById('chart_div'));
-        chart.draw(otherData, options);
-    }
     $(document).ready(function () {
         $('#btnAddScheule').on('click', function () {
             $('#calendarmodal').addClass('in').css('display', 'block');
@@ -434,6 +437,7 @@
             var innerhtml = $('.Predecessorlink').html();
             $('.predecessoritem').append(innerhtml);
         });
+
         $('.btncalendar').on('click', function () { 
             var postData = $('#frmPredecessor').serialize();
             $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
@@ -445,6 +449,7 @@
                 }
             });
         });
+
         $('.tabs li').on('click', function () {
             var divid = $(this).find('a').attr('href').replace('#', '');
             var tabnumber = parseInt(divid.replace('tab', ''));
@@ -457,6 +462,94 @@
                 }
             }
         });
+
+        $('#calendar').fullCalendar({
+            header: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'month,agendaWeek,agendaDay,listWeek'
+            },
+            defaultDate: '2018-03-12',
+            navLinks: true, // can click day/week names to navigate views
+            editable: true,
+            eventLimit: true, // allow "more" link when too many events
+            events: [
+                {
+                    title: 'All Day Event',
+                    start: '2018-03-01',
+                },
+                {
+                    title: 'Long Event',
+                    start: '2018-03-07',
+                    end: '2018-03-10'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2018-03-09T16:00:00'
+                },
+                {
+                    id: 999,
+                    title: 'Repeating Event',
+                    start: '2018-03-16T16:00:00'
+                },
+                {
+                    title: 'Conference',
+                    start: '2018-03-11',
+                    end: '2018-03-13'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2018-03-12T10:30:00',
+                    end: '2018-03-12T12:30:00'
+                },
+                {
+                    title: 'Lunch',
+                    start: '2018-03-12T12:00:00'
+                },
+                {
+                    title: 'Meeting',
+                    start: '2018-03-12T14:30:00'
+                },
+                {
+                    title: 'Happy Hour',
+                    start: '2018-03-12T17:30:00'
+                },
+                {
+                    title: 'Dinner',
+                    start: '2018-03-12T20:00:00'
+                },
+                {
+                    title: 'Birthday Party',
+                    start: '2018-03-13T07:00:00'
+                },
+                {
+                    title: 'Click for Google',
+                    url: 'http://google.com/',
+                    start: '2018-03-28'
+                }
+            ]
+        });
+        
+    });   
+</script>
+<link href="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.css"
+      rel="stylesheet" type="text/css" />
+<script src="https://cdn.dhtmlx.com/gantt/edge/dhtmlxgantt.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function (event) {
+        // specifying the date format
+        gantt.config.xml_date = "%Y-%m-%d %H:%i";
+        // initializing gantt
+        gantt.init("chart_div");
+        // initiating data loading
+        gantt.load("/api/data");
+        // initializing dataProcessor
+        var dp = new gantt.dataProcessor("/api/");
+        // and attaching it to gantt
+        dp.init(gantt);
+        // setting the REST mode for dataProcessor
+        dp.setTransactionMode("REST");
     });
 </script>
 <div id="chart_div"></div>
