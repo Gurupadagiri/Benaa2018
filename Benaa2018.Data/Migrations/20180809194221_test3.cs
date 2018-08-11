@@ -5,44 +5,34 @@ using System.Collections.Generic;
 
 namespace Benaa2018.Data.Migrations
 {
-    public partial class demo1 : Migration
+    public partial class test3 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            
-           
-           
-
             migrationBuilder.CreateTable(
-                name: "Project_Color",
+                name: "To_Do_Assign",
                 columns: table => new
                 {
-                    ProjectColorId = table.Column<int>(nullable: false)
+                    ToDoAssignID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ColorCode = table.Column<string>(nullable: true),
                     Created_By = table.Column<string>(nullable: true),
                     Created_Date = table.Column<DateTime>(nullable: false),
-                    IsDisable = table.Column<bool>(nullable: false),
                     Modified_By = table.Column<string>(nullable: true),
                     Modified_Date = table.Column<DateTime>(nullable: false),
-                    ProjectColorName = table.Column<string>(nullable: true)
+                    ToDoUserAssignTypeId = table.Column<int>(nullable: false),
+                    TodoDetailsID = table.Column<int>(nullable: false),
+                    UserID = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Project_Color", x => x.ProjectColorId);
+                    table.PrimaryKey("PK_To_Do_Assign", x => x.ToDoAssignID);
                 });
-
-           
-           
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            
             migrationBuilder.DropTable(
-                name: "Project_Color");
-
-           
+                name: "To_Do_Assign");
         }
     }
 }

@@ -26,11 +26,17 @@
     <link href="~/css/responsive-tabs.css" rel="stylesheet" />
     <link href="~/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="~/css/bootstrap-datepicker3.css" />
+    <link href="~/css/masterCss.css" rel="stylesheet" />
+    <link href="~/css/masterCssBootstrap.css" rel="stylesheet" />
+    <link href="~/css/UserControlCssIncludes_MultiSelect.css" rel="stylesheet" />
+    <link href="~/css/boostrapSwitchCss.css" rel="stylesheet" />
+
     <link href="~/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css">
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="~/css/ui.jqgrid.min.css">
 
-   
 </head>
 <body>
     @{
@@ -266,6 +272,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="~/js/jquery-1.12.4.js"></script>
     <script src="~/js/jquery-ui.js"></script>
+    <script src="~/js/custom.js"></script>
     <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
     <script src="~/js/vfs_fonts.js"></script>
@@ -278,40 +285,134 @@
     <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
+
+    <script src="~/js/bootstrapSwitch.js"></script>
+
+
     <script type="text/javascript">
         $(document).ready(function () {
-            $("#chkAllView").click(function () {
-                if ($('#chkAllView').prop('checked')) {
-                    $('.IsChkViewPermission').attr('checked', true);
+            $("#chkAllPermissionEmail").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllPermissionEmail').prop('checked')) {
+                    // alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.chkEmailAllNotification').attr('checked', true);
                 }
                 else {
-                    $('.IsChkViewPermission').attr('checked', false);
+                    // alert('Checkbox is unchecked');
+                    $('.chkEmailAllNotification').attr('checked', false);
+
                 }
+
             });
-            $("#chkAllAdd").click(function () {
+
+
+            $("#chkAllPermissionText").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllPermissionText').prop('checked')) {
+                    // alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.chkTextAllNotification').attr('checked', true);
+                }
+                else {
+                    // alert('Checkbox is unchecked');
+                    $('.chkTextAllNotification').attr('checked', false);
+
+                }
+
+            });
+
+            $("#chkAllPermissionPushOn").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllPermissionPushOn').prop('checked')) {
+                    // alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.chkAllPushPermission').attr('checked', true);
+                }
+                else {
+                    // alert('Checkbox is unchecked');
+                    $('.chkAllPushPermission').attr('checked', false);
+
+                }
+
+            });
+
+            $("#chkAllPermissionAllUsers").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllPermissionAllUsers').prop('checked')) {
+                    // alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.chkAUsersAllNotification').attr('checked', true);
+                }
+                else {
+                    // alert('Checkbox is unchecked');
+                    $('.chkAUsersAllNotification').attr('checked', false);
+
+                }
+
+            });
+
+
+            $("#chkAllView").click(function (e) {
+                // alert('Check all view');
+                if ($('#chkAllView').prop('checked')) {
+                   // alert('Checkbox is checked');
+                   // $('.chkAllViewPermission').prop('checked');
+                else
+                    {
+                        // alert('Checkbox is unchecked');
+                        $('.IsChkViewPermission').attr('checked', false);
+
+                    }
+
+                });
+
+            $("#chkAllAdd").click(function (e) {
+                // alert('Check all view');
                 if ($('#chkAllAdd').prop('checked')) {
+                    //alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkAddPermission').attr('checked', true);
                 }
                 else {
+                    //alert('Checkbox is unchecked');
                     $('.IsChkAddPermission').attr('checked', false);
+
                 }
+
             });
-            $("#chkAllEdit").click(function () {
+
+            $("#chkAllEdit").click(function (e) {
+                // alert('Check all view');
                 if ($('#chkAllEdit').prop('checked')) {
-                    $('.chkAllEditPermission').attr('checked', true);
+                    //alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
+                    $('.IsChkEditPermission').attr('checked', true);
                 }
                 else {
-                    $('.chkAllEditPermission').attr('checked', false);
+                    //alert('Checkbox is unchecked');
+                    $('.IsChkEditPermission').attr('checked', false);
+
                 }
+
             });
-            $("#chkAllDelete").click(function () {
+
+            $("#chkAllDelete").click(function (e) {
+                // alert('Check all view');
                 if ($('#chkAllDelete').prop('checked')) {
+                    //alert('Checkbox is checked');
+                    // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkDeletePermission').attr('checked', true);
                 }
                 else {
+                    //alert('Checkbox is unchecked');
                     $('.IsChkDeletePermission').attr('checked', false);
+
                 }
+
             });
+
+
             $("#saveUserPreference").click(function () {
                 e.preventDefault();
                 var infoForm = $("#frmSubmitUserPreference");
@@ -517,7 +618,7 @@
         });
     </script>
     <script>
-        $(document).ready(function () {         
+        $(document).ready(function () {
             $("#saveJobInfo").click(function () {
                 var infoForm = $("#frmSubmitProjectMaster");
                 if ($('#ProjectMasterModel_ProjectName').val() == '') {
@@ -533,7 +634,7 @@
                     return;
                 } else {
                     $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'none');
-                }              
+                }
                 if ($('#ProjectMasterModel_JobsitePrefix').val() == '') {
                     $('#ProjectMasterModel_JobsitePrefix').parent().find('.errormessege').css('display', 'block');
                     $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
@@ -752,7 +853,7 @@
             $('.close').click(function () {
                 $('#existingower').hide();
             });
-            
+
             $("#txtHomeSearch").keypress(function (e) {
                 if (e.which == 13) {
                     searchProject();
@@ -1021,14 +1122,14 @@
                 });
                 marker.setMap(map);
                 }
-            
+
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
     }
     <script>
-            $(document).ready(function () {
-                alert('a');
-            });
+        $(document).ready(function () {
+            // alert('a');
+        });
     </script>
 </body>
 </html>

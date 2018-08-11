@@ -13,5 +13,6 @@ namespace Benaa2018.Helper
         Task UpdateUserMaterConfig(int projectID, List<UserMasterViewModel> lstUserMasterModel);
         Task<UserMasterViewModel> SaveUserMaster(UserMasterViewModel userMasterViewModel);
         Task<List<UserMasterViewModel>> GetInternalUserByName(int companyId, string name, string status);
+        Task<List<UserMasterViewModel>> GetFullUserName();
     }
 }

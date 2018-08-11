@@ -1,10 +1,7 @@
 ﻿
-
 @model Benaa2018.Helper.ViewModels.ToDoAllViewModel
 <div class="modal-dialog modal-lg">
-
     <form id="frmSubmitToDoMaster" enctype="multipart/form-data" method="post">
-
         <div class="panel panel-primary customPopup">
             <div class="panel-heading themeColor">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -14,6 +11,8 @@
             <div class="panel-body">
                 <div class="buttonContainer">
                     <div class="btnHolder pull-left">
+                        @*<input type="submit" name="" value="Save" id="" class="blueButton">
+                            <input type="submit" name="" value="Save &amp; New" id="" class="blueButton">*@
                         <input type="submit" name="" value="Save" id="btnSaveToDo" class="blueButton">
                         <input type="submit" name="" value="Save &amp; New" id="btnSaveAndNewToDo" class="blueButton">
                     </div>
@@ -32,8 +31,8 @@
                         <div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
                             <div class="to-do-holder">
                                 <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
-                                @*<input id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" type="checkbox" name="ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1" onclick="MarkDirty();" class="single-to-do-check" data-off-text="Off" data-on-text="On">*@
-                                @Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @id = "ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1", @name = "ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1", @onclick = "MarkDirty();", @class = "single-to-do-check" })
+                                <input id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" type="checkbox" name="ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1" onclick="MarkDirty();" class="single-to-do-check" data-off-text="Off" data-on-text="On">
+                                @*@Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @id = "ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1", @name = "ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1", @onclick = "MarkDirty();", @class = "single-to-do-check" })*@
                                 <label for="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" class="single-to-do-check"></label>
                             </div>
                             <div class="to-do-completed-by" data-hasqtip="3">
@@ -45,29 +44,30 @@
                         <div class="formHolder">
                             <div class="leftFormHeading">Assigned To:</div>
                             <div class="rightFormText">
-                                <button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
-                                    <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                    <span>-- None Selected --</span>
-                                </button>
-                                @*@Html.DropDownListFor(x => x.UserMaster.UserID, new SelectList(ViewBag.UsersList, "UserID", "FullName"), "--0 User Selected--", new { id = "ddlPermission", @class = "form-control" })*@
+                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
+                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
+                                        <span>-- None Selected --</span>
+                                    </button>*@
                                 @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlPermission", @class = "form-control" })
-
-                                @*@Html.DropDownList("SubContractorsList1")*@
-                                @*@Html.dr*@
                             </div>
                         </div>
 
                         <div class="formHolder">
                             <div class="leftFormHeading">Priority:</div>
                             <div class="rightFormText">
-                                <button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
-                                    <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                    <span>-- None --</span>
-                                    <span id="1">Low</span>
-                                    <span id="2">High</span>
-                                    <span id="3">Highest</span>
+                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
+                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
+                                        <span>Low</span>
+                                        <span>High</span>
+                                        <span>Highest</span>
+                                    </button>*@
+                                <select name="cars" class="form-control">
+                                    <option value="volvo">None</option>
+                                    <option value="volvo">Low</option>
+                                    <option value="saab">High</option>
+                                    <option value="fiat">Highest</option>
 
-                                </button>
+                                </select>
                             </div>
                         </div>
 
@@ -89,9 +89,11 @@
                                                 <div style="flex: 1">
                                                     <!-- Wrap with a flex div in order to share space better with the below bt-tooltip -->
                                                     <div class="input-group input-group-sm date bt-date-picker--value" data-provide="datepicker" data-bind="validationBorder: value">
-                                                        <input type="text" class="form-control datePicker hasDatepicker" data-bind="addUniqueID: uniqueId, datePicker: value, disable: readOnly, attr: { placeholder: placeholder }, requiredValidationElement: value" id="ui-id-4">
+                                                        @*<input type="text" class="form-control datePicker hasDatepicker" data-bind="addUniqueID: uniqueId, datePicker: value, disable: readOnly, attr: { placeholder: placeholder }, requiredValidationElement: value" id="ui-id-4">*@
+                                                        @*@Html.TextBoxFor(a => a.ToDoDetails*@
+                                                        @Html.TextBoxFor(a => a.ToDoDetails.Duedate, new { @class = "form-control datePicker hasDatepicker", @dataprovide = "datepicker" }))
                                                         <label class="input-group-addon" data-bind="uniqueFor: uniqueId, css: { 'disabled-text': ko.unwrap(readOnly) }" for="ui-id-4">
-                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                        <i class="glyphicon glyphicon-calendar"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -288,7 +290,7 @@
                                                     <label data-bind="text: title, uniqueFor: uniqueId, visible: title().length > 0" for="ui-id-9" style="display: none;"></label>
                                                     <div class="bt-date-picker--value-wrapper">
                                                         <div style="flex: 1">
-                                                            <!-- Wrap with a flex div in order to share space better with the below bt-tooltip -->
+                                                            < !--Wrap with a flex div in order to share space better with the below bt-tooltip -->
                                                             <div class="input-group input-group-sm date bt-date-picker--value" data-provide="datepicker" data-bind="validationBorder: value">
                                                                 <input type="text" class="form-control datePicker hasDatepicker" data-bind="addUniqueID: uniqueId, datePicker: value, disable: readOnly, attr: { placeholder: placeholder }, requiredValidationElement: value" id="ui-id-9" disabled="">
                                                                 <label class="input-group-addon disabled-text" data-bind="uniqueFor: uniqueId, css: { 'disabled-text': ko.unwrap(readOnly) }" for="ui-id-9">
@@ -332,10 +334,22 @@
                         <div class="formHolder">
                             <div class="leftFormHeading">Reminder:</div>
                             <div class="rightFormText">
-                                <button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown reminderBtn" aria-haspopup="true">
-                                    <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                    <span>None</span>
-                                </button>
+                                /**/
+                                /**/
+                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown reminderBtn" aria-haspopup="true">
+                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
+                                        <span>None</span>
+                                    </button>*@
+                                /**/
+                                /**/
+                                <select name="cars" class="form-control">
+                                    <option value="volvo">
+                                        None </ option >
+                                        < option value="saab">Just Before
+                                    </option>
+                                    <option value="fiat"> 1 Hour</option>
+
+                                </select>
                                 <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_Tooltip2_hrefToolTip" class="ToolTip " data-tooltip="The <b>Reminder</b>, when selected, will alert the assigned user prior to the due date/time of this item.  Alerts will be sent to users via email (and text message if setup).  Reminders are sent at 8am unless an hourly reminder is selected." data-hasqtip="1" aria-describedby="qtip-1">
                                     <img src="images/iconToolTip.png" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_Tooltip2_imgToolTipIcon" border="0" align="absmiddle">
                                 </a>
@@ -346,79 +360,170 @@
                             <div class="leftFormHeading">Tags:</div>
 
                             <div class="editHolder">
-                                <a href="javascript:void(0);" id="" title="Add a Tag">
+                                <a href="javascript:void(0);" class="opener" data-id="#dialog1" title="Add a Tag" class="addCont">
                                     <img id="" border="0" src="images/add.gif" style="border-width:0px;">
                                 </a>
-                                <a href="javascript:void(0);" title="Edit / Delete a Tag">
+                                <a href="javascript:void(0);" class="opener" data-id="#dialog2" title="Edit / Delete a Tag" class="deleteCont">
                                     <img id="" border="0" src="images/edit.gif" style="border-width:0px;">
                                 </a>
+                                <div class="dialog" id="dialog1" title="New To-Do Tag">
+                                    <p>This is an animated dialog which is useful for displaying information.The dialog window can be moved, resized and closed with the 'x' icon.</p>
+                                </div>
+                                <div class="dialog" id="dialog2" title="To-Do Tag Editor">
+                                    <p>This is an animated dialog which is useful for displaying information.The dialog window can be moved, resized and closed with the 'x' icon.</p>
+                                </div>
                             </div>
-                            @*<div class="rightFormText form-group">*@
-                            @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
-                                    <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                    <span>-- No To-Do Tags Selected --</span>
-                                    SelectList
-                                </button>*@
-                            <div class="rightFormText form-group">
-
+                            <div class="rightFormText">
+                                /**/
+                                /**/
+                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
+                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
+                                        <span>-- No To-Do Tags Selected --</span>
+                                    </button>*@
+                                /**/
+                                /**/
                                 @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTag", @class = "form-control", @multiple = "multiple" })
-                                @*</div>*@
-
                             </div>
-
                         </div>
+
+
+                    </div>
+                </div>
+                <div class="topSection multipleSelectBoxes">
+                    <h2>
+                        Checklist<input type="submit" name="" value="Add Checklist" class="mainButton">
+                        <div class="multiCheckBoxHolder">
+                            <div class="checkbox checkboxAssignChecklist">
+                                <label>
+                                    <span class="liThirdRowControl"><input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On"></span>
+                                    <span class="chkText">
+                                        Assign Checklist Items?
+                                    </span>
+                                    <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign_chkTodoAssignChecklistItems_ttCheckbox_hrefToolTip" class="ToolTip " data-tooltip="Assigning check list item will grant the assigned user access to the To-Do."><img src="/images/Common/UserControls/iconToolTip.png" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign_chkTodoAssignChecklistItems_ttCheckbox_imgToolTipIcon" border="0" align="absmiddle"></a>
+                                </label>
+                            </div>
+                            <div class="checkbox checkboxChecklistItems">
+                                <label>
+                                    <span class="liThirdRowControl">
+                                        <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
+                                    </span>
+                                    <span class="chkText">
+                                        Add Files to Checklist Items
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+                    </h2>
+                    <div class="multiInputHolder">
+                        <div class="cloneMainContainer">
+                            <div class="cloneingboxholder">
+                                <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle">
+                                    <span id="">
+                                        < img src="images/drag.png" id="" style="border-width: 0px; height: 30px;">
+                                    </span>
+                                </div>
+                                <div class="liColumn">
+                                    <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
+                                    <label for="" class="lineItemCheck"></label>
+                                </div>
+                                <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
+                                    <textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>
+                                    <br>
+                                    <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
+                                </div>
+                                <div class="chosen-container chosen-container-single" title="" id=">
+                                    <a class="chosen-single">
+                                        <input class="chosen-search-input" type="text" autocomplete="off">
+                                        <span>Ahmed Garrash</span>
+                                        <div><b></b></div>
+                                    </a>
+                                    <div class="chosen-drop">
+                                        <div class="chosen-search">  </div>
+                                        <ul class="chosen-results">
+                                            <li class="active-result" data-option-array-index="0" style="">-- Assign User --</li>
+                                            <li class="group-result">Owners</li>
+                                            <li class="active-result group-option" data-option-array-index="2" style="">Owner(al shatee)</li>
+                                            <li class="group-result">Internal Users</li>
+                                            <li class="active-result result-selected group-option" data-option-array-index="4" style="">Ahmed Garrash</li>
+                                            <li class="active-result group-option" data-option-array-index="5" style="">aryan singh</li>
+                                            <li class="active-result group-option" data-option-array-index="6" style="">raja baja</li>
+                                            <li class="active-result group-option" data-option-array-index="7" style="">Shahnawaz Khan</li>
+                                            <li class="group-result">Subs</li>
+                                            <li class="active-result group-option" data-option-array-index="9" style="">Al Asaseya</li>
+                                            <li class="active-result group-option" data-option-array-index="10" style="">Raja</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="cloneingboxholder">
+                                <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle">
+                                    <span id="">
+                                        < img src="images/drag.png" id="" style="border-width: 0px; height: 30px;">
+                                    </span>
+                                </div>
+                                <div class="liColumn">
+                                    <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
+                                    <label for="" class="lineItemCheck"></label>
+                                </div>
+                                <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
+                                    <textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>
+                                    <br>
+                                    <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
+                                </div>
+                            </div>
+                            <div class="cloneingboxholder">
+                                <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle">
+                                    <span id="">
+                                        < img src="images/drag.png" id="" style="border-width: 0px; height: 30px;">
+                                    </span>
+                                </div>
+                                <div class="liColumn">
+                                    <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
+                                    <label for="" class="lineItemCheck"></label>
+                                </div>
+                                <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
+                                    <textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>
+                                    <br>
+                                    <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <a href="#" class="cloneBtnHolder">
+                            <img src="images/expandHeader.png" alt="" title="" />
+                        </a>
+
                     </div>
                 </div>
 
-            </div>
-
-            <div class="topSection ">
-                <h2>Checklist <input type="submit" name="" value="Add Checklist" class="mainButton"></h2>
-            </div>
-
-            <div id="checkListId">
-                @for (int i = 0; i < @ViewBag.TotalCheckList; i++)
-                {
-                    <div>
-                        <span> @Html.CheckBoxFor(a => a.lstCheckListDetail[i].ToDoIsCheckList) </span>
-                        <span>  @Html.TextBoxFor(a => a.lstCheckListDetail[i].ToDoCheckListTitle)</span>
-                        <span>   @*@Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId , new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlPermission", @class = "form-control" })*@ </span>
-                        <span> @Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlPermission", @class = "form-control" })</span>
-                   
+                <div class="topSection fileMessaging">
+                    <h2>Files & Messaging</h2>
+                    <div class="col-md-6">
+                        <h3>Attachments<input type="submit" name="" value="Add" class="mainButton"> <input type="submit" name="" value="Create New Doc" class="mainButton"></h3>
                     </div>
-
-
-                }
-            </div>
-            <input type="button" id="btnCheckList" title="Add" />
-            @*<div>
-                    <div>
-                        @Html.CheckBoxFor(a => a.lstToDoCheckList.)
+                    <div class="col-md-6">
+                        <h2>Messaging<span>(Messaging available after save)</span></h2>
                     </div>
-                </div>*@
-            <div class="topSection fileMessaging">
-                <h2>Files & Messaging </h2>
-                <div class="col-md-6">
-                    <h3>Attachments <input type="submit" name="" value="Add" class="mainButton"> <input type="submit" name="" value="Create New Doc" class="mainButton"></h3>
                 </div>
-                <div class="col-md-6">
-                    <h2>Messaging <span>(Messaging available after save)</span></h2>
-                </div>
-            </div>
 
-            @*<div class="topSection fileMessaging">
-                <h2>Custom Fields </h2> <div class="col-md-6">
-                    <p>Admin users can add custom fields for To-Dos in Setup.</p>
-                </div>*@
+                /**/
+                /**/
+                @*<div class="topSection fileMessaging">
+                        <h2>Custom Fields </h2> <div class="col-md-6">
+                            <p>Admin users can add custom fields for To-Dos in Setup.</p>
+                        </div>
 
 
 
 
-                @*</div>
                     </div>*@
+                /**/
+                /**/
 
 
-
+            </div>
+        </div>
     </form>
 </div>
 

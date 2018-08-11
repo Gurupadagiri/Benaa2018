@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Benaa2018.Helper
 {
-   public  class ToDoCheckListDetailsHelper : IToDoCheckListDetailsHelper
+    public class ToDoCheckListDetailsHelper : IToDoCheckListDetailsHelper
     {
         private readonly IToDochecklistDetailsRepository _toDchecklistDetailsHelper;
 
@@ -18,9 +18,29 @@ namespace Benaa2018.Helper
             _toDchecklistDetailsHelper = toDochecklistDetailsRepository;
         }
 
-        public Task<List<ToDochecklistDetailsViewModel>> GetAllCheclistDetailsDescription(int todoDetailsID = 0)
+        public async Task<List<ToDochecklistDetailsViewModel>> GetAllCheclistDetailsDescription(int todoCheckListID = 0)
         {
-            throw new NotImplementedException();
+            List<ToDochecklistDetailsViewModel> lstTagDetailsModel = new List<ToDochecklistDetailsViewModel>();
+            var checkListDetailsInfo = await _toDchecklistDetailsHelper.GetAllAsync();
+
+            if (todoCheckListID > 0)
+            {
+
+                checkListDetailsInfo = checkListDetailsInfo.Where(a => a.ToDoCheckListId == todoCheckListID).ToList();
+            }
+            checkListDetailsInfo.ToList().ForEach(item =>
+            {
+                lstTagDetailsModel.Add(new ToDochecklistDetailsViewModel
+                {
+                    ToDochecklistDetailsViewModelId = item.ToDochecklistDetailsId,
+                    ToDoCheckListId = item.ToDoCheckListId,
+                    ToDoIsCheckList = item.ToDoIsCheckList,
+                    ToDoCheckListTitle = item.ToDoCheckListTitle,
+                    ToDoCheckListUserType = item.ToDoCheckListUserTypeId,
+                    ToDoCheckListUserId = item.ToDoCheckListUserId
+                });
+            });
+            return lstTagDetailsModel;
         }
 
         public Task<ToDochecklistDetailsViewModel> SaveToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel)

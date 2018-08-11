@@ -79,6 +79,9 @@ namespace Benaa2018
             services.AddTransient<IToDoMasterDetailsRepository, ToDoMasterDetailsRepository>();
             services.AddTransient<ITagMasterRepository, TagMasterRepository>();
             services.AddTransient<IToDoTagRepository, ToDoTagRepository>();
+            services.AddTransient<IToDoAssignRepository, ToDoAssignRepository>();
+            services.AddTransient<IToDochecklistDetailsRepository, ToDochecklistDetailsRepository>();
+            services.AddTransient<IToDochecklistRepository, ToDochecklistRepository>();
 
 
 
@@ -97,6 +100,9 @@ namespace Benaa2018
             services.AddTransient<IToDoMasterDetailsHelper, ToDoMasterDetailsHelper>();
             services.AddTransient<ITagMasterHelper, TagMasterHelper>();
             services.AddTransient<IToDoTagHelper, ToDoTagHelper>();
+            services.AddTransient<IToDoAssignHelper, ToDoAssignHelper>();
+            services.AddTransient<IToDoCheckListHelper, ToDoCheckListHelper>();
+            services.AddTransient<IToDoCheckListDetailsHelper, ToDoCheckListDetailsHelper>();
 
             services.AddMvc();
         }

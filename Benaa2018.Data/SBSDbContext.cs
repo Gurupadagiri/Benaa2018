@@ -29,6 +29,16 @@ namespace Benaa2018.Data
         public DbSet<CompanyMaster> CompanyMasters { get; set; }
         public DbSet<CalendarScheduledItem> CalendarScheduledItems { get; set; }
         public DbSet<PredecessorInformation> PredecessorInformations { get; set; }
+        public DbSet<DetaildPermission> DetaildPermissions { get; set; }
+        public DbSet<ToDoMasterDetails> ToDoMasterDetailss { get; set; }
+        public DbSet<TagMaster> TagMasterDetailss { get; set; }
+        public DbSet<ToDoTag> ToDoTags { get; set; }
+        public DbSet<ToDochecklistDetails> ToDochecklistDetails { get; set; }
+        public DbSet<ToDochecklist> ToDochecklists { get; set; }
+        public DbSet<TagMaster> TagMasters { get; set; }
+        public DbSet<ToDoAssign> ToDoAssigns { get; set; }
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // EF Core 2 doesnt support Cascade on delete for in Memory Database
@@ -38,7 +48,7 @@ namespace Benaa2018.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(@"Data Source=Kuttu;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                .UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
     }
 }

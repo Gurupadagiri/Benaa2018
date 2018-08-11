@@ -57,6 +57,47 @@
      $('#selectSedualedItem').hide();
    });
 
+   $('.multipleSelectBoxes .mainButton').click(function(){
+        $('.multiCheckBoxHolder,.multiInputHolder').slideToggle();
+
+        if ($(this).val() == "Add Checklist")
+           $(this).val("Remove Checklist")
+        else
+           $(this).val("Add Checklist");
+   });
+
+   $('.cloneBtnHolder').click(function(){
+      $( ".cloneMainContainer" ).clone().prependTo(".cloneBtnHolder");
+   });
+
+
+    $(".checkboxAssignChecklist input[type=checkbox]").change(function() {
+        if(this.checked) {
+           $('.chosen-container.chosen-container-single').show();
+        }else{
+            $('.chosen-container.chosen-container-single').hide();
+        }
+    });
+
+
+      $( ".dialog" ).dialog({
+          autoOpen: false,
+          show: {
+            effect: "blind",
+            duration: 1000
+          },
+          hide: {
+            effect: "explode",
+            duration: 1000
+          }
+        });
+     
+        $(".opener").click(function () {
+            //takes the ID of appropriate dialogue
+            var id = $(this).data('id');
+           //open dialogue
+            $(id).dialog("open");
+        });
 
 
 

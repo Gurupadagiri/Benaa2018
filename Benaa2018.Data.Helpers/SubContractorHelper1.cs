@@ -1,6 +1,5 @@
 ﻿using Benaa2018.Data.Interfaces;
 using Benaa2018.Helper.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -15,33 +14,20 @@ namespace Benaa2018.Helper
             _subContractorMasterRepository = subContractorMasterRepository;
         }
 
-        public async Task<List<ProjectSubcontractorConfigViewModel>> GetAllSubContractorByOrg(int OrgId=0)
+        public async Task<List<ProjectSubcontractorConfigViewModel>> GetAllSubContractorByOrg(int OrgId)
         {
             List<ProjectSubcontractorConfigViewModel> lstSubContractor = new List<ProjectSubcontractorConfigViewModel>();
             var subContractors = await _subContractorMasterRepository.GetAllAsync();
-            if(OrgId>0)
-            { 
-            subContractors.Where(a => a.Org_ID == OrgId).ToList().ForEach(item => {
+            subContractors.Where(a => a.Org_ID == OrgId).ToList().ForEach(item =>
+            {
                 lstSubContractor.Add(new ProjectSubcontractorConfigViewModel
                 {
                     SubContractorID = item.SubContractor_ID,
                     SubcontractorName = item.Name
                 });
             });
-            }
-            else
-            {
-                subContractors.ToList().ForEach(item => {
-                    lstSubContractor.Add(new ProjectSubcontractorConfigViewModel
-                    {
-                        SubContractorID = item.SubContractor_ID,
-                        SubcontractorName = item.Name
-                    });
-                });
-            }
             return lstSubContractor;
         }
-
 
         public async Task<List<ProjectSubcontractorMasterViewModel>> GetAllSubContractorsByCompanyId(int OrgId)
         {

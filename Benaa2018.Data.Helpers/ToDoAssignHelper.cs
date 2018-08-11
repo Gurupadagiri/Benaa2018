@@ -34,5 +34,27 @@ namespace Benaa2018.Helper
 
             return toDoAssignDetl;
         }
+
+        public async Task<List<ToDoAssignViewModel>> GetToDoAssignByToDoDetailsId(int todoDetailsId)
+        {
+
+            List<ToDoAssignViewModel> lstToDoAssignViewModel = new List<ToDoAssignViewModel>();
+            var toDoAssignByDetailsId= await _toDoAssignHelper.GetAllAsync();
+            toDoAssignByDetailsId = toDoAssignByDetailsId.Where(a => a.TodoDetailsID == todoDetailsId).ToList();
+            if (toDoAssignByDetailsId != null)
+            {
+                toDoAssignByDetailsId.ToList().ForEach(item =>
+                {
+                    lstToDoAssignViewModel.Add(new ToDoAssignViewModel
+                    {
+                        UserID=item.UserID,
+                        ToDoUserAssignTypeId=item.ToDoUserAssignTypeId,
+                        TodoDetailsID=item.TodoDetailsID
+                    });
+                });
+            }
+            return lstToDoAssignViewModel;
+
+        }
     }
 }

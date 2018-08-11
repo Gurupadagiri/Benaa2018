@@ -34,7 +34,7 @@ namespace Benaa2018.Helper
             return toDoTagDetailsViewModel;
         }
 
-        public async Task<List<ToDoTagViewModel>> GetAllTags()
+        public async Task<List<ToDoTagViewModel>> GetAllTags(int TodoDetailID = 0)
         {
             List<ToDoTagViewModel> lstToDoTagModel = new List<ToDoTagViewModel>();
             IEnumerable<ToDoTag> lstToDoTag = null;
@@ -42,17 +42,33 @@ namespace Benaa2018.Helper
 
             if (lstToDoTag != null)
             {
-                foreach (var item in lstToDoTag)
+                if (TodoDetailID > 0)
                 {
-                    lstToDoTagModel.Add(new ToDoTagViewModel
-                    {
-                        ToDoTagid = item.ToDoTagid,
-                        Tagid = item.Tagid,
-                        TodoDetailsID = item.TodoDetailsID
+                    lstToDoTag = lstToDoTag.Where(a => a.TodoDetailsID == TodoDetailID).ToList();
 
-                    });
+
+
+                    if (lstToDoTag != null)
+                    {
+                        foreach (var item in lstToDoTag)
+                        {
+                            lstToDoTagModel.Add(new ToDoTagViewModel
+                            {
+                                ToDoTagid = item.ToDoTagid,
+                                Tagid = item.Tagid,
+                                TodoDetailsID = item.TodoDetailsID
+
+                            });
+                        }
+                    }
                 }
+
+                //if(Tagids.Count()>0)
+                //{
+                //    lstToDoTag = lstToDoTag.Where(a => a.Tagid==Convert.ToInt32 ( Tagids[0])).ToList();
+                //}
             }
+
             return lstToDoTagModel;
         }
 

@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Compile Remove="ImageUpload\ProfileImage.cs" />
+    <Compile Remove="Interface\ISubContractorHelper1.cs" />
+    <Compile Remove="SubContractorHelper1.cs" />
   </ItemGroup>
 
   <ItemGroup>

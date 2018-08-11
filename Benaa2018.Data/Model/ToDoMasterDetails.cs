@@ -27,6 +27,7 @@ namespace Benaa2018.Data.Model
         public DateTime LinkToDate { get; set; }
         public string LinkToTime { get; set; }
         public int ReminderId { get; set; }
+        public bool DeletionStatus { get; set; }
 
     }
 }

@@ -8,6 +8,6 @@ namespace Benaa2018.Helper.Interface
     {
         Task<TagMasterViewModel> SaveTagMasterDetails(TagMasterViewModel toDoMasterDetailsViewModel);
 
-        Task<List<TagMasterViewModel>> GetAllTagMasterDetails();
+        Task<List<TagMasterViewModel>> GetAllTagMasterDetails(int TagsId=0);
     }
 }

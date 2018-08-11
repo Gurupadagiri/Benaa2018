@@ -121,7 +121,8 @@ namespace Benaa2018.Helper
                     UserID = user.UserID,
                     FullName = user.FullName,
                     UserName = user.UserName,
-                    CreatdDate = user.Created_Date
+                    CreatdDate = user.Created_Date,
+                    UserEmail = user.User_Email
                 };
             }
             return userInfo;
@@ -192,6 +193,28 @@ namespace Benaa2018.Helper
             };
 
             return userMasterViewModel1;
+        }
+
+
+        public async Task<List<UserMasterViewModel>> GetFullUserName()
+        {
+            List<UserMasterViewModel> lstUserMasterModel = new List<UserMasterViewModel>();
+            IEnumerable<UserMaster> lstUserMaster = null;
+            lstUserMaster = await _userMasterRepository.GetAllAsync();
+
+            if (lstUserMaster != null)
+            {
+                foreach (var item in lstUserMaster)
+                {
+                    lstUserMasterModel.Add(new UserMasterViewModel
+                    {
+                        UserID = item.UserID,
+                        FullName = item.FullName != null ? item.FullName : string.Empty
+
+                    });
+                }
+            }
+            return lstUserMasterModel;
         }
     }
 }

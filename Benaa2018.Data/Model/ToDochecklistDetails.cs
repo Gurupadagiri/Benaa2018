@@ -15,6 +15,8 @@ namespace Benaa2018.Data.Model
         public int ToDoCheckListId { get; set; }
         public bool ToDoIsCheckList { get; set; }
         public string ToDoCheckListTitle { get; set; }
+        public int ToDoCheckListUserTypeId { get; set; }
+        public int ToDoCheckListUserId { get; set; }
 
     }
 }

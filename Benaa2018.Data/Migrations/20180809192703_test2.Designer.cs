@@ -11,9 +11,10 @@ using System;
 namespace Benaa2018.Data.Migrations
 {
     [DbContext(typeof(SBSDbContext))]
-    partial class SBSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180809192703_test2")]
+    partial class test2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1276,30 +1277,6 @@ namespace Benaa2018.Data.Migrations
                     b.HasKey("TagId");
 
                     b.ToTable("Tag_Master");
-                });
-
-            modelBuilder.Entity("Benaa2018.Data.Model.ToDoAssign", b =>
-                {
-                    b.Property<int>("ToDoAssignID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Created_By");
-
-                    b.Property<DateTime>("Created_Date");
-
-                    b.Property<string>("Modified_By");
-
-                    b.Property<DateTime>("Modified_Date");
-
-                    b.Property<int>("ToDoUserAssignTypeId");
-
-                    b.Property<int>("TodoDetailsID");
-
-                    b.Property<int>("UserID");
-
-                    b.HasKey("ToDoAssignID");
-
-                    b.ToTable("To_Do_Assign");
                 });
 
             modelBuilder.Entity("Benaa2018.Data.Model.ToDochecklist", b =>

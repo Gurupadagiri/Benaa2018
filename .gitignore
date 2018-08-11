@@ -259,3 +259,15 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+Benaa2018.Data/Migrations/20180708082643_initial.cs
+Benaa2018.Data/Migrations/20180708082643_initial.Designer.cs
+Benaa2018.Data/Migrations/20180714171227_IntialColor1.cs
+Benaa2018.Data/Migrations/20180715051807_intialproject.cs
+Benaa2018.Data/Migrations/20180714171227_IntialColor1.Designer.cs
+Benaa2018.Data/Migrations/20180715051807_intialproject.Designer.cs
+Benaa2018.Data/Migrations/20180715115842_demo1.cs
+Benaa2018.Data/Migrations/20180715115842_demo1.Designer.cs
+Benaa2018.Data/Migrations/20180731171602_test3.cs
+Benaa2018.Data/Migrations/20180731171602_test3.Designer.cs
+Benaa2018.Data/Migrations/20180731175926_test4.cs
+Benaa2018.Data/Migrations/20180731175926_test4.Designer.cs

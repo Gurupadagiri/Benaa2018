@@ -17,7 +17,7 @@ namespace Benaa2018.Helper
             _tagMasterHelper = tagMasterRepository;
         }
 
-        public async Task<List<TagMasterViewModel>> GetAllTagMasterDetails()
+        public async Task<List<TagMasterViewModel>> GetAllTagMasterDetails(int TagsId = 0)
         {
             List<TagMasterViewModel> lstTagMasterModel = new List<TagMasterViewModel>();
             var tagInfo = await _tagMasterHelper.GetAllAsync();
@@ -30,6 +30,10 @@ namespace Benaa2018.Helper
                    TagName=item.TagName
                 });
             });
+            if(TagsId > 0)
+            {
+                lstTagMasterModel = lstTagMasterModel.Where(a => a.TagId == TagsId).ToList();
+             }
             return lstTagMasterModel;
         }
 
