@@ -20,11 +20,11 @@
                         <div class="table table-striped custab">
                             <div class="pull-left"><a href="http://localhost:64732/home#" data-toggle="modal" id="infoEdit" data-target="#infoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
                             <div class="pull-right">
-                                <select class="form-control">
+                                <select class="form-control" id="ddlAssign">
                                     <option>Checked Actions</option>
                                     <option>Print Checked</option>
                                     <option>Assign To</option>
-                                    <option>Mark Complete</option>
+                                    <option id="btnChecked">Mark Complete</option>
                                     <option>Copy To-Dos</option>
                                     <option>Delete Checked</option>
                                 </select>
@@ -66,25 +66,25 @@
 
                                                 </select>
                                                 @*<select class="withCheckbox jqmsLoaded" id="ProjectMasterModel_ProjectManagerID" multiple="" name="ProjectMasterModel.ProjectManagerID" style="display: none;">
-                                                    <option value="1">guru</option>
-                                                    <option value="2">sumit</option>
-                                                </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="guru"><label for="ms-opt-7"><input type="checkbox" title="guru" id="ms-opt-7" value="1">guru</label></li><li data-search-term="sumit"><label for="ms-opt-8"><input type="checkbox" title="sumit" id="ms-opt-8" value="2">sumit</label></li></ul></div></div>*@
+                                                        <option value="1">guru</option>
+                                                        <option value="2">sumit</option>
+                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="guru"><label for="ms-opt-7"><input type="checkbox" title="guru" id="ms-opt-7" value="1">guru</label></li><li data-search-term="sumit"><label for="ms-opt-8"><input type="checkbox" title="sumit" id="ms-opt-8" value="2">sumit</label></li></ul></div></div>*@
                                             </div>
                                             <div class="col-sm-2 form-group">
                                                 <span>Users Assigned To</span>
 
                                                 @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlToDoAssignToDoSearch", @class = "form-control" })
                                                 @*<select class="withCheckbox jqmsLoaded" id="ProjectMasterModel_ProjectManagerID" multiple="" name="ProjectMasterModel.ProjectManagerID" style="display: none;">
-                                                    <option value="1">guru</option>
-                                                    <option value="2">sumit</option>
-                                                </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="guru"><label for="ms-opt-7"><input type="checkbox" title="guru" id="ms-opt-7" value="1">guru</label></li><li data-search-term="sumit"><label for="ms-opt-8"><input type="checkbox" title="sumit" id="ms-opt-8" value="2">sumit</label></li></ul></div></div>*@
+                                                        <option value="1">guru</option>
+                                                        <option value="2">sumit</option>
+                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="guru"><label for="ms-opt-7"><input type="checkbox" title="guru" id="ms-opt-7" value="1">guru</label></li><li data-search-term="sumit"><label for="ms-opt-8"><input type="checkbox" title="sumit" id="ms-opt-8" value="2">sumit</label></li></ul></div></div>*@
                                             </div>
                                             <div class="col-sm-2 form-group">
                                                 <span>Status</span>
                                                 @*<select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Status* field is required." id="ProjectMasterModel_ProjectStatusID" multiple="" name="ProjectMasterModel.ProjectStatusID" style="display: none;">
-                                                    <option value="1">Active</option>
-                                                    <option value="2">In Progress</option>
-                                                </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="active"><label for="ms-opt-9"><input type="checkbox" title="Active" id="ms-opt-9" value="1">Active</label></li><li data-search-term="in progress"><label for="ms-opt-10"><input type="checkbox" title="In Progress" id="ms-opt-10" value="2">In Progress</label></li></ul></div></div>*@
+                                                        <option value="1">Active</option>
+                                                        <option value="2">In Progress</option>
+                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="active"><label for="ms-opt-9"><input type="checkbox" title="Active" id="ms-opt-9" value="1">Active</label></li><li data-search-term="in progress"><label for="ms-opt-10"><input type="checkbox" title="In Progress" id="ms-opt-10" value="2">In Progress</label></li></ul></div></div>*@
                                                 <select name="cars" class="form-control" id="ddlToDoStatusToDoSearch">
                                                     <option value="2">All Statuses</option>
                                                     <option value="1">Completed</option>
@@ -103,10 +103,10 @@
                                                     <option value="3">Highest</option>
                                                 </select>
                                                 @*<select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Type* field is required." id="ProjectMasterModel_ProjectTypeID" multiple="" name="ProjectMasterModel.ProjectTypeID" style="display: none;">
-                                                    <option value="1">Open</option>
-                                                    <option value="2">Closed</option>
-                                                    <option value="3">InProgress</option>
-                                                </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="open"><label for="ms-opt-11"><input type="checkbox" title="Open" id="ms-opt-11" value="1">Open</label></li><li data-search-term="closed"><label for="ms-opt-12"><input type="checkbox" title="Closed" id="ms-opt-12" value="2">Closed</label></li><li data-search-term="inprogress"><label for="ms-opt-13"><input type="checkbox" title="InProgress" id="ms-opt-13" value="3">InProgress</label></li></ul></div></div>*@
+                                                        <option value="1">Open</option>
+                                                        <option value="2">Closed</option>
+                                                        <option value="3">InProgress</option>
+                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="open"><label for="ms-opt-11"><input type="checkbox" title="Open" id="ms-opt-11" value="1">Open</label></li><li data-search-term="closed"><label for="ms-opt-12"><input type="checkbox" title="Closed" id="ms-opt-12" value="2">Closed</label></li><li data-search-term="inprogress"><label for="ms-opt-13"><input type="checkbox" title="InProgress" id="ms-opt-13" value="3">InProgress</label></li></ul></div></div>*@
                                             </div>
                                             <div class="col-sm-2 form-group tooltip-div">
                                                 <div class="input-group">
@@ -126,9 +126,9 @@
                                                 <label>Tags</label>
                                                 <div class="input-group">
                                                     @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
-                                                        <i class="fa fa-calendar">
-                                                        </i>
-                                                    </div>*@
+                                                            <i class="fa fa-calendar">
+                                                            </i>
+                                                        </div>*@
                                                     @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTagToDoSearch", @class = "form-control", @multiple = "multiple" })
                                                 </div>
                                             </div>
@@ -175,10 +175,10 @@
                         <div class="tabsConatiner">
                             <div class="tabbable boxed parentTabs">
                                 @*<ul class="nav nav-tabs">
-                                    <li class="active"><a href="#set11">Internal User</a></li>
-                                    <li><a href="#set22">Subs</a></li>
-                                    <li><a href="#set33">Customer Contacts</a></li>
-                                </ul>*@
+                                        <li class="active"><a href="#set11">Internal User</a></li>
+                                        <li><a href="#set22">Subs</a></li>
+                                        <li><a href="#set33">Customer Contacts</a></li>
+                                    </ul>*@
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in" id="set11">
                                         <div class="tabConInfo">
@@ -215,9 +215,9 @@
 
             </div>
         </div>
-        <input type="button" value="Get Selected Rows" id="btnChecked" />
-        <input type="button" value="Deleted Checked" id="btnDeleted" />
-        <input type="button" value="Assign To" id="btnAssignTo" />
+        @*<input type="button" value="Get Selected Rows" id="btnChecked" />*@
+        @*<input type="button" value="Deleted Checked" id="btnDeleted" />
+        <input type="button" value="Assign To" id="btnAssignTo" />*@
     </div>
 </div>
 
@@ -383,7 +383,7 @@
         data: { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: parseInt(priority)  },
         success: function (result) {
             debugger;
-                    
+
            // alert('data populate' + result);
             var tt = result;
            // console.log(tt);
@@ -436,8 +436,8 @@
                             },
                             caption: ""
                         });*@
-                       
-                    
+
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
@@ -446,31 +446,31 @@
 
         });
 
-        $('#internaluser').click(function () {
+        //$('#internaluser').click(function () {
 
 
-            var grid = $("#internaluser");
-            var rowKey = grid.getGridParam("selrow");
+        //    var grid = $("#internaluser");
+        //    var rowKey = grid.getGridParam("selrow");
 
-            if (!rowKey)
-               // alert("No rows are selected");
-            else {
-                var selectedIDs = grid.getGridParam("selarrrow");
-                var result = "";
-                for (var i = 0; i < selectedIDs.length; i++) {
-                    result += selectedIDs[i] + ",";
-                }
+        //    if (!rowKey)
+        //       // alert("No rows are selected");
+        //    else {
+        //        var selectedIDs = grid.getGridParam("selarrrow");
+        //        var result = "";
+        //        for (var i = 0; i < selectedIDs.length; i++) {
+        //            result += selectedIDs[i] + ",";
+        //        }
 
-                alert(result);
-            }
-           
+        //        alert(result);
+        //    }
+
             //var grid = $("#internaluser");
             ////alert(grid);
             //var rowKey = grid.jqGrid('getGridParam', "selrow");
-            
+
             //if (rowKey) {
             //    alert("Selected row primary key is: " + rowKey);
-               
+
             //}
             //else
             //    alert("No rows are selected");
@@ -492,7 +492,7 @@
         //}
             //var myGrid = $('#internaluser'),
             //    //selRowId = myGrid.jqGrid('getGridParam', 'selrow'),
-          
+
             //    //celValue = myGrid.jqGrid('getCell', selRowId, 'TodoDetailsID');
             //  //var empIds = $("input[type=hidden][name=TodoDetails ID]").val(Ids);
             //var ty = $("#internaluser").jqGrid("getCol", "TodoDetailsID");
@@ -507,7 +507,7 @@
             //    var selectedIDs = grid.getGridParam("selarrrow");
             //   // $("#internaluser").getSelectedRows()
             //    var result = "";
-               
+
             //    for (var i = 0; i < selectedIDs.length; i++) {
             //        result += selectedIDs[i] + ",";
             //        //result1 = selectedIDs[i].children('td').second().html();
@@ -537,17 +537,17 @@
                 //    }
 
                 //    alert(result);
-                //}      
+                //}
                 //var ch = $(this).find('#' + id + ' input[type=checkbox]').prop('checked');
                 //if (ch) {
                 //    jQuery(this).find('#' + id + ' input[type=checkbox]').prop('checked', false);
                 //} else {
                 //    jQuery(this).find('#' + id + 'input[type=checkbox]').prop('checked', true);
                 //}
-            
-        });
 
-        $('#btnChecked').click(function () {
+        //});
+
+        @*$('#btnChecked').click(function () {
             $.ajax({
                 url: "@(Url.Action("SaveToDoIsComplete", "ToDo", null))",
                 type: 'GET',
@@ -558,21 +558,21 @@
                 data: { ToDoDetailsId: "1002" },
         success: function (result) {
             debugger;
-                    
+
             alert('success');
-                       
-                    
+
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
                 }
             });
 
-        });
+        });*@
 
 
 
-        $('#btnDeleted').click(function () {
+        @*$('#btnDeleted').click(function () {
             $.ajax({
                 url: "@(Url.Action("DeleteToDo", "ToDo", null))",
                 type: 'GET',
@@ -583,21 +583,21 @@
                 data: { ToDoDetailsId: "2" },
         success: function (result) {
             debugger;
-                    
+
             alert('success');
-                       
-                    
+
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
                 }
             });
 
-        });
+        });*@
 
-        
 
-        $('#btnAssignTo').click(function () {
+
+        @*$('#btnAssignTo').click(function () {
             $.ajax({
                 url: "@(Url.Action("AssignToDoUser", "ToDo", null))",
                 type: 'GET',
@@ -608,17 +608,17 @@
                 data: { ToDoDetailsId: "2" },
         success: function (result) {
             debugger;
-                    
+
             alert('success');
-                       
-                    
+
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
                 }
             });
 
-        });
+        });*@
         //function getSelectedRows() {
         //    var grid = $("#internaluser");
         //    var rowKey = grid.getGridParam("selrow");
@@ -638,3 +638,157 @@
     });
 </script>
 
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('#ddlAssign').change(function () {
+
+            var text = $(this).val();
+          //  alert(text);
+
+            if (text == "Mark Complete") {
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+
+                    $.ajax({
+                        url: "@(Url.Action("SaveToDoIsComplete", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        data: { ToDoDetailsId: result },
+                        success: function (result) {
+                            debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+            }
+            else if (text == "Assign To") {
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+                    $.ajax({
+                        url: "@(Url.Action("AssignToDoUser", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        data: { userids: "5", ToDoDetailsId: result },
+                        success: function (result) {
+                            //debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+
+            }
+
+            else if (text == "Delete Checked") {
+
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+                    $.ajax({
+                        url: "@(Url.Action("DeleteToDo", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        data: { ToDoDetailsId: result },
+                        success: function (result) {
+                            debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+            }
+            else if (text == "Copy To-Dos") {
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+                     $.ajax({
+                        url: "@(Url.Action("CopyToDo", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                         data: { todoDetailIds: result },
+                        success: function (result) {
+                            debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+
+
+            }
+
+            });
+
+    });
+</script>

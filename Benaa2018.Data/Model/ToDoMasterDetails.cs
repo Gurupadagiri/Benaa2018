@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -11,6 +12,7 @@ namespace Benaa2018.Data.Model
     public class ToDoMasterDetails : BaseModel
     {
         [Key]
+        //[DbContextOptionsBuilder.]
         public int TodoDetailsID { get; set; }
         public int Project_ID { get; set; }
         public string Project_Site { get; set; }
@@ -28,6 +30,6 @@ namespace Benaa2018.Data.Model
         public string LinkToTime { get; set; }
         public int ReminderId { get; set; }
         public bool DeletionStatus { get; set; }
-
+        
     }
 }

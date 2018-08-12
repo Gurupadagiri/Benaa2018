@@ -12,9 +12,11 @@ namespace Benaa2018.Helper.Interface
 
         Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsByTitle(string title = "", int status=0, string priority = "");
 
-        Task<ToDoMasterDetailsViewModel> UpdateToDoMasterDetails(string ids);
+        Task<ToDoMasterDetailsViewModel> UpdateToDoMasterDetails(ToDoMasterDetailsViewModel toDoMasterDetails);
 
         Task<ToDoMasterDetailsViewModel> DeleteToDoMasterDetails(string ids);
+
+        Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsById(int todoDetailsId);
 
     }
 }

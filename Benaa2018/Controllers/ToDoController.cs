@@ -194,15 +194,92 @@ namespace Benaa2018.Controllers
         }
 
 
-        //public async Task<IActionResult> CopyToDo(string todoDetailIds)
-        //{
+        public async Task<ActionResult> DeleteToDo(string ToDoDetailsId)
+        {
+            string result = string.Empty;
 
-        //}
+            string[] toDoDetailsListForComplete = ToDoDetailsId.Split(',');
+            if (toDoDetailsListForComplete != null)
+            {
+                foreach (var item in toDoDetailsListForComplete)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        int todoDetailsIdperRow = Convert.ToInt32(item.Split('_')[1]);
+                        var deleteToDo = await _todoMasterDetailsHelper.DeleteToDoMasterDetails(Convert.ToString(todoDetailsIdperRow));
+
+                    }
+                }
+            }
+            return Json(result);
+        }
+        public async Task<IActionResult> CopyToDo(string todoDetailIds)
+        {
+            string result = string.Empty;
+
+            string[] toDoDetailsListForComplete = todoDetailIds.Split(',');
+            if (toDoDetailsListForComplete != null)
+            {
+                foreach (var item in toDoDetailsListForComplete)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        int todoDetailsIdperRow = Convert.ToInt32(item.Split('_')[1]);
+                        List < ToDoAllViewModel> lstToDoModel= new List<ToDoAllViewModel>();
+                        lstToDoModel = await GetAllToDoDetails1(todoDetailsIdperRow);
+                        
+                        if(lstToDoModel.Count>0)
+                        {
+                            var saveToDoCopy = await SaveToDoCopy(lstToDoModel);
+                        }
+                    }
+                }
+            }
+            return Json(result);
+        }
 
         public async Task<IActionResult> SaveToDoIsComplete(string ToDoDetailsId = "1002")
         {
             string result = string.Empty;
-            var objToTagSave = _todoMasterDetailsHelper.UpdateToDoMasterDetails(ToDoDetailsId);
+            string[] toDoDetailsListForComplete = ToDoDetailsId.Split(',');
+            if (toDoDetailsListForComplete != null)
+            {
+                foreach (var item in toDoDetailsListForComplete)
+                {
+                    if (!string.IsNullOrEmpty(item))
+                    {
+                        int todoDetailsIdperRow = Convert.ToInt32(item.Split('_')[1]);
+
+                        var tododetailsId = _todoMasterDetailsHelper.GetAllToDoMasterDetailsById(todoDetailsIdperRow);
+                        if (tododetailsId.Result != null)
+                        {
+                            var toDoSelectedItemDetails = tododetailsId.Result[0];
+                            ToDoMasterDetailsViewModel todoDetails = new ToDoMasterDetailsViewModel()
+                            {
+                                TodoDetailsID = toDoSelectedItemDetails.TodoDetailsID,
+                                Project_ID = toDoSelectedItemDetails.Project_ID,
+                                Project_Site = toDoSelectedItemDetails.Project_Site,
+                                Title = toDoSelectedItemDetails.Title,
+                                Org_ID = toDoSelectedItemDetails.Org_ID,
+                                TypeNote = toDoSelectedItemDetails.TypeNote,
+                                IsMarkedComplete = true,
+                                Priority = toDoSelectedItemDetails.Priority,
+                                Duedate = toDoSelectedItemDetails.Duedate,
+                                DueDatetime = toDoSelectedItemDetails.DueDatetime,
+                                LinkToUnit = toDoSelectedItemDetails.LinkToUnit,
+                                LinkToDaysStatus = toDoSelectedItemDetails.LinkToDaysStatus,
+                                TillingWorkId = toDoSelectedItemDetails.TillingWorkId,
+                                TillingDate = toDoSelectedItemDetails.TillingDate
+                            };
+
+                            var objToTagSave =await _todoMasterDetailsHelper.UpdateToDoMasterDetails(todoDetails);
+                        }
+                    }
+
+                }
+            }
+
+
 
             return Json(result);
         }
@@ -210,35 +287,55 @@ namespace Benaa2018.Controllers
         public async Task<IActionResult> AssignToDoUser(string userids, string toDoDetailsId)
         {
             string result = string.Empty;
-
-            var lstUSerAssign = _toDoAssignHelper.GetToDoAssignByToDoDetailsId(Convert.ToInt32(toDoDetailsId));
-
-            if (lstUSerAssign.Result != null)
+            string[] toDoDetailsListForAssign = toDoDetailsId.Split(',');
+            if (toDoDetailsListForAssign != null)
             {
-                foreach (var item in lstUSerAssign.Result)
+                foreach (var itemAssign in toDoDetailsListForAssign)
                 {
-                    ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                    if (!string.IsNullOrEmpty(itemAssign))
                     {
-                        TodoDetailsID = Convert.ToInt32(item.TodoDetailsID),
-                        UserID = item.UserID,
-                        ToDoUserAssignTypeId = item.ToDoUserAssignTypeId
+                        int todoDetailsIdperRow = Convert.ToInt32(itemAssign.Split('_')[1]);
 
-                    };
-                    var objToUserAssign = SaveToDoAssignDetails(todoAssignViewModel);
 
-                    int userid = item.UserID;
-                    var userDetails = _userMasterHelper.GetUserByUserId(userid);
-                    string userEmail = userDetails.Result.UserEmail;
-                    SendMail(userEmail);
-                    //MailMessage mailMessage = new MailMessage();
-                    //mailMessage.To.Add("dream.sumit18@gmail.com");
-                    //mailMessage.From = new MailAddress(userEmail);
-                    //mailMessage.Subject = "ASP.NET e-mail test";
-                    //mailMessage.Body = "Hello world,\n\nThis is an ASP.NET test e-mail!";
-                    //SmtpClient smtpClient = new SmtpClient("smtp.your-isp.com");
-                    //smtpClient.Send(mailMessage);
-                    //Response.Write("E-mail sent!");
+                        var lstUSerAssign = _toDoAssignHelper.GetToDoAssignByToDoDetailsId(Convert.ToInt32(todoDetailsIdperRow));
 
+                        if (lstUSerAssign.Result.Count > 0)
+                        {
+                            foreach (var item in lstUSerAssign.Result)
+                            {
+
+                                if (item.UserID != Convert.ToInt32(userids))
+                                {
+                                    ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                                    {
+                                        TodoDetailsID = Convert.ToInt32(item.TodoDetailsID),
+                                        UserID = item.UserID,
+                                        ToDoUserAssignTypeId = item.ToDoUserAssignTypeId
+
+                                    };
+                                    var objToUserAssign = SaveToDoAssignDetails(todoAssignViewModel);
+
+                                    int userid = item.UserID;
+                                    var userDetails = _userMasterHelper.GetUserByUserId(userid);
+                                    string userEmail = userDetails.Result.UserEmail;
+                                    SendMail(userEmail);
+                                }
+
+                            }
+                        }
+                        else
+                        {
+                            //ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                            //{
+                            //    TodoDetailsID = Convert.ToInt32(toDoDetailsId),
+                            //    UserID =Convert.ToInt32( userids),
+                            //    ToDoUserAssignTypeId = 1
+
+                            //};
+
+                            var saveAssign = await _toDoAssignHelper.SaveToDoAssignDetails1(Convert.ToInt32(userids), Convert.ToInt32(toDoDetailsId));
+                        }
+                    }
                 }
             }
             // var objToTagSave = _todoMasterDetailsHelper.DeleteToDoMasterDetails(ToDoDetailsId);
@@ -362,6 +459,7 @@ namespace Benaa2018.Controllers
             }
             return lstOwners1;
         }
+
         private async Task<List<TagMasterViewModel>> GetAllTags()
         {
             List<TagMasterViewModel> lstTags = new List<TagMasterViewModel>();
@@ -554,7 +652,7 @@ namespace Benaa2018.Controllers
                         }
 
                         #region GetAssign
-                        string UserDetails =string.Empty;
+                        string UserDetails = string.Empty;
                         int UserDetailsCount = 0;
                         var objAssign = await _toDoAssignHelper.GetToDoAssignByToDoDetailsId(item.TodoDetailsID);
                         string AllAssignNames = string.Empty;
@@ -573,9 +671,9 @@ namespace Benaa2018.Controllers
                                 });
                             }
 
-                            if(lstAssignModels.Count>0)
+                            if (lstAssignModels.Count > 0)
                             {
-                                foreach(var itemUser in lstAssignModels)
+                                foreach (var itemUser in lstAssignModels)
                                 {
                                     var Users = _userMasterHelper.GetUserByUserId(itemUser.UserID);
                                     UserDetails = Users.Result.UserName + " ," + UserDetails;
@@ -718,13 +816,13 @@ namespace Benaa2018.Controllers
         }
 
 
-        private async Task<List<ToDoAllViewModel>> GetAllToDoDetails1()
+        private async Task<List<ToDoAllViewModel>> GetAllToDoDetails1(int todoDetailsId=0)
         {
             List<ToDoAllViewModel> lstToDos = new List<ToDoAllViewModel>();
             try
             {
-                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetails();
-
+                // var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetails();
+                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsById(todoDetailsId);
 
                 if (obj1.Count > 0)
                 {
@@ -735,7 +833,7 @@ namespace Benaa2018.Controllers
                         ToDoAllViewModel toDoView = new ToDoAllViewModel();
                         ToDoMasterDetailsViewModel todoMasterDetails = new ToDoMasterDetailsViewModel()
                         {
-                            TodoDetailsID = item.TodoDetailsID,
+                           // TodoDetailsID = item.TodoDetailsID,
                             Project_ID = item.Project_ID,
                             Project_Site = item.Project_Site,
                             Title = item.Title,
@@ -960,9 +1058,9 @@ namespace Benaa2018.Controllers
                                     {
                                         ToDochecklistViewModel toDoCheckLsit = new ToDochecklistViewModel()
                                         {
-                                            TodoDetailsID= insertToDoDetails.TodoDetailsID,
-                                            ToDoAssignIsCheckListItem=itemAssign.ToDoAssignIsCheckListItem,
-                                            ToDoAssignIFilesCheckListItem=itemAssign.ToDoAssignIFilesCheckListItem
+                                            TodoDetailsID = insertToDoDetails.TodoDetailsID,
+                                            ToDoAssignIsCheckListItem = itemAssign.ToDoAssignIsCheckListItem,
+                                            ToDoAssignIFilesCheckListItem = itemAssign.ToDoAssignIFilesCheckListItem
                                         };
 
                                         var assignCheckList = SaveToDochecklistDetails(toDoCheckLsit);

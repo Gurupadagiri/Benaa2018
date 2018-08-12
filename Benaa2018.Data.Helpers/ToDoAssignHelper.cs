@@ -21,7 +21,7 @@ namespace Benaa2018.Helper
         {
             ToDoAssign toDoAssign = new ToDoAssign
             {
-                ToDoAssignID = toDoAssignViewModel.ToDoAssignID,
+               // ToDoAssignID = toDoAssignViewModel.ToDoAssignID,
                 UserID = toDoAssignViewModel.UserID,
                 TodoDetailsID = toDoAssignViewModel.TodoDetailsID,
                 ToDoUserAssignTypeId = toDoAssignViewModel.ToDoUserAssignTypeId
@@ -35,6 +35,24 @@ namespace Benaa2018.Helper
             return toDoAssignDetl;
         }
 
+
+        public async Task<ToDoAssignViewModel> SaveToDoAssignDetails1(int userId,int toDoDetailsId, int userTypeId=0)
+        {
+            ToDoAssign toDoAssign = new ToDoAssign
+            {
+                // ToDoAssignID = toDoAssignViewModel.ToDoAssignID,
+                UserID = userId,
+                TodoDetailsID = toDoDetailsId,
+                ToDoUserAssignTypeId = userTypeId
+            };
+            var toAssignObj = await _toDoAssignHelper.CreateAsync(toDoAssign);
+            ToDoAssignViewModel toDoAssignDetl = new ToDoAssignViewModel
+            {
+                ToDoAssignID = Convert.ToInt32(toAssignObj.ToDoAssignID)
+            };
+
+            return toDoAssignDetl;
+        }
         public async Task<List<ToDoAssignViewModel>> GetToDoAssignByToDoDetailsId(int todoDetailsId)
         {
 
