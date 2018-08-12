@@ -1,0 +1,356 @@
+﻿@model Benaa2018.Helper.ViewModels.CalendarScheduledItemViewModel
+@{
+    Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+}
+<form id="frmPredecessor" enctype="multipart/form-data" method="post">
+    <div class="modal-dialog modal-lg width94">
+        <div class="panel panel-primary customPopup">
+            <div class="panel-heading themeColor">
+                <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel">Projects List</h4>
+            </div>
+            <div class="panel-body">
+                <div class="popupTopBtnCon">
+                    <div class="row1">
+                        <div class="col-sm-2 form-group btnHolder">
+                            <div class="dropdown">
+                                <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown">
+                                    Save
+                                    <span class="caret"></span>
+                                </button>
+                                <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                    Save &amp; New
+                                    <span class="caret"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="filterContainer">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                    <div class="panel panel-default topPart">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <div class="row">
+                                                <div class="col-sm-2 form-group">
+                                                    <span>Title</span>
+                                                    <input asp-for="Title" class="form-control" />
+                                                    <input type="hidden" asp-for="ProjectId" />
+                                                    <input type="hidden" asp-for="ScheduledItemId" />
+                                                </div>
+                                                <div class="col-sm-2 form-group pull-right">
+                                                    <span>Display Color</span>
+                                                    <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                        @foreach (var item in baseModel.ProjectColorModels)
+                                                        {
+                                                            <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row middleHolder">
+                                                <div class="col-sm-2 form-group">
+                                                    <label>Actual Start Date</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" asp-for="StartDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                            <i class="fa fa-calendar">
+                                                            </i>
+                                                        </div>
+                                                    </div>
+                                                    <div class="input-group">
+                                                        <input class="form-control" asp-for="Duration" placeholder="MM/DD/YYYY" type="text">
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <label>Actual End Date</label>
+                                                    <div class="input-group">
+                                                        <input class="form-control" asp-for="EndDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                            <i class="fa fa-calendar">
+                                                            </i>
+                                                        </div>
+                                                        <div class="input-group">
+                                                            <input class="form-control" asp-for="Hourly" placeholder="MM/DD/YYYY" type="checkbox">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 form-group">
+                                                    <label>Start Time</label>
+                                                    <div class="input-group">
+                                                        @Html.DropDownListFor(a => a.StartTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
+                                                        @Html.DropDownListFor(a => a.EndTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-2 form-group tooltip-div">
+                                                    <label>Assigned To</label>
+                                                    <div class="input-group">
+                                                        @Html.DropDownListFor(a => a.AssignedTo, new SelectList(baseModel.UserMasterViewModels, "UserID", "FullName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabsConatiner">
+                        <div class="tabsConatiner mainTab">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#predecessor">Predecessor/Links</a></li>
+                                <li><a a data-toggle="tab" href="#phase" aria-expanded="true">Phase &amp; Tags</a></li>
+                                <li><a data-toggle="tab" href="#viewing" aria-expanded="true">Viewing</a></li>
+                                <li><a data-toggle="tab" href="#notes" aria-expanded="true">Notes</a></li>
+                                <li><a data-toggle="tab" href="#shifts" aria-expanded="true">Shifts</a></li>
+                                <li><a data-toggle="tab" href="#files" aria-expanded="true">Files (0)</a></li>
+                            </ul>
+                            <div class="tab-content grayBackgroundContent">
+
+                                <div id="predecessor" class="tab-pane fade active in">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Predecessor Information</h2>
+                                        <div class="predecessoritem">
+                                            @*@foreach (var itm in Model.PredecessorInformationModels)
+                                                {*@
+                                            <div class="form-group">
+                                                <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                                    <label>Name</label>
+                                                    <select asp-for="PredecessorInformationModels[0].ScheduledItemId" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                        <option value="" selected="selected">-----------</option>
+                                                        @foreach (var item in Model.CalendarScheduledItemModels)
+                                                        {
+                                                            <option value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
+                                                        }
+                                                    </select>
+                                                </div>
+                                                <div class="input-group  col-md-3 col-sm-3 col-xs-12">
+                                                    <select asp-for="PredecessorInformationModels[0].TimeFrame" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                        <option value="1" selected="selected">Finish-to-Start (FS)</option>
+                                                        <option value="2" selected="selected">Start-to-Start (SS)</option>
+                                                    </select>
+                                                </div>
+                                                <div class="input-group col-md-3 col-sm-3 col-xs-12">
+                                                    <label>Lags</label>
+                                                    <input class="form-control" type="text" asp-for="PredecessorInformationModels[0].Lag" data-val="true" data-val-required="The Lag field is required." value="0">
+                                                </div>
+                                            </div>
+                                            @*}*@
+
+                                        </div>
+                                        <button id="morepredecessors" class="btn btn-primary btn-sm" type="button">More Predecessors</button>
+                                    </div>
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Links That Follow This Schedule Item <button id="morepredecessors" class="btn btn-primary btn-sm" type="button">Break Checked Links</button></h2>
+                                        <div class="thisedualtem">
+                                            <table class="LinkedScheduleItemTable">
+                                                <tbody>
+                                                    <tr class="header">
+                                                        <td><span>Title</span></td>
+                                                        <td><span>Type</span></td>
+                                                        <td><span>Lag</span></td>
+                                                        <td><span>Start</span></td>
+                                                        <td><span>End / Deadl.</span></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #tab1 -->
+                                <div id="phase" class="tab-pane fade" ;">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Predecessor Information</h2>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label>Phase</label>
+                                                <select asp-for="CalendarPhaseModel.PhaseId" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <option value="0" selected="selected">Unassigned</option>
+                                                    @foreach (var item in Model.CalendarPhaseModels)
+                                                    {
+                                                        <option value="@item.PhaseId">@item.PhaseName</option>
+                                                    }
+                                                </select>
+                                                <div class="editHolder">
+                                                    @*<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#calendarmodalgeneral">Open Modal</button>*@
+                                                    <a href="javascript:void(0);" class="btn-lg" data-toggle="modal" data-target="#addphase" title="Add a Phase">
+                                                        <img id="" border="0" src="./Images/add.gif" style="border-width:0px;">
+                                                    </a>
+                                                    <a href="javascript:void(0);" title="Edit / Delete a Tag">
+                                                        <img id="" border="0" src="./Images/edit.gif" style="border-width:0px;">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Schedule Item Tags</h2>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <label>Tags</label>
+                                                <select asp-for="CalendarTagModel.TagId" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <option value="0" selected="selected">Unassigned</option>
+                                                    @foreach (var item in Model.CalendarTagModels)
+                                                    {
+                                                        <option value="@item.TagId">@item.TagName</option>
+                                                    }
+                                                </select>
+                                                <div class="editHolder">
+                                                    <a href="javascript:void(0);" id="" title="Add a Tag">
+                                                        <img id="" border="0" src="./Images/add.gif" style="border-width:0px;">
+                                                    </a>
+                                                    <a href="javascript:void(0);" title="Edit / Delete a Tag">
+                                                        <img id="" border="0" src="./Images/edit.gif" style="border-width:0px;">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- #tab2 -->
+                                <div id="viewing" class="tab-pane fade">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Calendar Viewing</h2>
+                                        <div class="paddingContent">
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="ShowOnGnatt" type="checkbox" checked="checked" data-off-text="Off" data-on-text="On" />
+                                                    <span class="chkText">
+                                                        Show on Gantt
+                                                    </span>
+                                                    <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_chkShowOnGantt_ttCheckbox_hrefToolTip" class="ToolTip  " data-tooltip="If unchecked, the item will not be displayed on the Gantt Calendar view unless the item is linked in both directions (i.e. has a predecessor and is a predecessor)." data-hasqtip="6"><img src="/images/Common/UserControls/iconToolTip.png" id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_chkShowOnGantt_ttCheckbox_imgToolTipIcon" border="0" align="absmiddle"></a>
+                                                </label>
+                                            </div>
+                                            <div class="checkbox">
+                                                <label>
+                                                    <input asp-for="ShowOwner" type="checkbox" checked="checked" data-off-text="Off" data-on-text="On" />
+                                                    <span class="chkText">
+                                                        Show Owner (Full Calendar)
+                                                    </span>
+                                                    <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_chkOnOwnerCalendar_ttCheckbox_hrefToolTip" class="ToolTip  " data-tooltip="The 'Show Owner' option works in conjunction with the 'Limit Owner Calendar' from the jobs page.<br><br>  For example, if the Limit Owner Calendar option is set to only show items 1 week ahead, then any schedule item that occurs further out will not be displayed. <br><br>Any items that doesn't have Show Owner checked will also not be displayed.  If the item has the box checked and is less than a week out, it WILL be displayed to the owner. " data-hasqtip="7"><img src="/images/Common/UserControls/iconToolTip.png" id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_chkOnOwnerCalendar_ttCheckbox_imgToolTipIcon" border="0" align="absmiddle"></a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Show Subs</h2>
+                                        <p>All Assigned Subs have been granted viewing access and will receive notifications on this schedule item.</p>
+                                    </div>
+                                </div>
+                                <div id="notes" class="tab-pane fade">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <script>
+                                                $(function () {
+                                                    $("#tabs").tabs();
+                                                });
+                                        </script>
+                                        <div id="tabs">
+                                            <ul>
+                                                <li><a href="#tabs-1">All</a></li>
+                                                <li><a href="#tabs-2">Internal</a></li>
+                                                <li><a href="#tabs-3">Subs</a></li>
+                                                <li><a href="#tabs-4">Owner</a></li>
+                                            </ul>
+                                            <div id="tabs-1">
+                                                <p>All</p>
+                                            </div>
+                                            <div id="tabs-2">
+                                                <p>Internal</p>
+                                            </div>
+                                            <div id="tabs-3">
+                                                <p>Subs</p>
+                                            </div>
+                                            <div id="tabs-4">
+                                                <p>Owner</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="shifts" class="tab-pane fade">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Baseline</h2>
+                                        <div class="paddingContent">
+                                            <table class="BaselineViewTable">
+                                                <tbody>
+                                                    <tr class="headers">
+                                                        <td class="fieldHeader">&nbsp;</td>
+                                                        <td class="fieldHeader">Start Date</td>
+                                                        <td class="fieldHeader">End Date</td>
+                                                        <td class="fieldHeader">Duration</td>
+                                                        <td class="fieldHeader">Total Variance</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fieldHeader">Baseline</td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td rowspan="2" style="width: 110px; vertical-align: middle; text-align: center"></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="fieldHeader">
+                                                            Current
+                                                        </td>
+                                                        <td style="text-align: right"></td>
+                                                        <td style="text-align: right"></td>
+                                                        <td></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Shift History <button id="morepredecessors" class="btn btn-primary btn-sm" type="button">Break Checked Links</button></h2>
+                                        <div class="paddingContent OptionSelectBaseline">
+                                            <input id="" type="radio" name="test" value="rbDirectShifts"><label for="test">Direct</label>
+                                            &nbsp;
+                                            <input id="" type="radio" name="test" value="rbInDirectShifts" checked="checked"><label for="test">Indirect</label>
+                                            &nbsp;
+                                            <input id="" type="radio" name="test" value="rbAllShifts"><label for="test">All</label>
+                                        </div>
+                                        <div class="ShiftHistoryContent">
+                                            <table>
+                                                <tbody>
+                                                    <tr class="header">
+                                                        <td style="text-align: center">
+                                                            User
+                                                        </td>
+                                                        <td style="text-align: center;width: 125px">
+                                                            (Base) Start Date
+                                                        </td>
+                                                        <td style="text-align: center; width: 125px">
+                                                            (Base) End Date
+                                                        </td>
+                                                        <td id="ctl00_ctl00_BaseMain_MainContentHolder_BTTabControl1_rptrShifts_ctl00_tdSlipDirect" style="text-align: center">
+                                                            Slip (Direct)
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            Source
+                                                        </td>
+                                                        <td style="text-align: center">
+                                                            Reason
+                                                        </td>
+                                                        <td style="border-right: none; text-align: center">
+                                                            Notes
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div id="files" class="tab-pane fade">
+                                    <div class="dataTableConatainer Predecessorlink">
+                                        <h2 class="tabheading">Show Subs</h2>
+                                        <p>Attachments <button id="" class="btn btn-primary btn-sm" type="button">Add</button> <button id="" class="btn btn-primary btn-sm" type="button">Create New Doc</button></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

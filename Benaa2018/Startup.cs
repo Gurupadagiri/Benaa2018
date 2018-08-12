@@ -26,7 +26,7 @@ namespace Benaa2018
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
+            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=kuttu;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
             services.AddAuthentication("SBSSecurityScheme")
                     .AddCookie("SBSSecurityScheme", options =>
                     {
@@ -57,6 +57,8 @@ namespace Benaa2018
                         options.LoginPath = new PathString("/Login");
                         options.SlidingExpiration = true;
                     });
+
+            services.AddDbContext<SBSDbContext>(ServiceLifetime.Transient);
             services.AddTransient<IUserMasterRepository, UserMasterRepository>();
             services.AddTransient<ILoginDetailsInfoRepository, LoginDetailsInfoRepository>();
             services.AddTransient<IProjectMasterRepository, ProjectMasterRepository>();
@@ -82,9 +84,11 @@ namespace Benaa2018
             services.AddTransient<IToDoAssignRepository, ToDoAssignRepository>();
             services.AddTransient<IToDochecklistDetailsRepository, ToDochecklistDetailsRepository>();
             services.AddTransient<IToDochecklistRepository, ToDochecklistRepository>();
-
-
-
+            services.AddTransient<ICalendarScheduledItemRepoisitory, CalendarScheduledItemRepository>();
+            services.AddTransient<IPredecessorInformationRepository, PredecessorInformationRepository>();
+            services.AddTransient<ICalendarPhaseRepository, CalendarPhaseRepository>();
+            services.AddTransient<ICalendarTagRepository, CalendarTagRepository>();
+            
             services.AddTransient<IMenuMasterHelper, MenuMasterHelper>();
             services.AddTransient<IOwnerMasterHelper, OwnerMasterHelper>();
             services.AddTransient<IProjectColorHelper, ProjectColorHelper>();
@@ -103,7 +107,7 @@ namespace Benaa2018
             services.AddTransient<IToDoAssignHelper, ToDoAssignHelper>();
             services.AddTransient<IToDoCheckListHelper, ToDoCheckListHelper>();
             services.AddTransient<IToDoCheckListDetailsHelper, ToDoCheckListDetailsHelper>();
-
+            services.AddTransient<ICalendarScheduleHelper, CalendarScheduleHelper>();
             services.AddMvc();
         }
 
@@ -122,18 +126,18 @@ namespace Benaa2018
 
             app.UseStaticFiles();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
             //app.UseMvc(routes =>
             //{
             //    routes.MapRoute(
             //        name: "default",
-            //        template: "{controller=Login}/{action=Index}/{id?}");
+            //        template: "{controller=Home}/{action=Index}/{id?}");
             //});
+            app.UseMvc(routes =>
+            {
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller=Login}/{action=Index}/{id?}");
+            });
         }
     }
 }

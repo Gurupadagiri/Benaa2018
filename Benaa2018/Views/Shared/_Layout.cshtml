@@ -76,36 +76,36 @@
                         </ul>
                     </li>
                     @foreach (var item in baseModel.MenuContents)
-                    {
-                        <li class="dropdown inlineIcon">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <div class="liDiv">
-                                    @foreach (var Menu in item.Menus)
-                                    {
-                                        <li>
-                                            <div class="inlineDiv">
-                                                <a href="#" class="icontxt">
-                                                    <span class="@Menu.CssClass"></span>
-                                                    <span>@Menu.MenuName</span>
-                                                </a>
-                                                <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
-                                            </div>
-                                        </li>
-                                    }
-                                    <li class="videocontainer">
-                                        <div class="grayli">
-                                            <span class="fa fa-close grayClose" aria-hidden="true"></span>
-                                            <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
-                                                <b>Lorem Lipsum doller sit</b>
-                                                <p>Lorem Ipsum is simply dummy text of the printing</p>
-                                            </span>
-                                        </div>
-                                    </li>
+                {
+                <li class="dropdown inlineIcon">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <div class="liDiv">
+                            @foreach (var Menu in item.Menus)
+                            {
+                            <li>
+                                <div class="inlineDiv">
+                                    <a href="#" class="icontxt">
+                                        <span class="@Menu.CssClass"></span>
+                                        <span>@Menu.MenuName</span>
+                                    </a>
+                                    <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
                                 </div>
-                            </ul>
-                        </li>
-                    }
+                            </li>
+                            }
+                            <li class="videocontainer">
+                                <div class="grayli">
+                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                    <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                        <b>Lorem Lipsum doller sit</b>
+                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                    </span>
+                                </div>
+                            </li>
+                        </div>
+                    </ul>
+                </li>
+                }
                 </ul>
                 <ul class="nav navbar-nav navbar-right user-support">
                     <li class="dropdown">
@@ -168,40 +168,52 @@
                 </div>
             </div>
         </div>
-        @if (ViewBag.IsleftMenuVisible != false)
-        {
+        @*@if (ViewBag.IsleftMenuVisible != false)
+            {
             <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
                 @Html.Partial("_leftMenu", baseModel);
             </div>
-        }
-        <!--------------------- Logo header end here------------->
+            }*@
+    <!--------------------- Logo header end here------------->
+        <script src="~/js/jquery-1.12.4.js"></script>
+        <script src="~/js/jquery-ui.js"></script>
+        <script src="~/js/custom.js"></script>
+        <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
+        <script src="~/js/vfs_fonts.js"></script>
+        <script src="~/js/buttons.html5.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/responsive-tabs.js"></script>
+        <script src="~/js/jquery.multiselect.js"></script>
+        <script src="~/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/js/bootstrapSwitch.js"></script>
         @RenderBody()
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
         </div>
     }
-    @RenderBody()
+
+    <div class="leftOuterBtn">
+        <p class="jobPickerSliderJobText">al shatee</p>
+        <div class="iconHolder">
+            <img src="images/iconJobInfoSmallWhite.png">
+        </div>
+    </div>
+    <section class="footerContainer">
+        <div class="container-fluid">
+            <p class="smallTXT">
+                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                printer took a galley of type and scrambled it to make a type specimen book. It has survived
+                not only five centuries, but also the leap into electronic typesetting, remaining essentially
+                unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+                Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
+                including versions of Lorem Ipsum.
+            </p>
+        </div>
+    </section>
     @if (baseModel != null)
     {
-        <div class="leftOuterBtn">
-            <p class="jobPickerSliderJobText">al shatee</p>
-            <div class="iconHolder">
-                <img src="images/iconJobInfoSmallWhite.png">
-            </div>
-        </div>
-        <section class="footerContainer">
-            <div class="container-fluid">
-                <p class="smallTXT">
-                    Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                    Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                    printer took a galley of type and scrambled it to make a type specimen book. It has survived
-                    not only five centuries, but also the leap into electronic typesetting, remaining essentially
-                    unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
-                    Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
-                    including versions of Lorem Ipsum.
-                </p>
-            </div>
-        </section>
         @Html.Partial("_infoModel", baseModel)
         @Html.Partial("_newProject", baseModel)
         <div id="groupAddModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false">
@@ -270,148 +282,90 @@
         </div>
     }
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="~/js/jquery-1.12.4.js"></script>
-    <script src="~/js/jquery-ui.js"></script>
-    <script src="~/js/custom.js"></script>
-    <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
-    <script src="~/js/vfs_fonts.js"></script>
-    <script src="~/js/buttons.html5.min.js"></script>
-    <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/responsive-tabs.js"></script>
-    <script src="~/js/jquery.multiselect.js"></script>
-    <script src="~/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
-    <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.print.css">
-
-    <script src="~/js/bootstrapSwitch.js"></script>
-
-
+    @*
+        <script src="~/js/jquery-1.12.4.js"></script>
+        <script src="~/js/jquery-ui.js"></script>
+        <script src="~/js/custom.js"></script>
+        <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
+        <script src="~/js/vfs_fonts.js"></script>
+        <script src="~/js/buttons.html5.min.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/responsive-tabs.js"></script>
+        <script src="~/js/jquery.multiselect.js"></script>
+        <script src="~/js/bootstrap-datepicker.min.js"></script>
+        <script src="~/js/bootstrapSwitch.js"></script>*@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#chkAllPermissionEmail").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllPermissionEmail').prop('checked')) {
-                    // alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.chkEmailAllNotification').attr('checked', true);
                 }
                 else {
-                    // alert('Checkbox is unchecked');
                     $('.chkEmailAllNotification').attr('checked', false);
-
                 }
-
             });
 
-
             $("#chkAllPermissionText").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllPermissionText').prop('checked')) {
-                    // alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.chkTextAllNotification').attr('checked', true);
                 }
                 else {
-                    // alert('Checkbox is unchecked');
                     $('.chkTextAllNotification').attr('checked', false);
-
                 }
-
             });
 
             $("#chkAllPermissionPushOn").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllPermissionPushOn').prop('checked')) {
-                    // alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.chkAllPushPermission').attr('checked', true);
                 }
                 else {
-                    // alert('Checkbox is unchecked');
                     $('.chkAllPushPermission').attr('checked', false);
-
                 }
-
             });
 
             $("#chkAllPermissionAllUsers").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllPermissionAllUsers').prop('checked')) {
-                    // alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.chkAUsersAllNotification').attr('checked', true);
                 }
                 else {
-                    // alert('Checkbox is unchecked');
                     $('.chkAUsersAllNotification').attr('checked', false);
-
                 }
-
             });
-
-
             $("#chkAllView").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllView').prop('checked')) {
-                   // alert('Checkbox is checked');
-                   // $('.chkAllViewPermission').prop('checked');
-                else
+                } else
                     {
-                        // alert('Checkbox is unchecked');
                         $('.IsChkViewPermission').attr('checked', false);
-
                     }
-
                 });
 
             $("#chkAllAdd").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllAdd').prop('checked')) {
-                    //alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkAddPermission').attr('checked', true);
                 }
                 else {
-                    //alert('Checkbox is unchecked');
                     $('.IsChkAddPermission').attr('checked', false);
-
                 }
-
             });
 
             $("#chkAllEdit").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllEdit').prop('checked')) {
-                    //alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkEditPermission').attr('checked', true);
                 }
                 else {
-                    //alert('Checkbox is unchecked');
                     $('.IsChkEditPermission').attr('checked', false);
-
                 }
-
             });
 
             $("#chkAllDelete").click(function (e) {
-                // alert('Check all view');
                 if ($('#chkAllDelete').prop('checked')) {
-                    //alert('Checkbox is checked');
-                    // $('.chkAllViewPermission').prop('checked');
                     $('.IsChkDeletePermission').attr('checked', true);
                 }
                 else {
-                    //alert('Checkbox is unchecked');
                     $('.IsChkDeletePermission').attr('checked', false);
-
                 }
-
             });
-
 
             $("#saveUserPreference").click(function () {
                 e.preventDefault();
@@ -524,18 +478,6 @@
                 selectAll: true
             });
 
-            //$('.noCheckbox').multiselect({
-            //    columns: 1,
-            //    placeholder: '--Select--',
-            //    search: true,
-            //    showCheckbox: false  // display the checkbox to the user
-            //});
-            //$('.noCheckboxSearch').multiselect({
-            //    columns: 1,
-            //    placeholder: '--Select--',
-            //    search: false,
-            //    showCheckbox: false  // display the checkbox to the user
-            //});
             $('.sort-me').sortable({ connectWith: '.sort-me' });
             $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
             $('.sort-me1').sortable({ connectWith: '.sort-me1' });
@@ -775,19 +717,11 @@
                 $("#leftNavCon").load('@(Url.Action("FilterProjectDetailsAsync", "Home",null))', postData);
             });
 
-             //Filter Result
+            //Filter Result
             $(document).on('change', '#ddlToDoLost', function () {
                 var days = parseInt($(this).val());
                 var postData = { days: days };
                 $("#tbltodolist").load('@(Url.Action("FilterToDoListAsync", "Home",null))', postData);
-            });
-
-            //Filter Result
-            $(document).on('click', 'a.allProject', function () {
-                var projectid = parseInt($(this).attr('data-projectid'));
-                var postData = { projectId: projectid };
-                $("div.mainContentDiv").load('@(Url.Action("FilteredMainContentAsync", "Home",null))', postData);
-                $('#spnproject').text($(this).text());
             });
 
             $('#btnUpdateResults').click(function () {
@@ -1045,42 +979,6 @@
                     caption: ""
                 });
 
-                $('#calendar').fullCalendar({
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay,listWeek'
-                    },
-                    defaultDate: '2018-03-12',
-                    navLinks: true, // can click day/week names to navigate views
-                    editable: true,
-                    eventLimit: true, // allow "more" link when too many events
-                    eventClick: function (event) {
-                        $('#calendarmodal').addClass('in').css('display', 'block');
-                    },
-                    eventColor: '#378006',
-                    events: [
-                        {
-                            title: 'All Day Event',
-                            start: '2018-03-01',
-                        },
-                        {
-                            title: 'Long Event',
-                            start: '2018-03-07',
-                            end: '2018-03-10'
-                        },
-                        {
-                            id: 999,
-                            title: 'Repeating Event',
-                            start: '2018-03-09T16:00:00'
-                        }
-                    ]
-                });
-                $('.fc-content-skeleton td').on('click', function () {
-                    if ($(this).attr('class') === undefined) {
-                        $('#calendarmodalgeneral').addClass('in').css('display', 'block');
-                    }
-                });
                 BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMap"));
                 BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapCluster"));
                 BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapEdit"));
@@ -1121,15 +1019,10 @@
                     });
                 });
                 marker.setMap(map);
-                }
+            }
 
         </script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
     }
-    <script>
-        $(document).ready(function () {
-            // alert('a');
-        });
-    </script>
 </body>
 </html>
