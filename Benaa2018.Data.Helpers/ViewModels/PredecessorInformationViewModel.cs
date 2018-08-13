@@ -4,6 +4,7 @@
     {
         public int PredecessorId { get; set; }
         public int ScheduledItemId { get; set; }
+        public int SourceScheuledId { get; set; }
         public string TimeFrame { get; set; }
         public int Lag { get; set; }
     }

@@ -7,26 +7,43 @@ namespace Benaa2018.Helper.ViewModels
     {
         public CalendarScheduledItemViewModel()
         {
+            CalendarPhaseModel = new CalendarPhaseViewModel();
+            CalendarTagModel = new CalendarTagViewModel();
+            CalendarPhaseModels = new List<CalendarPhaseViewModel>();
+            CalendarTagModels = new List<CalendarTagViewModel>();
+            PredecessorInformationModel = new PredecessorInformationViewModel();
             ProjectColorViewModels = new List<ProjectColorViewModel>();
+            PredecessorInformationModels = new List<PredecessorInformationViewModel>();
+            CalendarScheduledItemModels = new List<CalendarScheduledItemViewModel>();
         }
+
         public int ScheduledItemId { get; set; }
         public string Title { get; set; }
         public int CompanyId { get; set; }
+        //public int TagId { get; set; }
         public int ProjectId { get; set; }
         public string ColorCode { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string StartDate { get; set; }
+        public string SelectedDate { get; set; }
+        public string EndDate { get; set; }
         public int Duration { get; set; }
         public string AssignedTo { get; set; }
         public int Reminder { get; set; }
         public bool Hourly { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
-
+        public bool ShowOnGnatt { get; set; }
+        public bool ShowOwner { get; set; }
+        public CalendarPhaseViewModel CalendarPhaseModel { get; set; }
+        public CalendarTagViewModel CalendarTagModel { get; set; }
+        public List<CalendarPhaseViewModel> CalendarPhaseModels { get; set; }
+        public List<CalendarTagViewModel> CalendarTagModels { get; set; }
         public List<ProjectColorViewModel> ProjectColorViewModels { get; set; }
         public List<UserMasterViewModel> UserMasterViewModels { get; set; }
         public List<ProjectSubcontractorMasterViewModel> ProjectSubcontractorMasterViewModels { get; set; }
-
+        public PredecessorInformationViewModel PredecessorInformationModel { get; set; }
+        public List<PredecessorInformationViewModel> PredecessorInformationModels { get; set; }
+        public List<CalendarScheduledItemViewModel> CalendarScheduledItemModels { get; set; }
         public List<string> TimeIntervalLists
         {
             get

@@ -12,9 +12,11 @@ namespace Benaa2018.Data.Model
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
         public int PredecessorId { get; set; }
+        public int SourceScheuledId { get; set; }
         public int ProjectId { get; set; }
         public int ScheduledItemId { get; set; }
         public string TimeFrame { get; set; }
         public int Lag { get; set; }
+        public int CompanyId { get; set; }
     }
 }

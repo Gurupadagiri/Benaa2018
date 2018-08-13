@@ -2,6 +2,7 @@
 using Benaa2018.Data.Model;
 using Benaa2018.Helper.Interface;
 using Benaa2018.Helper.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -12,13 +13,19 @@ namespace Benaa2018.Helper
     {
         private readonly ICalendarScheduledItemRepoisitory _calendarScheduledItemRepoisitory;
         private readonly IPredecessorInformationRepository _predecessorInformationRepository;
+        private readonly ICalendarPhaseRepository _calendarPhaseRepository;
+        private readonly ICalendarTagRepository _calendarTagRepository;
         public CalendarScheduleHelper(ICalendarScheduledItemRepoisitory calendarScheduledItemRepoisitory,
-            IPredecessorInformationRepository predecessorInformationRepository)
+            IPredecessorInformationRepository predecessorInformationRepository,
+            ICalendarPhaseRepository calendarPhaseRepository,
+            ICalendarTagRepository calendarTagRepository)
         {
             _calendarScheduledItemRepoisitory = calendarScheduledItemRepoisitory;
             _predecessorInformationRepository = predecessorInformationRepository;
+            _calendarPhaseRepository = calendarPhaseRepository;
+            _calendarTagRepository = calendarTagRepository;
         }
-        public async Task<int> SaveCalendarScheduleItemAsync(CalendarScheduledItemViewModel calendarScheuledItem)
+        public async Task<int> SaveCalendarScheduleItemAsync(int companyId, CalendarScheduledItemViewModel calendarScheuledItem)
         {
             CalendarScheduledItem calendarItem = new CalendarScheduledItem
             {
@@ -27,18 +34,20 @@ namespace Benaa2018.Helper
                 AssignedTo = calendarScheuledItem.AssignedTo,
                 ColorCode = calendarScheuledItem.ColorCode,
                 Duration = calendarScheuledItem.Duration,
-                EndDate = calendarScheuledItem.EndDate,
+                EndDate = Convert.ToDateTime(calendarScheuledItem.EndDate),
                 EndTime = calendarScheuledItem.EndTime,
                 Hourly = calendarScheuledItem.Hourly,
                 Reminder = calendarScheuledItem.Reminder,
-                StartDate = calendarScheuledItem.StartDate,
-                StartTime = calendarScheuledItem.StartTime
+                StartDate = Convert.ToDateTime(calendarScheuledItem.StartDate),
+                StartTime = calendarScheuledItem.StartTime,
+                CompanyId = companyId,
+                ProjectId = calendarScheuledItem.ProjectId
             };
             var companyObj = await _calendarScheduledItemRepoisitory.CreateAsync(calendarItem);
             return companyObj.ScheduledItemId;
         }
 
-        public async Task<int> UpdateCalendarScheduleItemAsync(CalendarScheduledItemViewModel calendarScheuledItem)
+        public async Task<int> UpdateCalendarScheduleItemAsync(int companyId, CalendarScheduledItemViewModel calendarScheuledItem)
         {
             CalendarScheduledItem calendarItem = new CalendarScheduledItem
             {
@@ -47,53 +56,80 @@ namespace Benaa2018.Helper
                 AssignedTo = calendarScheuledItem.AssignedTo,
                 ColorCode = calendarScheuledItem.ColorCode,
                 Duration = calendarScheuledItem.Duration,
-                EndDate = calendarScheuledItem.EndDate,
+                EndDate = Convert.ToDateTime(calendarScheuledItem.EndDate),
                 EndTime = calendarScheuledItem.EndTime,
                 Hourly = calendarScheuledItem.Hourly,
                 Reminder = calendarScheuledItem.Reminder,
-                StartDate = calendarScheuledItem.StartDate,
-                StartTime = calendarScheuledItem.StartTime
+                StartDate = Convert.ToDateTime(calendarScheuledItem.StartDate),
+                StartTime = calendarScheuledItem.StartTime,
+                CompanyId = companyId,
+                ProjectId = calendarScheuledItem.ProjectId
             };
             var companyObj = await _calendarScheduledItemRepoisitory.UpdateAsync(calendarItem);
             return companyObj.ScheduledItemId;
         }
 
-        public List<CalendarScheduledItemViewModel> GetAllScheduledItems(int companyId, int projetId)
+        public async Task<List<CalendarScheduledItemViewModel>> GetAllScheduledItems(int companyId, int projectId)
         {
             List<CalendarScheduledItemViewModel> lstCalendarItems = new List<CalendarScheduledItemViewModel>();
-            var scheduledItems = _calendarScheduledItemRepoisitory.GetScheduledItemByProjectId(companyId, projetId);
-            scheduledItems.ToList().ForEach(a =>
-            {
-                lstCalendarItems.Add(new CalendarScheduledItemViewModel
-                {
-                    ScheduledItemId = a.ScheduledItemId,
-                    Title = a.Title,
-                    AssignedTo = a.AssignedTo,
-                    ColorCode = a.ColorCode,
-                    CreatdDate = a.Created_Date,
-                    Duration = a.Duration,
-                    EndDate = a.EndDate,
-                    EndTime = a.EndTime,
-                    Hourly = a.Hourly,
-                    Reminder = a.Reminder,                    
-                    StartDate = a.StartDate,
-                    StartTime = a.StartTime,
-                    CompanyId= a.CompanyId,
-                    ProjectId = a.ProjectId
-                });
-            });
+            var scheduledItems = await _calendarScheduledItemRepoisitory.GetAllAsync();
+            scheduledItems.Where(a => a.CompanyId == companyId && a.ProjectId == projectId).ToList().ForEach(a =>
+              {
+                  lstCalendarItems.Add(new CalendarScheduledItemViewModel
+                  {
+                      ScheduledItemId = a.ScheduledItemId,
+                      Title = a.Title,
+                      AssignedTo = a.AssignedTo,
+                      ColorCode = a.ColorCode,
+                      CreatdDate = a.Created_Date,
+                      Duration = a.Duration,
+                      EndDate = a.EndDate.ToString(),
+                      EndTime = a.EndTime,
+                      Hourly = a.Hourly,
+                      Reminder = a.Reminder,
+                      StartDate = a.StartDate.ToString(),
+                      StartTime = a.StartTime,
+                      CompanyId = a.CompanyId,
+                      ProjectId = a.ProjectId
+                  });
+              });
             return lstCalendarItems;
         }
 
-        public async Task<int> SavePredecessorInformationAsync(PredecessorInformationViewModel predecessorInformation)
+        public async Task<CalendarScheduledItemViewModel> GetAllScheduledItem(int scheduledId)
+        {
+            var scheduledItems = await _calendarScheduledItemRepoisitory.GetScheduledItemByScheduleIdAsync(scheduledId);
+            return (new CalendarScheduledItemViewModel
+            {
+                ScheduledItemId = scheduledItems.ScheduledItemId,
+                Title = scheduledItems.Title,
+                AssignedTo = scheduledItems.AssignedTo,
+                ColorCode = scheduledItems.ColorCode,
+                CreatdDate = scheduledItems.Created_Date,
+                Duration = scheduledItems.Duration,
+                EndDate = scheduledItems.EndDate.ToString(),
+                EndTime = scheduledItems.EndTime,
+                Hourly = scheduledItems.Hourly,
+                Reminder = scheduledItems.Reminder,
+                StartDate = scheduledItems.StartDate.ToString(),
+                StartTime = scheduledItems.StartTime,
+                CompanyId = scheduledItems.CompanyId,
+                ProjectId = scheduledItems.ProjectId,
+                PredecessorInformationModels = await GetPredecessorByScheduleIdAsyn(scheduledId)
+            });
+        }
+
+        public async Task<int> SavePredecessorInformationAsync(int sourceScheduleId, int projectId, int companyId, PredecessorInformationViewModel predecessorInformation)
         {
             PredecessorInformation predecessor = new PredecessorInformation
             {
                 ScheduledItemId = predecessorInformation.ScheduledItemId,
                 PredecessorId = predecessorInformation.PredecessorId,
+                SourceScheuledId = sourceScheduleId,
                 Lag = predecessorInformation.Lag,
                 TimeFrame = predecessorInformation.TimeFrame,
-                //Created_By = predecessorInformation.,
+                ProjectId = projectId,
+                CompanyId = companyId
             };
             var predecessorObj = await _predecessorInformationRepository.CreateAsync(predecessor);
             return predecessorObj.PredecessorId;
@@ -112,10 +148,10 @@ namespace Benaa2018.Helper
             return predecessorObj.PredecessorId;
         }
 
-        public List<PredecessorInformationViewModel> GetAllPredecessorInformations(int projetId)
+        public async Task<List<PredecessorInformationViewModel>> GetAllPredecessorInformationsAsync(int projetId)
         {
             List<PredecessorInformationViewModel> lstPredecessor = new List<PredecessorInformationViewModel>();
-            var predecessorItems = _predecessorInformationRepository.GetPredecessorByProjectId(projetId);
+            var predecessorItems = await _predecessorInformationRepository.GetPredecessorByProjectId(projetId);
             predecessorItems.ToList().ForEach(a =>
             {
                 lstPredecessor.Add(new PredecessorInformationViewModel
@@ -128,6 +164,83 @@ namespace Benaa2018.Helper
                 });
             });
             return lstPredecessor;
+        }
+
+        public async Task<int> SaveCalendarPhaseAsync(CalendarPhaseViewModel calendarPhaseModel)
+        {
+            CalendarPhase calendarItem = new CalendarPhase
+            {
+                CompanyId = calendarPhaseModel.CompanyId,
+                ProjectId = calendarPhaseModel.PhaseId,
+                PhaseName = calendarPhaseModel.PhaseName
+            };
+            var companyObj = await _calendarPhaseRepository.CreateAsync(calendarItem);
+            return companyObj.PhaseId;
+        }
+
+        public async Task<List<CalendarPhaseViewModel>> GetAllPhaseAsync(int compantId, int projectId)
+        {
+            List<CalendarPhaseViewModel> lstCalendarModel = new List<CalendarPhaseViewModel>();
+            var companyObj = await _calendarPhaseRepository.GetAllAsync();
+            foreach (var item in companyObj.Where(a => a.CompanyId == compantId && a.ProjectId == projectId))
+            {
+                lstCalendarModel.Add(new CalendarPhaseViewModel
+                {
+                    PhaseId = item.PhaseId,
+                    CompanyId = item.CompanyId,
+                    ProjectId = item.ProjectId,
+                    PhaseName = item.PhaseName
+                });
+            }
+            return lstCalendarModel;
+        }
+
+        public async Task<int> SaveCalendarTagAsync(CalendarTagViewModel calendarTageModel)
+        {
+            CalendarTag calendarItem = new CalendarTag
+            {
+                CompanyId = calendarTageModel.CompanyId,
+                ProjectId = calendarTageModel.ProjectId,
+                TagName = calendarTageModel.TagName
+            };
+            var companyObj = await _calendarTagRepository.CreateAsync(calendarItem);
+            return companyObj.TagId;
+        }
+
+        public async Task<List<CalendarTagViewModel>> GetAllTagAsync(int compantId, int projectId)
+        {
+            List<CalendarTagViewModel> lstCalendarModel = new List<CalendarTagViewModel>();
+            var companyObj = await _calendarTagRepository.GetAllAsync();
+            foreach (var item in companyObj.Where(a => a.CompanyId == compantId && a.ProjectId == projectId))
+            {
+                lstCalendarModel.Add(new CalendarTagViewModel
+                {
+                    TagId = item.TagId,
+                    CompanyId = item.CompanyId,
+                    ProjectId = item.ProjectId,
+                    TagName = item.TagName
+                });
+            }
+            return lstCalendarModel;
+        }
+
+        public async Task<List<PredecessorInformationViewModel>> GetPredecessorByScheduleIdAsyn(int scheduleId)
+        {
+            List<PredecessorInformationViewModel> lstPredessor = new List<PredecessorInformationViewModel>();
+            var predessor = await _predecessorInformationRepository.GetPredecessorByScheduledId(scheduleId);
+            if (predessor.Count == 0) return lstPredessor;
+            predessor.ForEach(a =>
+            {
+                lstPredessor.Add(new PredecessorInformationViewModel
+                {
+                    ScheduledItemId = a.ScheduledItemId,
+                    PredecessorId = a.PredecessorId,
+                    TimeFrame = a.TimeFrame,
+                    SourceScheuledId = a.SourceScheuledId,
+                    Lag = a.Lag
+                });
+            });
+            return lstPredessor;
         }
     }
 }
