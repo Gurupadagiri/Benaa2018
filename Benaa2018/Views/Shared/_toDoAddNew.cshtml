@@ -28,11 +28,22 @@
                         @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox ValidationErrorBorder", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
                     </div>
                     <div class="col-md-6 rightDiv">
+                        @*<div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
+                                <div class="to-do-holder">
+                                    <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
+                                    <input id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" type="checkbox" name="ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1" onclick="MarkDirty();" class="single-to-do-check" data-off-text="Off" data-on-text="On">
+                                    @Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @id = "ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1", @name = "ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1", @onclick = "MarkDirty();", @class = "single-to-do-check" })
+                                    <label for="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" class="single-to-do-check"></label>
+                                </div>
+                                <div class="to-do-completed-by" data-hasqtip="3">
+                                    <br>
+                                </div>
+                                <div style="clear: both"></div>
+                            </div>*@
                         <div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
                             <div class="to-do-holder">
                                 <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
                                 <input id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" type="checkbox" name="ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1" onclick="MarkDirty();" class="single-to-do-check" data-off-text="Off" data-on-text="On">
-                                @*@Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @id = "ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1", @name = "ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1", @onclick = "MarkDirty();", @class = "single-to-do-check" })*@
                                 <label for="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" class="single-to-do-check"></label>
                             </div>
                             <div class="to-do-completed-by" data-hasqtip="3">
@@ -91,9 +102,9 @@
                                                     <div class="input-group input-group-sm date bt-date-picker--value" data-provide="datepicker" data-bind="validationBorder: value">
                                                         @*<input type="text" class="form-control datePicker hasDatepicker" data-bind="addUniqueID: uniqueId, datePicker: value, disable: readOnly, attr: { placeholder: placeholder }, requiredValidationElement: value" id="ui-id-4">*@
                                                         @*@Html.TextBoxFor(a => a.ToDoDetails*@
-                                                        @Html.TextBoxFor(a => a.ToDoDetails.Duedate, new { @class = "form-control datePicker hasDatepicker", @dataprovide = "datepicker" }))
+                                                        @Html.TextBoxFor(a => a.ToDoDetails.Duedate, new { @class = "form-control datePicker hasDatepicker", @dataprovide = "datepicker" })
                                                         <label class="input-group-addon" data-bind="uniqueFor: uniqueId, css: { 'disabled-text': ko.unwrap(readOnly) }" for="ui-id-4">
-                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                            <i class="glyphicon glyphicon-calendar"></i>
                                                         </label>
                                                     </div>
                                                 </div>
@@ -334,20 +345,16 @@
                         <div class="formHolder">
                             <div class="leftFormHeading">Reminder:</div>
                             <div class="rightFormText">
-                                /**/
-                                /**/
+
                                 @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown reminderBtn" aria-haspopup="true">
                                         <span class="ui-icon ui-icon-triangle-1-s"></span>
                                         <span>None</span>
                                     </button>*@
-                                /**/
-                                /**/
+
                                 <select name="cars" class="form-control">
-                                    <option value="volvo">
-                                        None </ option >
-                                        < option value="saab">Just Before
-                                    </option>
-                                    <option value="fiat"> 1 Hour</option>
+                                    <option value="None"> None </option>
+                                    <option value="Just Before">Just Before</option>
+                                    <option value="1 Hour"> 1 Hour</option>
 
                                 </select>
                                 <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_Tooltip2_hrefToolTip" class="ToolTip " data-tooltip="The <b>Reminder</b>, when selected, will alert the assigned user prior to the due date/time of this item.  Alerts will be sent to users via email (and text message if setup).  Reminders are sent at 8am unless an hourly reminder is selected." data-hasqtip="1" aria-describedby="qtip-1">
@@ -374,14 +381,12 @@
                                 </div>
                             </div>
                             <div class="rightFormText">
-                                /**/
-                                /**/
+
                                 @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
                                         <span class="ui-icon ui-icon-triangle-1-s"></span>
                                         <span>-- No To-Do Tags Selected --</span>
                                     </button>*@
-                                /**/
-                                /**/
+
                                 @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTag", @class = "form-control", @multiple = "multiple" })
                             </div>
                         </div>
@@ -391,11 +396,11 @@
                 </div>
                 <div class="topSection multipleSelectBoxes">
                     <h2>
-                        Checklist<input type="submit" name="" value="Add Checklist" class="mainButton">
+                        Checklist <input type="button" name="" value="Add Checklist" class="mainButton" id="addRemoveButton">
                         <div class="multiCheckBoxHolder">
                             <div class="checkbox checkboxAssignChecklist">
                                 <label>
-                                    <span class="liThirdRowControl"><input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On"></span>
+                                    <span class="liThirdRowControl"><input class="checkListUser" type="checkbox" name="" data-off-text="Off" data-on-text="On"></span>
                                     <span class="chkText">
                                         Assign Checklist Items?
                                     </span>
@@ -415,85 +420,41 @@
                         </div>
                     </h2>
                     <div class="multiInputHolder">
-                        <div class="cloneMainContainer">
-                            <div class="cloneingboxholder">
-                                <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle">
-                                    <span id="">
-                                        < img src="images/drag.png" id="" style="border-width: 0px; height: 30px;">
-                                    </span>
-                                </div>
-                                <div class="liColumn">
-                                    <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
-                                    <label for="" class="lineItemCheck"></label>
-                                </div>
-                                <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
-                                    <textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>
-                                    <br>
-                                    <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
-                                </div>
-                                <div class="chosen-container chosen-container-single" title="" id=">
-                                    <a class="chosen-single">
-                                        <input class="chosen-search-input" type="text" autocomplete="off">
-                                        <span>Ahmed Garrash</span>
-                                        <div><b></b></div>
-                                    </a>
-                                    <div class="chosen-drop">
-                                        <div class="chosen-search">  </div>
-                                        <ul class="chosen-results">
-                                            <li class="active-result" data-option-array-index="0" style="">-- Assign User --</li>
-                                            <li class="group-result">Owners</li>
-                                            <li class="active-result group-option" data-option-array-index="2" style="">Owner(al shatee)</li>
-                                            <li class="group-result">Internal Users</li>
-                                            <li class="active-result result-selected group-option" data-option-array-index="4" style="">Ahmed Garrash</li>
-                                            <li class="active-result group-option" data-option-array-index="5" style="">aryan singh</li>
-                                            <li class="active-result group-option" data-option-array-index="6" style="">raja baja</li>
-                                            <li class="active-result group-option" data-option-array-index="7" style="">Shahnawaz Khan</li>
-                                            <li class="group-result">Subs</li>
-                                            <li class="active-result group-option" data-option-array-index="9" style="">Al Asaseya</li>
-                                            <li class="active-result group-option" data-option-array-index="10" style="">Raja</li>
-                                        </ul>
+                        <div class="cloneMainContainer" id="checkListAppend">
+                            @for (int i = 0; i < @ViewBag.TotalCheckList; i++)
+                            {
+                                <div class="cloneingboxholder">
+                                    <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle">
+                                        <span id="">
+                                            <img src="images/drag.png" id="" style="border-width: 0px; height: 30px;">
+                                        </span>
+                                    </div>
+                                    <div class="liColumn">
+                                        <input type="checkbox" name="" data-off-text="Off" data-on-text="On">
+                                        <label for="" class="lineItemCheck"></label>
+                                    </div>
+                                    <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
+                                        @Html.TextAreaFor(m => m.lstCheckListDetail[i].ToDoCheckListTitle, new { @rows = "2", @cols = "20", @maxlength = "256", @class = "flatTextBox" , @style = "width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" })
+                                        <br>
+                                        <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
+                                    </div>
+                                    <div class="chosen-container chosen-container-single" title="" id="">
+                                        <a class="chosen-single">
+                                        </a>
+                                        @Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })
                                     </div>
                                 </div>
-                            </div>
-                            <div class="cloneingboxholder">
-                                <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle">
-                                    <span id="">
-                                        < img src="images/drag.png" id="" style="border-width: 0px; height: 30px;">
-                                    </span>
-                                </div>
-                                <div class="liColumn">
-                                    <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
-                                    <label for="" class="lineItemCheck"></label>
-                                </div>
-                                <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
-                                    <textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>
-                                    <br>
-                                    <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
-                                </div>
-                            </div>
-                            <div class="cloneingboxholder">
-                                <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle">
-                                    <span id="">
-                                        < img src="images/drag.png" id="" style="border-width: 0px; height: 30px;">
-                                    </span>
-                                </div>
-                                <div class="liColumn">
-                                    <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
-                                    <label for="" class="lineItemCheck"></label>
-                                </div>
-                                <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
-                                    <textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>
-                                    <br>
-                                    <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
-                                </div>
-                            </div>
+                            }
+                            <div id="appendTextData"></div>
                         </div>
 
 
-                        <a href="#" class="cloneBtnHolder">
-                            <img src="images/expandHeader.png" alt="" title="" />
+                        @*<a href="#" class="cloneBtnHolder">
+                                <img src="images/expandHeader.png" alt="" title="" />
+                            </a>*@
+                        <a href="#" >
+                            <img class="btnCheckList" src="images/expandHeader.png" alt="" title="" />
                         </a>
-
                     </div>
                 </div>
 
@@ -507,8 +468,7 @@
                     </div>
                 </div>
 
-                /**/
-                /**/
+
                 @*<div class="topSection fileMessaging">
                         <h2>Custom Fields </h2> <div class="col-md-6">
                             <p>Admin users can add custom fields for To-Dos in Setup.</p>
@@ -518,8 +478,7 @@
 
 
                     </div>*@
-                /**/
-                /**/
+
 
 
             </div>

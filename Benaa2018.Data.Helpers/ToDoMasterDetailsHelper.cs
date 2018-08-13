@@ -92,10 +92,15 @@ namespace Benaa2018.Helper
         {
             List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
             var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
-            if (!string.IsNullOrEmpty(title))
+            //if (!string.IsNullOrEmpty(title))
+            //{
+            //    toDoInfo = toDoInfo.Where(a => a.Title.Contains(title)).ToList();
+            //}
+
+            if(toDoInfo.Count() > 0)
             {
-                toDoInfo = toDoInfo.Where(a => a.Title.Contains(title)).ToList();
-            }
+
+            
              if(status>0)
             {
                 bool statusToDo = false;
@@ -144,6 +149,7 @@ namespace Benaa2018.Helper
                         ReminderId = item.ReminderId
                     });
                 });
+            }
             }
             return lstToDoMasterModel;
         }

@@ -81,10 +81,7 @@
                                             </div>
                                             <div class="col-sm-2 form-group">
                                                 <span>Status</span>
-                                                @*<select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Status* field is required." id="ProjectMasterModel_ProjectStatusID" multiple="" name="ProjectMasterModel.ProjectStatusID" style="display: none;">
-                                                        <option value="1">Active</option>
-                                                        <option value="2">In Progress</option>
-                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="active"><label for="ms-opt-9"><input type="checkbox" title="Active" id="ms-opt-9" value="1">Active</label></li><li data-search-term="in progress"><label for="ms-opt-10"><input type="checkbox" title="In Progress" id="ms-opt-10" value="2">In Progress</label></li></ul></div></div>*@
+
                                                 <select name="cars" class="form-control" id="ddlToDoStatusToDoSearch">
                                                     <option value="2">All Statuses</option>
                                                     <option value="1">Completed</option>
@@ -94,35 +91,46 @@
                                                 </select>
 
                                             </div>
+
+                                            @*<div class="col-sm-2 form-group tooltip-div">
+                                                    <div class="input-group">
+                                                        <span>&nbsp;</span>
+                                                        <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
+                                                        <span>&nbsp;</span>
+                                                        <div class="input-group-btn marTop">
+                                                            <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
+                                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>*@
+                                        </div>
+                                        <div class="row">
+
                                             <div class="col-sm-2 form-group">
                                                 <span>Priority</span>
-                                                <select name="cars" class="form-control" id="ddlToDoPriorityToDoSearch">
+                                                <select id="ddlToDoPriorityToDoSearch" name="languages" multiple>
                                                     <option value="0">None</option>
                                                     <option value="1">Low</option>
                                                     <option value="2">High</option>
                                                     <option value="3">Highest</option>
                                                 </select>
-                                                @*<select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Type* field is required." id="ProjectMasterModel_ProjectTypeID" multiple="" name="ProjectMasterModel.ProjectTypeID" style="display: none;">
-                                                        <option value="1">Open</option>
-                                                        <option value="2">Closed</option>
-                                                        <option value="3">InProgress</option>
-                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="open"><label for="ms-opt-11"><input type="checkbox" title="Open" id="ms-opt-11" value="1">Open</label></li><li data-search-term="closed"><label for="ms-opt-12"><input type="checkbox" title="Closed" id="ms-opt-12" value="2">Closed</label></li><li data-search-term="inprogress"><label for="ms-opt-13"><input type="checkbox" title="InProgress" id="ms-opt-13" value="3">InProgress</label></li></ul></div></div>*@
+
                                             </div>
-                                            <div class="col-sm-2 form-group tooltip-div">
-                                                <div class="input-group">
-                                                    <span>&nbsp;</span>
-                                                    <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
-                                                    <span>&nbsp;</span>
-                                                    <div class="input-group-btn marTop">
-                                                        <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
-                                                            <span class="glyphicon glyphicon-info-sign"></span>
-                                                        </button>
+                                            @*<div class="col-sm-2 form-group tooltip-div">
+                                                    <div class="input-group">
+                                                        <span>&nbsp;</span>
+                                                        <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
+                                                        <span>&nbsp;</span>
+                                                        <div class="input-group-btn marTop">
+                                                            <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
+                                                                <span class="glyphicon glyphicon-info-sign"></span>
+                                                            </button>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
+                                                </div>*@
                                             <div class="col-sm-2 form-group">
+
                                                 <label>Tags</label>
                                                 <div class="input-group">
                                                     @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
@@ -133,7 +141,25 @@
                                                 </div>
                                             </div>
                                             <div class="col-sm-2 form-group">
-                                                <label>Actual Start Date</label>
+                                                <span>Due Date</span>
+                                                <select name="cars" class="form-control" id="ddlDueDate">
+                                                    <option value="1">All Dates</option>
+                                                    <option value="2">Custom Dates</option>
+                                                    <option value="3">Today</option>
+                                                    <option value="4">Today Onward</option>
+                                                    <option value="5">Next 30 Days</option>
+                                                    <option value="6">Next 14 Days</option>
+                                                    <option value="7">Next 7 Days</option>
+                                                    <option value="8">Today &amp; Tomorrow</option>
+                                                    <option value="9">Today &amp; Yesterday</option>
+                                                    <option value="10">Past 7 Days</option>
+                                                    <option value="11">Past 14 Days</option>
+                                                    <option value="12">Past 30 Days</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-sm-2 form-group" id="FromDue">
+                                                <label>From:</label>
                                                 <div class="input-group">
                                                     <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
                                                         <i class="fa fa-calendar">
@@ -141,8 +167,8 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2 form-group">
-                                                <label>Actual End Date</label>
+                                            <div class="col-sm-2 form-group" id="TomDue">
+                                                <label>To:</label>
                                                 <div class="input-group">
                                                     <input class="form-control" id="date1" name="date" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
                                                         <i class="fa fa-calendar">
@@ -150,10 +176,46 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-2 form-group tooltip-div">
-                                                <label>Name</label>
+                                            @*<div class="col-sm-2 form-group tooltip-div">
+                                                    <label>Name</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="serchtext" class="form-control" placeholder="Keyword">
+                                                    </div>
+                                                </div>*@
+                                            <div class="col-sm-2 form-group">
+                                                <span>Completion Date</span>
+                                                <select name="cars" class="form-control" id="ddlCompletionDate">
+                                                    <option value="1">All Dates</option>
+                                                    <option value="2">Custom Dates</option>
+                                                    <option value="3">Today</option>
+                                                    <option value="4">Today Onward</option>
+                                                    <option value="5">Next 30 Days</option>
+                                                    <option value="6">Next 14 Days</option>
+                                                    <option value="7">Next 7 Days</option>
+                                                    <option value="8">Today &amp; Tomorrow</option>
+                                                    <option value="9">Today &amp; Yesterday</option>
+                                                    <option value="10">Past 7 Days</option>
+                                                    <option value="11">Past 14 Days</option>
+                                                    <option value="12">Past 30 Days</option>
+                                                </select>
+
+                                            </div>
+                                            <div class="col-sm-2 form-group" id="FromCompletion">
+                                                <label>From:</label>
                                                 <div class="input-group">
-                                                    <input type="text" id="serchtext" class="form-control" placeholder="Keyword">
+                                                    <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                        <i class="fa fa-calendar">
+                                                        </i>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-2 form-group" id="ToCompletion">
+                                                <label>To:</label>
+                                                <div class="input-group">
+                                                    <input class="form-control" id="date1" name="date" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                        <i class="fa fa-calendar">
+                                                        </i>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -184,6 +246,7 @@
                                         <div class="tabConInfo">
                                             <div class="dataTableConatainer">
                                                 <table id="internaluser" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>
+                                                <table id="internaluser1" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>
                                             </div>
                                         </div>
                                     </div>
@@ -217,7 +280,7 @@
         </div>
         @*<input type="button" value="Get Selected Rows" id="btnChecked" />*@
         @*<input type="button" value="Deleted Checked" id="btnDeleted" />
-        <input type="button" value="Assign To" id="btnAssignTo" />*@
+            <input type="button" value="Assign To" id="btnAssignTo" />*@
     </div>
 </div>
 
@@ -384,38 +447,40 @@
         success: function (result) {
             debugger;
 
-           // alert('data populate' + result);
-            var tt = result;
-           // console.log(tt);
+            //alert('data populate' + result);
+           // var tt = result;
+            console.log(result);
            //var JsonModel = tt.html();
-            var mdata = @Html.Raw(@ViewBag.UserBaseToDoModel);
-            alert(tt);
-           // var yy = tt.parseHTML();
-          @*var item1 = @Html.Raw(tt);*@
-            $("#internaluser").html("");
+            var mdata1 = @Html.Raw(@ViewBag.UserBaseToDoModelSearch)
+            //var mdata1 = result;
+          // console.log(mdata1);
+            //alert(JSON.stringify(mdata));
+            //$("#internaluser").html("");
+          //  $("#internaluser").empty();
+          //  $("#internaluser").hide();
             $("#internaluser").jqGrid('clearGridData');
-            $("#internaluser").jqGrid('setGridParam', { data: tt });
-                        @*$("#internaluser").jqGrid('clearGridData').jqGrid({
-                            colModel: [
+          //  $('#gbox_internaluser').hide();
+            $("#internaluser1").jqGrid({
+               
+                colModel: [
 
-                                { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, hidden: true },
-                                {
-                                    name: "ToDoDetails.Title", label: "Title", width: 53
-                                },
-                                { name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", width: 53 },
-                                {
-                                    name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox', editoptions: { checked: "" }, formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
-                                },
-                                { name: "ToDoDetails.Priority", label: "Priority", width: 65 },
-                                { name: "ToDoDetails.AssignedTo", label: "AssignedTo", width: 65 },
-                                { name: "ToDoDetails.AssignedTo", label: "Related Daily Log", width: 65 },
-                                { name: "ToDoDetails.AssignedTo", label: "Files", width: 65 },
-                                { name: "ToDoDetails.Duedate", label: "Due", width: 41 },
-                                { name: "ToDoDetails.CreatedBy", label: "CreatedBy", width: 41 },
-                                { name: "TagNames", label: "Tags", width: 65 }
-                            ],
-                            data: @Html.Raw(tt),
-                            datatype: 'local',
+                    { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, key: true, hidden: true },
+                    {
+                        name: "ToDoDetails.Title", label: "Title", width: 53
+                    },
+                    { name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", width: 53 },
+                    {
+                        name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox', editoptions: { checked: "" }, formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
+                    },
+                    { name: "ToDoDetails.Priority", label: "Priority", width: 65 },
+                    { name: "UserNames", label: "AssignedTo", width: 65 },
+                    { name: "ToDoDetails.AssignedTo", label: "Related Daily Log", width: 65 },
+                    { name: "ToDoDetails.AssignedTo", label: "Files", width: 65 },
+                    { name: "ToDoDetails.Duedate", label: "Due", width: 41 },
+                    { name: "ToDoDetails.CreatedBy", label: "CreatedBy", width: 41 },
+                    { name: "TagNames", label: "Tags", width: 65 }
+                ],
+                data: mdata1,
                             iconSet: "fontAwesome",
                             idPrefix: "g5_",
                             rownumbers: false,
@@ -430,12 +495,13 @@
                             pager: true,
                             toolbarfilter: true,
                             rowNum: 5,
-                            viewrecords: true,
+                viewrecords: true,
+              
                             searching: {
                                 defaultSearch: "cn"
                             },
                             caption: ""
-                        });*@
+                        });
 
 
                 },
@@ -449,103 +515,7 @@
         //$('#internaluser').click(function () {
 
 
-        //    var grid = $("#internaluser");
-        //    var rowKey = grid.getGridParam("selrow");
-
-        //    if (!rowKey)
-        //       // alert("No rows are selected");
-        //    else {
-        //        var selectedIDs = grid.getGridParam("selarrrow");
-        //        var result = "";
-        //        for (var i = 0; i < selectedIDs.length; i++) {
-        //            result += selectedIDs[i] + ",";
-        //        }
-
-        //        alert(result);
-        //    }
-
-            //var grid = $("#internaluser");
-            ////alert(grid);
-            //var rowKey = grid.jqGrid('getGridParam', "selrow");
-
-            //if (rowKey) {
-            //    alert("Selected row primary key is: " + rowKey);
-
-            //}
-            //else
-            //    alert("No rows are selected");
-
-
-
-            //var selectedIDs = $("#internaluser").getGridParam("selarrrow");
-            //    for (var i = 0; i < selectedIDs.length; i++) {
-            //        result += selectedIDs[i] + ",";
-            //        //result1 = selectedIDs[i].children('td').second().html();
-            //}
-            //alert(result);
-            //var selectedIDs = $("#internaluser").getGridParam("selrow");
-            //     for (var i = 0; i < selectedIDs.length; i++) {
-            //        result += selectedIDs[i] + ",";
-            //        //result1 = selectedIDs[i].children('td').second().html();
-            //}
-            //alert(result);
-        //}
-            //var myGrid = $('#internaluser'),
-            //    //selRowId = myGrid.jqGrid('getGridParam', 'selrow'),
-
-            //    //celValue = myGrid.jqGrid('getCell', selRowId, 'TodoDetailsID');
-            //  //var empIds = $("input[type=hidden][name=TodoDetails ID]").val(Ids);
-            //var ty = $("#internaluser").jqGrid("getCol", "TodoDetailsID");
-            //console.log(celValue);
-            //alert(' hi  ' + ty);
-            //var grid = $("#internaluser");
-            //var rowKey = grid.getGridParam("selrow");
-            //var rowKey1 = grid.jqGrid('getGridParam', "selrow");
-            //if (!rowKey)
-            //    alert("No rows are selected");
-            //else {
-            //    var selectedIDs = grid.getGridParam("selarrrow");
-            //   // $("#internaluser").getSelectedRows()
-            //    var result = "";
-
-            //    for (var i = 0; i < selectedIDs.length; i++) {
-            //        result += selectedIDs[i] + ",";
-            //        //result1 = selectedIDs[i].children('td').second().html();
-            //    }
-
-            //    alert(result);
-            //    alert(rowKey1);
-            //}
-                //var grid = $("#internaluser");
-                //var ch = $(this).children('td').html();
-                //alert(ch);
-
-                //var rowId = $("#internaluser").jqGrid('getGridParam', 'selrow');
-                //var rowData = jQuery("#jqGridDiv").getRowData(rowId);
-                //var colData = rowData['IsSelected'];
-
-                //alert('Row id ' + rowId + 'rowData ' + rowData + 'colData ' + colData);
-                //internaluser_ToDoDetails.TodoDetailsID
-                //var rowKey = grid.getGridParam("selrow");
-                //if (!rowKey)
-                //    alert("No rows are selected");
-                //else {
-                //    var selectedIDs = grid.getGridParam("selarrrow");
-                //    var result = "";
-                //    for (var i = 0; i < selectedIDs.length; i++) {
-                //        result += selectedIDs[i] + ",";
-                //    }
-
-                //    alert(result);
-                //}
-                //var ch = $(this).find('#' + id + ' input[type=checkbox]').prop('checked');
-                //if (ch) {
-                //    jQuery(this).find('#' + id + ' input[type=checkbox]').prop('checked', false);
-                //} else {
-                //    jQuery(this).find('#' + id + 'input[type=checkbox]').prop('checked', true);
-                //}
-
-        //});
+        
 
         @*$('#btnChecked').click(function () {
             $.ajax({
@@ -637,9 +607,67 @@
         //}
     });
 </script>
-
 <script type="text/javascript">
     $(document).ready(function () {
+        $('#ddlToDoPriorityToDoSearch').multiselect();
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+
+        $('#FromCompletion').hide();
+        $('#ToCompletion').hide();
+        $('#FromDue').hide();
+        $('#TomDue').hide();
+
+        $('#ddlDueDate').click(function () {
+
+            var dueDate = $(this).val();
+            //console.log('Hi ' +dueDate);
+           // alert('Hi ' + dueDate);
+            if (dueDate == 2) {
+
+                //$('#FromCompletion').hide();
+                //$('#ToCompletion').hide();
+                $('#FromDue').show();
+                $('#TomDue').show();
+            }
+            else {
+                //$('#FromCompletion').hide();
+                //$('#ToCompletion').hide();
+                $('#FromDue').hide();
+                $('#TomDue').hide();
+
+            }
+
+        });
+
+
+
+        $('#ddlCompletionDate').click(function () {
+
+            var completionDate = $(this).val();
+            //console.log('Hi ' +dueDate);
+            // alert('Hi ' + dueDate);
+            if (completionDate == 2) {
+
+                $('#FromCompletion').show()
+                $('#ToCompletion').show()
+                //$('#FromDue').hide();
+                //$('#TomDue').hide();
+            }
+            else {
+                $('#FromCompletion').hide();
+                $('#ToCompletion').hide();
+                //$('#FromDue').hide();
+                //$('#TomDue').hide();
+
+            }
+
+        });
+
+
         $('#ddlAssign').change(function () {
 
             var text = $(this).val();
@@ -790,5 +818,53 @@
 
             });
 
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var item = 3;
+        var itemLength = item + 3;
+
+        $('#addRemoveButton').click(function () {
+            var buttonText = $(this).text();
+            $('#appendTextData').empty();
+        });
+        
+
+
+        $('.checkListUser').click(function () {
+
+            if ($(".checkListUser").prop('checked') == true) {
+                $('.ddlCheckListUser').show();
+            }
+            else {
+                $('.ddlCheckListUser').hide();
+            }
+        });
+
+        $('.btnCheckList').click(function (event) {
+            event.preventDefault();
+            
+
+              
+
+
+                var items;
+                //var j;
+                for (var j = item; j < itemLength; j++) {
+                    var t = parseInt(j, 10);
+                    var textArea = '<textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox"  style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>';
+                @*var items = '<div class="cloneingboxholder"> <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle"><span id=""> <img src="images/drag.png" id="" style="border-width: 0px; height: 30px;"></span></div><div class="liColumn"><input type="checkbox" name="" data-off-text="Off" data-on-text="On"><label for="" class="lineItemCheck"></label> </div><div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">'+'" @Html.TextAreaFor(m => m.lstCheckListDetail['"'+ 4 +'"'].ToDoCheckListTitle, new { @rows = "2", @cols = "20", @maxlength = "256", @class = "flatTextBox" , @style = "width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" })+ '<br> <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span></div><div class="chosen-container chosen-container-single" title="" id=""><a class="chosen-single"></a>'+@Html.DropDownListFor(x => x.lstCheckListDetail[4].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })'+'</div></div>';*@
+                    items = items + '<div class="cloneingboxholder"> <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle"><span id=""> <img src="images/drag.png" id="" style="border-width: 0px; height: 30px;"></span></div><div class="liColumn"><input type="checkbox" name="" data-off-text="Off" data-on-text="On"><label for="" class="lineItemCheck"></label> </div><div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">' + textArea + ' <br> <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span></div><div class="chosen-container chosen-container-single" title="" id=""><a class="chosen-single"></a></div></div>';
+
+                }
+                $('#appendTextData').append(items);
+           
+            item = itemLength;
+            itemLength = item + 3;
+            //alert('Complete');
+            
+            });
     });
 </script>

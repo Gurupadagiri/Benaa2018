@@ -118,9 +118,9 @@ namespace Benaa2018.Controllers
         public async Task<IActionResult> SaveToDo(ToDoAllViewModel toDoAllView)
         {
             string result = string.Empty;
-            var objToDoPrimary = _todoMasterDetailsHelper.SaveToDoMasterDetails(toDoAllView.ToDoDetails);
+            var objToDoPrimary =await _todoMasterDetailsHelper.SaveToDoMasterDetails(toDoAllView.ToDoDetails);
             //var obj = await _userMasterHelper.SaveUserMaster(userMasterViewModel);
-            if (objToDoPrimary.Result.TodoDetailsID > 0)
+            if (objToDoPrimary.TodoDetailsID > 0)
             {
                 if (toDoAllView.TagIds.Length > 0)
                 {
@@ -129,38 +129,38 @@ namespace Benaa2018.Controllers
                         ToDoTagViewModel tagview = new ToDoTagViewModel()
                         {
                             Tagid = (int)item,//objToDoPrimary.Id
-                            TodoDetailsID = objToDoPrimary.Result.TodoDetailsID
+                            TodoDetailsID = objToDoPrimary.TodoDetailsID
                         };
 
-                        var objToTagSave = _tagToDoHelper.SaveToDoTagDetails(tagview);
+                        var objToTagSave = await _tagToDoHelper.SaveToDoTagDetails(tagview);
                     }
                 }
                 #region Assign user
                 ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
                 {
-                    TodoDetailsID = objToDoPrimary.Result.TodoDetailsID,
+                    TodoDetailsID = objToDoPrimary.TodoDetailsID,
                     ToDoAssignID = 1,
                     ToDoUserAssignTypeId = 1
 
                 };
                 //  var objToUserAssign =  _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
-                var objToUserAssign = SaveToDoAssignDetails(todoAssignViewModel);
+                var objToUserAssign = await  SaveToDoAssignDetails(todoAssignViewModel);
                 #endregion
 
                 #region Checklist
                 ToDochecklistViewModel toDoCheckListViewModel = new ToDochecklistViewModel
                 {
-                    TodoDetailsID = objToDoPrimary.Result.TodoDetailsID,
+                    TodoDetailsID = objToDoPrimary.TodoDetailsID,
                     ToDoAssignIsCheckListItem = true,
                     ToDoAssignIFilesCheckListItem = true
                 };
 
                 //  var objToDoCheckList = _toDoCheckListHelper.SaveToDochecklistDetails(toDoCheckListViewModel);
-                var objToDoCheckList = SaveToDochecklistDetails(toDoCheckListViewModel);
+                var objToDoCheckList = await SaveToDochecklistDetails(toDoCheckListViewModel);
 
                 ToDochecklistDetailsViewModel toDoCheckListDetailsViewModel = new ToDochecklistDetailsViewModel
                 {
-                    ToDoCheckListId = objToDoCheckList.Result.ToDoCheckListId,
+                    ToDoCheckListId = objToDoCheckList.ToDoCheckListId ,
                     ToDoIsCheckList = true,
                     ToDoCheckListTitle = "test",
                     ToDoCheckListUserType = 1,
@@ -170,7 +170,7 @@ namespace Benaa2018.Controllers
 
                 //var objToDoDetailsList = _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDoCheckListDetailsViewModel);
 
-                var objToDoDetailsList = SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
+                var objToDoDetailsList = await SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
                 #endregion
 
 
@@ -188,8 +188,10 @@ namespace Benaa2018.Controllers
 
             var lstToDoSearchDetails = GetAllToDoDetailsSearch(keywords, status, priority, tags);
             //  ViewBag.ToDoSearchResult = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
-            ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
+           // ViewBag.UserBaseToDoModel = null;
+            ViewBag.UserBaseToDoModelSearch = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
             result = "success";
+           // return Json(result);
             return Json(JsonConvert.SerializeObject(lstToDoSearchDetails.Result));
         }
 
@@ -250,10 +252,10 @@ namespace Benaa2018.Controllers
                     {
                         int todoDetailsIdperRow = Convert.ToInt32(item.Split('_')[1]);
 
-                        var tododetailsId = _todoMasterDetailsHelper.GetAllToDoMasterDetailsById(todoDetailsIdperRow);
-                        if (tododetailsId.Result != null)
+                        var tododetailsId = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsById(todoDetailsIdperRow);
+                        if (tododetailsId != null)
                         {
-                            var toDoSelectedItemDetails = tododetailsId.Result[0];
+                            var toDoSelectedItemDetails = tododetailsId[0];
                             ToDoMasterDetailsViewModel todoDetails = new ToDoMasterDetailsViewModel()
                             {
                                 TodoDetailsID = toDoSelectedItemDetails.TodoDetailsID,
@@ -297,11 +299,11 @@ namespace Benaa2018.Controllers
                         int todoDetailsIdperRow = Convert.ToInt32(itemAssign.Split('_')[1]);
 
 
-                        var lstUSerAssign = _toDoAssignHelper.GetToDoAssignByToDoDetailsId(Convert.ToInt32(todoDetailsIdperRow));
+                        var lstUSerAssign = await _toDoAssignHelper.GetToDoAssignByToDoDetailsId(Convert.ToInt32(todoDetailsIdperRow));
 
-                        if (lstUSerAssign.Result.Count > 0)
+                        if (lstUSerAssign.Count > 0)
                         {
-                            foreach (var item in lstUSerAssign.Result)
+                            foreach (var item in lstUSerAssign)
                             {
 
                                 if (item.UserID != Convert.ToInt32(userids))
@@ -313,7 +315,7 @@ namespace Benaa2018.Controllers
                                         ToDoUserAssignTypeId = item.ToDoUserAssignTypeId
 
                                     };
-                                    var objToUserAssign = SaveToDoAssignDetails(todoAssignViewModel);
+                                    var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
 
                                     int userid = item.UserID;
                                     var userDetails = _userMasterHelper.GetUserByUserId(userid);
@@ -333,7 +335,7 @@ namespace Benaa2018.Controllers
 
                             //};
 
-                            var saveAssign = await _toDoAssignHelper.SaveToDoAssignDetails1(Convert.ToInt32(userids), Convert.ToInt32(toDoDetailsId));
+                            var saveAssign = await _toDoAssignHelper.SaveToDoAssignDetails1(Convert.ToInt32(userids), Convert.ToInt32(todoDetailsIdperRow));
                         }
                     }
                 }
@@ -753,7 +755,7 @@ namespace Benaa2018.Controllers
                     }
                 }
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -765,10 +767,10 @@ namespace Benaa2018.Controllers
             ToDoAssignViewModel toDoAssignView = new ToDoAssignViewModel();
             try
             {
-                var item = _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
-                if (item.Result.ToDoAssignID > 0)
+                var item = await _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
+                if (item.ToDoAssignID > 0)
                 {
-                    toDoAssignView.ToDoAssignID = item.Result.ToDoAssignID;
+                    toDoAssignView.ToDoAssignID = item.ToDoAssignID;
                 }
             }
             catch (Exception ex)
@@ -783,10 +785,10 @@ namespace Benaa2018.Controllers
             ToDochecklistViewModel toDoCheckListView = new ToDochecklistViewModel();
             try
             {
-                var item = _toDoCheckListHelper.SaveToDochecklistDetails(toDochecklistViewModel);
-                if (item.Result.ToDoCheckListId > 0)
+                var item = await _toDoCheckListHelper.SaveToDochecklistDetails(toDochecklistViewModel);
+                if (item.ToDoCheckListId > 0)
                 {
-                    toDoCheckListView.ToDoCheckListId = item.Result.ToDoCheckListId;
+                    toDoCheckListView.ToDoCheckListId = item.ToDoCheckListId;
                 }
             }
             catch (Exception ex)
@@ -802,10 +804,10 @@ namespace Benaa2018.Controllers
             ToDochecklistDetailsViewModel toDochecklistDetailsl = new ToDochecklistDetailsViewModel();
             try
             {
-                var item = _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDochecklistDetailsViewModel);
-                if (item.Result.ToDochecklistDetailsViewModelId > 0)
+                var item = await _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDochecklistDetailsViewModel);
+                if (item.ToDochecklistDetailsViewModelId > 0)
                 {
-                    toDochecklistDetailsl.ToDochecklistDetailsViewModelId = item.Result.ToDochecklistDetailsViewModelId;
+                    toDochecklistDetailsl.ToDochecklistDetailsViewModelId = item.ToDochecklistDetailsViewModelId;
                 }
             }
             catch (Exception ex)
@@ -1027,7 +1029,7 @@ namespace Benaa2018.Controllers
                                             TodoDetailsID = insertToDoDetails.TodoDetailsID,
                                             ToDoTagid = itemTag.Tagid
                                         };
-                                        var objToTagSave = _tagToDoHelper.SaveToDoTagDetails(todoTag);
+                                        var objToTagSave = await _tagToDoHelper.SaveToDoTagDetails(todoTag);
 
 
                                     }
@@ -1045,7 +1047,7 @@ namespace Benaa2018.Controllers
                                             TodoDetailsID = insertToDoDetails.TodoDetailsID,
                                             ToDoUserAssignTypeId = itemAssign.ToDoUserAssignTypeId
                                         };
-                                        var assignItem = SaveToDoAssignDetails(toDoAssignView);
+                                        var assignItem = await SaveToDoAssignDetails(toDoAssignView);
                                     }
                                 }
 
@@ -1063,7 +1065,7 @@ namespace Benaa2018.Controllers
                                             ToDoAssignIFilesCheckListItem = itemAssign.ToDoAssignIFilesCheckListItem
                                         };
 
-                                        var assignCheckList = SaveToDochecklistDetails(toDoCheckLsit);
+                                        var assignCheckList = await  SaveToDochecklistDetails(toDoCheckLsit);
                                     }
                                 }
 

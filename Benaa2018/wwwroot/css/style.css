@@ -2700,3 +2700,16 @@ input[type="checkbox"].single-to-do-check {
 .chHolder .permissionContent tr td {
     padding: 5px;
 }
+body .btn-success,
+body .blueButton, body .Projects-List .btn-primary {
+    color: #fff !important;
+    background-color: #7c6e51 !important;
+    border-color: #7c6e51 !important;
+}
+
+    body .btn-success:hover,
+    body .blueButton:hover, body .Projects-List .btn-primary:hover {
+        color: #fff !important;
+        background-color: #ad9563 !important;
+        border-color: #ad9563 !important;
+    }
