@@ -12,10 +12,10 @@ namespace Benaa2018.Data.Repository
     {
         public CalendarScheduledItemRepository(SBSDbContext context) : base(context) { }
 
-        public async Task<List<CalendarScheduledItem>> GetScheduledItemByProjectId(int companyId, int projectId)
+        public async Task<List<CalendarScheduledItem>> GetScheduledItemByProjectId(int companyId, int projectId,DateTime startDate)
         {
             return _context.CalendarScheduledItems
-                .Where(a => a.CompanyId == companyId && a.ProjectId == projectId).ToList();
+                .Where(a => a.CompanyId == companyId && a.ProjectId == projectId && a.EndDate > startDate).ToList();
         }
 
         public async Task<CalendarScheduledItem> GetScheduledItemByScheduleIdAsync(int scheduleId)

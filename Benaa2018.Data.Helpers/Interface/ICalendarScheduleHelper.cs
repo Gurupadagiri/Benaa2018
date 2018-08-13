@@ -1,4 +1,5 @@
 ﻿using Benaa2018.Helper.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -11,7 +12,7 @@ namespace Benaa2018.Helper.Interface
         Task<int> SavePredecessorInformationAsync(int sourceScheduleId, int projectId, int companyId, PredecessorInformationViewModel predecessorInformation);
         Task<int> UpdatePredecessorInformationAsync(PredecessorInformationViewModel predecessorInformation);
         Task<CalendarScheduledItemViewModel> GetAllScheduledItem(int scheduledId);
-        Task<List<CalendarScheduledItemViewModel>> GetAllScheduledItems(int companyId, int projectId);
+        Task<List<CalendarScheduledItemViewModel>> GetAllScheduledItems(int companyId, int projectId, DateTime startDate);
         Task<int> SaveCalendarPhaseAsync(CalendarPhaseViewModel calendarPhaseModel);
         Task<List<CalendarPhaseViewModel>> GetAllPhaseAsync(int compantId, int projectId);
         Task<int> SaveCalendarTagAsync(CalendarTagViewModel calendarTageModel);

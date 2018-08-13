@@ -187,12 +187,12 @@
         <script src="~/js/jquery.multiselect.js"></script>
         <script src="~/js/bootstrap-datepicker.min.js"></script>
         <script src="~/js/bootstrapSwitch.js"></script>
-        @RenderBody()
+       @RenderBody()
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
         </div>
     }
-
+    @RenderBody()
     <div class="leftOuterBtn">
         <p class="jobPickerSliderJobText">al shatee</p>
         <div class="iconHolder">

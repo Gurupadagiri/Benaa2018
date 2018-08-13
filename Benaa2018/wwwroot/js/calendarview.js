@@ -1,17 +1,15 @@
 ﻿var FC = $.fullCalendar; // a reference to FullCalendar's root namespace
 var View = FC.View;      // the class that all views must inherit from
 var AgendaView;          // our subclass
-//var ListView; 
+var ListView; 
 var GnattView;
 var BaselineView;
 var PhasesListView;
 
 AgendaView = View.extend({ // make a subclass of View
-
     initialize: function () {
-        //alert('hi');
     },
-    render: function () {
+    render: function () {        
         this.el.html('<div class="fc-view fc-agendaWeek-view fc-agenda-view" style=""><div class="toolbatHolder">' +
             '<button class="">Show Earlier</button >' +
             '<div class="calenderJq">' +
@@ -22,17 +20,13 @@ AgendaView = View.extend({ // make a subclass of View
             '</script>' +
             '<label> Jump To:</label> ' +
             '<p> <input type="text" id="datepicker"><span class="glyphicon glyphicon-calendar"></span></p>' +
-            '<input type= "submit" name= "" value= "Go" > ' +
+            '<input type= "submit" name="datefilter" id="datefilter" value= "Go" > ' +
             '</div> ' +
             '</div></div><div class="dataHolder">' +
             '<table class="innercontent"></table>' +
-            '</div>');
-        // responsible for displaying the skeleton of the view within the already-defined
-        // this.el, a jQuery element.
+            '</div>');        
     },
     setHeight: function (height, isAuto) {
-        // responsible for adjusting the pixel-height of the view. if isAuto is true, the
-        // view may be its natural height, and `height` becomes merely a suggestion.
     },
     renderEvents: function (events) {
         var t = this;
@@ -43,6 +37,7 @@ AgendaView = View.extend({ // make a subclass of View
             getDailyEvents(data);
         });
         function getDailyEvents(data) {
+            dailyEvents = [];
             $.each(data, function (index, day) {
                 dailyEvents.push({
                     date: day.start,
@@ -53,6 +48,14 @@ AgendaView = View.extend({ // make a subclass of View
                 t.el.find('.innercontent').append(t.dayHtml(day.date, day.events));
             });
         }
+        $("#datefilter").on('click', function () {
+            var postData = { "projectId": parseInt(projectId), "selectedDate": $("#datepicker").val() };
+            $.post("/Calendar/GetScheduledItems", postData, function (data) {
+                $('.innercontent').empty();
+                getDailyEvents(data);
+            });
+        });
+        
     },
     destroyEvents: function () {
     },
@@ -66,8 +69,8 @@ AgendaView = View.extend({ // make a subclass of View
             dayEvents += '<tr>' +
                 '<td>' + event.startDate + '</td>' +
                 '<td> Day 9 of 20</td> ' +
-                '<td>' + event.title + '</td>' +
-                '<td>Shahnawaz Khan (+1)</td>' +
+                '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div>' + event.title + '</td>' +
+                '<td>' + event.assignedTo + '</td>' +
                 '</tr>';
         });
         return dayEvents;
@@ -128,22 +131,16 @@ ListView = View.extend({ // make a subclass of View
                 '<div style="margin: 0 auto; display: table">' +
                 '<div style="margin-right: 23px;">Assigned To</div>' +
                 '<div style="position: relative; left: 76px; top: 50%; margin-top: -12px;">' +
-                '<div style="float: none; position: relative; cursor: pointer" class="show-more-recipients-header" title="Expand/Collapse" onclick="DynamicGrid.expandCollapseAll("",event)">...</div>' +
+                '<div style="float: none; position: relative; cursor: pointer" class="show-more-recipients-header" title="Expand/Collapse"></div>' +
+                '<div style="float: none; position: relative; cursor: pointer" class="show-more-recipients-header" title="Expand/Collapse"></div>' +
                 '</div>' +
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                'User Confirm&nbsp;<img src="images/UserControls/iconToolTip.png" class="ToolTip" style="cursor:pointer;" border="0" data-bind="tooltip: true" data-tooltip="This column displays the status of the user confirmation(s) for this schedule item. ' +
-                'If there is only one user assigned to the item, a checkbox will appear to indicate' +
-                'the status of the confirmation, with the check being placed once the user has confirmed the schedule item.' +
-                'If multiple users have been assigned to the schedule item, 3 numbers will be displayed: number of accepted' +
-                'confirmations, number of declined confirmations, and number of pending confirmations respectively.' +
-                'If any number of users have declined this schedule item, a red X will appear in the same field." data-hasqtip="6">' +
+                'User Confirm' +
                 '</td>' +
-                '<td class="checkBox">' +
-                '<img src="images/ownerIcon.png" title="Show Owner?" width="15">' +
+                '<td class="checkBox">pred' +
                 '</td>' +
-                '<td>Pred</td>' +
                 '</tr>');
             $.each(dailyEvents, function (index, day) {
                 t.el.find('.listviewtable').append(t.dayHtml(day.date, day.events));
@@ -174,24 +171,17 @@ ListView = View.extend({ // make a subclass of View
                 '<td>' + event.endDate + '</td>' +
                 '<td>' +
                 '<div style="margin: 0 auto; display: table">' +
-                '<div style="margin-right: 23px;">Shahnawaz Khan</div>' +
+                '<div style="margin-right: 23px;">' + event.assignedTo + '</div>' +
                 '<div style="position: relative; left: 76px; top: 50%; margin-top: -12px;">' +
-                '<div style="float: none; position: relative; cursor: pointer" class="show-more-recipients-header" title="Expand/Collapse" onclick="DynamicGrid.expandCollapseAll("",event)">...</div>' +
+                '<div style="float: none; position: relative; cursor: pointer" class="show-more-recipients-header" title="Expand/Collapse"></div>' +
                 '</div>' +
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                'User Confirm&nbsp;<img src="images/UserControls/iconToolTip.png" class="ToolTip" style="cursor:pointer;" border="0" data-bind="tooltip: true" data-tooltip="This column displays the status of the user confirmation(s) for this schedule item. ' +
-                'If there is only one user assigned to the item, a checkbox will appear to indicate' +
-                'the status of the confirmation, with the check being placed once the user has confirmed the schedule item.' +
-                'If multiple users have been assigned to the schedule item, 3 numbers will be displayed: number of accepted' +
-                'confirmations, number of declined confirmations, and number of pending confirmations respectively.' +
-                'If any number of users have declined this schedule item, a red X will appear in the same field." data-hasqtip="6">' +
+                '<input type="checkbox" id="chkconfirm' + index + '" />' +                
                 '</td>' +
                 '<td class="checkBox">' +
-                '<img src="images/ownerIcon.png" title="Show Owner?" width="15">' +
-                '</td>' +
-                '<td>Pred</td>' +
+                '</td>' +                
                 '</tr>';
         });
         return dayEvents;
@@ -206,9 +196,9 @@ GnattView = View.extend({
     },
     setHeight: function (height, isAuto) {
     },
-    renderEvents: function (events) {        
+    renderEvents: function (events) {  
         var projectId = $("#projectid").text();
-        var postData = { "projectId": parseInt(projectId) };
+        var postData = { "projectId": parseInt(projectId), "selectedDate": ""};
         $.post("/Calendar/GetGnattItems", postData, function (data) {
             var item = JSON.parse(data);
             getDailyEvents(item)
@@ -243,14 +233,11 @@ GnattView = View.extend({
     }
 });
 FC.views.Gnatt = GnattView;
-BaselineView = View.extend({ // make a subclass of View
-
+BaselineView = View.extend({
     initialize: function () {
-
     },
     render: function () {
         this.el.html('<div class="fc-baseline-view"></div>');
-
     },
     setHeight: function (height, isAuto) {
     },
@@ -285,13 +272,10 @@ BaselineView = View.extend({ // make a subclass of View
         }
     },
     destroyEvents: function () {
-        // responsible for undoing everything in renderEvents
     },
     renderSelection: function (range) {
-        // accepts a {start,end} object made of Moments, and must render the selection
     },
     destroySelection: function () {
-        // responsible for undoing everything in renderSelection
     },
     dayHtml: function (events) {
         var dayHeader = '<tr class="header">' +
@@ -310,7 +294,6 @@ BaselineView = View.extend({ // make a subclass of View
             '<td>Assigned To</td>' +
             '</tr ><tr class="contheader">';
         var dayFooter = '</tr>';
-
         var dayEvents = '';
         $.each(events, function (index, event) {
             dayEvents += '<td class="checkBox">' +
@@ -341,7 +324,6 @@ BaselineView = View.extend({ // make a subclass of View
             '<th>Overall Slip</th>' +
             '</tr>';
         var dayFooter = '</table></div>';
-
         var dayEvents = '';
         $.each(events, function (index, event) {
             dayEvents += '<tr>' +
@@ -358,34 +340,21 @@ BaselineView = View.extend({ // make a subclass of View
 });
 FC.views.Baseline = BaselineView;
 PhasesListView = View.extend({ // make a subclass of View
-
     initialize: function () {
-
-        // called once when the view is instantiated, when the user switches to the view.
-        // initialize member variables or do other setup tasks.
     },
     render: function () {
         this.el.html('<div class="phaseslistview">Phases List View</div>');
-        // responsible for displaying the skeleton of the view within the already-defined
-        // this.el, a jQuery element.
     },
     setHeight: function (height, isAuto) {
-        // responsible for adjusting the pixel-height of the view. if isAuto is true, the
-        // view may be its natural height, and `height` becomes merely a suggestion.
     },
     renderEvents: function (events) {
-        // reponsible for rendering the given Event Objects
         console.dir(events);
     },
     destroyEvents: function () {
-        // responsible for undoing everything in renderEvents
     },
     renderSelection: function (range) {
-        // accepts a {start,end} object made of Moments, and must render the selection
     },
     destroySelection: function () {
-        // responsible for undoing everything in renderSelection
     }
-
 });
 FC.views.PhasesList = PhasesListView; 

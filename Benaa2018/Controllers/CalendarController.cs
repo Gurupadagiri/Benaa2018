@@ -63,7 +63,6 @@ namespace Benaa2018.Controllers
         {
             CalendarScheduledItemViewModel calendar = new CalendarScheduledItemViewModel
             {
-                CalendarScheduledItemModels = await _calendarScheduleHelper.GetAllScheduledItems(1, 1),
                 PredecessorInformationModels = await _calendarScheduleHelper.GetAllPredecessorInformationsAsync(1)
             };
             if (calendar.PredecessorInformationModels.Count == 0)
@@ -123,12 +122,14 @@ namespace Benaa2018.Controllers
             return Newtonsoft.Json.JsonConvert.SerializeObject(lstEvenets);
         }
 
-        public async Task<string> GetScheduledItemsByProjectId(int projectId)
+        public async Task<string> GetScheduledItemsByProjectId(int projectId, string selectedDate = "")
         {
             List<CalendarScheduledItemViewModel> lstCalendarItem = new List<CalendarScheduledItemViewModel>();
             try
             {
-                var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId);
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
                 return ScheduledEvents(scheduledItem);
             }
             catch (Exception ex)
@@ -137,12 +138,14 @@ namespace Benaa2018.Controllers
             }
         }
 
-        public async Task<List<CalendarScheduledItemViewModel>> GetScheduledItems(int projectId)
+        public async Task<List<CalendarScheduledItemViewModel>> GetScheduledItems(int projectId, string selectedDate = "")
         {
             List<CalendarScheduledItemViewModel> lstCalendarItem = new List<CalendarScheduledItemViewModel>();
             try
             {
-                return await _calendarScheduleHelper.GetAllScheduledItems(1, projectId);
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                return await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
             }
             catch (Exception ex)
             {
@@ -150,26 +153,30 @@ namespace Benaa2018.Controllers
             }
         }
 
-        public async Task<string> GetGnattItems(int projectId)
+        public async Task<string> GetGnattItems(int projectId, string selectedDate = "")
         {
             List<GanttChartModel> lstGnattModel = new List<GanttChartModel>();
-            var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId);
-            scheduledItem.ForEach(a =>
+            DateTime currentDate = DateTime.MinValue;
+            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+            var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+            if (scheduledItem.Count != 0)
             {
-                lstGnattModel.Add(new GanttChartModel
+                foreach (var a in scheduledItem)
                 {
-                    id = a.ScheduledItemId,
-                    text = a.Title,
-                    start_date = Convert.ToDateTime(a.StartDate).ToString("dd-MM-yyyy"),
-                    end_date = Convert.ToDateTime(a.EndDate).ToString("dd-MM-yyyy"),
-                    duration = a.Duration.ToString(),
-                    color = a.ColorCode,
-                    status = true,
-                    pred = "",
-                    users = new List<string> { _userMasterHelper.GetUserByUserId(Convert.ToInt32(a.AssignedTo)).Result.FullName },
-                });
-            });
-
+                    lstGnattModel.Add(new GanttChartModel
+                    {
+                        id = a.ScheduledItemId,
+                        text = a.Title,
+                        start_date = Convert.ToDateTime(a.StartDate).ToString("dd-MM-yyyy"),
+                        end_date = Convert.ToDateTime(a.EndDate).ToString("dd-MM-yyyy"),
+                        duration = a.Duration.ToString(),
+                        color = a.ColorCode,
+                        status = true,
+                        pred = "",
+                        users = new List<string> { a.AssignedTo },
+                    });
+                }
+            }
             List<CalendarLink> lstCalendarLink = new List<CalendarLink>();
             var count = 0;
             scheduledItem.ForEach(async a =>
@@ -224,7 +231,7 @@ namespace Benaa2018.Controllers
             return true;
         }
 
-        public async Task<bool> SubmitPhaseAsync(int projectId, string phaseName,int displayOrder,string phasecolor)
+        public async Task<bool> SubmitPhaseAsync(int projectId, string phaseName, int displayOrder, string phasecolor)
         {
             try
             {
@@ -233,10 +240,10 @@ namespace Benaa2018.Controllers
                     CompanyId = 1,
                     ProjectId = projectId,
                     PhaseName = phaseName,
-                    DisplayOrder= displayOrder,
+                    DisplayOrder = displayOrder,
                     PhaseColor = phasecolor
                 };
-                int scheduleId = await _calendarScheduleHelper.SaveCalendarPhaseAsync(calendar);                            
+                int scheduleId = await _calendarScheduleHelper.SaveCalendarPhaseAsync(calendar);
             }
             catch
             {
@@ -253,7 +260,7 @@ namespace Benaa2018.Controllers
                 {
                     CompanyId = 1,
                     ProjectId = projectId,
-                    TagName = tagName,                    
+                    TagName = tagName,
                 };
                 int scheduleId = await _calendarScheduleHelper.SaveCalendarTagAsync(calendar);
             }

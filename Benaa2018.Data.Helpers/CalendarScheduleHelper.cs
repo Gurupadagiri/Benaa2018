@@ -15,15 +15,18 @@ namespace Benaa2018.Helper
         private readonly IPredecessorInformationRepository _predecessorInformationRepository;
         private readonly ICalendarPhaseRepository _calendarPhaseRepository;
         private readonly ICalendarTagRepository _calendarTagRepository;
+        private readonly IUserMasterRepository _userMasterRepository;
         public CalendarScheduleHelper(ICalendarScheduledItemRepoisitory calendarScheduledItemRepoisitory,
             IPredecessorInformationRepository predecessorInformationRepository,
             ICalendarPhaseRepository calendarPhaseRepository,
-            ICalendarTagRepository calendarTagRepository)
+            ICalendarTagRepository calendarTagRepository,
+            IUserMasterRepository userMasterRepository)
         {
             _calendarScheduledItemRepoisitory = calendarScheduledItemRepoisitory;
             _predecessorInformationRepository = predecessorInformationRepository;
             _calendarPhaseRepository = calendarPhaseRepository;
             _calendarTagRepository = calendarTagRepository;
+            _userMasterRepository = userMasterRepository;
         }
         public async Task<int> SaveCalendarScheduleItemAsync(int companyId, CalendarScheduledItemViewModel calendarScheuledItem)
         {
@@ -69,30 +72,31 @@ namespace Benaa2018.Helper
             return companyObj.ScheduledItemId;
         }
 
-        public async Task<List<CalendarScheduledItemViewModel>> GetAllScheduledItems(int companyId, int projectId)
+        public async Task<List<CalendarScheduledItemViewModel>> GetAllScheduledItems(int companyId, int projectId, DateTime startDate)
         {
             List<CalendarScheduledItemViewModel> lstCalendarItems = new List<CalendarScheduledItemViewModel>();
-            var scheduledItems = await _calendarScheduledItemRepoisitory.GetAllAsync();
-            scheduledItems.Where(a => a.CompanyId == companyId && a.ProjectId == projectId).ToList().ForEach(a =>
-              {
-                  lstCalendarItems.Add(new CalendarScheduledItemViewModel
-                  {
-                      ScheduledItemId = a.ScheduledItemId,
-                      Title = a.Title,
-                      AssignedTo = a.AssignedTo,
-                      ColorCode = a.ColorCode,
-                      CreatdDate = a.Created_Date,
-                      Duration = a.Duration,
-                      EndDate = a.EndDate.ToString(),
-                      EndTime = a.EndTime,
-                      Hourly = a.Hourly,
-                      Reminder = a.Reminder,
-                      StartDate = a.StartDate.ToString(),
-                      StartTime = a.StartTime,
-                      CompanyId = a.CompanyId,
-                      ProjectId = a.ProjectId
-                  });
-              });
+            var scheduledItems = await _calendarScheduledItemRepoisitory.GetScheduledItemByProjectId(companyId, projectId, startDate);
+            foreach (var a in scheduledItems)
+            {
+                var assignedUser = await _userMasterRepository.GetByIdAsync(a.AssignedTo == null ? 0 : Convert.ToInt32(a.AssignedTo));
+                lstCalendarItems.Add(new CalendarScheduledItemViewModel
+                {
+                    ScheduledItemId = a.ScheduledItemId,
+                    Title = a.Title,
+                    AssignedTo = assignedUser == null ? string.Empty : assignedUser.FullName,
+                    ColorCode = a.ColorCode,
+                    CreatdDate = a.Created_Date,
+                    Duration = a.Duration,
+                    EndDate = a.EndDate.ToString(),
+                    EndTime = a.EndTime,
+                    Hourly = a.Hourly,
+                    Reminder = a.Reminder,
+                    StartDate = a.StartDate.ToString(),
+                    StartTime = a.StartTime,
+                    CompanyId = a.CompanyId,
+                    ProjectId = a.ProjectId
+                });
+            }            
             return lstCalendarItems;
         }
 
