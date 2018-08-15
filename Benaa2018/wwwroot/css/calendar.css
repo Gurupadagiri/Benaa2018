@@ -2347,7 +2347,7 @@ body .blueButton, body .Projects-List .btn-primary {
 
 
 /*Agenda*/
-/*.fc-Agenda-view .showEarlier {
+.fc-Agenda-view .showEarlier {
     background: #fff;
     border: 1px solid #cecece;
     color: #626262;
@@ -2466,10 +2466,29 @@ body .blueButton, body .Projects-List .btn-primary {
     margin-bottom: 1em;
     position: relative;
     text-align: center;
-}*/
+}
 
 .mainheader {
     background-image: none !important;
     background-color: #626262;
     text-align: center;
+}
+.fc-view-container {
+    width: 100%;
+    float: left;
+}
+
+.fc-sat,
+.fc-fri {
+    background-color: #b2b2b2;
+    background-image: url(/images/stripe_medium.png);
+    background-attachment: fixed;
+    color: #fff;
+}
+
+th.fc-sat,
+th.fc-fri {
+    background-color: #fff;
+    background-image: none;
+    color: #626262;
 }

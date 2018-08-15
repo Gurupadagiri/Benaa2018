@@ -30,13 +30,11 @@
     <link href="~/css/masterCssBootstrap.css" rel="stylesheet" />
     <link href="~/css/UserControlCssIncludes_MultiSelect.css" rel="stylesheet" />
     <link href="~/css/boostrapSwitchCss.css" rel="stylesheet" />
-
     <link href="~/css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css">
     <link rel="stylesheet" href="~/css/jquery-ui.min.css">
     <link rel="stylesheet" href="~/css/ui.jqgrid.min.css">
-
 </head>
 <body>
     @{
@@ -167,38 +165,24 @@
                     </div>
                 </div>
             </div>
-        </div>
-        @*@if (ViewBag.IsleftMenuVisible != false)
-            {
-            <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
-                @Html.Partial("_leftMenu", baseModel);
-            </div>
-            }*@
-    <!--------------------- Logo header end here------------->
-        <script src="~/js/jquery-1.12.4.js"></script>
-        <script src="~/js/jquery-ui.js"></script>
-        <script src="~/js/custom.js"></script>
-        <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
-        <script src="~/js/vfs_fonts.js"></script>
-        <script src="~/js/buttons.html5.min.js"></script>
-        <script src="~/js/bootstrap.min.js"></script>
-        <script src="~/js/responsive-tabs.js"></script>
-        <script src="~/js/jquery.multiselect.js"></script>
-        <script src="~/js/bootstrap-datepicker.min.js"></script>
-        <script src="~/js/bootstrapSwitch.js"></script>
-       @RenderBody()
+        </div>      
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
-        </div>
+        </div>        
     }
-    @RenderBody()
-    <div class="leftOuterBtn">
-        <p class="jobPickerSliderJobText">al shatee</p>
-        <div class="iconHolder">
-            <img src="images/iconJobInfoSmallWhite.png">
-        </div>
-    </div>
+    <script src="~/js/jquery-1.12.4.js"></script>
+    <script src="~/js/jquery-ui.js"></script>
+    <script src="~/js/custom.js"></script>
+    <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
+    <script src="~/js/vfs_fonts.js"></script>
+    <script src="~/js/buttons.html5.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    <script src="~/js/responsive-tabs.js"></script>
+    <script src="~/js/jquery.multiselect.js"></script>
+    <script src="~/js/bootstrap-datepicker.min.js"></script>
+    <script src="~/js/bootstrapSwitch.js"></script>
+    @RenderBody()    
     <section class="footerContainer">
         <div class="container-fluid">
             <p class="smallTXT">
@@ -281,20 +265,6 @@
             </div>
         </div>
     }
-    <!-- Placed at the end of the document so the pages load faster -->
-    @*
-        <script src="~/js/jquery-1.12.4.js"></script>
-        <script src="~/js/jquery-ui.js"></script>
-        <script src="~/js/custom.js"></script>
-        <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
-        <script src="~/js/vfs_fonts.js"></script>
-        <script src="~/js/buttons.html5.min.js"></script>
-        <script src="~/js/bootstrap.min.js"></script>
-        <script src="~/js/responsive-tabs.js"></script>
-        <script src="~/js/jquery.multiselect.js"></script>
-        <script src="~/js/bootstrap-datepicker.min.js"></script>
-        <script src="~/js/bootstrapSwitch.js"></script>*@
     <script type="text/javascript">
         $(document).ready(function () {
             $("#chkAllPermissionEmail").click(function (e) {

@@ -445,25 +445,10 @@
                 },
         data: { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: parseInt(priority)  },
         success: function (result) {
-            debugger;
-
-            //alert('data populate' + result);
-           // var tt = result;
-            console.log(result);
-           //var JsonModel = tt.html();
-            var mdata1 = @Html.Raw(@ViewBag.UserBaseToDoModelSearch)
-            //var mdata1 = result;
-          // console.log(mdata1);
-            //alert(JSON.stringify(mdata));
-            //$("#internaluser").html("");
-          //  $("#internaluser").empty();
-          //  $("#internaluser").hide();
+            var mdata1 = @Html.Raw(ViewBag.UserBaseToDoModelSearch)
             $("#internaluser").jqGrid('clearGridData');
-          //  $('#gbox_internaluser').hide();
             $("#internaluser1").jqGrid({
-               
                 colModel: [
-
                     { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, key: true, hidden: true },
                     {
                         name: "ToDoDetails.Title", label: "Title", width: 53
@@ -496,115 +481,18 @@
                             toolbarfilter: true,
                             rowNum: 5,
                 viewrecords: true,
-              
+
                             searching: {
                                 defaultSearch: "cn"
                             },
                             caption: ""
                         });
-
-
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
                 }
             });
-
         });
-
-        //$('#internaluser').click(function () {
-
-
-        
-
-        @*$('#btnChecked').click(function () {
-            $.ajax({
-                url: "@(Url.Action("SaveToDoIsComplete", "ToDo", null))",
-                type: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                data: { ToDoDetailsId: "1002" },
-        success: function (result) {
-            debugger;
-
-            alert('success');
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
-
-        });*@
-
-
-
-        @*$('#btnDeleted').click(function () {
-            $.ajax({
-                url: "@(Url.Action("DeleteToDo", "ToDo", null))",
-                type: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                data: { ToDoDetailsId: "2" },
-        success: function (result) {
-            debugger;
-
-            alert('success');
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
-
-        });*@
-
-
-
-        @*$('#btnAssignTo').click(function () {
-            $.ajax({
-                url: "@(Url.Action("AssignToDoUser", "ToDo", null))",
-                type: 'GET',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                data: { ToDoDetailsId: "2" },
-        success: function (result) {
-            debugger;
-
-            alert('success');
-
-
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
-                }
-            });
-
-        });*@
-        //function getSelectedRows() {
-        //    var grid = $("#internaluser");
-        //    var rowKey = grid.getGridParam("selrow");
-
-        //    if (!rowKey)
-        //        alert("No rows are selected");
-        //    else {
-        //        var selectedIDs = grid.getGridParam("selarrrow");
-        //        var result = "";
-        //        for (var i = 0; i < selectedIDs.length; i++) {
-        //            result += selectedIDs[i] + ",";
-        //        }
-
-        //        alert(result);
-        //    }
-        //}
     });
 </script>
 <script type="text/javascript">
@@ -624,55 +512,31 @@
         $('#ddlDueDate').click(function () {
 
             var dueDate = $(this).val();
-            //console.log('Hi ' +dueDate);
-           // alert('Hi ' + dueDate);
             if (dueDate == 2) {
-
-                //$('#FromCompletion').hide();
-                //$('#ToCompletion').hide();
                 $('#FromDue').show();
                 $('#TomDue').show();
             }
             else {
-                //$('#FromCompletion').hide();
-                //$('#ToCompletion').hide();
                 $('#FromDue').hide();
                 $('#TomDue').hide();
-
             }
-
         });
-
-
-
         $('#ddlCompletionDate').click(function () {
 
             var completionDate = $(this).val();
-            //console.log('Hi ' +dueDate);
-            // alert('Hi ' + dueDate);
             if (completionDate == 2) {
-
                 $('#FromCompletion').show()
                 $('#ToCompletion').show()
-                //$('#FromDue').hide();
-                //$('#TomDue').hide();
             }
             else {
                 $('#FromCompletion').hide();
                 $('#ToCompletion').hide();
-                //$('#FromDue').hide();
-                //$('#TomDue').hide();
-
             }
-
         });
 
 
         $('#ddlAssign').change(function () {
-
             var text = $(this).val();
-          //  alert(text);
-
             if (text == "Mark Complete") {
                 var grid = $("#internaluser");
                 var rowKey = grid.getGridParam("selrow");
@@ -685,8 +549,6 @@
                     for (var i = 0; i < selectedIDs.length; i++) {
                         result += selectedIDs[i] + ",";
                     }
-
-
                     $.ajax({
                         url: "@(Url.Action("SaveToDoIsComplete", "ToDo", null))",
                         type: 'GET',
@@ -696,11 +558,7 @@
                         },
                         data: { ToDoDetailsId: result },
                         success: function (result) {
-                            debugger;
-
                             alert('success');
-
-
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(errorThrown);
@@ -830,7 +688,7 @@
             var buttonText = $(this).text();
             $('#appendTextData').empty();
         });
-        
+
 
 
         $('.checkListUser').click(function () {
@@ -845,13 +703,7 @@
 
         $('.btnCheckList').click(function (event) {
             event.preventDefault();
-            
-
-              
-
-
                 var items;
-                //var j;
                 for (var j = item; j < itemLength; j++) {
                     var t = parseInt(j, 10);
                     var textArea = '<textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox"  style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>';
@@ -860,11 +712,9 @@
 
                 }
                 $('#appendTextData').append(items);
-           
+
             item = itemLength;
             itemLength = item + 3;
-            //alert('Complete');
-            
             });
     });
 </script>

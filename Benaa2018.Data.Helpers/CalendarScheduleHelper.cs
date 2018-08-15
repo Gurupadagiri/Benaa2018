@@ -79,6 +79,8 @@ namespace Benaa2018.Helper
             foreach (var a in scheduledItems)
             {
                 var assignedUser = await _userMasterRepository.GetByIdAsync(a.AssignedTo == null ? 0 : Convert.ToInt32(a.AssignedTo));
+                var phaseObj = a.PhaseId != null ? await _calendarPhaseRepository.GetByIdAsync(a.PhaseId) : null;
+                var tagObj = a.TagId != null ? await _calendarTagRepository.GetByIdAsync(a.TagId) : null;
                 lstCalendarItems.Add(new CalendarScheduledItemViewModel
                 {
                     ScheduledItemId = a.ScheduledItemId,
@@ -94,7 +96,11 @@ namespace Benaa2018.Helper
                     StartDate = a.StartDate.ToString(),
                     StartTime = a.StartTime,
                     CompanyId = a.CompanyId,
-                    ProjectId = a.ProjectId
+                    ProjectId = a.ProjectId,
+                    PhaseId = a.PhaseId,
+                    TagId = a.TagId,
+                    PhaseName = phaseObj != null ? phaseObj.PhaseName : string.Empty,
+                    TagName = tagObj != null ? tagObj.TagName : string.Empty
                 });
             }            
             return lstCalendarItems;
@@ -169,14 +175,31 @@ namespace Benaa2018.Helper
             });
             return lstPredecessor;
         }
+        public async Task<List<PredecessorInformationViewModel>> GetPredecessorInfoByScheduleIdAsync(int scheduleId)
+        {
+            List<PredecessorInformationViewModel> lstPredecessor = new List<PredecessorInformationViewModel>();
+            var predecessorItems = await _predecessorInformationRepository.GetPredecessorByScheduledId(scheduleId);
+            predecessorItems.ToList().ForEach(a =>
+            {
+                lstPredecessor.Add(new PredecessorInformationViewModel
+                {
+                    PredecessorId = a.PredecessorId,
+                    ScheduledItemId = a.ScheduledItemId,
+                    Lag = a.Lag,
+                    CreatdDate = a.Created_Date,
+                    TimeFrame = a.TimeFrame
+                });
+            });
+            return lstPredecessor;
+        }
 
         public async Task<int> SaveCalendarPhaseAsync(CalendarPhaseViewModel calendarPhaseModel)
         {
             CalendarPhase calendarItem = new CalendarPhase
             {
                 CompanyId = calendarPhaseModel.CompanyId,
-                ProjectId = calendarPhaseModel.PhaseId,
-                PhaseName = calendarPhaseModel.PhaseName
+                PhaseName = calendarPhaseModel.PhaseName,
+                DisplayOrder = calendarPhaseModel.DisplayOrder
             };
             var companyObj = await _calendarPhaseRepository.CreateAsync(calendarItem);
             return companyObj.PhaseId;

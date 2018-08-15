@@ -20,7 +20,6 @@ namespace Benaa2018.Helper.ViewModels
         public int ScheduledItemId { get; set; }
         public string Title { get; set; }
         public int CompanyId { get; set; }
-        //public int TagId { get; set; }
         public int ProjectId { get; set; }
         public string ColorCode { get; set; }
         public string StartDate { get; set; }
@@ -34,6 +33,11 @@ namespace Benaa2018.Helper.ViewModels
         public string EndTime { get; set; }
         public bool ShowOnGnatt { get; set; }
         public bool ShowOwner { get; set; }
+        public string PhaseName { get; set; }
+        public string TagName { get; set; }
+        public int PhaseId { get; set; }
+        public int TagId { get; set; }
+        public int Status { get; set; }
         public CalendarPhaseViewModel CalendarPhaseModel { get; set; }
         public CalendarTagViewModel CalendarTagModel { get; set; }
         public List<CalendarPhaseViewModel> CalendarPhaseModels { get; set; }
