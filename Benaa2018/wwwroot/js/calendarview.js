@@ -105,7 +105,6 @@
             "otherItems": $('#ProjectOtherItem').val()
         };
         $.post("Calendar/GetFilteredScheduleAsync", postData, function (data) {
-            //BindCalendar(data);
             $('#calendar').fullCalendar('removeEvents');
             $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
             $('#calendar').fullCalendar('rerenderEvents');
@@ -116,15 +115,16 @@
 function populatecalendar(projectid) {
     var postData = { "projectId": parseInt(projectid) };
     $.post("Calendar/GetScheduledItemsByProjectId", postData, function (data) {
-        BindCalendar(data);
-        $('#calendar').fullCalendar('removeEvents');
-        $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
-        $('#calendar').fullCalendar('rerenderEvents');
+        if ($('.fc-left').length == 0) {
+            BindCalendar(data);
+        } else {
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
+            $('#calendar').fullCalendar('rerenderEvents');
+        }        
     });
 }
 function BindCalendar(data) {
-    $('#calendar').fullCalendar('refetchEvents');
-    //$('#calendar').fullCalendar('rerenderEvents');
     $('#calendar').fullCalendar({
         header: {
             left: 'prev,next',
