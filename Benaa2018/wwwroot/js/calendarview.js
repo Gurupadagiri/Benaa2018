@@ -8,6 +8,12 @@
         $('#calendarpage').css('display', 'none');
         $("#SaveType").val('insert');
         populatecalendar($(this).attr('data-projectid'));
+
+        
+    });
+    $(document).on("change", ".select_month", function (event) {
+        $('#calendar').fullCalendar('changeView', 'month', this.value);
+        $('#calendar').fullCalendar('gotoDate', "2018-" + this.value + "-1");
     });
     $('#btnAddScheule').on('click', function () {
         $('#calendarmodal').addClass('in').css('display', 'block');
@@ -110,7 +116,7 @@
             $('#calendar').fullCalendar('rerenderEvents');
         });
     });
-});   
+});
 
 function populatecalendar(projectid) {
     var postData = { "projectId": parseInt(projectid) };
@@ -121,7 +127,7 @@ function populatecalendar(projectid) {
             $('#calendar').fullCalendar('removeEvents');
             $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
             $('#calendar').fullCalendar('rerenderEvents');
-        }        
+        }
     });
 }
 function BindCalendar(data) {
@@ -165,6 +171,9 @@ function BindCalendar(data) {
         },
         eventRender: function (event, element) {
             $('.fc-right').insertBefore('.fc-left');
+            //if ($('.select_month').length == 0) {
+            //    $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
+            //}            
         }
     });
 }
@@ -512,7 +521,7 @@ PhasesListView = View.extend({ // make a subclass of View
     initialize: function () {
     },
     render: function () {
-        
+
     },
     setHeight: function (height, isAuto) {
     },
@@ -537,90 +546,89 @@ PhasesListView = View.extend({ // make a subclass of View
             '</div>');
         t.el.find('.phaseHolder').append('<div class="phaseBody">' +
             '<div class="phaseBodyHolder"></div></div>');
-           
-        t.el.find('.phaseBodyHolder').append('<div class="phaseBodyHolderTop">' +
-            '<table>' +
-            '<tbody>' +
-            '<tr>' +
-            '<td style="border-right: 1px solid #d1d1d1; position: relative">' +
-            '<div class="Status fieldHeader">Status: <span>Completed</span></div>' +
-            '<div class="ExpandPhase">' +
-            '<a href="javascript:void(0);">' +
-            '<img border="0" src="/images/Common/edit.gif">' +
-            '</a>' +
-            '</div>' +
-            '<div class="CheckBoxPhase">' +
-            '<input name="chkPhaseSelected" type="checkbox">' +
-            '</div>' +
-            '<div class="PhaseTitle">' +
-            '<span>1542</span>' +
-            '</div>' +
-            '</td>' +
-            '<td style="width: 20%; border-right: 1px solid #d1d1d1;">' +
-            '<div class="tdContent">' +
-            '<div style="float: left">' +
-            '<div class="fieldHeader">Start Date</div>' +
-            '<span>05/03/2018</span>' +
-            '</div>' +
-            '<div style="float: right">' +
-            '<div class="fieldHeader" style="text-align: right">End Date</div>' +
-            '<span>27/03/2018</span>' +
-            '</div>' +
-            '<div style="clear: both"></div>' +
-            '</div>' +
-            '</td>' +
-            '<td style="width: 13%; min-width: 200px">' +
-            '<div class="tdContent">' +
-            '<div class="fieldHeader">Items Completed</div>' +
-            '<span>1</span> / <span >1</span>' +
-            '</div>' +
-            '</td>' +
-            '</tr>' +
-            '</tbody>' +
-            '</table>' +
-            '</div>');
-        t.el.find('.phaseBodyHolder').append('<div class="bottom">' +
-            '<div class="phaseList" data- bind="visible: showPhaseItems" style= "">' +
-            '<table class="expandSelectItemTable">' +
-            '<thead>' +
-            '<tr data-bind="template: { name: headerTemplate }">' +
-            '<th style="width: 15px;"></th>' +
-            '<th style="width: 180px; text-align: left; display: none;" data-bind="visible: parent.multipleJobsSelected">Jobsite</th>' +
-            '<th style="width: 230px; text-align:left;">Schedule Item Title</th>' +
-            '<th style="width: 50px; text-align:left;">Dur.</th>' +
-            '<th style="width: 130px; text-align:left;">Start</th>' +
-            '<th style="width: 130px; text-align:left;">Finish</th>' +
-            '<th style="width: 85px;" data-bind="visible: !AsyncJobPickerHelper.GetJobPickerVM().templatesOnly()">Completed</th>' +
-            '<th style="text-align:left;">Assigned To</th>' +
-            '</tr>' +
-            '</thead>' +
-            '<tbody class="tdschedule">' +
-            
-            '</tbody>' +
-            '</table>' +
-            '</div>' +
-            '</div>');
         function getDailyEvents(data) {
-            dailyEvents = [];
-            $.each(data, function (index, day) {
-                dailyEvents.push({
-                    date: day.start,
-                    events: [day]
+            $.each(data, function (index, item) {
+                t.el.find('.phaseBodyHolder').append('<div class="phaseBodyHolderTop">' +
+                    '<table>' +
+                    '<tbody>' +
+                    '<tr>' +
+                    '<td style="border-right: 1px solid #d1d1d1; position: relative">' +
+                    '<div class="Status fieldHeader">Status: <span>Completed</span></div>' +
+                    '<div class="ExpandPhase">' +
+                    '<a href="javascript:void(0);">' +
+                    '<img border="0" src="/images/Common/edit.gif">' +
+                    '</a>' +
+                    '</div>' +
+                    '<div class="CheckBoxPhase">' +
+                    '<input name="chkPhaseSelected" value="' + item.item1 +'" type="checkbox">' +
+                    '</div>' +
+                    '<div class="PhaseTitle">' +
+                    '<span>' + item.item2 +'</span>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td style="width: 20%; border-right: 1px solid #d1d1d1;">' +
+                    '<div class="tdContent">' +
+                    '<div style="float: left">' +
+                    '<div class="fieldHeader">Start Date</div>' +
+                    '<span>' + convert(item.item3,'/') +'</span>' +
+                    '</div>' +
+                    '<div style="float: right">' +
+                    '<div class="fieldHeader" style="text-align: right">End Date</div>' +
+                    '<span>' + convert(item.item4, '/') +'</span>' +
+                    '</div>' +
+                    '<div style="clear: both"></div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td style="width: 13%; min-width: 200px">' +
+                    '<div class="tdContent">' +
+                    '<div class="fieldHeader">Items Completed</div>' +
+                    '<span>' + item.item6 + '</span> / <span >' + item.item5 +'</span>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>' +
+                    '</tbody>' +
+                    '</table>' +
+                    '</div>');
+                t.el.find('.phaseBodyHolder').append('<div class="bottom">' +
+                    '<div class="phaseList" data- bind="visible: showPhaseItems" style= "">' +
+                    '<table class="expandSelectItemTable">' +
+                    '<thead>' +
+                    '<tr data-bind="template: { name: headerTemplate }">' +
+                    '<th style="width: 15px;"></th>' +
+                    '<th style="width: 180px; text-align: left; display: none;" data-bind="visible: parent.multipleJobsSelected">Jobsite</th>' +
+                    '<th style="width: 230px; text-align:left;">Schedule Item Title</th>' +
+                    '<th style="width: 50px; text-align:left;">Dur.</th>' +
+                    '<th style="width: 130px; text-align:left;">Start</th>' +
+                    '<th style="width: 130px; text-align:left;">Finish</th>' +
+                    '<th style="width: 85px;" data-bind="visible: !AsyncJobPickerHelper.GetJobPickerVM().templatesOnly()">Completed</th>' +
+                    '<th style="text-align:left;">Assigned To</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody class="tdschedule">' +
+
+                    '</tbody>' +
+                    '</table>' +
+                    '</div>' +
+                    '</div>');               
+                $.each(data[index].item7, function (index, item) {
+                    t.el.find('.tdschedule').append('<tr class="whiteBack">' +
+                        '<td><input name="chkPhaseItem" type="checkbox" value="' + item.scheduledItemId + '"></td>' +
+                        '<td class="tdL" style="display: none;"><span></span></td>' +
+                        '<td class="tdL"><a class="phasetitle" data-schedule="' + item.scheduledItemId + '" href="javascript:void(0);" >' + item.title + '</a></td>' +
+                        '<td style="text-align:left;"><span >' + item.duration + '</span></td>' +
+                        '<td class="tdL"><span >' + convert(item.startDate, '/') + '</span></td>' +
+                        '<td class="tdL"><span >' + convert(item.endDate, '/') + '</span></td>' +
+                        '<td class="tdC" ><input name="chkPhaseItemCompleted" type="checkbox" ></td>' +
+                        '<td style="text-align:left;"><span title="aryan singh">' + item.assignedTo + '</span></td>' +
+                        ' </tr>');
                 });
             });
-            $.each(dailyEvents, function (index, day) {
-                t.el.find('.tdschedule').append('<tr class="whiteBack">' +
-                    '<td><input name="chkPhaseItem" type="checkbox" value="48843727"></td>' +
-                    '<td class="tdL" style="display: none;"><span data-bind="    text: jobName"></span></td>' +
-                    '<td class="tdL"><a href="javascript:void(0);" >' + day.events[0].title + '</a></td>' +
-                    '<td style="text-align:left;"><span >' + day.events[0].duration + '</span></td>' +
-                    '<td class="tdL"><span >' + convert(day.events[0].startDate,'/') + '</span></td>' +
-                    '<td class="tdL"><span >' + convert(day.events[0].endDate, '/') + '</span></td>' +
-                    '<td class="tdC" ><input name="chkPhaseItemCompleted" type="checkbox" ></td>' +
-                    '<td style="text-align:left;"><span title="aryan singh">' + day.events[0].assignedTo + '</span></td>' +
-                    ' </tr>');
-            });
         }
+        $(document).on('click', '.phasetitle', function () {
+            var postData = { "scheduledId": parseInt($(this).attr("data-schedule")) };
+            $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
+            $('#calendarmodal').addClass('in').css('display', 'block');
+        });
     },
     destroyEvents: function () {
     },

@@ -293,7 +293,23 @@ namespace Benaa2018.Controllers
             DateTime currentDate = DateTime.MinValue;
             if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
             var scheduledList = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
-            return Json(scheduledList.OrderBy(a => a.TagId));
+            var phaseList = scheduledList.Select(a => a.PhaseId).Distinct();
+            List<Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>> lstphase =
+                new List<Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>>();
+            foreach(var item in phaseList)
+            {
+                int phaseId = item;
+                string phaseName = scheduledList.Where(a=>a.PhaseId == item).Select(a => a.PhaseName).FirstOrDefault();
+                DateTime minDate = scheduledList.Min(a => Convert.ToDateTime(a.StartDate));
+                DateTime maxDate = scheduledList.Max(a => Convert.ToDateTime(a.EndDate));
+                
+                int statusCompleted = scheduledList.Where(a => a.Status == 6).Count();
+                int statusNotCompleted = scheduledList.Where(a => a.Status != 6).Count();
+                var phaseLst = scheduledList.Where(a => a.PhaseId == item).ToList();
+                lstphase.Add(new Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>
+                    (phaseId, phaseName, minDate, maxDate, statusNotCompleted, statusCompleted, phaseLst));
+            }
+            return Json(lstphase);//scheduledList.OrderBy(a => a.TagId)
         }
 
         public async Task<string> GetFilteredScheduleAsync(int projectId, 
