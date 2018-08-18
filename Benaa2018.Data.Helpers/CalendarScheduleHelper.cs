@@ -100,7 +100,9 @@ namespace Benaa2018.Helper
                     PhaseId = a.PhaseId,
                     TagId = a.TagId,
                     PhaseName = phaseObj != null ? phaseObj.PhaseName : string.Empty,
-                    TagName = tagObj != null ? tagObj.TagName : string.Empty
+                    TagName = tagObj != null ? tagObj.TagName : string.Empty,
+                    TotalScheuleDay= a.EndDate.Subtract(a.StartDate).Days,
+                    ScheuleDay = a.EndDate.Subtract(DateTime.Now).Days,
                 });
             }            
             return lstCalendarItems;

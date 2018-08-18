@@ -36,11 +36,11 @@
                         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Title</span>
                                         <input class="form-control" id="Title" type="text" />
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Performed By</span>
                                         <select id="PerformedBy" name="PerformedBy" multiple="multiple" class="withCheckbox required">
                                             <option value="" selected="selected">Select</option>
@@ -50,7 +50,7 @@
                                             }
                                         </select>
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Status</span>
                                         <select class="withCheckbox required" multiple="multiple" id="Status" name="Status">
                                             <option value="" selected="selected">All</option>
@@ -63,7 +63,7 @@
                                             <option value="7">Unconfirmed</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Tags</span>
                                         <select class="withCheckbox required" multiple="multiple" id="ProjectTag" name="ProjectTag">
                                             <option value="" selected="selected">Select</option>
@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <label>Projects Phases</label>
                                         <div class="input-group">
                                             <select class="withCheckbox required" multiple="multiple" id="ProjectPhases" name="ProjectPhases">
@@ -79,7 +79,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <label>Other Items</label>
                                         <div class="input-group">
                                             <select class="withCheckbox required" multiple="multiple" id="ProjectOtherItem" name="ProjectOtherItem">
@@ -127,7 +127,7 @@
                             <span class="fieldHeader">Date:</span>
                         </div>
                         <div class="col-xs-8">
-                            <input type="text" asp-for="SelectedDate" disabled="disabled" class="form-control" value="" />
+                            <input type="text" asp-for="StartDate" class="form-control" value="" />
                             <input type="hidden" asp-for="ProjectId" class="form-control" value="" />
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                             <span class="fieldHeader">Color:</span>
                         </div>
                         <div class="col-xs-8">
-                            <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                            <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
                                 @foreach (var item in baseModel.ProjectColorModels)
                                 {
                                     <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
@@ -192,7 +192,7 @@
             </div>              
             <div class="input-group">
                 <span class="fieldHeader">Color:</span>
-                <select id="phasecolor" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                <select id="phasecolor" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
                     @foreach (var item in baseModel.ProjectColorModels)
                     {
                         <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>

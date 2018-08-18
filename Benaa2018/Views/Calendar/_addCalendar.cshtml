@@ -41,7 +41,7 @@
                                                 </div>
                                                 <div class="col-sm-2 form-group pull-right">
                                                     <span>Display Color</span>
-                                                    <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                    <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
                                                         @foreach (var item in baseModel.ProjectColorModels)
                                                         {
                                                             <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
@@ -50,41 +50,78 @@
                                                 </div>
                                             </div>
                                             <div class="row middleHolder">
-                                                <div class="col-sm-2 form-group">
-                                                    <label>Actual Start Date</label>
-                                                    <div class="input-group">
-                                                        <input class="form-control" asp-for="StartDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
-                                                            <i class="fa fa-calendar">
-                                                            </i>
+                                                <div class="col-sm-4 form-group start-holder">
+                                                    <div class="stHolder">
+                                                        <label>Start Date</label>
+                                                        <div class="input-group actualstartdate">
+                                                            <input class="form-control" asp-for="StartDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                    <div class="input-group">
-                                                        <input class="form-control" asp-for="Duration" placeholder="MM/DD/YYYY" type="text">
+                                                    <div  class="stHolder">
+                                                        <label>End Date</label>
+                                                        <div class="input-group actualenddate">
+                                                            <input class="form-control" asp-for="EndDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
+                                                                <i class="fa fa-calendar">
+                                                                </i>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-2 form-group">
-                                                    <label>Actual End Date</label>
+                                                <div class="col-sm-2 form-group time-holder">
                                                     <div class="input-group">
-                                                        <input class="form-control" asp-for="EndDate" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
-                                                            <i class="fa fa-calendar">
-                                                            </i>
-                                                        </div>
+                                                        <input class="form-control" asp-for="Duration" placeholder="MM/DD/YYYY" type="number">
+                                                    </div>
+                                                    <div class="input-group selectHolder">
+                                                        <input class="form-control1" asp-for="Hourly" placeholder="MM/DD/YYYY" type="checkbox">
+                                                        <label>Hourly</label>
+                                                    </div>
+                                                </div>
+                                               
+                                                <div class="col-sm-4 form-group tooltip-div assignTo pull-right">
+                                                    <div class="assignToDiv">
+                                                        <label>Assigned To</label>
                                                         <div class="input-group">
-                                                            <input class="form-control" asp-for="Hourly" placeholder="MM/DD/YYYY" type="checkbox">
+                                                            @Html.DropDownListFor(a => a.AssignedTo, new SelectList(baseModel.UserMasterViewModels, "UserID", "FullName"), new { @multiple = "multiple", @class = "withCheckbox required" })
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2 form-group">
-                                                    <label>Start Time</label>
-                                                    <div class="input-group">
-                                                        @Html.DropDownListFor(a => a.StartTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
-                                                        @Html.DropDownListFor(a => a.EndTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
+                                                    <div class="assignToDiv">
+                                                        <label>Reminder</label>
+                                                        <div class="input-group">
+                                                            <select asp-for="Reminder" class="form-control required">
+                                                                <option value="0" selected="selected">None</option>
+                                                                <option value="1">1 Hour</option>
+                                                                <option value="2">2 Hours</option>
+                                                                <option value="4">4 Hours</option>
+                                                                <option value="8">8 Hours</option>
+                                                                <option value="12">12 Hours</option>
+                                                                <option value="24">1 Day</option>
+                                                                <option value="48">2 Days</option>
+                                                                <option value="72">3 Days</option>
+                                                                <option value="168">7 Days</option>
+                                                                <option value="336">14 Days</option>
+                                                                <option value="504">21 Days</option>
+                                                                <option value="720">30 Days</option>
+                                                            </select>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-sm-2 form-group tooltip-div">
-                                                    <label>Assigned To</label>
-                                                    <div class="input-group">
-                                                        @Html.DropDownListFor(a => a.AssignedTo, new SelectList(baseModel.UserMasterViewModels, "UserID", "FullName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                    </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-7 form-group timeHolder" style="display:none">
+                                                    <div class="timeHolderDiv">
+                                                        <label>Start Time</label>
+                                                        <div class="input-group">
+                                                            @Html.DropDownListFor(a => a.StartTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
+
+                                                        </div>
+                                                    </div>
+                                                    <div class="timeHolderDiv">
+                                                        <label>End Time</label>
+                                                        <div class="input-group">
+                                                            @Html.DropDownListFor(a => a.EndTime, new SelectList(Model.TimeIntervalLists), new { @class = "form-control required" })
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -119,7 +156,7 @@
                                                             <option value="">-----------</option>
                                                             @foreach (var item in Model.CalendarScheduledItemModels)
                                                             {
-                                                                if(item.ScheduledItemId == itm.ScheduledItemId)
+                                                                if (item.ScheduledItemId == itm.ScheduledItemId)
                                                                 {
                                                                     <option selected="selected" value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
                                                                 }
@@ -173,7 +210,7 @@
                                                     <option value="0" selected="selected">Unassigned</option>
                                                     @foreach (var item in Model.CalendarPhaseModels)
                                                     {
-                                                    <option value="@item.PhaseId">@item.PhaseName</option>
+                                                        <option value="@item.PhaseId">@item.PhaseName</option>
                                                     }
                                                 </select>
                                                 <div class="editHolder">
@@ -196,11 +233,11 @@
                                                     <option value="0" selected="selected">Unassigned</option>
                                                     @foreach (var item in Model.CalendarTagModels)
                                                     {
-                                                    <option value="@item.TagId">@item.TagName</option>
+                                                        <option value="@item.TagId">@item.TagName</option>
                                                     }
                                                 </select>
                                                 <div class="editHolder">
-                                                    <a href="javascript:void(0);" id="" title="Add a Tag">
+                                                    <a href="javascript:void(0);" class="btn-lg" data-toggle="modal" data-target="#addtag" title="Add a Tag">
                                                         <img id="" border="0" src="./Images/add.gif" style="border-width:0px;">
                                                     </a>
                                                     <a href="javascript:void(0);" title="Edit / Delete a Tag">
@@ -244,9 +281,9 @@
                                 <div id="notes" class="tab-pane fade">
                                     <div class="dataTableConatainer Predecessorlink">
                                         <script>
-                                                $(function () {
-                                                    $("#tabs").tabs();
-                                                });
+                                            $(function () {
+                                                $("#tabs").tabs();
+                                            });
                                         </script>
                                         <div id="tabs">
                                             <ul>

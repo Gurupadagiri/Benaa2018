@@ -38,6 +38,8 @@ namespace Benaa2018.Helper.ViewModels
         public int PhaseId { get; set; }
         public int TagId { get; set; }
         public int Status { get; set; }
+        public int TotalScheuleDay { get; set; }
+        public int ScheuleDay { get; set; }
         public CalendarPhaseViewModel CalendarPhaseModel { get; set; }
         public CalendarTagViewModel CalendarTagModel { get; set; }
         public List<CalendarPhaseViewModel> CalendarPhaseModels { get; set; }

@@ -42,6 +42,8 @@ body {
 
 .footerContainer {
     border-top: 20px solid #8f806d;
+    width: 100%;
+    float: left;
 }
 
 .smallTXT {
@@ -2241,7 +2243,7 @@ legend:after {
     }
 
     .width94 .panel-default.topPart .row .form-group span {
-        margin-top: 5px;
+        margin-top: 0;
         margin-right: 10px;
     }
 
@@ -2269,7 +2271,15 @@ legend:after {
 
 #accordion select {
     margin-bottom: 15px;
-    color: #fff;
+    color: #000;
+}
+
+.color-select {
+    color: #fff !important;
+}
+
+.actualStartdate {
+    margin-bottom: 15px;
 }
 
 #accordion .input-group {
@@ -2449,10 +2459,18 @@ body .blueButton, body .Projects-List .btn-primary {
 .fc.fc-unthemed .fc-center {
     position: absolute;
     left: 40%;
-    / right: 0;
-    / width: 200px;
+    right: 0;
+    width: 200px;
     top: 31px;
     text-align: center;
+}
+
+#pleaseselect {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 150px 10px 40px 20px;
+    background: #fff;
+    margin-bottom: 300px;
 }
 
 .fc-toolbar.fc-header-toolbar {
@@ -2491,7 +2509,7 @@ body .blueButton, body .Projects-List .btn-primary {
 .fc-sat,
 .fc-fri {
     background-color: #b2b2b2;
-    background-image: url(../stripe_medium.png);
+    background-image: url(/images/stripe_medium.png);
     background-attachment: fixed;
     color: #fff;
 }
@@ -2502,6 +2520,26 @@ th.fc-fri {
     background-image: none;
     color: #626262;
 }
+
+.fc-button-group .fc-state-default.fc-state-active {
+    background: #fff;
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    z-index: 2;
+    position: relative;
+    height: 27px;
+    box-sizing: border-box;
+    top: 1px;
+}
+
+.fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #e6e6e6;
+    position: relative;
+    z-index: 1;
+}
+
 
 .fc-unthemed .fc-content {
     padding: 4px;
@@ -2610,13 +2648,33 @@ body .panel-body {
     padding: 0px;
 }
 
-#addphase .customPopup {
+#addphase .customPopup,
+#addtag .customPopup {
     width: 50%;
     margin: 0 auto;
     position: absolute;
     left: 0;
     right: 0;
+    height: 300px;
+    top: 20%;
 }
+
+#addphase .customPopup .panel-body,
+#addtag .customPopup .panel-body {
+    height: auto !important;
+}
+
+.fc-Agenda-view .innercontent tr td div:first-child div {
+    width: 10px;
+    height: 70% !important;
+    background-color: #C78888;
+    margin-top: 7px;
+    margin-right: 7px;
+}
+.fc-Agenda-view .innercontent tr td div.dataschedule {
+    padding-left: 10px;
+}
+
 
 #addphase label,
 #addphase .form-control {
@@ -2664,4 +2722,118 @@ body .modal-dialog .btn-primary {
     color: #fff !important;
     background: transparent;
     opacity: 1;
+}
+/* phase list */
+.phaseHeader .toggleAll {
+    margin: 0 9px 0 0px;
+}
+
+.tooltiptopicevent {
+    width: auto;
+    height: auto;
+    background:#fff;
+    position: absolute;
+    z-index: 10001;
+    padding: 0;
+    line-height: 200%;
+    border:3px solid #654343;
+    top:0;
+}
+.tooltiptopicevent .heading-color {
+    color: #fff;
+    font-weight: 700;
+    padding: 10px;
+}
+.tooltiptopicevent .tooltip-body {
+    padding: 0 10px 10px;
+}
+.selected-project{
+    background:#fff !important;
+}
+.actualenddate{
+
+}
+.time-holder{
+
+}
+.timeHolderDiv {
+    width: 50%;
+    float: left;
+}
+.start-holder label,
+.timeHolderDiv label,
+.assignToDiv label {
+    float: left;
+    margin-top: 8px;
+}
+#accordion .start-holder .input-group,
+#accordion .timeHolderDiv .input-group,
+#accordion .assignToDiv .input-group {
+    width: 67%;
+    float: right;
+}
+.stHolder {
+    width: 100%;
+    float: left;
+    margin-bottom: 15px;
+}
+#accordion .assignToDiv {
+    margin-bottom: 15px;
+    width: 100%;
+    float: left;
+}
+.time-holder .input-group.selectHolder {
+    text-align: left;
+    width: 100%;
+    float: left;
+    margin-top: 15px;
+}
+.time-holder input#Hourly {
+    float: left;
+    width: auto;
+    margin-right: 8px;
+    margin-top: 2px;
+}
+.glyphicon-calendar {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    color: #555;
+    text-align: center;
+    background-color: #eee;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.calenderJq label {
+    margin: 9px 13px 0 0;
+}
+.calenderJq input#datepicker {
+    padding: 3px;
+    margin: 2px 0 0;
+    float: left;
+}
+#datefilter {
+    border: 1px solid #7d6f52 !important;
+    background: #7c6e51 !important;
+    color: #fff !important;
+    font-size: 12px !important;
+    font-family: arial !important;
+    cursor: pointer;
+    padding: 5px 7px;
+    font-weight: normal;
+    border-radius: 4px;
+    margin-left: 5px;
+}
+.showearlier {
+    background: #fff;
+    border: 1px solid #cecece;
+    color: #626262;
+    font-size: 12px !important;
+    line-height: 14px;
+    font-family: arial !important;
+    cursor: pointer;
+    padding: 5px 7px;
+    font-weight: normal;
+    border-radius: 4px;
 }
