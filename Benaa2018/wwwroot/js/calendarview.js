@@ -8,8 +8,6 @@
         $('#calendarpage').css('display', 'none');
         $("#SaveType").val('insert');
         populatecalendar($(this).attr('data-projectid'));
-
-        
     });
     $(document).on("change", ".select_month", function (event) {
         $('#calendar').fullCalendar('changeView', 'month', this.value);
@@ -115,6 +113,18 @@
             $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
             $('#calendar').fullCalendar('rerenderEvents');
         });
+    });
+
+    $('#btnQucikAddEditItem').on('click', function () {
+        var date = new Date($('#frmSchedule').find('#SelectedDate').val());
+        var newdate = new Date(date);
+        newdate.setDate(newdate.getDate() + 1);       
+        $('#frmPredecessor').find('#StartDate').val(date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear());
+        $('#frmPredecessor').find('#EndDate').val(newdate.getDate() + '/' + newdate.getMonth() + '/' + newdate.getFullYear());
+        $('#frmPredecessor').find('#Duration').val(1);
+        $('#frmPredecessor').find('#Title').val($('#frmSchedule').find('#Title').val());
+        $('#calendarmodal').addClass('in').css('display', 'block');
+        $('#calendarmodalgeneral').removeClass('in').css('display', 'none');
     });
 });
 
@@ -354,7 +364,9 @@ ListView = View.extend({ // make a subclass of View
     },
     dayHtml: function (day, events) {
         var dayEvents = '';
+        var i = 0;
         $.each(events, function (index, event) {
+            i++;
             dayEvents += '<tr class="cont">' +
                 '<td class="checkBox" >' +
                 '<input type="checkbox" id="checkAll" data-bind="click: CalendarList.CheckAll">' +
@@ -365,8 +377,8 @@ ListView = View.extend({ // make a subclass of View
                 '<td>Phase</td>' +
                 '<td>Files</td>' +
                 '<td>' + event.duration + '</td>' +
-                '<td>' + event.startDate + '</td>' +
-                '<td>' + event.endDate + '</td>' +
+                '<td>' + convert(event.startDate, '/') + '</td>' +
+                '<td>' + convert(event.endDate, '/') + '</td>' +
                 '<td>' +
                 '<div style="margin: 0 auto; display: table">' +
                 '<div style="margin-right: 23px;">' + event.assignedTo + '</div>' +
@@ -376,7 +388,7 @@ ListView = View.extend({ // make a subclass of View
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                '<input type="checkbox" id="chkconfirm' + index + '" />' +
+                '<input type="checkbox" id="chkconfirm' + i + '" />' +
                 '</td>' +
                 '<td class="checkBox">' +
                 '</td>' +
@@ -560,21 +572,21 @@ PhasesListView = View.extend({ // make a subclass of View
                     '</a>' +
                     '</div>' +
                     '<div class="CheckBoxPhase">' +
-                    '<input name="chkPhaseSelected" value="' + item.item1 +'" type="checkbox">' +
+                    '<input name="chkPhaseSelected" value="' + item.item1 + '" type="checkbox">' +
                     '</div>' +
                     '<div class="PhaseTitle">' +
-                    '<span>' + item.item2 +'</span>' +
+                    '<span>' + item.item2 + '</span>' +
                     '</div>' +
                     '</td>' +
                     '<td style="width: 20%; border-right: 1px solid #d1d1d1;">' +
                     '<div class="tdContent">' +
                     '<div style="float: left">' +
                     '<div class="fieldHeader">Start Date</div>' +
-                    '<span>' + convert(item.item3,'/') +'</span>' +
+                    '<span>' + convert(item.item3, '/') + '</span>' +
                     '</div>' +
                     '<div style="float: right">' +
                     '<div class="fieldHeader" style="text-align: right">End Date</div>' +
-                    '<span>' + convert(item.item4, '/') +'</span>' +
+                    '<span>' + convert(item.item4, '/') + '</span>' +
                     '</div>' +
                     '<div style="clear: both"></div>' +
                     '</div>' +
@@ -582,7 +594,7 @@ PhasesListView = View.extend({ // make a subclass of View
                     '<td style="width: 13%; min-width: 200px">' +
                     '<div class="tdContent">' +
                     '<div class="fieldHeader">Items Completed</div>' +
-                    '<span>' + item.item6 + '</span> / <span >' + item.item5 +'</span>' +
+                    '<span>' + item.item6 + '</span> / <span >' + item.item5 + '</span>' +
                     '</div>' +
                     '</td>' +
                     '</tr>' +
@@ -593,23 +605,22 @@ PhasesListView = View.extend({ // make a subclass of View
                     '<div class="phaseList" data- bind="visible: showPhaseItems" style= "">' +
                     '<table class="expandSelectItemTable">' +
                     '<thead>' +
-                    '<tr data-bind="template: { name: headerTemplate }">' +
+                    '<tr">' +
                     '<th style="width: 15px;"></th>' +
-                    '<th style="width: 180px; text-align: left; display: none;" data-bind="visible: parent.multipleJobsSelected">Jobsite</th>' +
+                    '<th style="width: 180px; text-align: left; display: none;">Jobsite</th>' +
                     '<th style="width: 230px; text-align:left;">Schedule Item Title</th>' +
                     '<th style="width: 50px; text-align:left;">Dur.</th>' +
                     '<th style="width: 130px; text-align:left;">Start</th>' +
                     '<th style="width: 130px; text-align:left;">Finish</th>' +
-                    '<th style="width: 85px;" data-bind="visible: !AsyncJobPickerHelper.GetJobPickerVM().templatesOnly()">Completed</th>' +
+                    '<th style="width: 85px;">Completed</th>' +
                     '<th style="text-align:left;">Assigned To</th>' +
                     '</tr>' +
                     '</thead>' +
                     '<tbody class="tdschedule">' +
-
                     '</tbody>' +
                     '</table>' +
                     '</div>' +
-                    '</div>');               
+                    '</div>');
                 $.each(data[index].item7, function (index, item) {
                     t.el.find('.tdschedule').append('<tr class="whiteBack">' +
                         '<td><input name="chkPhaseItem" type="checkbox" value="' + item.scheduledItemId + '"></td>' +
