@@ -1,0 +1,121 @@
+﻿@model IEnumerable<Benaa2018.Helper.ViewModels.MainActivityMasterViewModel>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Index</h2>
+<div>
+    <input type="button" id="btnMainActivityMaster" value="Add Main Activity Master" />
+
+
+</div>
+
+
+<div id="grdNew">
+    @if (!Model.Any())
+    {
+        <tr><td>There are no Data</td></tr>
+    }
+    else
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.MainActivityId)
+                    </th>
+                    <th>
+                        @*<a asp-page="./Index" asp-route-sortOrder="GroupCode">
+                                @Html.DisplayNameFor(model => model.GroupCode)
+                            </a>*@
+                        @Html.DisplayNameFor(model => model.MainActivityName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Sequence)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.GroupName)
+                    </th>
+                    <th>
+                        @*<a asp-page="./Index" asp-route-sortOrder="Sequence">
+                                @Html.DisplayNameFor(model => model.Sequence)
+                            </a>*@
+                        @Html.DisplayNameFor(model => model.Status)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MainActivityId)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.MainActivityName)
+
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sequence)
+                        </td>
+                        <td>
+                            @Html.DisplayNameFor(model => model.GroupName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @*<a asp-page="./Edit" asp-route-id="GroupId">Edit</a> |
+                                <a asp-page="./Details" asp-route-id="GroupId">Details</a> |
+                                <a asp-page="./Delete" asp-route-id="GroupId">Delete</a>*@
+
+                            <input type="button" class="btnEditGroup" value="Edit" />
+                            <input type="button" class="btnDeleteGroup" value="Delete" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+        <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.btnEditGroup').click(function () {
+                var currentRow = $(this).closest("tr");
+                var col1 = currentRow.find("td:eq(0)").text();
+               // alert('hi');
+               // var evID = $(this).closest('tr').closest('td');
+                //alert(col1);
+                window.location = '/MainActivityMaster/UpdateMainActivityMaster?main_activity_id=' + col1;
+                @*$.ajax({
+                    url: '@Url.Action("UpdateGroupMaster")',
+                    type: 'post',
+                    cache: false,
+                    data: { group_id: col1 }
+                }).done(function(result) {
+                      //  $('#container').html(result);
+                });*@
+            });
+
+            $('.btnDeleteGroup').click(function () {
+                var currentRow = $(this).closest("tr");
+                var col1 = currentRow.find("td:eq(0)").text();
+                alert(col1);
+                 $.ajax({
+                    url: '@Url.Action("DeleteMainActivityMaster")',
+                    type: 'get',
+                    cache: false,
+                     data: { main_activity_id: col1 }
+                }).done(function (result) {
+                    //  $('#container').html(result);
+                });
+            });
+
+            $('#btnMainActivityMaster').click(function () {
+                window.location = '/MainActivityMaster/InsertMainActivityMaster';
+            });
+        });
+        </script>
+    </div>
+

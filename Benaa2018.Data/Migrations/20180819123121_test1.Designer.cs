@@ -11,9 +11,10 @@ using System;
 namespace Benaa2018.Data.Migrations
 {
     [DbContext(typeof(SBSDbContext))]
-    partial class SBSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180819123121_test1")]
+    partial class test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +53,7 @@ namespace Benaa2018.Data.Migrations
                     b.ToTable("Activity_Master");
                 });
 
-            
+           
 #pragma warning restore 612, 618
         }
     }

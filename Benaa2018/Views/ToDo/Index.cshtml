@@ -461,7 +461,7 @@
             $("#internaluser").jqGrid('clearGridData');
           //  $('#gbox_internaluser').hide();
             $("#internaluser1").jqGrid({
-               
+
                 colModel: [
 
                     { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, key: true, hidden: true },
@@ -496,7 +496,7 @@
                             toolbarfilter: true,
                             rowNum: 5,
                 viewrecords: true,
-              
+
                             searching: {
                                 defaultSearch: "cn"
                             },
@@ -515,7 +515,7 @@
         //$('#internaluser').click(function () {
 
 
-        
+
 
         @*$('#btnChecked').click(function () {
             $.ajax({
@@ -823,14 +823,14 @@
 <script type="text/javascript">
     $(document).ready(function () {
 
-        var item = 3;
-        var itemLength = item + 3;
+        var item = parseInt(3);
+        var itemLength = parseInt(item) + 3;
 
         $('#addRemoveButton').click(function () {
             var buttonText = $(this).text();
             $('#appendTextData').empty();
         });
-        
+
 
 
         $('.checkListUser').click(function () {
@@ -845,26 +845,32 @@
 
         $('.btnCheckList').click(function (event) {
             event.preventDefault();
-            
 
-              
+            var items;
 
 
-                var items;
+
                 //var j;
-                for (var j = item; j < itemLength; j++) {
-                    var t = parseInt(j, 10);
+                for (var j = 4; j < itemLength; j++) {
+                    var t = parseInt(j.toString());
+
+                    var erty = Math.round(j);
+                    //int rttt = 4;
+                  //  var index1 = Model.IndexOf(j);
+                    this.tabIndex = t;
+                  //  @int iii = t;
+                 var y=   @Html.TextAreaFor(m => m.lstCheckListDetail[5].ToDoCheckListTitle, new { @rows = "2", @cols = "20", @maxlength = "256", @class = "flatTextBox", @style = "width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" })
                     var textArea = '<textarea name="" rows="2" cols="20" maxlength="256" id="" class="flatTextBox"  style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;"></textarea>';
                 @*var items = '<div class="cloneingboxholder"> <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle"><span id=""> <img src="images/drag.png" id="" style="border-width: 0px; height: 30px;"></span></div><div class="liColumn"><input type="checkbox" name="" data-off-text="Off" data-on-text="On"><label for="" class="lineItemCheck"></label> </div><div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">'+'" @Html.TextAreaFor(m => m.lstCheckListDetail['"'+ 4 +'"'].ToDoCheckListTitle, new { @rows = "2", @cols = "20", @maxlength = "256", @class = "flatTextBox" , @style = "width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" })+ '<br> <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span></div><div class="chosen-container chosen-container-single" title="" id=""><a class="chosen-single"></a>'+@Html.DropDownListFor(x => x.lstCheckListDetail[4].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })'+'</div></div>';*@
                     items = items + '<div class="cloneingboxholder"> <div id="" class="grabHandle dragHandle grabbable ui-sortable-handle"><span id=""> <img src="images/drag.png" id="" style="border-width: 0px; height: 30px;"></span></div><div class="liColumn"><input type="checkbox" name="" data-off-text="Off" data-on-text="On"><label for="" class="lineItemCheck"></label> </div><div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">' + textArea + ' <br> <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span></div><div class="chosen-container chosen-container-single" title="" id=""><a class="chosen-single"></a></div></div>';
 
                 }
                 $('#appendTextData').append(items);
-           
+
             item = itemLength;
             itemLength = item + 3;
             //alert('Complete');
-            
+
             });
     });
 </script>

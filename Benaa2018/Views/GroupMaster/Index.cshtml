@@ -1,0 +1,150 @@
+﻿@*@page*@
+@model IEnumerable<Benaa2018.Helper.ViewModels.GroupMasterViewModel>
+@{
+    //ViewData["Title"] = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div>
+
+    <div>
+        <input type="button" id="btnGroupMaster" value="Add Group Master" />
+
+
+    </div>
+
+    <div id="grdLst">
+        @if (!Model.Any())
+        {
+            <tr><td>There are no Data</td></tr>
+        }
+        else
+        {
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                    <tr>
+                        <th>Group Id </th>
+                        <th>Group Code </th>
+                        <th>Group Name </th>
+                        <th>Sequence</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                        @*<th>Company</th>
+                            <th>Department</th>*@
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var d in Model)
+                    {
+                        <tr>
+                            <td>@d.GroupId</td>
+                            <td>@d.GroupCode</td>
+                            <td>@d.GroupName</td>
+                            <td>@d.Sequence</td>
+                            <td>@d.Status</td>
+                            <td>
+                                <input type="button" class="btnEditGroup" value="Edit" />
+                                <input type="button" class="btnDeleteGroup" value="Delete" />
+                            </td>
+                            @*<td>@d.Company</td>
+                                <td>@d.Dept</td>*@
+
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+
+    @*<div id="container" hidden>
+            @Html.Partial("UpdateGroupMasterPartial")
+        </div>*@
+    @*<div class=" mainContentDiv todoMainHolder">
+        <ej-grid id="Grid">
+
+            <e-datamanager json="@Html.Raw(@ViewBag.DataSource)" adaptor="JsonAdaptor"></e-datamanager>
+            <e-columns>
+                <e-column field="GroupId" header-text="GroupId"></e-column>
+                <e-column field="GroupCode" header-text="GroupCode"></e-column>
+                <e-column field="GroupName" header-text="GroupName"></e-column>
+                <e-column field="Sequence" header-text="Sequence"></e-column>
+                <e-column field="Status" header-text="Status"></e-column>
+            </e-columns>
+        </ej-grid>
+
+        </div>*@
+
+    @*<form method="post" action="/GroupMaster/Index">*@
+
+
+    @*<div>
+            <div class="form-group">
+                <label asp-for="GroupCode" class="col-md-2 control-label"></label>
+                <div class="col-md-5">
+                    <input asp-for="GroupCode" class="form-control" />
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="GroupName" class="col-md-2 control-label"></label>
+                <div class="col-md-5">
+                    <input asp-for="GroupName" class="form-control" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <label asp-for="Sequence" class="col-md-2 control-label"></label>
+                <div class="col-md-5">
+                    <input asp-for="Sequence" class="form-control" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Status" class="col-md-2 control-label"></label>
+                <div class="col-md-5">
+                    <input asp-for="Status" type="checkbox" />
+                </div>
+            </div>
+            <div class="form-group">
+                <button type="submit">Register</button>
+            </div>
+        </div>*@
+    @*</form>*@
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.btnEditGroup').click(function () {
+                var currentRow = $(this).closest("tr");
+                var col1 = currentRow.find("td:eq(0)").text();
+               // alert('hi');
+               // var evID = $(this).closest('tr').closest('td');
+                //alert(col1);
+                window.location = '/GroupMaster/UpdateGroupMaster?group_id=' + col1;
+                @*$.ajax({
+                    url: '@Url.Action("UpdateGroupMaster")',
+                    type: 'post',
+                    cache: false,
+                    data: { group_id: col1 }
+                }).done(function(result) {
+                      //  $('#container').html(result);
+                });*@
+            });
+
+            $('.btnDeleteGroup').click(function () {
+                var currentRow = $(this).closest("tr");
+                var col1 = currentRow.find("td:eq(0)").text();
+
+                 $.ajax({
+                    url: '@Url.Action("DeleteGroupMaster")',
+                    type: 'get',
+                    cache: false,
+                    data: { group_id: col1 }
+                }).done(function (result) {
+                    //  $('#container').html(result);
+                });
+            });
+
+            $('#btnGroupMaster').click(function () {
+                window.location = '/GroupMaster/InsertGroupMaster';
+            });
+        });
+    </script>
+</div>

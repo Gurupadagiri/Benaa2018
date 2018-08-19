@@ -39,6 +39,10 @@ namespace Benaa2018.Data
         public DbSet<ToDoAssign> ToDoAssigns { get; set; }
         public DbSet<CalendarPhase> CalendarPhases { get; set; }
         public DbSet<CalendarTag> CalendarTags { get; set; }
+        public DbSet<ActivityMaster> ActivityMasters { get; set; }
+        public DbSet<MainActivityMaster> MainActivityMasters { get; set; }
+        public DbSet<GroupMaster> GroupMasters { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -49,7 +53,7 @@ namespace Benaa2018.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(@"Data Source=kuttu;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                .UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
         }
     }
 }

@@ -1,0 +1,34 @@
+﻿@model Benaa2018.Helper.ViewModels.GroupMasterViewModel
+<div>
+
+    <input type="hidden" asp-for="GroupId" />
+    <div class="form-group">
+        <label asp-for="GroupCode" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="GroupCode" class="form-control" />
+
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="GroupName" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="GroupName" class="form-control" />
+        </div>
+
+    </div>
+    <div class="form-group">
+        <label asp-for="Sequence" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Sequence" class="form-control" />
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="Status" class="col-md-2 control-label"></label>
+        <div class="col-md-5">
+            <input asp-for="Status" type="checkbox" />
+        </div>
+    </div>
+    <div class="form-group">
+        <button type="submit">Register</button>
+    </div>
+</div>
