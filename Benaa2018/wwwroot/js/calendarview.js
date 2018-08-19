@@ -267,6 +267,9 @@ AgendaView = View.extend({ // make a subclass of View
             $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
             $('#calendarmodal').addClass('in').css('display', 'block');
         });
+<<<<<<< HEAD
+>>>>>>> parent of 940f769... calendar
+=======
 >>>>>>> parent of 940f769... calendar
     },
     destroyEvents: function () {
@@ -282,8 +285,11 @@ AgendaView = View.extend({ // make a subclass of View
                 '<td>' + event.startDate + '</td>' +
                 '<td> Day 9 of 20</td> ' +
 <<<<<<< HEAD
+<<<<<<< HEAD
                 '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div>' + event.title + '</td>' +
 =======
+=======
+>>>>>>> parent of 940f769... calendar
                 '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div><div class="dataschedule" data-schedule="' + event.scheduledItemId + '">' + event.title + '</div></td>' +
 >>>>>>> parent of 940f769... calendar
                 '<td>' + event.assignedTo + '</td>' +

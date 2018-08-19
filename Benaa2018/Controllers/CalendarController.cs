@@ -148,6 +148,7 @@ namespace Benaa2018.Controllers
         public async Task<List<CalendarScheduledItemViewModel>> GetScheduledItems(int projectId, string selectedDate = "")
         {
 <<<<<<< HEAD
+<<<<<<< HEAD
             List<CalendarScheduledItemViewModel> lstCalendarItem = new List<CalendarScheduledItemViewModel>();
             try
             {
@@ -159,6 +160,11 @@ namespace Benaa2018.Controllers
             {
                 return lstCalendarItem;
             }
+=======
+            DateTime currentDate = DateTime.MinValue;
+            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+            return await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+>>>>>>> parent of 940f769... calendar
 =======
             DateTime currentDate = DateTime.MinValue;
             if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);

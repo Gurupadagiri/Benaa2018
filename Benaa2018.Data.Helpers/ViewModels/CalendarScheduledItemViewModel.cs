@@ -41,6 +41,9 @@ namespace Benaa2018.Helper.ViewModels
         public int PhaseId { get; set; }
         public int TagId { get; set; }
         public int Status { get; set; }
+<<<<<<< HEAD
+>>>>>>> parent of 940f769... calendar
+=======
 >>>>>>> parent of 940f769... calendar
         public CalendarPhaseViewModel CalendarPhaseModel { get; set; }
         public CalendarTagViewModel CalendarTagModel { get; set; }

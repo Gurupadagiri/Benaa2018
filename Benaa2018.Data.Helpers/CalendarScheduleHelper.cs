@@ -102,6 +102,9 @@ namespace Benaa2018.Helper
                     TagId = a.TagId,
                     PhaseName = phaseObj != null ? phaseObj.PhaseName : string.Empty,
                     TagName = tagObj != null ? tagObj.TagName : string.Empty
+<<<<<<< HEAD
+>>>>>>> parent of 940f769... calendar
+=======
 >>>>>>> parent of 940f769... calendar
                 });
             }            
