@@ -1,7 +1,211 @@
+<<<<<<< HEAD
 ﻿var FC = $.fullCalendar; // a reference to FullCalendar's root namespace
 var View = FC.View;      // the class that all views must inherit from
 var AgendaView;          // our subclass
 var ListView; 
+=======
+﻿$(document).ready(function () {
+    $(document).on('click', 'a.allProject', function () {
+        $('#projectid').text($(this).attr('data-projectid'));
+        $('#spnproject').text($(this).text());
+        $("#projectname").text($(this).text());
+        $("#ProjectId").val($(this).attr('data-projectid'));
+        $('.mainContentDiv').css('display', 'block');
+        $('#calendarpage').css('display', 'none');
+        $("#SaveType").val('insert');
+        populatecalendar($(this).attr('data-projectid'));
+    });
+    $(document).on("change", ".select_month", function (event) {
+        $('#calendar').fullCalendar('changeView', 'month', this.value);
+        $('#calendar').fullCalendar('gotoDate', "2018-" + this.value + "-1");
+    });
+    $('#btnAddScheule').on('click', function () {
+        $('#calendarmodal').addClass('in').css('display', 'block');
+    });
+    $(document).on('click', '.infoclose', function () {
+        $('#calendarmodal').removeClass('in').css('display', 'none');
+        $('#calendarmodalgeneral').removeClass('in').css('display', 'none');
+    });
+    $('#morepredecessors').on('click', function () {
+        var cntpredeitem = $('div.predecessoritem div.form-group').length;
+        var innerhtml = $('div.predecessoritem > div.form-group:eq(0)').html();
+        innerhtml = innerhtml.replace('PredecessorInformationModels[0].ScheduledItemId', "PredecessorInformationModels[" + cntpredeitem + "].ScheduledItemId")
+            .replace('PredecessorInformationModels_0__ScheduledItemId', "PredecessorInformationModels_" + cntpredeitem + "__ScheduledItemId")
+            .replace('PredecessorInformationModels_0__TimeFrame', "PredecessorInformationModels_" + cntpredeitem + "__TimeFrame")
+            .replace('PredecessorInformationModels[0].TimeFrame', "PredecessorInformationModels[" + cntpredeitem + "].TimeFrame")
+            .replace('PredecessorInformationModels_0__Lag', "PredecessorInformationModels_" + cntpredeitem + "__Lag")
+            .replace('PredecessorInformationModels[0].Lag', "PredecessorInformationModels[" + cntpredeitem + "].Lag");
+        $('.predecessoritem').append('<div class="form-group">' + innerhtml + '</div>');
+    });
+    $('.btncalendar').on('click', function () {
+        var postData = $('#frmPredecessor').serialize();
+        $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
+            if (data == true) {
+                infoForm.find("input[type='text']").each(function (i, element) {
+                    $(this).val('');
+                });
+                alert("Predecessor Details Successfully Added");
+            }
+            alert("Predecessor Details Successfully Added");
+        });
+    });
+    $('.fc-content-skeleton td').on('click', function () {
+        if ($(this).attr('class') === undefined) {
+            $('#calendarmodalgeneral').addClass('in').css('display', 'block');
+        }
+        else {
+            $('#calendarmodal').addClass('in').css('display', 'block');
+        }
+    });
+
+    $('#btnQuickAddSave').on('click', function () {
+        var postData = $('#frmSchedule').serialize();
+        $.post("Calendar/SubmitQuickSchedulerInfoAsync", postData, function (data) {
+            if (data == true) {
+                infoForm.find("input[type='text']").each(function (i, element) {
+                    $(this).val('');
+                });
+            }
+            alert("Schedule Details Successfully Added");
+        });
+    });
+    $('#btnAddPhase').on('click', function () {
+        var postData = { "projectId": parseInt($('#projectid').text()), "phaseName": $('#PhaseName').val(), "displayOrder": parseInt($('#DisplayOrder').val()), "phasecolor": $('#phasecolor').val() };
+        $.post("Calendar/SubmitPhaseAsync", postData, function (data) {
+            if (data == true) {
+                infoForm.find("input[type='text']").each(function (i, element) {
+                    $(this).val('');
+                });
+            }
+            alert("Schedule Details Successfully Added");
+        });
+    });
+    $('#btnAddTag').on('click', function () {
+        var postData = { "projectId": parseInt($('#projectid').text()), "tagName": $('#txtTag').val() };
+        $.post("Calendar/SubmitTagAsync", postData, function (data) {
+            if (data == true) {
+                infoForm.find("input[type='text']").each(function (i, element) {
+                    $(this).val('');
+                });
+            }
+            alert("Schedule Details Successfully Added");
+        });
+    });
+    $(document).on('click', '.fc-agendaWeek-button', function () {
+        $('.fc-left').css('display', 'block');
+        $('.fc-center').css('display', 'block');
+    });
+    $(document).on('click', '.fc-month-button', function () {
+        $('.fc-left').css('display', 'block');
+        $('.fc-center').css('display', 'block');
+    });
+    $(document).on('click', '.fc-agendaDay-button', function () {
+        $('.fc-left').css('display', 'block');
+        $('.fc-center').css('display', 'block');
+    });
+
+    $('#btnCalendar').on('click', function () {
+        var postData = {
+            "projectId": parseInt($('#projectid').text()),
+            "searchText": $('#Title').val(),
+            "performedBy": $('#PerformedBy').val(),
+            "status": $('#Status').val(),
+            "tags": $('#ProjectTag').val(),
+            "projectPhases": $('#ProjectPhases').val(),
+            "otherItems": $('#ProjectOtherItem').val()
+        };
+        $.post("Calendar/GetFilteredScheduleAsync", postData, function (data) {
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
+            $('#calendar').fullCalendar('rerenderEvents');
+        });
+    });
+
+    $('#btnQucikAddEditItem').on('click', function () {
+        var date = new Date($('#frmSchedule').find('#SelectedDate').val());
+        var newdate = new Date(date);
+        newdate.setDate(newdate.getDate() + 1);       
+        $('#frmPredecessor').find('#StartDate').val(date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear());
+        $('#frmPredecessor').find('#EndDate').val(newdate.getDate() + '/' + newdate.getMonth() + '/' + newdate.getFullYear());
+        $('#frmPredecessor').find('#Duration').val(1);
+        $('#frmPredecessor').find('#Title').val($('#frmSchedule').find('#Title').val());
+        $('#calendarmodal').addClass('in').css('display', 'block');
+        $('#calendarmodalgeneral').removeClass('in').css('display', 'none');
+    });
+});
+
+function populatecalendar(projectid) {
+    var postData = { "projectId": parseInt(projectid) };
+    $.post("Calendar/GetScheduledItemsByProjectId", postData, function (data) {
+        if ($('.fc-left').length == 0) {
+            BindCalendar(data);
+        } else {
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
+            $('#calendar').fullCalendar('rerenderEvents');
+        }
+    });
+}
+function BindCalendar(data) {
+    $('#calendar').fullCalendar({
+        header: {
+            left: 'prev,next',
+            center: 'title',
+            right: 'month,agendaWeek,agendaDay,Agenda,ListView,Gnatt,Baseline,PhasesList'
+        },
+        views: {
+            ListView: {
+                buttonText: 'List View'
+            },
+            Baseline: {
+                buttonText: 'Base line'
+            },
+            PhasesList: {
+                buttonText: 'Phases List'
+            }
+        },
+        defaultDate: '2018-03-12',
+        navLinks: true,
+        editable: true,
+        eventLimit: true,
+        events: JSON.parse(data),
+        Click: function (date, jsEvent, view) {
+        },
+        dayClick: function (date, allDay, jsEvent, view) {
+            if (date._d.getDay() === 5 || date._d.getDay() === 6) {
+                alert(convert(date._d, '/') + ' is not a working day');
+            }
+            else {
+                $('#calendarmodalgeneral').addClass('in').css('display', 'block');
+                $("#SelectedDate").val(convert(date._d, '-'));
+            }
+        },
+        eventClick: function (calEvent, jsEvent, view) {
+            var postData = { "scheduledId": calEvent.id };
+            $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
+            $('#calendarmodal').addClass('in').css('display', 'block');
+        },
+        eventRender: function (event, element) {
+            $('.fc-right').insertBefore('.fc-left');
+            //if ($('.select_month').length == 0) {
+            //    $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
+            //}            
+        }
+    });
+}
+
+function convert(str, seperator) {
+    var date = new Date(str),
+        mnth = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [date.getFullYear(), mnth, day].join(seperator);
+}
+
+var FC = $.fullCalendar; // a reference to FullCalendar's root namespace
+var View = FC.View;      // the class that all views must inherit from
+var AgendaView;          // our subclass
+var ListView;
+>>>>>>> parent of 940f769... calendar
 var GnattView;
 var BaselineView;
 var PhasesListView;
@@ -55,7 +259,15 @@ AgendaView = View.extend({ // make a subclass of View
                 getDailyEvents(data);
             });
         });
+<<<<<<< HEAD
         
+=======
+        $(document).on('click', '.dataschedule', function () {
+            var postData = { "scheduledId": parseInt($(this).attr("data-schedule")) };
+            $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
+            $('#calendarmodal').addClass('in').css('display', 'block');
+        });
+>>>>>>> parent of 940f769... calendar
     },
     destroyEvents: function () {
     },
@@ -69,7 +281,11 @@ AgendaView = View.extend({ // make a subclass of View
             dayEvents += '<tr>' +
                 '<td>' + event.startDate + '</td>' +
                 '<td> Day 9 of 20</td> ' +
+<<<<<<< HEAD
                 '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div>' + event.title + '</td>' +
+=======
+                '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div><div class="dataschedule" data-schedule="' + event.scheduledItemId + '">' + event.title + '</div></td>' +
+>>>>>>> parent of 940f769... calendar
                 '<td>' + event.assignedTo + '</td>' +
                 '</tr>';
         });
@@ -155,7 +371,9 @@ ListView = View.extend({ // make a subclass of View
     },
     dayHtml: function (day, events) {
         var dayEvents = '';
+        var i = 0;
         $.each(events, function (index, event) {
+            i++;
             dayEvents += '<tr class="cont">' +
                 '<td class="checkBox" >' +
                 '<input type="checkbox" id="checkAll" data-bind="click: CalendarList.CheckAll">' +

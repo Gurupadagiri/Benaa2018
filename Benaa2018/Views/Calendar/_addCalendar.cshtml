@@ -110,6 +110,7 @@
                                     <div class="dataTableConatainer Predecessorlink">
                                         <h2 class="tabheading">Predecessor Information</h2>
                                         <div class="predecessoritem">
+<<<<<<< HEAD
                                             @*@foreach (var itm in Model.PredecessorInformationModels)
                                                 {*@
                                             <div class="form-group">
@@ -128,6 +129,38 @@
                                                         <option value="1" selected="selected">Finish-to-Start (FS)</option>
                                                         <option value="2" selected="selected">Start-to-Start (SS)</option>
                                                     </select>
+=======
+                                            @foreach (var itm in Model.PredecessorInformationModels)
+                                            {
+                                                <div class="form-group">
+                                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                                        <label>Name</label>
+                                                        <select asp-for="PredecessorInformationModels[Model.PredecessorInformationModels.IndexOf(itm)].ScheduledItemId" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                            <option value="">-----------</option>
+                                                            @foreach (var item in Model.CalendarScheduledItemModels)
+                                                            {
+                                                                if(item.ScheduledItemId == itm.ScheduledItemId)
+                                                                {
+                                                                    <option selected="selected" value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <option value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
+                                                                }
+                                                            }
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group  col-md-3 col-sm-3 col-xs-12">
+                                                        <select asp-for="PredecessorInformationModels[Model.PredecessorInformationModels.IndexOf(itm)].TimeFrame" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                            <option value="1">Finish-to-Start (FS)</option>
+                                                            <option value="2">Start-to-Start (SS)</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="input-group col-md-3 col-sm-3 col-xs-12">
+                                                        <label>Lags</label>
+                                                        <input class="form-control" type="text" asp-for="PredecessorInformationModels[Model.PredecessorInformationModels.IndexOf(itm)].Lag" data-val="true" data-val-required="The Lag field is required." value="@itm.Lag">
+                                                    </div>
+>>>>>>> parent of 940f769... calendar
                                                 </div>
                                                 <div class="input-group col-md-3 col-sm-3 col-xs-12">
                                                     <label>Lags</label>
@@ -167,7 +200,7 @@
                                                     <option value="0" selected="selected">Unassigned</option>
                                                     @foreach (var item in Model.CalendarPhaseModels)
                                                     {
-                                                        <option value="@item.PhaseId">@item.PhaseName</option>
+                                                    <option value="@item.PhaseId">@item.PhaseName</option>
                                                     }
                                                 </select>
                                                 <div class="editHolder">
@@ -191,7 +224,7 @@
                                                     <option value="0" selected="selected">Unassigned</option>
                                                     @foreach (var item in Model.CalendarTagModels)
                                                     {
-                                                        <option value="@item.TagId">@item.TagName</option>
+                                                    <option value="@item.TagId">@item.TagName</option>
                                                     }
                                                 </select>
                                                 <div class="editHolder">

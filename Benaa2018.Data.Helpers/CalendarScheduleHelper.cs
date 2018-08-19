@@ -94,7 +94,15 @@ namespace Benaa2018.Helper
                     StartDate = a.StartDate.ToString(),
                     StartTime = a.StartTime,
                     CompanyId = a.CompanyId,
+<<<<<<< HEAD
                     ProjectId = a.ProjectId
+=======
+                    ProjectId = a.ProjectId,
+                    PhaseId = a.PhaseId,
+                    TagId = a.TagId,
+                    PhaseName = phaseObj != null ? phaseObj.PhaseName : string.Empty,
+                    TagName = tagObj != null ? tagObj.TagName : string.Empty
+>>>>>>> parent of 940f769... calendar
                 });
             }            
             return lstCalendarItems;
