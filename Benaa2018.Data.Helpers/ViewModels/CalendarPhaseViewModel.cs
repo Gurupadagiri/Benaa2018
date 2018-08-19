@@ -7,6 +7,7 @@ namespace Benaa2018.Helper.ViewModels
     public class CalendarPhaseViewModel: CommonViewModel
     {
         public int PhaseId { get; set; }
+        public int ScheduleId { get; set; }
         public int CompanyId { get; set; }
         public int DisplayOrder { get; set; }
         public int ProjectId { get; set; }

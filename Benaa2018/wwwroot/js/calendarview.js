@@ -1,12 +1,8 @@
-<<<<<<< HEAD
-﻿var FC = $.fullCalendar; // a reference to FullCalendar's root namespace
-var View = FC.View;      // the class that all views must inherit from
-var AgendaView;          // our subclass
-var ListView; 
-=======
-﻿$(document).ready(function () {
+$(document).ready(function () {
     $(document).on('click', 'a.allProject', function () {
+        $(this).addClass('selected-project');
         $('#projectid').text($(this).attr('data-projectid'));
+        $('#frmSchedule').find("#ProjectId").val($(this).attr('data-projectid'));
         $('#spnproject').text($(this).text());
         $("#projectname").text($(this).text());
         $("#ProjectId").val($(this).attr('data-projectid'));
@@ -26,7 +22,7 @@ var ListView;
         $('#calendarmodal').removeClass('in').css('display', 'none');
         $('#calendarmodalgeneral').removeClass('in').css('display', 'none');
     });
-    $('#morepredecessors').on('click', function () {
+    $(document).on('click', '#morepredecessors', function () {
         var cntpredeitem = $('div.predecessoritem div.form-group').length;
         var innerhtml = $('div.predecessoritem > div.form-group:eq(0)').html();
         innerhtml = innerhtml.replace('PredecessorInformationModels[0].ScheduledItemId', "PredecessorInformationModels[" + cntpredeitem + "].ScheduledItemId")
@@ -40,13 +36,11 @@ var ListView;
     $('.btncalendar').on('click', function () {
         var postData = $('#frmPredecessor').serialize();
         $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
-            if (data == true) {
-                infoForm.find("input[type='text']").each(function (i, element) {
-                    $(this).val('');
-                });
-                alert("Predecessor Details Successfully Added");
-            }
-            alert("Predecessor Details Successfully Added");
+            $('#frmPredecessor').find("input[type='text']").each(function (i, element) {
+                $(this).val('');
+            });
+            BindCalendar(data);
+            alert("Predecessor Details Successfully Added");            
         });
     });
     $('.fc-content-skeleton td').on('click', function () {
@@ -62,7 +56,7 @@ var ListView;
         var postData = $('#frmSchedule').serialize();
         $.post("Calendar/SubmitQuickSchedulerInfoAsync", postData, function (data) {
             if (data == true) {
-                infoForm.find("input[type='text']").each(function (i, element) {
+                $('#frmSchedule').find("input[type='text']").each(function (i, element) {
                     $(this).val('');
                 });
             }
@@ -73,9 +67,9 @@ var ListView;
         var postData = { "projectId": parseInt($('#projectid').text()), "phaseName": $('#PhaseName').val(), "displayOrder": parseInt($('#DisplayOrder').val()), "phasecolor": $('#phasecolor').val() };
         $.post("Calendar/SubmitPhaseAsync", postData, function (data) {
             if (data == true) {
-                infoForm.find("input[type='text']").each(function (i, element) {
-                    $(this).val('');
-                });
+                $('#PhaseName').val('');
+                $('#DisplayOrder').val('');
+                $('#phasecolor').val('');
             }
             alert("Schedule Details Successfully Added");
         });
@@ -84,9 +78,7 @@ var ListView;
         var postData = { "projectId": parseInt($('#projectid').text()), "tagName": $('#txtTag').val() };
         $.post("Calendar/SubmitTagAsync", postData, function (data) {
             if (data == true) {
-                infoForm.find("input[type='text']").each(function (i, element) {
-                    $(this).val('');
-                });
+                $('#txtTag').val('');
             }
             alert("Schedule Details Successfully Added");
         });
@@ -124,13 +116,21 @@ var ListView;
     $('#btnQucikAddEditItem').on('click', function () {
         var date = new Date($('#frmSchedule').find('#SelectedDate').val());
         var newdate = new Date(date);
-        newdate.setDate(newdate.getDate() + 1);       
+        newdate.setDate(newdate.getDate() + 1);
         $('#frmPredecessor').find('#StartDate').val(date.getDate() + '/' + date.getMonth() + '/' + date.getFullYear());
         $('#frmPredecessor').find('#EndDate').val(newdate.getDate() + '/' + newdate.getMonth() + '/' + newdate.getFullYear());
         $('#frmPredecessor').find('#Duration').val(1);
         $('#frmPredecessor').find('#Title').val($('#frmSchedule').find('#Title').val());
         $('#calendarmodal').addClass('in').css('display', 'block');
         $('#calendarmodalgeneral').removeClass('in').css('display', 'none');
+    });
+
+    $('#Hourly').on('change', function () {
+        if ($(this).prop('checked')) {
+            $('.timeHolder').css('display', 'block');
+        } else {
+            $('.timeHolder').css('display', 'none');
+        }
     });
 });
 
@@ -177,7 +177,7 @@ function BindCalendar(data) {
             }
             else {
                 $('#calendarmodalgeneral').addClass('in').css('display', 'block');
-                $("#SelectedDate").val(convert(date._d, '-'));
+                $('#frmSchedule').find("#StartDate").val(convert(date._d, '-'));
             }
         },
         eventClick: function (calEvent, jsEvent, view) {
@@ -187,10 +187,29 @@ function BindCalendar(data) {
         },
         eventRender: function (event, element) {
             $('.fc-right').insertBefore('.fc-left');
+            //$('.fc-sat').text('Non-Work Day');
+            //$('.fc-fri').text('Non-Work Day');
             //if ($('.select_month').length == 0) {
             //    $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
             //}            
-        }
+        },
+        eventMouseover: function (data, event, view) {
+            tooltip = '<div class="tooltiptopicevent">' +
+                '<div class="heading-color" style="background: ' + data.color + ';"> Title => ' + data.title + '</div><div class="tooltip-body">' + data.start._i + ' => ' + data.end._i + '</br > Progress => ' + data.status + '</br > Duration => ' + data.duration + '</br > AssignTo => ' + data.assignto + '</div></div > ';
+            $("body").append(tooltip);
+            $(this).mouseover(function (e) {
+                $(this).css('z-index', 10000);
+                $('.tooltiptopicevent').fadeIn('500');
+                $('.tooltiptopicevent').fadeTo('10', 1.9);
+            }).mousemove(function (e) {
+                $('.tooltiptopicevent').css('top', e.pageY + 10);
+                $('.tooltiptopicevent').css('left', e.pageX + 20);
+            });
+        },
+        eventMouseout: function (data, event, view) {
+            $(this).css('z-index', 8);
+            $('.tooltiptopicevent').remove();
+        },
     });
 }
 
@@ -201,11 +220,10 @@ function convert(str, seperator) {
     return [date.getFullYear(), mnth, day].join(seperator);
 }
 
-var FC = $.fullCalendar; // a reference to FullCalendar's root namespace
-var View = FC.View;      // the class that all views must inherit from
-var AgendaView;          // our subclass
+var FC = $.fullCalendar;
+var View = FC.View;
+var AgendaView;
 var ListView;
->>>>>>> parent of 940f769... calendar
 var GnattView;
 var BaselineView;
 var PhasesListView;
@@ -213,9 +231,9 @@ var PhasesListView;
 AgendaView = View.extend({ // make a subclass of View
     initialize: function () {
     },
-    render: function () {        
+    render: function () {
         this.el.html('<div class="fc-view fc-agendaWeek-view fc-agenda-view" style=""><div class="toolbatHolder">' +
-            '<button class="">Show Earlier</button >' +
+            '<button class="showearlier">Show Earlier</button >' +
             '<div class="calenderJq">' +
             '<script>' +
             ' $( function() {' +
@@ -228,11 +246,13 @@ AgendaView = View.extend({ // make a subclass of View
             '</div> ' +
             '</div></div><div class="dataHolder">' +
             '<table class="innercontent"></table>' +
-            '</div>');        
+            '</div>');
     },
     setHeight: function (height, isAuto) {
     },
     renderEvents: function (events) {
+        $('.fc-left').css('display', 'none');
+        $('.fc-center').css('display', 'none');
         var t = this;
         var dailyEvents = [];
         var projectId = $("#projectid").text();
@@ -252,25 +272,32 @@ AgendaView = View.extend({ // make a subclass of View
                 t.el.find('.innercontent').append(t.dayHtml(day.date, day.events));
             });
         }
+
         $("#datefilter").on('click', function () {
-            var postData = { "projectId": parseInt(projectId), "selectedDate": $("#datepicker").val() };
+            var postData = { "projectId": parseInt(projectId), "selectedDate": $("#datepicker").val(), "sortOrder": sortOrder };
             $.post("/Calendar/GetScheduledItems", postData, function (data) {
                 $('.innercontent').empty();
                 getDailyEvents(data);
             });
         });
-<<<<<<< HEAD
-        
-=======
         $(document).on('click', '.dataschedule', function () {
             var postData = { "scheduledId": parseInt($(this).attr("data-schedule")) };
             $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
             $('#calendarmodal').addClass('in').css('display', 'block');
         });
-<<<<<<< HEAD
->>>>>>> parent of 940f769... calendar
-=======
->>>>>>> parent of 940f769... calendar
+        var sortOrder = -1;
+        $(document).on('click', '.showearlier', function () {
+            if (sortOrder == 1)
+                sortOrder = 0;
+            else if (sortOrder == 0)
+                sortOrder = 1;
+            else sortOrder = 1;
+            var postData = { "projectId": parseInt(projectId), "sortOrder": sortOrder };
+            $.post("/Calendar/GetScheduledItems", postData, function (data) {
+                $('.innercontent').empty();
+                getDailyEvents(data);
+            });
+        });
     },
     destroyEvents: function () {
     },
@@ -283,15 +310,8 @@ AgendaView = View.extend({ // make a subclass of View
         $.each(events, function (index, event) {
             dayEvents += '<tr>' +
                 '<td>' + event.startDate + '</td>' +
-                '<td> Day 9 of 20</td> ' +
-<<<<<<< HEAD
-<<<<<<< HEAD
-                '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div>' + event.title + '</td>' +
-=======
-=======
->>>>>>> parent of 940f769... calendar
+                '<td> Day ' + event.scheuleDay + ' of ' + event.totalScheuleDay + '</td> ' +
                 '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div><div class="dataschedule" data-schedule="' + event.scheduledItemId + '">' + event.title + '</div></td>' +
->>>>>>> parent of 940f769... calendar
                 '<td>' + event.assignedTo + '</td>' +
                 '</tr>';
         });
@@ -317,6 +337,8 @@ ListView = View.extend({ // make a subclass of View
     setHeight: function (height, isAuto) {
     },
     renderEvents: function (events) {
+        $('.fc-left').css('display', 'none');
+        $('.fc-center').css('display', 'none');
         var t = this;
         var dailyEvents = [];
         var projectId = $("#projectid").text();
@@ -341,7 +363,6 @@ ListView = View.extend({ // make a subclass of View
                 '<input type="checkbox" id="checkAll" data-bind="click: CalendarList.CheckAll">' +
                 '</td>' +
                 '<td class="tdID" >ID</td>' +
-                '<td>Jobname</td>' +
                 '<td class="title">Title</td>' +
                 '<td>Status</td>' +
                 '<td>Phase</td>' +
@@ -364,10 +385,17 @@ ListView = View.extend({ // make a subclass of View
                 '<td class="checkBox">pred' +
                 '</td>' +
                 '</tr>');
+            var i = 0;
             $.each(dailyEvents, function (index, day) {
-                t.el.find('.listviewtable').append(t.dayHtml(day.date, day.events));
+                i++;
+                t.el.find('.listviewtable').append(t.dayHtml(day.date, day.events, i));
             });
         }
+        $(document).on('click', '.title', function () {
+            var postData = { "scheduledId": parseInt($(this).attr("data-schedule")) };
+            $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
+            $('#calendarmodal').addClass('in').css('display', 'block');
+        });
     },
     destroyEvents: function () {
     },
@@ -375,24 +403,21 @@ ListView = View.extend({ // make a subclass of View
     },
     destroySelection: function () {
     },
-    dayHtml: function (day, events) {
+    dayHtml: function (day, events, i) {
         var dayEvents = '';
-        var i = 0;
         $.each(events, function (index, event) {
-            i++;
             dayEvents += '<tr class="cont">' +
                 '<td class="checkBox" >' +
                 '<input type="checkbox" id="checkAll" data-bind="click: CalendarList.CheckAll">' +
                 '</td>' +
                 '<td class="tdID">' + event.scheduledItemId + '</td>' +
-                '<td>gdg</td>' +
-                '<td class="title">' + event.title + '</td>' +
+                '<td class="title" data-schedule="' + event.scheduledItemId + '">' + event.title + '</td>' +
                 '<td>Status</td>' +
                 '<td>Phase</td>' +
                 '<td>Files</td>' +
                 '<td>' + event.duration + '</td>' +
-                '<td>' + event.startDate + '</td>' +
-                '<td>' + event.endDate + '</td>' +
+                '<td>' + convert(event.startDate, '/') + '</td>' +
+                '<td>' + convert(event.endDate, '/') + '</td>' +
                 '<td>' +
                 '<div style="margin: 0 auto; display: table">' +
                 '<div style="margin-right: 23px;">' + event.assignedTo + '</div>' +
@@ -402,10 +427,10 @@ ListView = View.extend({ // make a subclass of View
                 '</div>' +
                 '</td>' +
                 '<td>' +
-                '<input type="checkbox" id="chkconfirm' + index + '" />' +                
+                '<input type="checkbox" id="chkconfirm' + i + '" />' +
                 '</td>' +
                 '<td class="checkBox">' +
-                '</td>' +                
+                '</td>' +
                 '</tr>';
         });
         return dayEvents;
@@ -420,9 +445,11 @@ GnattView = View.extend({
     },
     setHeight: function (height, isAuto) {
     },
-    renderEvents: function (events) {  
+    renderEvents: function (events) {
+        $('.fc-left').css('display', 'none');
+        $('.fc-center').css('display', 'none');
         var projectId = $("#projectid").text();
-        var postData = { "projectId": parseInt(projectId), "selectedDate": ""};
+        var postData = { "projectId": parseInt(projectId), "selectedDate": "" };
         $.post("/Calendar/GetGnattItems", postData, function (data) {
             var item = JSON.parse(data);
             getDailyEvents(item)
@@ -466,6 +493,8 @@ BaselineView = View.extend({
     setHeight: function (height, isAuto) {
     },
     renderEvents: function (events) {
+        $('.fc-left').css('display', 'none');
+        $('.fc-center').css('display', 'none');
         var t = this;
         var dailyEvents = [];
         var projectId = $("#projectid").text();
@@ -478,21 +507,57 @@ BaselineView = View.extend({
                 getDailyEvents(data);
             }
         });
-        function getDailyEvents(data) {
-            $.each(data, function (index, day) {
-                dailyEvents.push({
-                    date: day.start,
-                    events: [day]
-                });
-            });
+        function getDailyEvents(events) {
             t.el.find('.fc-baseline-view').append('<p>Baseline set for the 5th time by aryan singh on 07/08/18</p>');
-            $.each(dailyEvents, function (index, day) {
-                t.el.find('.fc-baseline-view').append(dayBaselineSummary(dailyEvents));
-            });
             t.el.find('.fc-baseline-view').append('<div class="con"><table class="listviewtable"></table><div>');
-            $.each(dailyEvents, function (index, day) {
-                t.el.find('.listviewtable').append(dayHtml(dailyEvents));
+            t.el.find('.fc-baseline-view').append('<div class="SummaryHolder">' +
+                '<h2> Baseline Summary</h2>' +
+                '<table class="conheader">' +
+                '<tr>' +
+                '<th>Duration</th>' +
+                '<th>Start Date</th>' +
+                '<th>End Date</th>' +
+                '<th>Overall Slip</th>' +
+                '</tr></table></div>');
+            $.each(events, function (index, day) {
+                t.el.find('.conheader').append('<tr>' +
+                    '<td></td>' +
+                    '<td>( 05-02-18) 05-02-18</td>' +
+                    '<td>(22-08-18) 22-08-18	</td>' +
+                    '<td></td>' +
+                    '</tr>');
             });
+            t.el.find('.listviewtable').append('<tr class="header">' +
+                '<td class="checkBox" >' +
+                'Status' +
+                '</td>' +
+                '<td class="tdID" >Title</td>' +
+                ' <td>(Base) Dur</td>' +
+                '<td class="title">(Base) Start Date</td>' +
+                '<td>(Base) End Date</td>' +
+                '<td>Direct Shifts</td>' +
+                '<td>Duration Chng</td>' +
+                '<td>Overall Slip</td>' +
+                '<td>Reasons</td>' +
+                '<td>Shift Notes</td>' +
+                '<td>Assigned To</td>' +
+                '</tr ><tr class="contheader">');
+            $.each(events, function (index, day) {
+                t.el.find('.listviewtable').append('<tr class="cont"><td class="checkBox">' +
+                    '<input type="checkbox" id="chkstatus' + index + '">' +
+                    '</td>' +
+                    '<td>' + day.title + '</td>' +
+                    '<td>(' + day.duration + ' d)' + day.duration + ' d</td>' +
+                    '<td >(' + convert(day.startDate, '-') + ') ' + convert(day.startDate, '/') + '</td>' +
+                    '<td>(' + convert(day.endDate, '-') + ') ' + convert(day.endDate, '/') + '</td>' +
+                    '<td>0</td>' +
+                    '<td>-</td>' +
+                    '<td>0 d</td>' +
+                    '<td></td>' +
+                    '<td></td>' +
+                    '<td>' + day.assignedTo + '</td></tr>');
+            });
+            $('.SummaryHolder').insertBefore('.con');
         }
     },
     destroyEvents: function () {
@@ -500,79 +565,120 @@ BaselineView = View.extend({
     renderSelection: function (range) {
     },
     destroySelection: function () {
-    },
-    dayHtml: function (events) {
-        var dayHeader = '<tr class="header">' +
-            '<td class="checkBox" >' +
-            'Status' +
-            '</td>' +
-            '<td class="tdID" >Title</td>' +
-            ' <td>(Base) Dur</td>' +
-            '<td class="title">(Base) Start Date</td>' +
-            '<td>(Base) End Date</td>' +
-            '<td>Direct Shifts</td>' +
-            '<td>Duration Chng</td>' +
-            '<td>Overall Slip</td>' +
-            '<td>Reasons</td>' +
-            '<td>Shift Notes</td>' +
-            '<td>Assigned To</td>' +
-            '</tr ><tr class="contheader">';
-        var dayFooter = '</tr>';
-        var dayEvents = '';
-        $.each(events, function (index, event) {
-            dayEvents += '<td class="checkBox">' +
-                '<img src= "">' +
-                '</td>' +
-                '<td>testing</td>' +
-                '<td>(3 d)   3 d</td>' +
-                '<td >(05-02-18) 05/02/18</td>' +
-                '<td>(07-02-18) 07/02/18</td>' +
-                '<td>0</td>' +
-                '<td>-</td>' +
-                '<td>0 d</td>' +
-                '<td></td>' +
-                '<td></td>' +
-                '<td>Shahnawaz Khan</td>';
-        });
-        return dayHeader + dayEvents + dayFooter;
-    },
-    dayBaselineSummary: function (events) {
-        var dayHeader = '<div class="SummaryHolder">' +
-            '<h2> Baseline Summary</h2>' +
-            '<table>' +
-            '<tr>' +
-            '<th></th>' +
-            '<th>Duration</th>' +
-            '<th>Start Date</th>' +
-            '<th>End Date</th>' +
-            '<th>Overall Slip</th>' +
-            '</tr>';
-        var dayFooter = '</table></div>';
-        var dayEvents = '';
-        $.each(events, function (index, event) {
-            dayEvents += '<tr>' +
-                '<td></td>' +
-                '<td></td>' +
-                '<td>(05-02-18) 05-02-18</td>' +
-                '<td>(22-08-18) 22-08-18	</td>' +
-                '<td></td>' +
-                '</tr>';
-        });
-        return dayHeader + dayEvents + dayFooter;
     }
-
 });
 FC.views.Baseline = BaselineView;
 PhasesListView = View.extend({ // make a subclass of View
     initialize: function () {
     },
     render: function () {
-        this.el.html('<div class="phaseslistview">Phases List View</div>');
+
     },
     setHeight: function (height, isAuto) {
     },
     renderEvents: function (events) {
-        console.dir(events);
+        $('.fc-left').css('display', 'none');
+        $('.fc-center').css('display', 'none');
+        var t = this;
+        this.el.html('<div class="phaseHolder"></div>');
+
+        var projectId = $("#projectid").text();
+        var postData = { "projectId": parseInt(projectId) };
+        $.post("/Calendar/GetPhasesListAsync", postData, function (data) {
+            getDailyEvents(data);
+        });
+        t.el.find('.phaseHolder').append('<div class="phaseHeader">' +
+            '<div class="leftHolder">' +
+            '<a href="javascript:void(0);" class="toggleAll">' +
+            '<img src="images/add.gif">' +
+            '</a>' +
+            '<input id="chkAll" type="checkbox" data-bind="checked: allChecked" />' +
+            '</div>' +
+            '</div>');
+        t.el.find('.phaseHolder').append('<div class="phaseBody">' +
+            '<div class="phaseBodyHolder"></div></div>');
+        function getDailyEvents(data) {
+            $.each(data, function (index, item) {
+                t.el.find('.phaseBodyHolder').append('<div class="phaseBodyHolderTop">' +
+                    '<table>' +
+                    '<tbody>' +
+                    '<tr>' +
+                    '<td style="border-right: 1px solid #d1d1d1; position: relative">' +
+                    '<div class="Status fieldHeader">Status: <span>Completed</span></div>' +
+                    '<div class="ExpandPhase">' +
+                    '<a href="javascript:void(0);">' +
+                    '<img border="0" src="/images/Common/edit.gif">' +
+                    '</a>' +
+                    '</div>' +
+                    '<div class="CheckBoxPhase">' +
+                    '<input name="chkPhaseSelected" value="' + item.item1 + '" type="checkbox">' +
+                    '</div>' +
+                    '<div class="PhaseTitle">' +
+                    '<span>' + item.item2 + '</span>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td style="width: 20%; border-right: 1px solid #d1d1d1;">' +
+                    '<div class="tdContent">' +
+                    '<div style="float: left">' +
+                    '<div class="fieldHeader">Start Date</div>' +
+                    '<span>' + convert(item.item3, '/') + '</span>' +
+                    '</div>' +
+                    '<div style="float: right">' +
+                    '<div class="fieldHeader" style="text-align: right">End Date</div>' +
+                    '<span>' + convert(item.item4, '/') + '</span>' +
+                    '</div>' +
+                    '<div style="clear: both"></div>' +
+                    '</div>' +
+                    '</td>' +
+                    '<td style="width: 13%; min-width: 200px">' +
+                    '<div class="tdContent">' +
+                    '<div class="fieldHeader">Items Completed</div>' +
+                    '<span>' + item.item6 + '</span> / <span >' + item.item5 + '</span>' +
+                    '</div>' +
+                    '</td>' +
+                    '</tr>' +
+                    '</tbody>' +
+                    '</table>' +
+                    '</div>');
+                t.el.find('.phaseBodyHolder').append('<div class="bottom">' +
+                    '<div class="phaseList" data- bind="visible: showPhaseItems" style= "">' +
+                    '<table class="expandSelectItemTable">' +
+                    '<thead>' +
+                    '<tr">' +
+                    '<th style="width: 15px;"></th>' +
+                    '<th style="width: 180px; text-align: left; display: none;">Jobsite</th>' +
+                    '<th style="width: 230px; text-align:left;">Schedule Item Title</th>' +
+                    '<th style="width: 50px; text-align:left;">Dur.</th>' +
+                    '<th style="width: 130px; text-align:left;">Start</th>' +
+                    '<th style="width: 130px; text-align:left;">Finish</th>' +
+                    '<th style="width: 85px;">Completed</th>' +
+                    '<th style="text-align:left;">Assigned To</th>' +
+                    '</tr>' +
+                    '</thead>' +
+                    '<tbody class="tdschedule">' +
+                    '</tbody>' +
+                    '</table>' +
+                    '</div>' +
+                    '</div>');
+                $.each(data[index].item7, function (index, item) {
+                    t.el.find('.tdschedule').append('<tr class="whiteBack">' +
+                        '<td><input name="chkPhaseItem" type="checkbox" value="' + item.scheduledItemId + '"></td>' +
+                        '<td class="tdL" style="display: none;"><span></span></td>' +
+                        '<td class="tdL"><a class="phasetitle" data-schedule="' + item.scheduledItemId + '" href="javascript:void(0);" >' + item.title + '</a></td>' +
+                        '<td style="text-align:left;"><span >' + item.duration + '</span></td>' +
+                        '<td class="tdL"><span >' + convert(item.startDate, '/') + '</span></td>' +
+                        '<td class="tdL"><span >' + convert(item.endDate, '/') + '</span></td>' +
+                        '<td class="tdC" ><input name="chkPhaseItemCompleted" type="checkbox" ></td>' +
+                        '<td style="text-align:left;"><span title="aryan singh">' + item.assignedTo + '</span></td>' +
+                        ' </tr>');
+                });
+            });
+        }
+        $(document).on('click', '.phasetitle', function () {
+            var postData = { "scheduledId": parseInt($(this).attr("data-schedule")) };
+            $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
+            $('#calendarmodal').addClass('in').css('display', 'block');
+        });
     },
     destroyEvents: function () {
     },
