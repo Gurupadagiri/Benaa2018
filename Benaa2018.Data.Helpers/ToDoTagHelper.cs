@@ -21,8 +21,8 @@ namespace Benaa2018.Helper
         {
             ToDoTag toDoTagDetails = new ToDoTag
             {
-                ToDoTagid = toDoTagViewModel.ToDoTagid,
-                Tagid = toDoTagViewModel.Tagid,
+               // ToDoTagid = toDoTagViewModel.ToDoTagid,
+                Tagid = toDoTagViewModel.ToDoTagid,
                 TodoDetailsID = toDoTagViewModel.TodoDetailsID
             };
             var TagObj = await _toDoTagHelper.CreateAsync(toDoTagDetails);

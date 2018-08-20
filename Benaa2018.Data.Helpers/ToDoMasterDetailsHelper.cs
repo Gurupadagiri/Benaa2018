@@ -97,12 +97,12 @@ namespace Benaa2018.Helper
             //    toDoInfo = toDoInfo.Where(a => a.Title.Contains(title)).ToList();
             //}
 
-            if(toDoInfo.Count() > 0)
+            if (toDoInfo.Count() > 0)
             {
 
             
-             if(status>0)
-            {
+            // if(status>0)
+            //{
                 bool statusToDo = false;
                 if(status==1)
                 {
@@ -114,15 +114,30 @@ namespace Benaa2018.Helper
                     toDoInfo = toDoInfo.Where(a => a.IsMarkedComplete == statusToDo).ToList();
                 }
                
-            }
+               
+            //}
             if (!string.IsNullOrEmpty(priority))
             {
-                if(priority== "Low" || priority == "High" || priority == "Highest" || priority == "None")
-                {
+                    //if(priority== "Low" || priority == "High" || priority == "Highest" || priority == "None")
+                    //{
 
-                toDoInfo = toDoInfo.Where(a => a.Priority == priority).ToList();
+                    //toDoInfo = toDoInfo.Where(a => a.Priority == priority).ToList();
+                    //}
+                    List<string> lstPriorities = new List<string>();
+                    string[] prioritySplit = priority.Split(',');
+                    if (prioritySplit.Length > 0)
+                    {
+                        foreach (string item in prioritySplit)
+                        {
+                            if(!string.IsNullOrEmpty(item))
+                            {
+                                lstPriorities.Add(item);
+                            }
+                        }
+                    }
+
+                    //toDoInfo = toDoInfo.Where(a => a.Priority.Any(lstPriorities)).ToList();
                 }
-            }
 
 
                 if (toDoInfo.Count() > 0)
