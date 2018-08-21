@@ -44,6 +44,7 @@ body {
     border-top: 20px solid #8f806d;
     width: 100%;
     float: left;
+    margin-top: 30px;
 }
 
 .smallTXT {
@@ -2394,7 +2395,15 @@ body .blueButton, body .Projects-List .btn-primary {
     vertical-align: top;
     white-space: nowrap;
     border: 0;
+    position: relative;
 }
+
+    .fc-Agenda-view .innercontent tr td div:first-child {
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        height: 100%;
+    }
 
     .fc-Agenda-view .innercontent tr td:first-child {
         font-size: 20px;
@@ -2457,6 +2466,14 @@ body .blueButton, body .Projects-List .btn-primary {
     text-align: center;
 }
 
+#pleaseselect {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 150px 10px 40px 20px;
+    background: #fff;
+    margin-bottom: 300px;
+}
+
 .fc-toolbar.fc-header-toolbar {
     margin-bottom: 1em;
     width: 100%;
@@ -2471,14 +2488,6 @@ body .blueButton, body .Projects-List .btn-primary {
     color: #fff;
     border: solid 0 #626262;
     width: 100%;
-}
-
-#pleaseselect {
-    font-size: 13px;
-    font-weight: bold;
-    padding: 150px 10px 40px 20px;
-    background: #fff;
-    margin-bottom: 300px;
 }
 
 .fc-toolbar.fc-header-toolbar {
@@ -2513,6 +2522,26 @@ th.fc-fri {
     color: #626262;
 }
 
+.fc-button-group .fc-state-default.fc-state-active {
+    background: #fff;
+    border-bottom: 0;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    z-index: 2;
+    position: relative;
+    height: 27px;
+    box-sizing: border-box;
+    top: 0;
+}
+
+.fc-toolbar.fc-header-toolbar {
+    margin-bottom: 1em;
+    border-bottom: 1px solid #e6e6e6;
+    position: relative;
+    z-index: 1;
+}
+
+
 .fc-unthemed .fc-content {
     padding: 4px;
     font-weight: 700;
@@ -2531,11 +2560,12 @@ th.fc-fri {
     background-image: -o-linear-gradient(top,#fff,#e6e6e6);
     background-image: none;
     background-repeat: repeat-x;
-    border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+    border-color: #ddd #ddd #ddd;
     /* border-color: transparent; */
     color: #333;
     text-shadow: unset;
     box-shadow: unset;
+    border-bottom: 0;
 }
 
 #frmSchedule .width94 {
@@ -2620,13 +2650,34 @@ body .panel-body {
     padding: 0px;
 }
 
-#addphase .customPopup {
+#addphase .customPopup,
+#addtag .customPopup {
     width: 50%;
     margin: 0 auto;
     position: absolute;
     left: 0;
     right: 0;
+    height: 300px;
+    top: 20%;
 }
+
+    #addphase .customPopup .panel-body,
+    #addtag .customPopup .panel-body {
+        height: auto !important;
+    }
+
+.fc-Agenda-view .innercontent tr td div:first-child div {
+    width: 10px;
+    height: 70% !important;
+    background-color: #C78888;
+    margin-top: 7px;
+    margin-right: 7px;
+}
+
+.fc-Agenda-view .innercontent tr td div.dataschedule {
+    padding-left: 10px;
+}
+
 
 #addphase label,
 #addphase .form-control {
@@ -2675,57 +2726,15 @@ body .modal-dialog .btn-primary {
     background: transparent;
     opacity: 1;
 }
-
-
-.fc-button-group .fc-state-default.fc-state-active {
-    background: #fff;
-    border-bottom: 0;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    z-index: 2;
-    position: relative;
-    height: 27px;
-    box-sizing: border-box;
-    top: 1px;
-}
-
-.fc-toolbar.fc-header-toolbar {
-    margin-bottom: 1em;
-    border-bottom: 1px solid #e6e6e6;
-    position: relative;
-    z-index: 1;
-}
-
-#addphase .customPopup,
-#addtag .customPopup {
-    width: 50%;
-    margin: 0 auto;
-    position: absolute;
-    left: 0;
-    right: 0;
-    height: 300px;
-    top: 20%;
-}
-
-    #addphase .customPopup .panel-body,
-    #addtag .customPopup .panel-body {
-        height: auto !important;
-    }
-
-.fc-Agenda-view .innercontent tr td div:first-child div {
-    width: 10px;
-    height: 70% !important;
-    background-color: #C78888;
-    margin-top: 7px;
-    margin-right: 7px;
-}
-
-.fc-Agenda-view .innercontent tr td div.dataschedule {
-    padding-left: 10px;
-}
-
+/* phase list */
 .phaseHeader .toggleAll {
     margin: 0 9px 0 0px;
+    float: left;
+}
+
+.phaseHolder .phaseHeader {
+    width: 100%;
+    float: left;
 }
 
 .tooltiptopicevent {
@@ -2740,18 +2749,60 @@ body .modal-dialog .btn-primary {
     top: 0;
 }
 
-.tooltiptopicevent .heading-color {
-    color: #fff;
-    font-weight: 700;
-    padding: 10px;
-}
+    .tooltiptopicevent .heading-color {
+        color: #fff;
+        font-weight: 700;
+        padding: 10px;
+    }
 
-.tooltiptopicevent .tooltip-body {
-    padding: 0 10px 10px;
-}
+    .tooltiptopicevent .tooltip-body {
+        padding: 0 10px 10px;
+    }
 
 .selected-project {
     background: #fff !important;
+}
+
+.phaseHolder .phaseHeader input#chkAll {
+    margin-top: 1px;
+}
+
+.phaseHolder .phaseHeader .leftHolder {
+    float: left;
+    min-width: 100px;
+}
+
+.phaseHolder .phaseHeader .rightHolder {
+    float: right;
+    min-width: 150px;
+}
+
+.expandSelectItemTable .whiteBack td,
+.expandSelectItemTable tr th {
+    border-width: 0;
+    padding: 8px;
+}
+
+.expandSelectItemTable tr th {
+    border-bottom: 1px solid #dddddd !important;
+}
+
+.CheckBoxPhase input[type="checkbox"] {
+    margin-top: 0;
+}
+
+.phaseBodyHolderTop table tr td {
+    padding: 5px 0;
+}
+
+.fieldHeader span {
+    font: normal 12px arial !important;
+    color: #626262 !important;
+    text-align: left;
+}
+
+.phaseBodyHolderTop .tdContent {
+    padding: 0 5px;
 }
 
 .actualenddate {
@@ -2851,4 +2902,240 @@ body .modal-dialog .btn-primary {
     padding: 5px 7px;
     font-weight: normal;
     border-radius: 4px;
+}
+/*Baseline*/
+.fc-baseline-view p {
+    font-weight: 700;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.baselineHolder {
+    background: #f7f7f7;
+    width: 100%;
+    padding: 15px;
+    user-select: none;
+    font-size: 20px;
+    font-weight: 700;
+    border: 1px solid #cecece;
+    border-radius: 5px;
+    box-sizing: border-box !important;
+    margin-bottom: 0;
+}
+
+.SummaryHolder {
+    width: 70%;
+}
+
+    .SummaryHolder .conheader tr th {
+        padding: 10px;
+        border-left: 0 !important;
+        border-right: 0 !important;
+    }
+
+    .SummaryHolder .conheader tr td {
+        border-width: 0 !important;
+        padding: 10px;
+    }
+
+.fc-Baseline-view .con {
+    overflow-x: scroll;
+}
+
+.con .listviewtable .header td {
+    text-align: center;
+    padding: 10px;
+    font-weight: 700;
+}
+
+.con .listviewtable .cont td {
+    padding: 5px;
+    border-top: 0;
+    border-bottom: 0;
+}
+
+    .con .listviewtable .cont td:first-child,
+    .con .listviewtable .header td:first-child {
+        text-align: center;
+        width: 50px;
+        /* border-left:0;*/
+    }
+
+    .con .listviewtable .cont td:nth-child(3) {
+        text-align: right;
+    }
+
+    .con .listviewtable .cont td:nth-child(4),
+    .con .listviewtable .cont td:nth-child(5),
+    .con .listviewtable .header td:nth-child(4),
+    .con .listviewtable .header td:nth-child(5) {
+        width: 200px;
+    }
+
+.con table.listviewtable {
+    width: 1600px;
+}
+
+.con .listviewtable .cont:nth-child(odd) {
+    background: #f7f7f7;
+}
+
+.con .listviewtable .cont td:nth-child(6),
+.con .listviewtable .cont td:nth-child(7),
+.con .listviewtable .cont td:nth-child(8),
+.con .listviewtable .header td:nth-child(6),
+.con .listviewtable .header td:nth-child(7),
+.con .listviewtable .header td:nth-child(8) {
+    width: 50px;
+    text-align: center;
+}
+/*List view*/
+.con .headingGrey {
+    background: #626262;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    font-weight: bold;
+    color: #fff;
+    font-family: Arial;
+    position: relative;
+    margin: 0;
+}
+
+.fc-ListView-view .tab-content {
+    overflow-x: scroll;
+}
+
+.fc-ListView-view .con .listviewtable .cont td:nth-child(6),
+.fc-ListView-view .con .listviewtable .cont td:nth-child(7),
+.fc-ListView-view .con .listviewtable .cont td:nth-child(8),
+.fc-ListView-view .con .listviewtable .header td:nth-child(6),
+.fc-ListView-view .con .listviewtable .header td:nth-child(7),
+.fc-ListView-view .con .listviewtable .header td:nth-child(8),
+.fc-ListView-view .con .listviewtable .cont td:nth-child(4),
+.fc-ListView-view .con .listviewtable .cont td:nth-child(5),
+.fc-ListView-view .con .listviewtable .header td:nth-child(4),
+.fc-ListView-view .con .listviewtable .header td:nth-child(5) {
+    width: 100px;
+    text-align: center;
+}
+
+.fc-ListView-view .con .listviewtable .cont td:nth-child(2),
+.fc-ListView-view .con .listviewtable .header td:nth-child(2) {
+    width: 50px;
+    text-align: left;
+}
+
+.fc-ListView-view .con .listviewtable .cont td:nth-child(3),
+.fc-ListView-view .con .listviewtable .header td:nth-child(3) {
+    width: 80px;
+    text-align: left;
+}
+/*Gnatt*/
+.gnattToolbarHolder {
+    width: 100%;
+    float: left;
+    padding: 10px 0;
+}
+
+.modal-open #columnDisplaySettings.modal .modal-dialog {
+    width: 400px;
+    border-radius: 4px 4px 0 0;
+}
+
+#columnDisplaySettings.modal .modal-header {
+    background: #626262 !important;
+    color: #fff !important;
+    font-family: Arial !important;
+    font-size: 12px !important;
+    border: none !important;
+    border-radius: 0 !important;
+}
+
+    #columnDisplaySettings.modal .modal-header .modal-title {
+        font-size: 12px !important;
+    }
+
+#columnDisplaySettings.modal .modal-content {
+    border-radius: 4px 4px 0 0;
+}
+
+    #columnDisplaySettings.modal .modal-content table {
+        width: 100%;
+    }
+
+.columnDisplaySettingsBtn {
+    background: transparent;
+    border: 0;
+    padding: 0;
+}
+
+    .columnDisplaySettingsBtn i {
+        font-size: 24px;
+    }
+
+#calendar .fc-toolbar.fc-header-toolbar {
+    border: 0;
+    margin-bottom: 0;
+}
+
+#calendar .fc-toolbar .gnattToolbarHolder .gnattLeft {
+    float: left;
+}
+
+#calendar .fc-toolbar .gnattToolbarHolder .gnattRight {
+    float: right;
+}
+
+    #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .selectHolder,
+    #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder,
+    #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .selectHolder .daily,
+    #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .selectHolder .item {
+        float: left;
+    }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .selectHolder div {
+            margin-right: 15px;
+        }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .selectHolder,
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder.left {
+            border-right: 1px solid #ddd;
+            margin-right: 15px;
+        }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder.left {
+            padding-right: 15px;
+        }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .selectHolder select {
+            padding: 5px;
+        }
+
+    #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder {
+        padding: 5px 0;
+    }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder label {
+            display: inline-block;
+            max-width: 100%;
+            margin-bottom: 0;
+            font-weight: 400;
+        }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder input[type=checkbox],
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder label {
+            float: left;
+        }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder input[type=checkbox] {
+            margin-right: 5px;
+        }
+
+        #calendar .fc-toolbar .gnattToolbarHolder .gnattRight .checkboxHolder label {
+            margin-top: 2px;
+        }
+
+.fc-right {
+    border-bottom: 1px solid #ddd !important;
 }

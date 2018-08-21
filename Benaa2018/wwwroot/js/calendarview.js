@@ -40,7 +40,7 @@ $(document).ready(function () {
                 $(this).val('');
             });
             BindCalendar(data);
-            alert("Predecessor Details Successfully Added");            
+            alert("Predecessor Details Successfully Added");
         });
     });
     $('.fc-content-skeleton td').on('click', function () {
@@ -86,14 +86,17 @@ $(document).ready(function () {
     $(document).on('click', '.fc-agendaWeek-button', function () {
         $('.fc-left').css('display', 'block');
         $('.fc-center').css('display', 'block');
+        $('.fc-header-toolbar > .gnattToolbarHolder').remove();
     });
     $(document).on('click', '.fc-month-button', function () {
         $('.fc-left').css('display', 'block');
         $('.fc-center').css('display', 'block');
+        $('.fc-header-toolbar > .gnattToolbarHolder').remove();
     });
     $(document).on('click', '.fc-agendaDay-button', function () {
         $('.fc-left').css('display', 'block');
         $('.fc-center').css('display', 'block');
+        $('.fc-header-toolbar > .gnattToolbarHolder').remove();
     });
 
     $('#btnCalendar').on('click', function () {
@@ -253,6 +256,7 @@ AgendaView = View.extend({ // make a subclass of View
     renderEvents: function (events) {
         $('.fc-left').css('display', 'none');
         $('.fc-center').css('display', 'none');
+        $('.fc-header-toolbar > .gnattToolbarHolder').remove();
         var t = this;
         var dailyEvents = [];
         var projectId = $("#projectid").text();
@@ -339,6 +343,7 @@ ListView = View.extend({ // make a subclass of View
     renderEvents: function (events) {
         $('.fc-left').css('display', 'none');
         $('.fc-center').css('display', 'none');
+        $('.fc-header-toolbar > .gnattToolbarHolder').remove();
         var t = this;
         var dailyEvents = [];
         var projectId = $("#projectid").text();
@@ -448,6 +453,38 @@ GnattView = View.extend({
     renderEvents: function (events) {
         $('.fc-left').css('display', 'none');
         $('.fc-center').css('display', 'none');
+        $('.fc-header-toolbar > .gnattToolbarHolder').remove();
+        $('.fc-header-toolbar').append('<div class="gnattToolbarHolder">'+
+            '<div class="gnattLeft" >' +
+            '<button type="button" class="columnDisplaySettingsBtn" data-toggle="modal" data-target="#columnDisplaySettings"><i class="fa fa-cog" aria-hidden="true" title="Column Display Settings"></i></button>' +
+            '</div >' +
+            '<div class="gnattRight">' +
+            '<div class="selectHolder">' +
+            '<div class="daily">' +
+                        '<select>'+
+            ' <option>Daily</option>' +
+            '<option>Weekly</option>' +
+            ' </select>' +
+            '</div>' +
+            '<div class="item">' +
+            ' <select>' +
+            '<option>Item</option>' +
+            '<option>Phase</option>' +
+            '<option>Jobs</option>' +
+            '</select>' +
+            '</div>' +
+            '</div>' +
+            '<div class="checkboxHolder left">' +
+            ' <input type="checkbox" name="showBaseline" id="showBaseline">' +
+            '  <label for="showBaseline">Show Baseline</label>' +
+            '   </div>' +
+            '<div class="checkboxHolder">' +
+            '   <input type="checkbox" name="highlightCriticalPath" id="highlightCriticalPath">' +
+            '        <label for="highlightCriticalPath">Highlight critical path</label>' +
+            '       </div>' +
+            '</div>' +
+                '</div>');
+
         var projectId = $("#projectid").text();
         var postData = { "projectId": parseInt(projectId), "selectedDate": "" };
         $.post("/Calendar/GetGnattItems", postData, function (data) {
@@ -495,6 +532,7 @@ BaselineView = View.extend({
     renderEvents: function (events) {
         $('.fc-left').css('display', 'none');
         $('.fc-center').css('display', 'none');
+        $('.fc-header-toolbar > .gnattToolbarHolder').remove();
         var t = this;
         var dailyEvents = [];
         var projectId = $("#projectid").text();
@@ -593,6 +631,10 @@ PhasesListView = View.extend({ // make a subclass of View
             '<img src="images/add.gif">' +
             '</a>' +
             '<input id="chkAll" type="checkbox" data-bind="checked: allChecked" />' +
+            '</div><div class="rightHolder"><label>Sort Phases By: </label>' +
+            '<select>' +
+            '<option>Display Order</option>' +
+            '</select> ' +
             '</div>' +
             '</div>');
         t.el.find('.phaseHolder').append('<div class="phaseBody">' +
@@ -603,28 +645,30 @@ PhasesListView = View.extend({ // make a subclass of View
                     '<table>' +
                     '<tbody>' +
                     '<tr>' +
-                    '<td style="border-right: 1px solid #d1d1d1; position: relative">' +
-                    '<div class="Status fieldHeader">Status: <span>Completed</span></div>' +
+                    '<td style="border-right: 1px solid #d1d1d1; position: relative;border-left: 0!important;">' +
+
+                    '<div class="phaseHeader">'+
+                    '<div class="leftHolder">' +
+                    '<a href="javascript:void(0);" class="toggleAll"><img src="images/add.gif"></a>' +
+                    '<div class="CheckBoxPhase"><input name="chkPhaseSelected" value="' + item.item1 + '" type="checkbox"></div>' +
+                    '</div>' +
+                    '<div class="rightHolder">' +
+                    '<div class="Status fieldHeader">Status: <span></span></div>' +
                     '<div class="ExpandPhase">' +
-                    '<a href="javascript:void(0);">' +
-                    '<img border="0" src="/images/Common/edit.gif">' +
-                    '</a>' +
+                    '<a href="javascript:void(0);"><img border="0" src="images/edit(1).gif"></a>' +
+                    '</div>' +                    
+                    '<div class="PhaseTitle"><span>' + item.item2 + '</span></div>' +
                     '</div>' +
-                    '<div class="CheckBoxPhase">' +
-                    '<input name="chkPhaseSelected" value="' + item.item1 + '" type="checkbox">' +
-                    '</div>' +
-                    '<div class="PhaseTitle">' +
-                    '<span>' + item.item2 + '</span>' +
                     '</div>' +
                     '</td>' +
                     '<td style="width: 20%; border-right: 1px solid #d1d1d1;">' +
                     '<div class="tdContent">' +
                     '<div style="float: left">' +
-                    '<div class="fieldHeader">Start Date</div>' +
+                    '<div class="fieldHeader">Start Date<br></div>' +
                     '<span>' + convert(item.item3, '/') + '</span>' +
                     '</div>' +
                     '<div style="float: right">' +
-                    '<div class="fieldHeader" style="text-align: right">End Date</div>' +
+                    '<div class="fieldHeader" style="text-align: right">End Date<br></div>' +
                     '<span>' + convert(item.item4, '/') + '</span>' +
                     '</div>' +
                     '<div style="clear: both"></div>' +
