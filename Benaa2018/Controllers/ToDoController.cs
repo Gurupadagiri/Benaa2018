@@ -188,8 +188,10 @@ namespace Benaa2018.Controllers
 
             var lstToDoSearchDetails = GetAllToDoDetailsSearch(keywords, status, priority, tags);
             //  ViewBag.ToDoSearchResult = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
-           // ViewBag.UserBaseToDoModel = null;
-            ViewBag.UserBaseToDoModelSearch = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
+            // ViewBag.UserBaseToDoModel = null;
+            ViewBag.UserBaseToDoModel = null;
+            ViewBag.UserBaseToDoModel= JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
+            // ViewBag.UserBaseToDoModelSearch = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
             result = "success";
            // return Json(result);
             return Json(JsonConvert.SerializeObject(lstToDoSearchDetails.Result));
@@ -911,7 +913,7 @@ namespace Benaa2018.Controllers
                             }
 
                             toDoView.TotalTagCount = objTags.Count;
-
+                            toDoView.lstToDoDetails = lstTagMasters;
 
 
 
@@ -1020,7 +1022,7 @@ namespace Benaa2018.Controllers
                             if (insertToDoDetails.TodoDetailsID > 0)
                             {
                                 #region SaveTags
-                                if (toDoItem.lstTags != null)
+                                if (toDoItem.lstToDoDetails != null)
                                 {
                                     foreach (var itemTag in toDoItem.lstToDoDetails)
                                     {
