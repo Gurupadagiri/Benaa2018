@@ -4,6 +4,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     //Benaa2018.Helper.ViewModels.ToDoAllViewModelDetails baseModel = ViewBag.UserBaseToDoModel;
 }
+@{
+    Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+}
+@if (ViewBag.IsleftMenuVisible != false)
+{
+    <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
+        @Html.Partial("_leftMenu", baseModel);
+    </div>
+}
 
 <div class=" mainContentDiv todoMainHolder">
     <div class="row mrgnRyt0 mrgnLft0 ">
