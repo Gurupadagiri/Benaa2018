@@ -1031,14 +1031,7 @@
                 var postData = { projectGroupId: projectGroupId, managerID: ManagerId };
                 $("#leftNavCon").load('@(Url.Action("FilterProjectDetailsAsync", "Home",null))', postData);
             });
-
-            $(document).on('click', 'a.allProject', function () {
-                var projectid = parseInt($(this).attr('data-projectid'));
-                var postData = { projectId: projectid };
-                $("div.mainContentDiv").load('@(Url.Action("FilteredMainContentAsync", "Home",null))', postData);
-                $('#spnproject').text($(this).text());
-            });
-
+            
             //Filter Result
             $(document).on('change', '#ddlToDoLost', function () {
                 var days = parseInt($(this).val());
