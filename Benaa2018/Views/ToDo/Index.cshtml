@@ -92,18 +92,7 @@
 
                                             </div>
 
-                                            @*<div class="col-sm-2 form-group tooltip-div">
-                                                    <div class="input-group">
-                                                        <span>&nbsp;</span>
-                                                        <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
-                                                        <span>&nbsp;</span>
-                                                        <div class="input-group-btn marTop">
-                                                            <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
-                                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
+
                                         </div>
                                         <div class="row">
 
@@ -117,26 +106,12 @@
                                                 </select>
 
                                             </div>
-                                            @*<div class="col-sm-2 form-group tooltip-div">
-                                                    <div class="input-group">
-                                                        <span>&nbsp;</span>
-                                                        <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
-                                                        <span>&nbsp;</span>
-                                                        <div class="input-group-btn marTop">
-                                                            <button type="button" class="btn btn-default" title="" data-placement="bottom" data-toggle="tooltip" data-original-title="Tooltip on left">
-                                                                <span class="glyphicon glyphicon-info-sign"></span>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
+
                                             <div class="col-sm-2 form-group">
 
                                                 <label>Tags</label>
                                                 <div class="input-group">
-                                                    @*<input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text">  <div class="input-group-addon">
-                                                            <i class="fa fa-calendar">
-                                                            </i>
-                                                        </div>*@
+
                                                     @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTagToDoSearch", @class = "form-control", @multiple = "multiple" })
                                                 </div>
                                             </div>
@@ -343,6 +318,143 @@
 <div class="modal fade selectSedualedItem" id="selectSedualedItem" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     @Html.Partial("_toDoAddSchedule", Model)
 </div>
+
+
+<div class="modal fade" id="Setup" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="panel panel-primary customPopup">
+            <div class="panel-heading themeColor">
+                <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel">Setup & Configuration</h4>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-xs-6 col-md-3 no-left-padding">
+                        <div class="companySection">
+                            <img class="img-responsive" src="~/images/logo1.jpg">
+
+                            <div class="company-information-header">
+                                Company Information
+                                <a href="javascript:void(0);">Edit</a>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-xs-6 col-md-9">
+                        <div class="row setupRow">
+                            <div class="col-xs-12 caption">
+                                <div class="mainheader">SETUP</div>
+                            </div>
+                        </div>
+                        <div class="row setupRowPadding">
+                            <div class="mainContent">
+                                <div class="col-md-4 setupNoPadding">
+                                    <a href="javascript:void(0);" class="setupButton">
+                                        <div class="setupBox">
+                                            <img src="~/images/bsAccountInfo.png">
+                                            <span class="caption">
+                                                Account Info
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="col-md-4 setupNoPadding">
+                                    <a href="javascript:void(0);" class="setupButton">
+                                        <div class="setupBox">
+                                            <img src="images/bsTimeClock.png">
+                                            <span class="caption">
+                                                Time Clock
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="row setupRow">
+                            <div class="col-xs-12 caption">
+                                <div class="mainheader">FILES</div>
+                            </div>
+                        </div>
+                        <div class="row setupRowPadding">
+                            <div class="mainContent">
+                                <div class="col-md-4 setupNoPadding">
+                                    <a href="javascript:void(0);" class="setupButton">
+                                        <div class="setupBox">
+                                            <img src="images/bsFiles.png">
+                                            <span class="caption">Photos &amp; Docs</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="row setupRow">
+                            <div class="col-xs-12 caption">
+                                <div class="mainheader">MESSAGING</div>
+                            </div>
+                        </div>
+                        <div class="row setupRowPadding">
+                            <div class="mainContent">
+                                <div class="col-md-4 setupNoPadding">
+                                    <a href="javascript:void(0);" class="setupButton">
+                                        <div class="setupBox">
+                                            <img src="images/bsMessaging.png">
+                                            <span class="caption">
+                                                Comments &amp;
+                                                <br>
+                                                Messages
+                                            </span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4 setupNoPadding">
+                                    <a href="javascript:void(0);" class="setupButton">
+                                        <div class="setupBox">
+                                            <img src="images/bsSurveys.png">
+                                            <span class="caption">Surveys</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="col-md-4 setupNoPadding">
+                                    <a href="javascript:void(0);" class="setupButton">
+                                        <div class="setupBox">
+                                            <img src="images/bsRFIs.png">
+                                            <span class="caption">RFIs</span>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                        <div class="row setupRow">
+                            <div class="col-xs-12 caption">
+                                <div class="mainheader">FINANCIAL</div>
+                            </div>
+                        </div>
+                        <div class="row setupRowPadding">
+                            <div class="mainContent">
+
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
 @*<script src="~/js/jquery-1.12.4.js"></script>*@
 @*<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
@@ -355,8 +467,8 @@
 <script type="text/javascript">
 
     $(document).ready(function () {
-       // alert('Hi');
-          // console.log(@Html.Raw(@ViewBag.UserBaseToDoModel));
+        // alert('Hi');
+        // console.log(@Html.Raw(@ViewBag.UserBaseToDoModel));
         //var mdata = JSON.parse(@ViewBag.UserBaseToDoModel);
         var mdata = @Html.Raw(@ViewBag.UserBaseToDoModel);
         //alert(mdata);
@@ -366,46 +478,47 @@
                 { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, key: true, hidden: true },
                 {
                     name: "ToDoDetails.Title", label: "Title", width: 53
-                    },
-                { name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", width: 53 },
-                        {
-                            name: "ToDoDetails.IsMarkedComplete", label:"Complete", editable: true, sortable: true, edittype: 'checkbox', editoptions: { checked: "" }, formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
-                        },
+                },
+                { name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", width: 53, formatter: 'showlink', formatoptions: { baseLinkUrl: 'javascript:', showAction: "Link('", addParam: "');" } },
+                {
+                    name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox', editoptions: { checked: "" }, formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
+                },
                 { name: "ToDoDetails.Priority", label: "Priority", width: 65 },
                 { name: "UserNames", label: "AssignedTo", width: 65 },
                 { name: "ToDoDetails.AssignedTo", label: "Related Daily Log", width: 65 },
                 { name: "ToDoDetails.AssignedTo", label: "Files", width: 65 },
                 { name: "ToDoDetails.Duedate", label: "Due", width: 41 },
                 { name: "ToDoDetails.CreatedBy", label: "CreatedBy", width: 41 },
-                        { name: "TagNames", label: "Tags", width: 65}
-                    ],
-                    data: mdata,
-                    iconSet: "fontAwesome",
-                    idPrefix: "g5_",
-                    rownumbers: false,
-                    sortname: "Title",
-                    sortorder: "desc",
-                    threeStateSort: true,
-                    sortIconsBeforeText: true,
+                { name: "TagNames", label: "Tags", width: 65 }
+            ],
+            data: mdata,
+            iconSet: "fontAwesome",
+            idPrefix: "g5_",
+            rownumbers: false,
+            sortname: "Title",
+            sortorder: "desc",
+            threeStateSort: true,
+            sortIconsBeforeText: true,
             headertitles: true,
             rowList: [5, 10, 20, "10000:All"],
             toppager: true,
             multiselect: true,
-                    pager: true,
+            pager: true,
+            //pager: '#pcmtmpl',
             toolbarfilter: true,
-                    rowNum: 5,
-                    viewrecords: true,
-                    searching: {
-                        defaultSearch: "cn"
+            rowNum: 5,
+            viewrecords: true,
+            searching: {
+                defaultSearch: "cn"
             },
             cellEdit: true,
             //beforeSelectRow: function (rowid, e) {
             //    return false;
             //},
-                    caption: ""
+            caption: ""
         });
 
-
+        //jQuery("#internaluser").jqGrid('navGrid', '#pcmtmpl', { edit: false, add: false, del: false,reload:true });
         //$("#btnExcelLink").on("click", function () {
         //    debugger;
         //    $("#internaluser").jqGrid("exportToExcel", {
@@ -423,7 +536,7 @@
         });
 
         function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
-           // alert('hi');
+            // alert('hi');
             //If JSONData is not an object then JSON.parse will parse the JSON string in an Object
             var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
 
@@ -495,7 +608,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-        }
+        };
 
         });
 </script>
@@ -574,6 +687,8 @@
             var status = $('#ddlToDoStatusToDoSearch :selected').val();
            // var priority = $('#ddlToDoPriorityToDoSearch :selected').text();
         var priority = $('#ddlToDoPriorityToDoSearch').next().children('button').children().text();
+
+        var selectedTags = $('#ddlTagToDoSearch').next().children('button').children().text();
     $.ajax({
                 url: "@(Url.Action("SearchToDo", "ToDo", null))",
                 type: 'POST',
@@ -581,7 +696,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-        data: { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: priority  },
+        data: { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: priority, tags:selectedTags  },
         success: function (result) {
             //jQuery("#internaluser").setGridParam({ data: jQuery.parseJSON(result), datatype: "json" });
 
@@ -753,6 +868,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $('#ddlToDoPriorityToDoSearch').multiselect();
+        $('#ddlTagToDoSearch').multiselect();
     });
 </script>
 <script type="text/javascript">
@@ -988,4 +1104,23 @@
 
 
     });
+</script>
+<script>
+    @*function showlink(cellvalue, options, rowObject) {
+        alert('Hi');
+    return "@Html.ActionLink("Open this","Test")";
+
+}*@
+    function Link(id) {
+        alert('Hi');
+    //var row = id.split("=");
+    //var row_ID = row[1];
+    //var sitename= $("#users_grid").getCell(row_ID, 'Site_Name');
+    //var url = "http://"+sitename; // sitename will be like google.com or yahoo.com
+
+    //window.open(url);
+
+        $(this).attr('data-target', '#Setup');
+        $(this).click();
+}
 </script>

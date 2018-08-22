@@ -1123,13 +1123,17 @@ table.dataTable {
     border-collapse: collapse;
     background-color: #f5f5f5;
     border-radius: 4px;
-    text-align: left;
-    min-width: 275px;
+    text-align: center;
+    /*min-width: 275px;*/
     color: #626262;
     word-break: break-all;
     -webkit-box-shadow: 3px 0 17px -4px rgba(98,98,98,.72);
     -moz-box-shadow: 3px 0 17px -4px rgba(98,98,98,.72);
     box-shadow: 3px 0 17px -4px rgba(98,98,98,.72);
+}
+
+.companySection  .img-responsive {
+    display: inline-block;
 }
 
 .company-information img {
@@ -2713,3 +2717,102 @@ body .blueButton, body .Projects-List .btn-primary {
         background-color: #ad9563 !important;
         border-color: #ad9563 !important;
     }
+
+
+
+.mainheader {
+    height: 40px;
+    color: #fff;
+    text-align: left;
+    padding-left: 25px;
+    font-family: "Arial",sans-serif;
+    font-size: 16px;
+    padding-top: 12px;
+}
+
+.mainheader {
+    background-image: none !important;
+    background-color: #626262;
+}
+
+.setupRowPadding {
+    padding: 0 15px 0 15px;
+}
+
+.setupNoPadding {
+    padding: 0 !important;
+    background-color: #fff;
+}
+
+.setupButton {
+    display: block;
+    border: solid 1px #ccc;
+    margin-left: -1px;
+    height: 75px;
+}
+
+.setupBox {
+    width: 100%;
+    margin: auto;
+    text-align: left;
+    display: inline-block;
+    line-height: 20px;
+    height: 75px;
+    padding: 20px 10% 0 20%;
+}
+
+    .setupBox img {
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .setupBox i {
+        font-size: 35px;
+        color: #999;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+
+.setupButton:hover, .setupButton:focus {
+    background: #eee;
+}
+
+
+.bt-single-select-dropdown .chosen-container-single .chosen-single {
+    height: 30px;
+    line-height: 25px;
+    color: #626262;
+    border: 1px solid #ddd;
+    float: left;
+    display: block;
+    width: 112%;
+}
+
+.multiCheckBoxHolder .chkText {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 20px;
+    height: 17px;
+    float: left;
+}
+
+.multiCheckBoxHolder span.liThirdRowControl {
+    float: left;
+    margin-top: 4px;
+}
+
+.cloneingboxholder .chosen-container.chosen-container-single {
+    display: none;
+}
+
+.chosen-container {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    font-size: 13px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

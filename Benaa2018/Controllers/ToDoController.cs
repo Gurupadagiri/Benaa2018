@@ -688,7 +688,7 @@ namespace Benaa2018.Controllers
                         }
                         #endregion
                         toDoView.ToDoDetails = todoMasterDetails;
-                        toDoView.TotalNumberOfMessages = 1;
+                        toDoView.TotalNumberOfMessages = 0;
                         toDoView.lstTags = lstTagMasters;
                         toDoView.TagNames = AllTagNames;
                         toDoView.UserNames = UserDetails;
@@ -743,16 +743,88 @@ namespace Benaa2018.Controllers
 
                         };
 
-                        var objTags = await _tagToDoHelper.GetAllTags(item.TodoDetailsID);
 
-                        if (!string.IsNullOrEmpty(tags))
+                        var objTags = await _tagToDoHelper.GetAllTags(item.TodoDetailsID);
+                        string AllTagNames = string.Empty;
+                        List<TagMasterViewModel> lstTagMasters = new List<TagMasterViewModel>();
+                        if (objTags.Count > 0)
                         {
-                            string[] tagDetails = tags.Split(',');
+                            TagMasterViewModel TagsDetails = new TagMasterViewModel();
+
+                            foreach (var tag in objTags)
+                            {
+
+                                int tagids = tag.Tagid;
+                                List<TagMasterViewModel> lstTagMaster = new List<TagMasterViewModel>();
+                                lstTagMaster = await _tagMasterHelper.GetAllTagMasterDetails(tagids);
+                                if (lstTagMaster.Count > 0)
+                                {
+
+                                    string tagName = lstTagMaster[0].TagName.ToString();
+                                    TagMasterViewModel tagMaster = new TagMasterViewModel
+                                    {
+                                        TagId = tagids,
+                                        TagName = tagName
+                                    };
+                                    lstTagMasters.Add(tagMaster);
+                                    AllTagNames = AllTagNames + tagName + ", ";
+                                }
+
+                            }
+
+
+                            toDoView.TotalTagCount = objTags.Count;
+
+
                         }
+
+                        #region GetAssign
+                        string UserDetails = string.Empty;
+                        int UserDetailsCount = 0;
+                        var objAssign = await _toDoAssignHelper.GetToDoAssignByToDoDetailsId(item.TodoDetailsID);
+                        string AllAssignNames = string.Empty;
+                        List<ToDoAssignViewModel> lstAssignModels = new List<ToDoAssignViewModel>();
+                        if (objAssign.Count > 0)
+                        {
+                            ToDoAssignViewModel AssignDetails = new ToDoAssignViewModel();
+                            foreach (var assign in objAssign)
+                            {
+                                lstAssignModels.Add(new ToDoAssignViewModel()
+                                {
+                                    ToDoAssignID = assign.ToDoAssignID,
+                                    UserID = assign.UserID,
+                                    TodoDetailsID = assign.TodoDetailsID,
+                                    ToDoUserAssignTypeId = assign.ToDoUserAssignTypeId
+                                });
+                            }
+
+
+                            if (lstAssignModels.Count > 0)
+                            {
+                                foreach (var itemUser in lstAssignModels)
+                                {
+                                    var Users = _userMasterHelper.GetUserByUserId(itemUser.UserID);
+                                    UserDetails = Users.Result.UserName + " ," + UserDetails;
+                                }
+                                UserDetailsCount = lstAssignModels.Count - 1;
+                            }
+
+                        }
+                        #endregion
+                        //var objTags = await _tagToDoHelper.GetAllTags(item.TodoDetailsID);
+
+                        //if (!string.IsNullOrEmpty(tags))
+                        //{
+                        //    string[] tagDetails = tags.Split(',');
+                        //}
 
 
                         toDoView.ToDoDetails = todoMasterDetails;
-
+                        toDoView.TotalNumberOfMessages = 0;
+                        toDoView.lstTags = lstTagMasters;
+                        toDoView.TagNames = AllTagNames;
+                        toDoView.UserNames = UserDetails;
+                        toDoView.TotalUserNameCount = UserDetailsCount;
                         lstToDos.Add(toDoView);
                     }
                 }

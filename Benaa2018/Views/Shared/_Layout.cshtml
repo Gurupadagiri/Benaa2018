@@ -76,36 +76,36 @@
                         </ul>
                     </li>
                     @foreach (var item in baseModel.MenuContents)
-                {
-                <li class="dropdown inlineIcon">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <div class="liDiv">
-                            @foreach (var Menu in item.Menus)
-                            {
-                            <li>
-                                <div class="inlineDiv">
-                                    <a href="#" class="icontxt">
-                                        <span class="@Menu.CssClass"></span>
-                                        <span>@Menu.MenuName</span>
-                                    </a>
-                                    <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
+                    {
+                        <li class="dropdown inlineIcon">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <div class="liDiv">
+                                    @foreach (var Menu in item.Menus)
+                                    {
+                                        <li>
+                                            <div class="inlineDiv">
+                                                <a href="#" class="icontxt">
+                                                    <span class="@Menu.CssClass"></span>
+                                                    <span>@Menu.MenuName</span>
+                                                </a>
+                                                <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
+                                            </div>
+                                        </li>
+                                    }
+                                    <li class="videocontainer">
+                                        <div class="grayli">
+                                            <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                            <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                                <b>Lorem Lipsum doller sit</b>
+                                                <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                            </span>
+                                        </div>
+                                    </li>
                                 </div>
-                            </li>
-                            }
-                            <li class="videocontainer">
-                                <div class="grayli">
-                                    <span class="fa fa-close grayClose" aria-hidden="true"></span>
-                                    <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
-                                        <b>Lorem Lipsum doller sit</b>
-                                        <p>Lorem Ipsum is simply dummy text of the printing</p>
-                                    </span>
-                                </div>
-                            </li>
-                        </div>
-                    </ul>
-                </li>
-                }
+                            </ul>
+                        </li>
+                    }
                 </ul>
                 <ul class="nav navbar-nav navbar-right user-support">
                     <li class="dropdown">
@@ -140,7 +140,12 @@
                             <span class="glyphicon glyphicon-cog"></span> <b class="caret caretMove"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#"><span class="fa fa-cogs"></span> Setup</a></li>
+                            @*<li><a href="#"><span class="fa fa-cogs"></span> Setup</a></li>*@
+                            <li>
+                                <a data-toggle="modal" data-target="#Setup" href="javascript:void(0);">
+                                    <span class="fa fa-cogs"></span> Setup
+                                </a>
+                            </li>
                             <li><a href="#" data-toggle="modal" data-target="#userPreference" data-original-title><span class="fa fa-user"></span> My User Preferences</a></li>
                             <li><a href="#"><span class="fa fa-sign-out"></span> Logout</a></li>
                         </ul>
@@ -168,13 +173,527 @@
                 </div>
             </div>
         </div>
+
+        <!--- Left Container start here-->
+
+        <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
+
+            <div class="slidebar hidePrint openIcon openSlide">
+                <div id="splitterImages">
+                    <div class="ieTopBar">
+                        <div class="BarIndicatory top left"></div>
+                        <div class="BarIndicatory top middle"></div>
+                        <div class="BarIndicatory top right"></div>
+                    </div>
+                    <div class="ieBottomBar">
+                        <div class="BarIndicatory bottom left"></div>
+                        <div class="BarIndicatory bottom middle"></div>
+                        <div class="BarIndicatory bottom right"></div>
+                    </div>
+
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="list-group">
+                <div class="list-group-item  main-color-bg">
+
+                    <div class="dropproject">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"> Project Menu <b class="caret"></b></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#"> Template Menu</a></li>
+
+                            </ul>
+                        </li>
+                    </div>
+
+
+                    <span class="iconAlign mrgn17tp">
+                        <span class="glyphicon glyphicon-plus myPlus" aria-hidden="true">
+                            <div class="myPlusContainer">
+                                <div class="arrow"></div>
+                                <ul class="list-group">
+                                    <li class="list-group-item headerList">Add New Jobs</li>
+                                    <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">From Scratch</a></li>
+
+                                    <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="#">From Template</a></li>
+
+
+
+                                </ul>
+                            </div>
+                        </span>
+
+
+                        <span class="glyphicon glyphicon-filter myFilter" aria-hidden="true">
+                            <div class="myFilterContainer">
+                                <div class="arrow"></div>
+                                <ul class="list-group">
+                                    <li class="list-group-item headerList">Filter Job Sites</li>
+                                    <li class="list-group-item">
+                                        <div class="btnContainer">
+                                            <a class="btn btn-primary btn-xs">Apply Filters</a>
+                                            <a class="btn btn-default btn-xs">Reset</a>
+                                        </div>
+                                        <div class="form-group">
+                                            <select multiple class="withCheckbox">
+                                                <option value="C++">C++</option>
+                                                <option value="C#">C#</option>
+                                                <option value="Java">Java</option>
+                                                <option value="Objective-C">Objective-C</option>
+                                                <option value="JavaScript">JavaScript</option>
+                                                <option value="Perl">Perl</option>
+                                                <option value="PHP">PHP</option>
+                                                <option value="Ruby on Rails">Ruby on Rails</option>
+                                                <option value="Android">Android</option>
+                                                <option value="iOS">iOS</option>
+                                                <option value="HTML">HTML</option>
+                                                <option value="XML">XML</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select name="" multiple class="withCheckbox">
+                                                <option value="C++">C++</option>
+                                                <option value="C#">C#</option>
+                                                <option value="Java">Java</option>
+                                                <option value="Objective-C">Objective-C</option>
+                                                <option value="JavaScript">JavaScript</option>
+                                                <option value="Perl">Perl</option>
+                                                <option value="PHP">PHP</option>
+                                                <option value="Ruby on Rails">Ruby on Rails</option>
+                                                <option value="Android">Android</option>
+                                                <option value="iOS">iOS</option>
+                                                <option value="HTML">HTML</option>
+                                                <option value="XML">XML</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <select name="" multiple class="noCheckbox">
+                                                <option value="C++">C++</option>
+                                                <option value="C#">C#</option>
+                                                <option value="Java">Java</option>
+                                                <option value="Objective-C">Objective-C</option>
+                                                <option value="JavaScript">JavaScript</option>
+                                                <option value="Perl">Perl</option>
+                                                <option value="PHP">PHP</option>
+                                                <option value="Ruby on Rails">Ruby on Rails</option>
+                                                <option value="Android">Android</option>
+                                                <option value="iOS">iOS</option>
+                                                <option value="HTML">HTML</option>
+                                                <option value="XML">XML</option>
+                                            </select>
+                                        </div>
+
+                                    </li>
+
+
+
+
+                                </ul>
+                            </div>
+                        </span>
+                        <span class="fa fa-sort mySort" aria-hidden="true">
+                            <div class="mySortContainer">
+                                <div class="arrow"></div>
+                                <ul class="list-group">
+                                    <li class="list-group-item headerList">Sort Jobs</li>
+                                    <li class="list-group-item"><span class="glyphicon glyphicon-pencil text-primary"></span><a href="#">Alphabetically</a></li>
+
+                                    <li class="list-group-item"><span class="glyphicon glyphicon-flash text-success"></span><a href="#">Projected Completion</a></li>
+
+
+
+                                </ul>
+                            </div>
+                        </span>
+                    </span>
+                </div>
+                <div class="list-group-item">
+                    <input type="text" class="form-control" placeholder="Search" />
+                    <a href="#" class="fa fa-search searchIcon"></a>
+                </div>
+
+                <div class="view list-group-item" style="display:block;">
+                    2
+                </div>
+
+                <div class="projectNameContainer list-group-item" style="display:none;">
+                    <span class="arrow-right"></span>
+                    al shatee
+                    <ul class="rightIconLinks list-unstyled">
+                        <li><a href="#" data-toggle="modal" data-target="#infoModal" data-original-title><i class="fa fa-info-circle"></i></a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#infoModal" data-original-title><i class="fa fa-envelope"></i></a></li>
+                        <li><a href="#" data-toggle="modal" data-target="#infoModal" data-original-title><i class="fa fa-home"></i></a></li>
+                    </ul>
+
+
+
+                </div>
+
+                <a href="#" class="list-group-item allJobs active"> All 2 listed jobs <span class="fa fa-align-right pull-right"></span></a>
+                <a href="#" class="list-group-item allProject"> Al shatee</a>
+
+
+
+            </div>
+
+
+        </div>
+
+        <!--- Left Container end here-->
+
+        <!--- Right Container start here-->
+        <!--- SETUP POP UP ---->
+        <!-- Modal -->
+        <div class="modal fade" id="Setup" role="dialog">
+            <div class="modal-dialog">
+
+                <!-- Modal content-->
+                <div class="panel panel-primary customPopup">
+                    <div class="panel-heading themeColor">
+                        <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="panel-title" id="contactLabel">Setup & Configuration</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-xs-6 col-md-3 no-left-padding">
+                                <div class="companySection">
+                                    <img class="img-responsive" src="~/images/logo1.jpg">
+
+                                    <div class="company-information-header">
+                                        Company Information
+                                        <a href="javascript:void(0);">Edit</a>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-6 col-md-9">
+                                <div class="row setupRow">
+                                    <div class="col-xs-12 caption">
+                                        <div class="mainheader">SETUP</div>
+                                    </div>
+                                </div>
+                                <div class="row setupRowPadding">
+                                    <div class="mainContent">
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="~/images/bsAccountInfo.png">
+                                                    <span class="caption">
+                                                        Account Info
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="~/images/bsCostCodes.png">
+                                                    <span class="caption">
+                                                        Cost Codes
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="~/images/bsCatalog.png">
+                                                    <span class="caption">
+                                                        Catalog
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsUser.png">
+                                                    <span class="caption">
+                                                        Internal Users
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsSubs.png">
+                                                    <span class="caption">
+                                                        Subs
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsCustomerContacts.png">
+                                                    <span class="caption">
+                                                        Customer Contacts
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsJobSettings.png">
+                                                    <span class="caption">
+                                                        Job Settings
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="row setupRow">
+                                    <div class="col-xs-12 caption">
+                                        <div class="mainheader">SALES</div>
+                                    </div>
+                                </div>
+                                <div class="row setupRowPadding">
+                                    <div class="mainContent">
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images//bsLeads.png">
+                                                    <span class="caption">
+                                                        Leads
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row setupRow">
+                                    <div class="col-xs-12 caption">
+                                        <div class="mainheader">PROJECT MANAGEMENT</div>
+                                    </div>
+                                </div>
+                                <div class="row setupRowPadding">
+                                    <div class="mainContent">
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsCalendar.png">
+                                                    <span class="caption">
+                                                        Calendar
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsDailyLogs.png">
+                                                    <span class="caption">
+                                                        Daily Logs
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsToDos.png">
+                                                    <span class="caption">
+                                                        To-Do's
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsChangeOrders.png">
+                                                    <span class="caption">
+                                                        Change Orders
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsSelections.png">
+                                                    <span class="caption">
+                                                        Selections
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsWarranty.png">
+                                                    <span class="caption">
+                                                        Warranty
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsTimeClock.png">
+                                                    <span class="caption">
+                                                        Time Clock
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row setupRow">
+                                    <div class="col-xs-12 caption">
+                                        <div class="mainheader">FILES</div>
+                                    </div>
+                                </div>
+                                <div class="row setupRowPadding">
+                                    <div class="mainContent">
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsFiles.png">
+                                                    <span class="caption">Photos &amp; Docs</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row setupRow">
+                                    <div class="col-xs-12 caption">
+                                        <div class="mainheader">MESSAGING</div>
+                                    </div>
+                                </div>
+                                <div class="row setupRowPadding">
+                                    <div class="mainContent">
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsMessaging.png">
+                                                    <span class="caption">
+                                                        Comments &amp;
+                                                        <br>
+                                                        Messages
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsSurveys.png">
+                                                    <span class="caption">Surveys</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsRFIs.png">
+                                                    <span class="caption">RFIs</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+                                <div class="row setupRow">
+                                    <div class="col-xs-12 caption">
+                                        <div class="mainheader">FINANCIAL</div>
+                                    </div>
+                                </div>
+                                <div class="row setupRowPadding">
+                                    <div class="mainContent">
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsBids.png">
+                                                    <span class="caption">Bids</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsEstimates.png">
+                                                    <span class="caption">Estimate</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsBillsPos.png">
+                                                    <span class="caption">Bills/POs/Budget</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsOwnerPayments.png">
+                                                    <span class="caption">Owner Payments</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsOnlinePayments.png">
+                                                    <span class="caption">Online Payments</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="col-md-4 setupNoPadding">
+                                            <a href="javascript:void(0);" class="setupButton">
+                                                <div class="setupBox">
+                                                    <img src="images/bsAccounting.png" style="height: 35px; width: 35px;">
+
+                                                    <span class="caption">
+                                                        <span>Accounting</span>
+
+                                                    </span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <!--- END SETUP POP UP ---->
         @*@if (ViewBag.IsleftMenuVisible != false)
             {
             <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
                 @Html.Partial("_leftMenu", baseModel);
             </div>
             }*@
-    <!--------------------- Logo header end here------------->
+        <!--------------------- Logo header end here------------->
         <script src="~/js/jquery-1.12.4.js"></script>
         <script src="~/js/jquery-ui.js"></script>
         <script src="~/js/custom.js"></script>
@@ -187,7 +706,7 @@
         <script src="~/js/jquery.multiselect.js"></script>
         <script src="~/js/bootstrap-datepicker.min.js"></script>
         <script src="~/js/bootstrapSwitch.js"></script>
-       @RenderBody()
+        @RenderBody()
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
         </div>
@@ -710,11 +1229,18 @@
                 });
             });
             //Filter Result
-            $('a.filterproject').on('click', function () {
+            @*$('a.filterproject').on('click', function () {
                 var projectGroupId = $('#ddlProjectGroup').val();
                 var ManagerId = $('#ddlProjectManager').val();
                 var postData = { projectGroupId: projectGroupId, managerID: ManagerId };
                 $("#leftNavCon").load('@(Url.Action("FilterProjectDetailsAsync", "Home",null))', postData);
+            });*@
+
+            $(document).on('click', 'a.allProject', function () {
+                var projectid = parseInt($(this).attr('data-projectid'));
+                var postData = { projectId: projectid };
+                $("div.mainContentDiv").load('@(Url.Action("FilteredMainContentAsync", "Home",null))', postData);
+                $('#spnproject').text($(this).text());
             });
 
             //Filter Result
@@ -979,9 +1505,9 @@
                     caption: ""
                 });
 
-                BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMap"));
+                @*BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMap"));
                 BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapCluster"));
-                BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapEdit"));
+                BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapEdit"));*@
                 $('span.glyphicon-map-marker').on('click', function () {
                     var coordinate = $(this).attr('data-coordinate');
                     var lat = coordinate.split(',')[0];

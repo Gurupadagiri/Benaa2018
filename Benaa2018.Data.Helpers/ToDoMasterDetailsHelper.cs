@@ -88,83 +88,115 @@ namespace Benaa2018.Helper
 
 
 
-        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsByTitle(string title="", int status = 0, string priority="")
+        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsByTitle(string title = "", int status = 0, string priority = "")
         {
             List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
-            var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
-            //if (!string.IsNullOrEmpty(title))
-            //{
-            //    toDoInfo = toDoInfo.Where(a => a.Title.Contains(title)).ToList();
-            //}
-
-            if (toDoInfo.Count() > 0)
+            try
             {
 
-            
-            // if(status>0)
-            //{
-                bool statusToDo = false;
-                if(status==1)
-                {
-                    statusToDo = true;
-                    toDoInfo = toDoInfo.Where(a => a.IsMarkedComplete == statusToDo).ToList();
-                }
-                else if(status==0)
-                {
-                    toDoInfo = toDoInfo.Where(a => a.IsMarkedComplete == statusToDo).ToList();
-                }
-               
-               
-            //}
-            if (!string.IsNullOrEmpty(priority))
-            {
-                    //if(priority== "Low" || priority == "High" || priority == "Highest" || priority == "None")
-                    //{
 
-                    //toDoInfo = toDoInfo.Where(a => a.Priority == priority).ToList();
-                    //}
-                    List<string> lstPriorities = new List<string>();
-                    string[] prioritySplit = priority.Split(',');
-                    if (prioritySplit.Length > 0)
+                var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
+                if (toDoInfo.Count() > 0)
+                {
+
+
+                    if (!string.IsNullOrEmpty(title))
                     {
-                        foreach (string item in prioritySplit)
-                        {
-                            if(!string.IsNullOrEmpty(item))
-                            {
-                                lstPriorities.Add(item);
-                            }
-                        }
+
+                        toDoInfo = toDoInfo.Where(a => a.Title != null && a.Title.Contains(title)).ToList();
                     }
-
-                    //toDoInfo = toDoInfo.Where(a => a.Priority.Any(lstPriorities)).ToList();
                 }
-
 
                 if (toDoInfo.Count() > 0)
-            {
-                toDoInfo.ToList().ForEach(item =>
                 {
-                    lstToDoMasterModel.Add(new ToDoMasterDetailsViewModel
+
+
+                    // if(status>0)
+                    //{
+                    bool statusToDo = false;
+                    if (status == 1)
                     {
-                        TodoDetailsID = item.TodoDetailsID,
-                        Project_ID = item.Project_ID,
-                        Project_Site = item.Project_Site,
-                        Title = item.Title,
-                        Org_ID = item.Org_ID,
-                        TypeNote = item.TypeNote,
-                        IsMarkedComplete = item.IsMarkedComplete,
-                        Priority = item.Priority,
-                        Duedate = item.Duedate,
-                        DueDatetime = item.DueDatetime,
-                        LinkToUnit = item.LinkToUnit,
-                        LinkToDaysStatus = item.LinkToDaysStatus,
-                        TillingWorkId = item.LinkToWorkId,
-                        TillingDate = item.LinkToDate,
-                        TillingTime = item.LinkToTime,
-                        ReminderId = item.ReminderId
-                    });
-                });
+                        statusToDo = true;
+                        toDoInfo = toDoInfo.Where(a => a.IsMarkedComplete == statusToDo).ToList();
+                    }
+                    else if (status == 0)
+                    {
+                        toDoInfo = toDoInfo.Where(a => a.IsMarkedComplete == statusToDo).ToList();
+                    }
+
+
+                    //}
+                    if (!string.IsNullOrEmpty(priority))
+                    {
+                        //if(priority== "Low" || priority == "High" || priority == "Highest" || priority == "None")
+                        //{
+
+                        //toDoInfo = toDoInfo.Where(a => a.Priority == priority).ToList();
+                        //}
+                        if (priority != "Select options" && priority!="4 selected")
+                        {
+
+
+                            List<string> lstPriorities = new List<string>();
+                            string[] prioritySplit = priority.Split(',');
+                            if (prioritySplit.Length > 0)
+                            {
+                                foreach (string item in prioritySplit)
+                                {
+                                    if (!string.IsNullOrEmpty(item))
+                                    {
+                                        lstPriorities.Add(item);
+                                    }
+                                }
+                            }
+                            if (lstPriorities.Count == 1)
+                            {
+                                toDoInfo = toDoInfo.Where(a => a.Priority == lstPriorities[0]).ToList();
+                                // toDoInfo = toDoInfo.Where(a => a.Priority.Contains(lstPriorities));
+                            }
+                            else if (lstPriorities.Count == 2)
+                            {
+                                toDoInfo = toDoInfo.Where(a => a.Priority == lstPriorities[0] || a.Priority == lstPriorities[1]).ToList();
+                            }
+                            else if (lstPriorities.Count == 3)
+                            {
+                                toDoInfo = toDoInfo.Where(a => a.Priority == lstPriorities[0] || a.Priority == lstPriorities[1] || a.Priority == lstPriorities[2]).ToList();
+                            }
+                        }
+                        // toDoInfo = toDoInfo.Where(a => a.Priority.Any(lstPriorities)).ToList();
+                    }
+
+
+                    if (toDoInfo.Count() > 0)
+                    {
+                        toDoInfo.ToList().ForEach(item =>
+                        {
+                            lstToDoMasterModel.Add(new ToDoMasterDetailsViewModel
+                            {
+                                TodoDetailsID = item.TodoDetailsID,
+                                Project_ID = item.Project_ID,
+                                Project_Site = item.Project_Site,
+                                Title = item.Title,
+                                Org_ID = item.Org_ID,
+                                TypeNote = item.TypeNote,
+                                IsMarkedComplete = item.IsMarkedComplete,
+                                Priority = item.Priority,
+                                Duedate = item.Duedate,
+                                DueDatetime = item.DueDatetime,
+                                LinkToUnit = item.LinkToUnit,
+                                LinkToDaysStatus = item.LinkToDaysStatus,
+                                TillingWorkId = item.LinkToWorkId,
+                                TillingDate = item.LinkToDate,
+                                TillingTime = item.LinkToTime,
+                                ReminderId = item.ReminderId
+                            });
+                        });
+                    }
+                }
             }
+            catch (Exception ex)
+            {
+
             }
             return lstToDoMasterModel;
         }
@@ -196,7 +228,7 @@ namespace Benaa2018.Helper
                 Created_Date = DateTime.Today,
                 Modified_Date = DateTime.Today
             };
-           // storeContext.Entry(item).State = EntityState.Detached
+            // storeContext.Entry(item).State = EntityState.Detached
             var userObj = await _toDoMasterDetailsHelper.UpdateAsync(toDoMasterDetails);
             ToDoMasterDetailsViewModel toDoMasterDetailsViewModel = new ToDoMasterDetailsViewModel
             {
@@ -211,7 +243,7 @@ namespace Benaa2018.Helper
             ToDoMasterDetails toDoMasterDetails = new ToDoMasterDetails()
             {
                 TodoDetailsID = Convert.ToInt32(ids),
-                DeletionStatus=true,
+                DeletionStatus = true,
                 Created_By = "aaaa",
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,
@@ -231,7 +263,7 @@ namespace Benaa2018.Helper
         {
             List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
             var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
-            toDoInfo = toDoInfo.Where(a => a.TodoDetailsID==todoDetailsId).ToList();
+            toDoInfo = toDoInfo.Where(a => a.TodoDetailsID == todoDetailsId).ToList();
             toDoInfo.ToList().ForEach(item =>
             {
                 lstToDoMasterModel.Add(new ToDoMasterDetailsViewModel

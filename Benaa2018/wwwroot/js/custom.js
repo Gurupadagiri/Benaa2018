@@ -56,9 +56,10 @@
    $('.panel-heading').click(function(){
      $('#selectSedualedItem').hide();
    });
-
-   $('.multipleSelectBoxes .mainButton').click(function(){
-        $('.multiCheckBoxHolder,.multiInputHolder').slideToggle();
+   // alert("Test Sumit");
+    $('.multipleSelectBoxes .mainButton').click(function () {
+       // alert("Test Sumit working");
+        $('.multiCheckBoxHolder, .multiInputHolder').slideToggle();
 
         if ($(this).val() == "Add Checklist")
            $(this).val("Remove Checklist")
