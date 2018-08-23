@@ -11,8 +11,8 @@ using System;
 namespace Benaa2018.Data.Migrations
 {
     [DbContext(typeof(SBSDbContext))]
-    [Migration("20180819123121_test1")]
-    partial class test1
+    [Migration("20180823190604_test")]
+    partial class test
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,39 +21,35 @@ namespace Benaa2018.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Benaa2018.Data.Model.ActivityMaster", b =>
-                {
-                    b.Property<int>("Activity_Id")
-                        .ValueGeneratedOnAdd();
+           
 
-                    b.Property<string>("Activity_Name");
+            modelBuilder.Entity("Benaa2018.Data.Model.ToDoMessage", b =>
+                {
+                    b.Property<int>("ToDo_Message_Id")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("Created_By");
 
                     b.Property<DateTime>("Created_Date");
 
-                    b.Property<bool>("Is_Deleted");
+                    b.Property<bool>("Is_Owner");
 
-                    b.Property<int>("Main_Activity_Id");
+                    b.Property<bool>("Is_Sub");
 
                     b.Property<string>("Modified_By");
 
                     b.Property<DateTime>("Modified_Date");
 
-                    b.Property<int>("Org_Id");
+                    b.Property<int>("ToDo_Details_Id");
 
-                    b.Property<int>("Parent_Id");
+                    b.Property<string>("ToDo_Message_Title");
 
-                    b.Property<string>("Sequence");
+                    b.HasKey("ToDo_Message_Id");
 
-                    b.Property<bool>("Status");
-
-                    b.HasKey("Activity_Id");
-
-                    b.ToTable("Activity_Master");
+                    b.ToTable("To_Do_Message");
                 });
 
-           
+            
 #pragma warning restore 612, 618
         }
     }

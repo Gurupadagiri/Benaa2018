@@ -42,6 +42,7 @@ namespace Benaa2018.Data
         public DbSet<ActivityMaster> ActivityMasters { get; set; }
         public DbSet<MainActivityMaster> MainActivityMasters { get; set; }
         public DbSet<GroupMaster> GroupMasters { get; set; }
+        public DbSet<ToDoMessage> ToDoMessages { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

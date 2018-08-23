@@ -31,6 +31,7 @@ namespace Benaa2018.Controllers
         private readonly IToDoTagHelper _tagToDoHelper;
         private readonly IToDoCheckListHelper _toDoCheckListHelper;
         private readonly IToDoCheckListDetailsHelper _toDoCheckListDetailsHelper;
+        private readonly IToDoMessageHelper _toDoMessageHelper;
 
         public ToDoController(IMenuMasterHelper menuMasterHelper,
             IOwnerMasterHelper ownerMasterHelper,
@@ -49,6 +50,7 @@ namespace Benaa2018.Controllers
            IToDoAssignHelper toDoAssignHelper,
            IToDoCheckListHelper toDoCheckListHelper,
            IToDoCheckListDetailsHelper toDoCheckListDetailsHelper,
+           IToDoMessageHelper toDoMessageHelper,
             ICompanyMasterHelper companyMasterHelper) : base(menuMasterHelper,
             ownerMasterHelper,
             projectColorHelper,
@@ -77,7 +79,7 @@ namespace Benaa2018.Controllers
             _tagToDoHelper = toDoTagHelper;
             _toDoCheckListHelper = toDoCheckListHelper;
             _toDoCheckListDetailsHelper = toDoCheckListDetailsHelper;
-
+            _toDoMessageHelper = toDoMessageHelper;
 
         }
         public async Task<IActionResult> Index()
@@ -594,11 +596,12 @@ namespace Benaa2018.Controllers
             {
                 var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetails();
 
-
+              
                 if (obj1.Count > 0)
                 {
                     foreach (var item in obj1)
                     {
+                        int totalNumberOfMessages = 0;
                         ToDoAllViewModel toDoView = new ToDoAllViewModel();
                         ToDoMasterDetailsViewModel todoMasterDetails = new ToDoMasterDetailsViewModel()
                         {
@@ -687,8 +690,16 @@ namespace Benaa2018.Controllers
 
                         }
                         #endregion
+                        #region Total number of messages
+                        
+                        var objToDoMessage=await _toDoMessageHelper.GetAllToDoMessageDetailsById(item.TodoDetailsID);
+                        if(objToDoMessage!=null && objToDoMessage.Count>0)
+                        {
+                            totalNumberOfMessages = objToDoMessage.Count;
+                        }
+                        #endregion
                         toDoView.ToDoDetails = todoMasterDetails;
-                        toDoView.TotalNumberOfMessages = 0;
+                        toDoView.TotalNumberOfMessages = totalNumberOfMessages;
                         toDoView.lstTags = lstTagMasters;
                         toDoView.TagNames = AllTagNames;
                         toDoView.UserNames = UserDetails;
@@ -853,6 +864,63 @@ namespace Benaa2018.Controllers
             }
             return toDoAssignView;
         }
+
+
+        public async Task<IActionResult> SearchToDoMessage(int ToDoDetailsId)
+        {
+            string result = string.Empty;
+            //List<ToDoAllViewModel> lstToDoSearchDetails = new List<ToDoAllViewModel>();
+            List<ToDoMessageViewModel> lstTodoMessages = new List<ToDoMessageViewModel>();
+
+            var lstToDoMessage = await _toDoMessageHelper.GetAllToDoMessageDetailsById(ToDoDetailsId);
+            
+            if(lstToDoMessage!=null && lstToDoMessage.Count>0)
+            {
+                foreach(var item in lstToDoMessage)
+                {
+                    ToDoMessageViewModel toDoMessage = new ToDoMessageViewModel()
+                    {
+                        ToDoMessageId = item.ToDoMessageId,
+                        ToDoDetailsId = item.ToDoDetailsId,
+                        ToDoMessageTitle = item.ToDoMessageTitle,
+                        IsOwner = item.IsOwner,
+                        IsSub = item.IsSub,
+                        CreatdDate = item.CreatdDate,
+                        CreatedBy = item.CreatedBy
+                    };
+                    lstTodoMessages.Add(toDoMessage);
+                }
+            }
+            result = "success";
+            // return Json(result);
+            return Json(JsonConvert.SerializeObject(lstTodoMessages));
+        }
+
+
+        public async Task<IActionResult> SaveToDoMessage(int todoDetailsId, string titleMessage,bool owner,bool notify,bool sub)
+        {
+            string result = string.Empty;
+            //List<ToDoAllViewModel> lstToDoSearchDetails = new List<ToDoAllViewModel>();
+            ToDoMessageViewModel todoMessages = new ToDoMessageViewModel()
+            {
+                ToDoDetailsId = todoDetailsId,
+                ToDoMessageTitle = titleMessage,
+                IsOwner = owner,
+                IsSub = sub
+            };
+
+            var saveToDoMessage = await _toDoMessageHelper.SaveToDoMessage(todoMessages);
+
+            if (saveToDoMessage != null && saveToDoMessage.ToDoMessageId > 0)
+            {
+                result = "success";
+            }
+            
+            // return Json(result);
+            return Json(result);
+        }
+
+
 
         private async Task<ToDochecklistViewModel> SaveToDochecklistDetails(ToDochecklistViewModel toDochecklistViewModel)
         {
