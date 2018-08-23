@@ -1,5 +1,24 @@
-﻿
-@model Benaa2018.Helper.ViewModels.ToDoAllViewModel
+﻿@model Benaa2018.Helper.ViewModels.ToDoAllViewModel
+<style>
+    #addphase .customPopup,
+    #addtag .customPopup {
+        width: 50%;
+        margin: 0 auto;
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 300px;
+        top: 20%;
+    }
+
+        #addphase .customPopup .panel-body,
+        #addtag .customPopup .panel-body {
+            height: auto !important;
+        }
+    #calendarmodal .btn-group-lg > .btn, .btn-lg {
+        padding: 0px;
+    }
+</style>
 <div class="modal-dialog modal-lg">
     <form id="frmSubmitToDoMaster" enctype="multipart/form-data" method="post">
         <div class="panel panel-primary customPopup">
@@ -7,12 +26,9 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="panel-title" id="contactLabel">To-Do Details</h4>
             </div>
-
             <div class="panel-body">
                 <div class="buttonContainer">
                     <div class="btnHolder pull-left">
-                        @*<input type="submit" name="" value="Save" id="" class="blueButton">
-                            <input type="submit" name="" value="Save &amp; New" id="" class="blueButton">*@
                         <input type="submit" name="" value="Save" id="btnSaveToDo" class="blueButton">
                         <input type="submit" name="" value="Save &amp; New" id="btnSaveAndNewToDo" class="blueButton">
                     </div>
@@ -22,24 +38,10 @@
                 </div>
                 <div class="topSection ">
                     <div class="col-md-6 leftDiv">
-                        @*<input name="" type="text" maxlength="75" id="" class="flatTextBox top_small_textbox ValidationErrorBorder" placeholder="Title.." title="Title.." style="width: 100%; font-size: 12px; font-weight: bold;">*@
-                        @Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox ValidationErrorBorder", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
-                        @*<textarea name="" rows="3" cols="95" maxlength="2000" id="" class="flatTextBox bottom_small_textbox ValidationErrorBorder" placeholder="Type note..." title="Type note..." style="width:100%;height: 80px; resize: vertical;"></textarea>*@
-                        @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox ValidationErrorBorder", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
+                        @Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
+                        @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
                     </div>
                     <div class="col-md-6 rightDiv">
-                        @*<div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
-                                <div class="to-do-holder">
-                                    <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
-                                    <input id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" type="checkbox" name="ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1" onclick="MarkDirty();" class="single-to-do-check" data-off-text="Off" data-on-text="On">
-                                    @Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @id = "ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1", @name = "ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1", @onclick = "MarkDirty();", @class = "single-to-do-check" })
-                                    <label for="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" class="single-to-do-check"></label>
-                                </div>
-                                <div class="to-do-completed-by" data-hasqtip="3">
-                                    <br>
-                                </div>
-                                <div style="clear: both"></div>
-                            </div>*@
                         <div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
                             <div class="to-do-holder">
                                 <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
@@ -51,38 +53,23 @@
                             </div>
                             <div style="clear: both"></div>
                         </div>
-
                         <div class="formHolder">
                             <div class="leftFormHeading">Assigned To:</div>
                             <div class="rightFormText">
-                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
-                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                        <span>-- None Selected --</span>
-                                    </button>*@
                                 @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlPermission", @class = "form-control" })
                             </div>
                         </div>
-
                         <div class="formHolder">
                             <div class="leftFormHeading">Priority:</div>
                             <div class="rightFormText">
-                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
-                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                        <span>Low</span>
-                                        <span>High</span>
-                                        <span>Highest</span>
-                                    </button>*@
                                 <select name="cars" class="form-control">
                                     <option value="volvo">None</option>
                                     <option value="volvo">Low</option>
                                     <option value="saab">High</option>
                                     <option value="fiat">Highest</option>
-
                                 </select>
                             </div>
                         </div>
-
-
                         <div class="formHolder">
                             <div class="leftFormHeading">
                                 <div data-bind="visible: displayToggle" class=" bt-link-schedule-item--switch">
@@ -100,37 +87,26 @@
                                                 <div style="flex: 1">
                                                     <!-- Wrap with a flex div in order to share space better with the below bt-tooltip -->
                                                     <div class="input-group input-group-sm date bt-date-picker--value" data-provide="datepicker" data-bind="validationBorder: value">
-                                                        @*<input type="text" class="form-control datePicker hasDatepicker" data-bind="addUniqueID: uniqueId, datePicker: value, disable: readOnly, attr: { placeholder: placeholder }, requiredValidationElement: value" id="ui-id-4">*@
-                                                        @*@Html.TextBoxFor(a => a.ToDoDetails*@
                                                         @Html.TextBoxFor(a => a.ToDoDetails.Duedate, new { @class = "form-control datePicker hasDatepicker", @dataprovide = "datepicker" })
                                                         <label class="input-group-addon" data-bind="uniqueFor: uniqueId, css: { 'disabled-text': ko.unwrap(readOnly) }" for="ui-id-4">
                                                             <i class="glyphicon glyphicon-calendar"></i>
                                                         </label>
                                                     </div>
                                                 </div>
-
-                                                <!-- ko if: toolTipText().length > 0 --><!-- /ko -->
                                             </div>
                                         </div>
-
                                         <span class="valMessage bt-date-picker--validator" data-bind="btValidationMessage: value" style="display: none;"></span>
-
                                     </div>
-                                    <!-- ko if: $component.timePicker.show -->
                                     <div class="bt-link-schedule-item--time-picker-padding"></div>
                                     <div class="bt-link-schedule-item--time-picker" params="value: $component.timePicker.selectedTime, title: '', pickerType: $component.timePicker.type, increment: $component.timePicker.increment, readOnly: readOnly">
                                         <div class="bt-time-picker">
-                                            <!-- ko if: pickerType === 0 --><!-- /ko -->
-                                            <!-- ko if: pickerType === 1 -->
                                             <div class="form-group bt-time-picker--wrapper">
                                                 <label class="bt-time-picker--label" data-bind="uniqueFor: uniqueId, visible: title().length > 0" style="display: none;">
                                                     <span data-bind="text: title"></span>
                                                 </label>
                                                 <input data-bind="value: value, dropdownTimePicker: { value: value, interval: $component.increment }, disable: readOnly, requiredValidationElement: value" class="form-control input-sm time timepicker ui-timepicker-input" autocomplete="off" type="text" placeholder="No Time Chosen">
                                             </div>
-                                            <!-- /ko -->
                                         </div>
-
                                         <span class="valMessage bt-time-picker--validator" data-bind="btValidationMessage: value" style="display: none;"></span>
                                     </div>
                                     <!-- /ko -->
@@ -148,18 +124,10 @@
                                             </div>
                                             <span class="bt-link-schedule-item--daysText">day(s)</span>
                                             <bt-single-select-dropdown class="bt-link-schedule-item--typeSelect" params="serviceObject: deadLineBeforeOrAfter, options: deadLineBeforeOrAfter.value, showDefaultSelectionValue: false, readOnly: readOnly">
-                                                <label data-bind="text: title, visible: ko.unwrap(title).length > 0" style="display: none;"></label>
-                                                <!-- ko if: toolTipText().length > 0 && ko.unwrap(title).length > 0--><!-- /ko -->
-                                                <!-- ko if: ko.unwrap(showFacade) --><!-- /ko -->
-                                                <!-- ko if: !ko.unwrap(showFacade) -->
-                                                <div class="bt-single-select-dropdown bt-dropdown-chosen-container" data-bind="css: {'has-left-addon': hasLeftAddOn, 'has-right-addon': hasRightAddOn, 'disabled': readOnly}, addUniqueID: parentUniqueId" id="ui-id-5">
-                                                    <!-- ko if: optionGroups && ko.unwrap(optionGroups).length > 0 --><!-- /ko -->
-                                                    <!-- ko ifnot: optionGroups && ko.unwrap(optionGroups).length > 0 -->
+                                                <label data-bind="text: title, visible: ko.unwrap(title).length > 0" style="display: none;"></label>                                             
+                                                <div class="bt-single-select-dropdown bt-dropdown-chosen-container" data-bind="css: {'has-left-addon': hasLeftAddOn, 'has-right-addon': hasRightAddOn, 'disabled': readOnly}, addUniqueID: parentUniqueId" id="ui-id-5">                                                   
                                                     <select class="chosen-select" data-bind="addUniqueID: uniqueId, foreach: options, value: serviceObject.selectedValue, disable: readOnly, initChosenSingleSelect: serviceObject.selectedValue, event: {change: changeEvent}, validationBorder: (typeof specifiedValidator !== 'undefined' ? specifiedValidator : serviceObject.selectedValue), requiredValidationElement: (typeof specifiedValidator !== 'undefined' ? specifiedValidator : serviceObject.selectedValue)" id="ui-id-6" style="display: none;">
-                                                        <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
                                                         <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="2">BEFORE</option>
-
-                                                        <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
                                                         <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="1">AFTER</option>
                                                     </select>
                                                     <div class="chosen-container chosen-container-single chosen-container-single-nosearch" title="" id="ui_id_6_chosen" style="width: 100%;">
@@ -174,14 +142,7 @@
                                                             <ul class="chosen-results"></ul>
                                                         </div>
                                                     </div>
-                                                    <!-- /ko -->
-                                                    <!-- ko if: (ko.unwrap(canAddItems) || ko.unwrap(canEditItems))--><!-- /ko -->
-                                                    <!-- ko if: toolTipText().length > 0 && ko.unwrap(title).length === 0--><!-- /ko -->
                                                 </div>
-                                                <!-- /ko -->
-
-
-
                                                 <div class="bt-single-select-dropdown">
                                                     <span class="valMessage" data-bind="btValidationMessage: serviceObject.selectedValue" style="display: none;"></span>
                                                 </div>
@@ -193,34 +154,20 @@
                                             <div class="input-group input-group-sm bt-link-schedule-item--input-group">
                                                 <bt-single-select-dropdown params="serviceObject: deadlineLinked, options: deadlineLinked.value, defaultSelectionValue: '-- Select Schedule Item --', showDefaultSelectionValue: showDefaultSelect, disableSearch: false, changeEvent: changeEventForLinkedItem, readOnly: readOnly">
                                                     <label data-bind="text: title, visible: ko.unwrap(title).length > 0" style="display: none;"></label>
-                                                    <!-- ko if: toolTipText().length > 0 && ko.unwrap(title).length > 0--><!-- /ko -->
-                                                    <!-- ko if: ko.unwrap(showFacade) --><!-- /ko -->
-                                                    <!-- ko if: !ko.unwrap(showFacade) -->
                                                     <div class="bt-single-select-dropdown bt-dropdown-chosen-container" data-bind="css: {'has-left-addon': hasLeftAddOn, 'has-right-addon': hasRightAddOn, 'disabled': readOnly}, addUniqueID: parentUniqueId" id="ui-id-7">
-                                                        <!-- ko if: optionGroups && ko.unwrap(optionGroups).length > 0 --><!-- /ko -->
-                                                        <!-- ko ifnot: optionGroups && ko.unwrap(optionGroups).length > 0 -->
                                                         <select class="chosen-select" data-bind="addUniqueID: uniqueId, foreach: options, value: serviceObject.selectedValue, disable: readOnly, initChosenSingleSelect: serviceObject.selectedValue, event: {change: changeEvent}, validationBorder: (typeof specifiedValidator !== 'undefined' ? specifiedValidator : serviceObject.selectedValue), requiredValidationElement: (typeof specifiedValidator !== 'undefined' ? specifiedValidator : serviceObject.selectedValue)" id="ui-id-8" style="display: none;">
                                                             <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 -->
                                                             <option value="-1" data-bind="text: $component.defaultSelectionValue">-- Select Schedule Item --</option>
                                                             <!-- /ko -->
                                                             <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="48547338">testing</option>
-
-                                                            <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
                                                             <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="48611529">tiling</option>
-
-                                                            <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
                                                             <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="55696349">testsumit</option>
-
-                                                            <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
                                                             <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="48547341">paint</option>
-
-                                                            <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
                                                             <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="48611669">Tiling works</option>
-
-                                                            <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
+                     
                                                             <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="48547346">tiles</option>
 
-                                                            <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
+                                                           <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
                                                             <option data-bind="text: name, value: id, css: { 'chosen-disabled' : typeof extraData !== 'undefined' &amp;&amp; ko.unwrap(extraData) !== null &amp;&amp; ko.unwrap(extraData).displayDisabled }" value="48843231">Vicy</option>
 
                                                             <!-- ko if: ko.unwrap($component.showDefaultSelectionValue) && ko.unwrap(id) !== -1 && $index() === 0 --><!-- /ko -->
@@ -261,14 +208,7 @@
                                                                 <ul class="chosen-results"></ul>
                                                             </div>
                                                         </div>
-                                                        <!-- /ko -->
-                                                        <!-- ko if: (ko.unwrap(canAddItems) || ko.unwrap(canEditItems))--><!-- /ko -->
-                                                        <!-- ko if: toolTipText().length > 0 && ko.unwrap(title).length === 0--><!-- /ko -->
                                                     </div>
-                                                    <!-- /ko -->
-
-
-
                                                     <div class="bt-single-select-dropdown">
                                                         <span class="valMessage" data-bind="btValidationMessage: serviceObject.selectedValue" style="display: none;"></span>
                                                     </div>
@@ -309,20 +249,14 @@
                                                                 </label>
                                                             </div>
                                                         </div>
-
-                                                        <!-- ko if: toolTipText().length > 0 --><!-- /ko -->
                                                     </div>
                                                 </div>
-
                                                 <span class="valMessage bt-date-picker--validator" data-bind="btValidationMessage: value" style="display: none;"></span>
-
                                             </bt-date-picker>
                                             <!-- ko if: $component.timePicker.show -->
                                             <div class="bt-link-schedule-item--time-picker-padding"></div>
                                             <bt-time-picker class="bt-link-schedule-item--time-picker" params="value: $component.timePicker.selectedTime, title: '', pickerType: $component.timePicker.type, increment: $component.timePicker.increment, readOnly: readOnly">
                                                 <div class="bt-time-picker">
-                                                    <!-- ko if: pickerType === 0 --><!-- /ko -->
-                                                    <!-- ko if: pickerType === 1 -->
                                                     <div class="form-group bt-time-picker--wrapper">
                                                         <label class="bt-time-picker--label" data-bind="uniqueFor: uniqueId, visible: title().length > 0" style="display: none;">
                                                             <span data-bind="text: title"></span>
@@ -331,7 +265,6 @@
                                                     </div>
                                                     <!-- /ko -->
                                                 </div>
-
                                                 <span class="valMessage bt-time-picker--validator" data-bind="btValidationMessage: value" style="display: none;"></span>
                                             </bt-time-picker>
                                             <!-- /ko -->
@@ -340,58 +273,33 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="formHolder">
                             <div class="leftFormHeading">Reminder:</div>
                             <div class="rightFormText">
-
-                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown reminderBtn" aria-haspopup="true">
-                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                        <span>None</span>
-                                    </button>*@
-
                                 <select name="cars" class="form-control">
                                     <option value="None"> None </option>
                                     <option value="Just Before">Just Before</option>
                                     <option value="1 Hour"> 1 Hour</option>
-
                                 </select>
                                 <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_Tooltip2_hrefToolTip" class="ToolTip " data-tooltip="The <b>Reminder</b>, when selected, will alert the assigned user prior to the due date/time of this item.  Alerts will be sent to users via email (and text message if setup).  Reminders are sent at 8am unless an hourly reminder is selected." data-hasqtip="1" aria-describedby="qtip-1">
                                     <img src="images/iconToolTip.png" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_Tooltip2_imgToolTipIcon" border="0" align="absmiddle">
                                 </a>
                             </div>
                         </div>
-
                         <div class="formHolder edit">
                             <div class="leftFormHeading">Tags:</div>
-
                             <div class="editHolder">
-                                <a href="javascript:void(0);" class="opener addCont" data-id="#dialog1" title="Add a Tag">
-                                    <img id="" border="0" src="images/add.gif" style="border-width:0px;">
+                                <a href="javascript:void(0);" class="btn-lg" data-toggle="modal" data-target="#addtag" title="Add a Tag">
+                                    <img id="" border="0" src="./Images/add.gif" style="border-width:0px;">
                                 </a>
-                                <a href="javascript:void(0);" class="opener deleteCont" data-id="#dialog2" title="Edit / Delete a Tag" >
-                                    <img id="" border="0" src="images/edit.gif" style="border-width:0px;">
+                                <a href="javascript:void(0);" title="Edit / Delete a Tag">
+                                    <img id="" border="0" src="./Images/edit.gif" style="border-width:0px;">
                                 </a>
-                                <div class="dialog" id="dialog1" title="New To-Do Tag">
-                                    <p>This is an animated dialog which is useful for displaying information.The dialog window can be moved, resized and closed with the 'x' icon.</p>
-                                </div>
-                                <div class="dialog" id="dialog2" title="To-Do Tag Editor">
-                                    <p>This is an animated dialog which is useful for displaying information.The dialog window can be moved, resized and closed with the 'x' icon.</p>
-                                </div>
                             </div>
                             <div class="rightFormText">
-
-                                @*<button type="button" class="ui-multiselect ui-widget ui-state-default btMultiSelect assignedToDropDown" aria-haspopup="true">
-                                        <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                        <span>-- No To-Do Tags Selected --</span>
-                                    </button>*@
-
                                 @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTag", @class = "form-control", @multiple = "multiple" })
                             </div>
                         </div>
-
-
                     </div>
                 </div>
                 <div class="topSection multipleSelectBoxes">
@@ -447,17 +355,11 @@
                             }
                             <div id="appendTextData"></div>
                         </div>
-
-
-                        @*<a href="#" class="cloneBtnHolder">
-                                <img src="images/expandHeader.png" alt="" title="" />
-                            </a>*@
                         <a href="#" >
                             <img class="btnCheckList" src="images/expandHeader.png" alt="" title="" />
                         </a>
                     </div>
                 </div>
-
                 <div class="topSection fileMessaging">
                     <h2>Files & Messaging</h2>
                     <div class="col-md-6">
@@ -467,22 +369,22 @@
                         <h2>Messaging<span>(Messaging available after save)</span></h2>
                     </div>
                 </div>
-
-
-                @*<div class="topSection fileMessaging">
-                        <h2>Custom Fields </h2> <div class="col-md-6">
-                            <p>Admin users can add custom fields for To-Dos in Setup.</p>
-                        </div>
-
-
-
-
-                    </div>*@
-
-
-
             </div>
         </div>
     </form>
 </div>
-
+<div class="modal fade" id="addtag" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="panel panel-primary customPopup">
+        <div class="panel-heading themeColor">
+            <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="panel-title" id="contactLabel">Phase List</h4>
+        </div>
+        <div class="panel-body">
+            <input type="button" id="btnAddTag" class="blueButton" value="Save">
+            <div class="header">
+                Adding a schedule item tag
+            </div>
+            <input type="text" id="txtTag" class="form-control" />
+        </div>
+    </div>
+</div>
