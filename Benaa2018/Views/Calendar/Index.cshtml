@@ -36,11 +36,11 @@
                         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <div class="row">
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Title</span>
                                         <input class="form-control" id="Title" type="text" />
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Performed By</span>
                                         <select id="PerformedBy" name="PerformedBy" multiple="multiple" class="withCheckbox required">
                                             <option value="" selected="selected">Select</option>
@@ -50,7 +50,7 @@
                                             }
                                         </select>
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Status</span>
                                         <select class="withCheckbox required" multiple="multiple" id="Status" name="Status">
                                             <option value="" selected="selected">All</option>
@@ -63,7 +63,7 @@
                                             <option value="7">Unconfirmed</option>
                                         </select>
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <span>Tags</span>
                                         <select class="withCheckbox required" multiple="multiple" id="ProjectTag" name="ProjectTag">
                                             <option value="" selected="selected">Select</option>
@@ -71,7 +71,7 @@
                                     </div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <label>Projects Phases</label>
                                         <div class="input-group">
                                             <select class="withCheckbox required" multiple="multiple" id="ProjectPhases" name="ProjectPhases">
@@ -79,7 +79,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="col-sm-2 form-group">
+                                    <div class="col-sm-3 form-group">
                                         <label>Other Items</label>
                                         <div class="input-group">
                                             <select class="withCheckbox required" multiple="multiple" id="ProjectOtherItem" name="ProjectOtherItem">
@@ -95,7 +95,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnUpdateResults">Update Results</button>&nbsp;
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnCalendar">Update Results</button>&nbsp;
                                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
                                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Save Filter</button>
                                     </div>
@@ -127,7 +127,7 @@
                             <span class="fieldHeader">Date:</span>
                         </div>
                         <div class="col-xs-8">
-                            <input type="text" asp-for="SelectedDate" disabled="disabled" class="form-control" value="" />
+                            <input type="text" asp-for="StartDate" class="form-control" value="" />
                             <input type="hidden" asp-for="ProjectId" class="form-control" value="" />
                         </div>
                     </div>
@@ -152,7 +152,7 @@
                             <span class="fieldHeader">Color:</span>
                         </div>
                         <div class="col-xs-8">
-                            <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                            <select asp-for="ColorCode" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
                                 @foreach (var item in baseModel.ProjectColorModels)
                                 {
                                     <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
@@ -163,7 +163,7 @@
                     <div class="row bt-calendar-quick-add--body-row">
                         <div class="col-xs-8 col-xs-offset-4" id="quickAddEditContainer">
                             <input type="button" id="btnQuickAddSave" class="blueButton" value="Save">
-                            <a href="#" id="btnQucikAddEditItem" data-bind="click: onEditClick">Edit schedule item »</a>
+                            <a href="javascript:void(0)" id="btnQucikAddEditItem" data-bind="click: onEditClick">Edit schedule item »</a>
                         </div>
                     </div>
                 </div>
@@ -180,18 +180,19 @@
         <div class="panel-body">
             <input type="button" id="btnAddPhase" class="blueButton" value="Save">
             <div class="header">
-                Adding a schedule item tag
+                Adding a schedule item Phase
             </div>
-            Phase Name
-            <input type="text" id="PhaseName" class="form-control" />
-            Display Order
-            <input type="text" id="DisplayOrder" class="form-control" />
-            
-            <div class="col-xs-4">
+            <div class="input-group">
+                <label>Phase Name</label>
+                <input type="text" id="PhaseName" class="form-control">
+            </div>
+            <div class="input-group">
+                <label> Display Order</label>
+                <input type="text" id="DisplayOrder" class="form-control">
+            </div>              
+            <div class="input-group">
                 <span class="fieldHeader">Color:</span>
-            </div>
-            <div class="col-xs-8">
-                <select id="phasecolor" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                <select id="phasecolor" style="background-color:@baseModel.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
                     @foreach (var item in baseModel.ProjectColorModels)
                     {
                         <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
@@ -216,7 +217,6 @@
         </div>
     </div>
 </div>
-
 <div id="calendarpage" class="ContentContainer greyTableBorder" style="margin-left: 235px;">
     <div class="mainheader">
         Calendar <span id="jobsiteName">
@@ -236,138 +236,4 @@
 <script src="~/js/dhtmlxgantt.js"></script>
 <script src="~/js/dhtmlxgantt_critical_path.js"></script>
 <script src="~/js/calendarview.js"></script>
-
-<script type="text/javascript">
-    //$(window).load(function () {
-    //    $('.fc-right').insertBefore('.fc-left');
-    //});
-    $(document).ready(function () {
-        $(document).on('click', 'a.allProject', function () {
-            $('#projectid').text($(this).attr('data-projectid'));
-            $('#spnproject').text($(this).text());
-            $("#projectname").text($(this).text());
-            $("#ProjectId").val($(this).attr('data-projectid'));
-            $('.mainContentDiv').css('display', 'block');
-            $('#calendarpage').css('display', 'none');
-            $("#SaveType").val('insert');
-            populatecalendar($(this).attr('data-projectid'));
-        });
-        $('#btnAddScheule').on('click', function () {
-            $('#calendarmodal').addClass('in').css('display', 'block');
-        });
-        $(document).on('click', '.infoclose', function () {
-            $('#calendarmodal').removeClass('in').css('display', 'none');
-            $('#calendarmodalgeneral').removeClass('in').css('display', 'none');
-        });
-        $('#morepredecessors').on('click', function () {
-            var cntpredeitem = $('div.predecessoritem div.form-group').length;
-            var innerhtml = $('div.predecessoritem > div.form-group:eq(0)').html();
-            innerhtml = innerhtml.replace('PredecessorInformationModels[0].ScheduledItemId', "PredecessorInformationModels[" + cntpredeitem + "].ScheduledItemId")
-                .replace('PredecessorInformationModels_0__ScheduledItemId', "PredecessorInformationModels_" + cntpredeitem + "__ScheduledItemId")
-                .replace('PredecessorInformationModels_0__TimeFrame', "PredecessorInformationModels_" + cntpredeitem + "__TimeFrame")
-                .replace('PredecessorInformationModels[0].TimeFrame', "PredecessorInformationModels[" + cntpredeitem + "].TimeFrame")
-                .replace('PredecessorInformationModels_0__Lag', "PredecessorInformationModels_" + cntpredeitem + "__Lag")
-                .replace('PredecessorInformationModels[0].Lag', "PredecessorInformationModels[" + cntpredeitem + "].Lag");
-            $('.predecessoritem').append('<div class="form-group">' + innerhtml + '</div>');
-        });
-        $('.btncalendar').on('click', function () {
-            var postData = $('#frmPredecessor').serialize();
-            $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
-                if (data == true) {
-                    infoForm.find("input[type='text']").each(function (i, element) {
-                        $(this).val('');
-                    });
-                    alert("Predecessor Details Successfully Added");
-                }
-                alert("Predecessor Details Successfully Added");
-            });
-        });
-        $('.fc-content-skeleton td').on('click', function () {
-            if ($(this).attr('class') === undefined) {
-                $('#calendarmodalgeneral').addClass('in').css('display', 'block');
-            }
-            else {
-                $('#calendarmodal').addClass('in').css('display', 'block');
-            }
-        });
-
-        $('#btnQuickAddSave').on('click', function () {
-            var postData = $('#frmSchedule').serialize();
-            $.post("Calendar/SubmitQuickSchedulerInfoAsync", postData, function (data) {
-                if (data == true) {
-                    infoForm.find("input[type='text']").each(function (i, element) {
-                        $(this).val('');
-                    });
-                }
-                alert("Schedule Details Successfully Added");
-            });
-        });
-        $('#btnAddPhase').on('click', function () {
-            var postData = { "projectId": parseInt($('#projectid').text()), "phaseName": $('#PhaseName').val(), "displayOrder": parseInt($('#DisplayOrder').val()), "phasecolor": $('#phasecolor').val() };
-            $.post("Calendar/SubmitPhaseAsync", postData, function (data) {
-                if (data == true) {
-                    infoForm.find("input[type='text']").each(function (i, element) {
-                        $(this).val('');
-                    });
-                }
-                alert("Schedule Details Successfully Added");
-            });
-        });
-        $('#btnAddTag').on('click', function () {
-            var postData = { "projectId": parseInt($('#projectid').text()), "tagName": $('#txtTag').val() };
-            $.post("Calendar/SubmitTagAsync", postData, function (data) {
-                if (data == true) {
-                    infoForm.find("input[type='text']").each(function (i, element) {
-                        $(this).val('');
-                    });
-                }
-                alert("Schedule Details Successfully Added");
-            });
-        });
-    });
-    function populatecalendar(projectid) {
-        var postData = { "projectId": parseInt(projectid) };
-        $.post("Calendar/GetScheduledItemsByProjectId", postData, function (data) {
-            $('#calendar').fullCalendar({
-                header: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'month,agendaWeek,agendaDay,Agenda,ListView,Gnatt,Baseline,PhasesList'
-                },
-                views: {
-                    ListView: {
-                        buttonText: 'List View'
-                    },
-                    Baseline: {
-                        buttonText: 'Base line'
-                    },
-                    PhasesList: {
-                        buttonText: 'Phases List'
-                    }
-                },
-                defaultDate: '2018-03-12',
-                navLinks: true,
-                editable: true,
-                eventLimit: true,
-                events: JSON.parse(data),
-                Click: function (date, jsEvent, view) {
-                },
-                dayClick: function (date, jsEvent, view) {
-                    $('#calendarmodalgeneral').addClass('in').css('display', 'block');
-                    $("#SelectedDate").val(convert(date._d));
-                },
-                eventClick: function (calEvent, jsEvent, view) {
-                    var postData = { "scheduledId": calEvent.id };
-                    $("#calendarmodal").load('@(Url.Action("GetScheduledDetailsByIdAsync", "Calendar",null))', postData);
-                    $('#calendarmodal').addClass('in').css('display', 'block');
-                }
-            });
-        });
-    }
-    function convert(str) {
-        var date = new Date(str),
-            mnth = ("0" + (date.getMonth() + 1)).slice(-2),
-            day = ("0" + date.getDate()).slice(-2);
-        return [date.getFullYear(), mnth, day].join("-");
-    }
-</script>
+    

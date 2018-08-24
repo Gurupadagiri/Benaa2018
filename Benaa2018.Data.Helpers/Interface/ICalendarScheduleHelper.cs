@@ -19,5 +19,6 @@ namespace Benaa2018.Helper.Interface
         Task<List<CalendarTagViewModel>> GetAllTagAsync(int compantId, int projectId);
         Task<List<PredecessorInformationViewModel>> GetAllPredecessorInformationsAsync(int projetId);
         Task<List<PredecessorInformationViewModel>> GetPredecessorByScheduleIdAsyn(int scheduleId);
+        Task<List<PredecessorInformationViewModel>> GetPredecessorInfoByScheduleIdAsync(int scheduleId);
     }
 }

@@ -12,6 +12,8 @@ namespace Benaa2018.Data.Model
         public int ScheduledItemId { get; set; }
         public int CompanyId { get; set; }
         public int ProjectId { get; set; }
+        public int PhaseId { get; set; }
+        public int TagId { get; set; }
         public string Title { get; set; }
         public string ColorCode { get; set; }
         public DateTime StartDate { get; set; }
