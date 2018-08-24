@@ -1,0 +1,87 @@
+﻿
+<div class="modal-dialog modal-lg">
+    <div class="panel panel-primary customPopup">
+        <div class="panel-heading themeColor">
+            <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="panel-title" id="contactLabel">Conversion Details</h4>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-xs-6 col-md-3 no-left-padding">
+                    <div class="companySection">
+                        <img class="img-responsive" src="~/images/logo1.jpg">
+
+                        <div class="company-information-header">
+                            Company Information
+                            <a href="javascript:void(0);">Edit</a>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-6 col-md-9">
+
+                    <div class="row setupRowPadding">
+                        <div class="mainContent">
+                            <div id="ConvoNewComment">
+                                <div style="margin: 10px auto; display: table; height: 15px;">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td style="max-width: 610px; word-break: break-all;">
+                                                    <a class="title" id="commentModalTitleLink" data-bind="style: { cursor: allowLinkedTypeClick() ? 'pointer' : 'default', textDecoration: allowLinkedTypeClick() ? '' : 'none' }, attr: { href: allowLinkedTypeClick() ? '#' : null }, click: openItemDetails, attr: { 'data-cmselector': linkedId }" data-cmselector="4033638" style="cursor: pointer;">finish design works <span>(To-Do)</span></a>
+                                                </td>
+                                                <!-- ko if: photo() --><!-- /ko -->
+                                                <!-- ko if: commentsVM.showCommentInfo -->
+                                                <td>
+                                                    <img data-bind="attr: { src: commentsVM.commentInfoIconGrey }, addUniqueID: commentsVM.commentInfoHeaderId" style="height: 16px;" src="/images/Common/commentInfoIcon-Grey.svg" id="ui-id-42" data-hasqtip="5" oldtitle="Comment Info" title="">
+                                                    <img data-bind="attr: { src: commentsVM.commentInfoIconGrey }, addUniqueID: commentsVM.commentInfoHeaderId" style="height: 16px;" src="/images/Common/commentInfoIcon-Grey.svg" id="ui-id-42" data-hasqtip="5" oldtitle="Comment Info" title="">
+                                                </td>
+                                                <!-- /ko -->
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="write-comment-container">
+                                    <div class="comment-section" style="height: 28px; opacity: 1; padding: 5px; border-width: 1px; display: block; box-sizing: border-box;">Write a comment...</div>
+
+                                    <input type="hidden" id="hiddenToDoDetailsId" />
+                                    <div id="importMessage" class="write-comment-container">
+                                        <input type="text" id="titleMessage" />
+                                        <input type="checkbox" id="chkOwner" title="Owner" name="chkOwner"/> Owner
+                                        <input type="checkbox" id="chkNotify" title="Notify" value="Notify" name="chkNotify"/> Notify
+                                        <input type="checkbox" id="chkSub" title="Sub" value="Sub" name="chkSub"/> Sub
+                                        <input type="button" id="btnPostComment" title="PostComment" value="PostComment" />
+                                        <input type="button" id="btnCancel" title="Cancel" value="Cancel" />
+
+                                    </div>
+                                </div>
+
+                                <div id="messageId" class="write-comment-container"></div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+                    <div class="row setupRow">
+
+                    </div>
+                    <div class="row setupRowPadding">
+                        <div class="mainContent">
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*<script type="text/javascript">
+        $(document).ready(function () {
+            alert('Hi');
+        });
+    </script>*@
+</div>

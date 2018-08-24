@@ -91,6 +91,7 @@ namespace Benaa2018
             services.AddTransient<IGroupMasterRepository, GroupMasterRepository>();
             services.AddTransient<IMainActivityMasterRepository, MainActivityMasterRepository>();
             services.AddTransient<IActivityMasterRepository, ActivityMasterRepository>();
+            services.AddTransient<IToDoMessageRepository, ToDoMessageRepository>();
 
 
             services.AddTransient<IMenuMasterHelper, MenuMasterHelper>();
@@ -115,6 +116,7 @@ namespace Benaa2018
             services.AddTransient<IGroupMasterHelper, GroupMasterHelper>();
             services.AddTransient<IMainActivityMasterHelper, MainActivityMasterHelper>();
             services.AddTransient<IActivityMasterHelper, ActivityMasterHelper>();
+            services.AddTransient<IToDoMessageHelper, ToDoMessageHelper>();
             services.AddMvc();
         }
 
