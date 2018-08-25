@@ -41,7 +41,7 @@ namespace Benaa2018.Helper
         {
             TagMaster tagMasterDatails = new TagMaster()
             {
-                TagId= tagMasterViewModel.TagId,
+                //TagId= tagMasterViewModel.TagId,
                 TagName=tagMasterViewModel.TagName,
                 Created_By = "aaaa",
                 Modified_By = "aaa",

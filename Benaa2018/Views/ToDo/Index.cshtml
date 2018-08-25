@@ -347,6 +347,33 @@
                     });
         });*@
 
+        $('#btnAddTag').click(function () {
+
+            var title = $('#txtTag').val();
+
+            //alert(title);
+            $.ajax({
+                url: "@(Url.Action("SaveTag", "ToDo", null))",
+                type: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                data: { tagTitle: title},
+        success: function (result) {
+            
+            if (result == "success") {
+                alert('Success');
+                location.reload();
+            }
+            
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        });
+
         $('.multipleSelectBoxes .mainButton').click(function () {
             // alert("Test Sumit working");
             $('.multiCheckBoxHolder, .multiInputHolder').slideToggle();

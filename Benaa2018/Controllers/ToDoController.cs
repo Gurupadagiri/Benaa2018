@@ -193,6 +193,24 @@ namespace Benaa2018.Controllers
             return Json(JsonConvert.SerializeObject(lstToDoSearchDetails));
         }
 
+        public async Task<IActionResult> SaveTag(string tagTitle)
+        {
+            string result = string.Empty;
+            TagMasterViewModel tagMasterView = new TagMasterViewModel()
+            {
+                TagName = tagTitle
+            };
+            var saveTag = await _tagMasterHelper.SaveTagMasterDetails(tagMasterView);
+           if(saveTag!=null && saveTag.TagId>0)
+            {
+                result = "success";
+            }
+
+            
+            // return Json(result);
+            return Json(result);
+        }
+
 
         public async Task<IActionResult> SearchToDo(string keywords, string assignedto, int usersAssignedTo, int status, string priority, string tags = "")
         {
