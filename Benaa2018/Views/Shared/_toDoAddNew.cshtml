@@ -400,9 +400,9 @@
                                 </div>
                                 <div class="liColumn">
                                     @*<input type="checkbox" name="" data-off-text="Off" data-on-text="On">*@
-                                    @Html.CheckBoxFor(m =>m.lstCheckListDetail[i].ToDoIsCheckList)
-                                    
-                                    <label for="" class="lineItemCheck"></label>
+                                    @Html.CheckBoxFor(m => m.lstCheckListDetail[i].ToDoIsCheckList)
+                                    @*<label for='lstCheckListDetail_'"+i+"'__ToDoIsCheckList' class="lineItemCheck"></label>*@
+                                           <label for="" class="lineItemCheck"></label>
                                     @*@Html.LabelFor(new {@for= m => m.lstCheckListDetail[i].ToDoIsCheckList })*@
                                 </div>
                                 <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
