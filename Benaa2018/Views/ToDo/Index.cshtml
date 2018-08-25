@@ -28,10 +28,10 @@
                         <input type="hidden" id="ProjectId" class="form-control" value="" />
                     </div>
 
-                    <div class="tableContainer todoHolder ">
+                    <div class="tableContainer todoHolder todoAreaVisible">
                         <div class="table table-striped custab">
-                            <div class="pull-left"><a href="#home" data-toggle="modal" id="infoEdit" data-target="#infoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
-                            <div class="pull-right">
+                            <div class="pull-left col-sm-8"><a href="#home" data-toggle="modal" id="infoEdit" data-target="#infoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
+                            <div class="pull-right col-sm-4">
                                 <select class="form-control" id="ddlAssign">
                                     <option>Checked Actions</option>
                                     <option>Print Checked</option>
@@ -44,7 +44,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="todoShortHolder">
+                    <div class="todoShortHolder todoAreaVisible">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
@@ -58,13 +58,11 @@
                                 <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
                                     <div class="panel-body">
                                         <div class="row">
-                                            <div class="col-sm-2 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <span>Keywords</span>
                                                 <input type="text" id="txtToDoKeyWords" class="form-control" placeholder="Keyword">
-
-                                                @*<div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="test"><label for="ms-opt-5"><input type="checkbox" title="test" id="ms-opt-5" value="1">test</label></li><li data-search-term="test1"><label for="ms-opt-6"><input type="checkbox" title="test1" id="ms-opt-6" value="2">test1</label></li></ul></div></div>*@
                                             </div>
-                                            <div class="col-sm-2 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <span>Assigned To</span>
 
                                                 <select name="cars" class="form-control" id="ddlAssignedToToDoSearch">
@@ -75,12 +73,12 @@
                                                     <option value="4">All Builder Created To-Do's</option>
                                                 </select>
                                             </div>
-                                            <div class="col-sm-2 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <span>Users Assigned To</span>
                                                 @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlToDoAssignToDoSearch", @class = "form-control" })
 
                                             </div>
-                                            <div class="col-sm-2 form-group">
+                                            <div class="col-sm-3 form-group">
                                                 <span>Status</span>
                                                 <select name="cars" class="form-control" id="ddlToDoStatusToDoSearch">
                                                     <option value="2">All Statuses</option>
@@ -101,14 +99,10 @@
                                                     <option value="2">High</option>
                                                     <option value="3">Highest</option>
                                                 </select>
-
                                             </div>
-
                                             <div class="col-sm-2 form-group">
-
                                                 <label>Tags</label>
                                                 <div class="input-group">
-
                                                     @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTagToDoSearch", @class = "form-control", @multiple = "multiple" })
                                                 </div>
                                             </div>
@@ -128,7 +122,6 @@
                                                     <option value="11">Past 14 Days</option>
                                                     <option value="12">Past 30 Days</option>
                                                 </select>
-
                                             </div>
                                             <div class="col-sm-2 form-group" id="FromDue">
                                                 <label>From:</label>
@@ -148,12 +141,6 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            @*<div class="col-sm-2 form-group tooltip-div">
-                                                    <label>Name</label>
-                                                    <div class="input-group">
-                                                        <input type="text" id="serchtext" class="form-control" placeholder="Keyword">
-                                                    </div>
-                                                </div>*@
                                             <div class="col-sm-2 form-group">
                                                 <span>Completion Date</span>
                                                 <select name="cars" class="form-control" id="ddlCompletionDate">
@@ -329,6 +316,7 @@
     });
     $(document).ready(function () {
         $('#todoContain').hide();
+        $('.todoAreaVisible').hide();
         $("#projectname").text('To-Do');
 
         @*$('.type1').click(function () {
@@ -359,14 +347,49 @@
                     });
         });*@
 
+        $('.multipleSelectBoxes .mainButton').click(function () {
+            // alert("Test Sumit working");
+            $('.multiCheckBoxHolder, .multiInputHolder').slideToggle();
+
+            if ($(this).val() == "Add Checklist")
+                $(this).val("Remove Checklist")
+            else
+                $(this).val("Add Checklist");
+        });
+
+        $('.cloneBtnHolder').click(function () {
+            $(".cloneMainContainer").clone().prependTo(".cloneBtnHolder");
+        });
 
 
+        $(".checkboxAssignChecklist input[type=checkbox]").change(function () {
+            if (this.checked) {
+                $('.chosen-container.chosen-container-single').show();
+            } else {
+                $('.chosen-container.chosen-container-single').hide();
+            }
+        });
+
+
+        $('.checkListUser').click(function () {
+            //alert('hi');
+            if ($(this).prop("checked") == true) {
+                $('.ddlCheckListUser').show();
+            }
+            else if ($(this).prop("checked") == false) {
+                $('.ddlCheckListUser').hide();
+            }
+        });
         $('.allProject').click(function () {
            // alert('hi'+ $(this).text());
             $('#calendarpage').hide();
             $('#todoContain').show();
+            $('.todoAreaVisible').show();
             $("#projectname").text($(this).text());
+            $('#ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_lblJobsites').text($(this).text());
             var projectId = $(this).attr('data-projectid');
+            $('#ProjectId').val(projectId);
+            $('#hdnProjectIdToDo').val(projectId);
             //alert(projectId);
            $.ajax({
                 url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
@@ -402,38 +425,24 @@
         return linkMessage;
     };
 </script>
-
-@*<script>
-         $('.type1').click(function () {
-                //event.preventDefault();
-                alert('hi');
-                var ids = $(this).attr('dataids');
-                $('#hiddenToDoDetailsId').val(ids);
-                $.ajax({
-                            url: "@(Url.Action("SearchToDoMessage", "ToDo", null))",
-                            type: 'GET',
-                            headers: {
-                                'Accept': 'application/json',
-                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                            },
-                    data: { ToDoDetailsId: ids },
-                    success: function (result) {
-                                debugger;
-                        $.each(JSON.parse(result), function (key, value) {
-                            var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy+" </span></div>"
-                            $('#messageId').append(items);
-                        });
-                                $('#Setup1').modal('show');
-                            },
-                            error: function (jqXHR, textStatus, errorThrown) {
-                                alert(errorThrown);
-                            }
-                        });
-            });
-    </script>*@
 <script type="text/javascript">
 
     $(document).ready(function () {
+        $('.bootstrap-switch-wrapper').click(function () {
+            if ($(this).hasClass('bootstrap-switch-off')) {
+                $(this).removeClass('bootstrap-switch-off');
+                $(this).addClass('bootstrap-switch-on');
+                $('.bootstrap-switch-container').css('margin-left', '0');
+                $('.bt-link-schedule-item--datetime-picker').hide();
+                $('.sheduleItemHolder').show();
+            } else {
+                $(this).addClass('bootstrap-switch-off');
+                $(this).removeClass('bootstrap-switch-on');
+                $('.bootstrap-switch-container').css('margin-left', '-71px');
+                $('.bt-link-schedule-item--datetime-picker').show();
+                $('.sheduleItemHolder').hide();
+            }
+        });
         // alert('Hi');
         // console.log(@Html.Raw(@ViewBag.UserBaseToDoModel));
         //var mdata = JSON.parse(@ViewBag.UserBaseToDoModel);

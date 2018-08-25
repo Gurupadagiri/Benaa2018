@@ -56,7 +56,7 @@
    $('.panel-heading').click(function(){
      $('#selectSedualedItem').hide();
    });
-   // alert("Test Sumit");
+   
     $('.multipleSelectBoxes .mainButton').click(function () {
        // alert("Test Sumit working");
         $('.multiCheckBoxHolder, .multiInputHolder').slideToggle();
