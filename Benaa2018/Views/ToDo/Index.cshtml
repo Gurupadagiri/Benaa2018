@@ -2,7 +2,6 @@
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    //Benaa2018.Helper.ViewModels.ToDoAllViewModelDetails baseModel = ViewBag.UserBaseToDoModel;
 }
 @{
     Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
@@ -21,13 +20,17 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12  col-lg-12 sort-me">
                     <div class="list-group-item  main-color-bg-pink">
-                        <span> To-Do List -<span>(al shatee)</span></span>
+                        <span> To-Do List -<span id="projectname"></span></span>
                     </div>
 
+                    <div class="col-xs-8">
+                        @*<input type="text" asp-for="StartDate" class="form-control" value="" />*@
+                        <input type="hidden" id="ProjectId" class="form-control" value="" />
+                    </div>
 
                     <div class="tableContainer todoHolder ">
                         <div class="table table-striped custab">
-                            <div class="pull-left"><a href="http://localhost:64732/home#" data-toggle="modal" id="infoEdit" data-target="#infoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
+                            <div class="pull-left"><a href="#home" data-toggle="modal" id="infoEdit" data-target="#infoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
                             <div class="pull-right">
                                 <select class="form-control" id="ddlAssign">
                                     <option>Checked Actions</option>
@@ -37,18 +40,16 @@
                                     <option>Copy To-Dos</option>
                                     <option>Delete Checked</option>
                                 </select>
-                                <div><a href="http://localhost:64732/home#" data-toggle="modal" data-target="#infoModal1" class="Click Import To-Do Template">Import To-Do's</a></div>
+                                <div><a href="#home" data-toggle="modal" data-target="#infoModal1" class="Click Import To-Do Template">Import To-Do's</a></div>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="todoShortHolder">
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="http://localhost:64732/home#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
                                             FILTER YOUR RESULTS
                                         </a>
                                     </h4>
@@ -72,33 +73,20 @@
                                                     <option value="2">Assigned to / Created by Me</option>
                                                     <option value="3">Created by Me</option>
                                                     <option value="4">All Builder Created To-Do's</option>
-
                                                 </select>
-                                                @*<select class="withCheckbox jqmsLoaded" id="ProjectMasterModel_ProjectManagerID" multiple="" name="ProjectMasterModel.ProjectManagerID" style="display: none;">
-                                                        <option value="1">guru</option>
-                                                        <option value="2">sumit</option>
-                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="guru"><label for="ms-opt-7"><input type="checkbox" title="guru" id="ms-opt-7" value="1">guru</label></li><li data-search-term="sumit"><label for="ms-opt-8"><input type="checkbox" title="sumit" id="ms-opt-8" value="2">sumit</label></li></ul></div></div>*@
                                             </div>
                                             <div class="col-sm-2 form-group">
                                                 <span>Users Assigned To</span>
-
                                                 @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlToDoAssignToDoSearch", @class = "form-control" })
-                                                @*<select class="withCheckbox jqmsLoaded" id="ProjectMasterModel_ProjectManagerID" multiple="" name="ProjectMasterModel.ProjectManagerID" style="display: none;">
-                                                        <option value="1">guru</option>
-                                                        <option value="2">sumit</option>
-                                                    </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 642px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64732/home#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="guru"><label for="ms-opt-7"><input type="checkbox" title="guru" id="ms-opt-7" value="1">guru</label></li><li data-search-term="sumit"><label for="ms-opt-8"><input type="checkbox" title="sumit" id="ms-opt-8" value="2">sumit</label></li></ul></div></div>*@
+
                                             </div>
                                             <div class="col-sm-2 form-group">
                                                 <span>Status</span>
-
                                                 <select name="cars" class="form-control" id="ddlToDoStatusToDoSearch">
                                                     <option value="2">All Statuses</option>
                                                     <option value="1">Completed</option>
                                                     <option value="0">Not Complted</option>
-
-
                                                 </select>
-
                                             </div>
 
 
@@ -221,13 +209,8 @@
                         </div>
 
 
-                        <div class="tabsConatiner">
+                        <div class="tabsConatiner" id="todoContain">
                             <div class="tabbable boxed parentTabs">
-                                @*<ul class="nav nav-tabs">
-                                        <li class="active"><a href="#set11">Internal User</a></li>
-                                        <li><a href="#set22">Subs</a></li>
-                                        <li><a href="#set33">Customer Contacts</a></li>
-                                    </ul>*@
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in">
                                         <div class="tabConInfo">
@@ -238,39 +221,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                    @*<div class="tab-pane fade" id="set22">
-                                            <div class="tabConInfo">
-                                                <div class="dataTableConatainer">
-                                                    <table id="subcontractor" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="set33">
-                                            <div class="tabConInfo">
-                                                <div class="dataTableConatainer">
-                                                    <table id="customercontracts" class="table table-striped table-bordered" cellspacing="0" width="100%"></table>
-                                                </div>
-                                            </div>
-                                        </div>*@
                                 </div>
                             </div>
                         </div>
-
-
-
                     </div>
-
-
-
-
                 </div>
-
-
             </div>
         </div>
-        @*<input type="button" value="Get Selected Rows" id="btnChecked" />*@
-        @*<input type="button" value="Deleted Checked" id="btnDeleted" />
-            <input type="button" value="Assign To" id="btnAssignTo" />*@
     </div>
 </div>
 
@@ -332,15 +289,148 @@
 <div class="modal fade" id="Setup1">
     @Html.Partial("_todoConversionDetails", Model)
 </div>
-@*<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>*@
-@*<script src="~/js/jquery-1.12.4.js"></script>*@
-@*<link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" href="css/bootstrap-multiselect/bootstrap-multiselect.css" type="text/css">
-    <script type="text/javascript" src="js/bootstrap-multiselect/bootstrap-multiselect.js"></script>*@
+<div id="calendarpage" class="ContentContainer greyTableBorder" style="margin-left: 235px;">
+    @*<div class="mainheader">
+            ToDo <span id="jobsiteName">
+            </span>
+        </div>*@
+    <div id="pleaseselect" class="">
+        « Please Select a Jobsite from the left menu to continue
+    </div>
+</div>
+<script type="text/javascript">
 
+    //$(document).on("click", "#tblAccounts tbody tr td input"
+    $(document).on('click', '.type1', function () {
+        var ids = $(this).attr('dataids');
+
+        $('#hiddenToDoDetailsId').val(ids);
+        $.ajax({
+                        url: "@(Url.Action("SearchToDoMessage", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                data: { ToDoDetailsId: ids },
+                success: function (result) {
+                            debugger;
+                    $.each(JSON.parse(result), function (key, value) {
+                        var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy+" </span></div>"
+                        $('#messageId').append(items);
+                    });
+                            $('#Setup1').modal('show');
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+    });
+    $(document).ready(function () {
+        $('#todoContain').hide();
+        $("#projectname").text('To-Do');
+
+        @*$('.type1').click(function () {
+            debugger;
+            //event.preventDefault();
+            alert('hi');
+            var ids = $(this).attr('dataids');
+            $('#hiddenToDoDetailsId').val(ids);
+            $.ajax({
+                        url: "@(Url.Action("SearchToDoMessage", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                data: { ToDoDetailsId: ids },
+                success: function (result) {
+                            debugger;
+                    $.each(JSON.parse(result), function (key, value) {
+                        var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy+" </span></div>"
+                        $('#messageId').append(items);
+                    });
+                            $('#Setup1').modal('show');
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+        });*@
+
+
+
+        $('.allProject').click(function () {
+           // alert('hi'+ $(this).text());
+            $('#calendarpage').hide();
+            $('#todoContain').show();
+            $("#projectname").text($(this).text());
+            var projectId = $(this).attr('data-projectid');
+            //alert(projectId);
+           $.ajax({
+                url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
+                type: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+               data: { projectId: projectId},
+        success: function (result) {
+            //jQuery("#internaluser").setGridParam({ data: jQuery.parseJSON(result), datatype: "json" });
+
+            $('#internaluser').jqGrid('clearGridData');
+            $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+
+        });
+
+    });
+
+    function formatNumberOfMessages(cellValue, options, rowObject) {
+
+        var dataid = rowObject.ToDoDetails.TodoDetailsID;
+        var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";
+        //var linkMessage = "<a href='' data-toggle='modal'  data-target='#Setup1'  class='type1' dataids=" + dataid+">" + cellValue + "<a/>";
+        // var linkMessage = "<a href='' data-toggle='modal'  data-target='#Setup1'  class='type1'>" + cellValue + "<a/>";
+        //console.log(rowObject.ToDoDetails.TodoDetailsID);
+        //var imageHtml = "<img src='images/" + cellValue + "' originalValue='" + 2 + "' />";
+        return linkMessage;
+    };
+</script>
+
+@*<script>
+         $('.type1').click(function () {
+                //event.preventDefault();
+                alert('hi');
+                var ids = $(this).attr('dataids');
+                $('#hiddenToDoDetailsId').val(ids);
+                $.ajax({
+                            url: "@(Url.Action("SearchToDoMessage", "ToDo", null))",
+                            type: 'GET',
+                            headers: {
+                                'Accept': 'application/json',
+                                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                            },
+                    data: { ToDoDetailsId: ids },
+                    success: function (result) {
+                                debugger;
+                        $.each(JSON.parse(result), function (key, value) {
+                            var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy+" </span></div>"
+                            $('#messageId').append(items);
+                        });
+                                $('#Setup1').modal('show');
+                            },
+                            error: function (jqXHR, textStatus, errorThrown) {
+                                alert(errorThrown);
+                            }
+                        });
+            });
+    </script>*@
 <script type="text/javascript">
 
     $(document).ready(function () {
@@ -348,6 +438,9 @@
         // console.log(@Html.Raw(@ViewBag.UserBaseToDoModel));
         //var mdata = JSON.parse(@ViewBag.UserBaseToDoModel);
         var mdata = @Html.Raw(@ViewBag.UserBaseToDoModel);
+        //var returnedData = $.grep(mdata, function (element) {
+        //    return element.category.indexOf('Project_ID') == 1002;
+        //});
         //alert(mdata);
         $("#internaluser").jqGrid({
             colModel: [
@@ -356,13 +449,7 @@
                 {
                     name: "ToDoDetails.Title", label: "Title", width: 53
                 },
-                //{ name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", data-target="#Setup",vwidth: 53, formatter: 'showlink',  formatoptions: { baseLinkUrl: 'javascript:', showAction: "Link('", addParam: "');" } },
                 {
-                    //name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", width: 53, formatter: function (cellvalue, options, rowObject) {
-
-
-                    //    return '<a href="" data-toggle="modal"  data-target="#Setup1"  class="type1" data-id="ToDoDetails.TodoDetailsID">' + cellvalue + '</a>'
-                    //}
                     name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", width: 53, formatter: formatNumberOfMessages
 
                 },
@@ -507,6 +594,75 @@
     };
 </script>
 
+<script>
+    $(document).ready(function () {
+        $('.type1').click(function () {
+            debugger;
+            //event.preventDefault();
+            alert('hi');
+            var ids = $(this).attr('dataids');
+            $('#hiddenToDoDetailsId').val(ids);
+            $.ajax({
+                        url: "@(Url.Action("SearchToDoMessage", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                data: { ToDoDetailsId: ids },
+                success: function (result) {
+                            debugger;
+                    $.each(JSON.parse(result), function (key, value) {
+                        var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy+" </span></div>"
+                        $('#messageId').append(items);
+                    });
+                            $('#Setup1').modal('show');
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+        });
+
+
+        $('#btnPostComment').click(function () {
+
+           // alert('hi save');
+            var textComment = $('#titleMessage').val();
+            var owner = $('input[name="chkOwner"]').prop('checked');
+            var notify = $('input[name="chkNotify"]').prop('checked');
+            var sub = $('input[name="chkSub"]').prop('checked');
+           // alert(textComment + owner + notify + sub);
+
+             $.ajax({
+                        url: "@(Url.Action("SaveToDoMessage", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                 data: {
+                     todoDetailsId: $('#hiddenToDoDetailsId').val(), titleMessage: textComment, owner: owner, notify: true, sub: sub },
+                success: function (result) {
+
+                    if (result == "success") {
+                        alert('sucees');
+                        $('#messageId').prepend("<div><span>" + textComment + "</span> <span>ert</span></div>");
+
+                    }
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+        });
+    });
+</script>
+
+
+
 <script type="text/javascript">
     $(function () {
         $('#ddlTag').multiselect({
@@ -596,63 +752,6 @@
 
             $('#internaluser').jqGrid('clearGridData');
             $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
-            debugger;
-
-            //alert('data populate' + result);
-           // var tt = result;
-            //console.log('----First------------------------');
-            //console.log(result);
-            //console.log('----Second------------------------');
-            //alert(jQuery.parseJSON(result));
-
-            //var mdata1 = jQuery.parseJSON(result);
-            //$("#internaluser1").empty();
-            //    $("#internaluser1").jqGrid({
-            //        colModel: [
-
-            //            { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, key: true, hidden: true },
-            //            {
-            //                name: "ToDoDetails.Title", label: "Title", width: 53
-            //            },
-            //            { name: "TotalNumberOfMessages", label: "TotalNumberOfMessages", width: 53 },
-            //            {
-            //                name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox', editoptions: { checked: "" }, formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
-            //            },
-            //            { name: "ToDoDetails.Priority", label: "Priority", width: 65 },
-            //            { name: "UserNames", label: "AssignedTo", width: 65 },
-            //            { name: "ToDoDetails.AssignedTo", label: "Related Daily Log", width: 65 },
-            //            { name: "ToDoDetails.AssignedTo", label: "Files", width: 65 },
-            //            { name: "ToDoDetails.Duedate", label: "Due", width: 41 },
-            //            { name: "ToDoDetails.CreatedBy", label: "CreatedBy", width: 41 },
-            //            { name: "TagNames", label: "Tags", width: 65 }
-            //        ],
-            //        data: mdata1,
-            //        iconSet: "fontAwesome",
-            //        idPrefix: "g5_",
-            //        rownumbers: false,
-            //        sortname: "Title",
-            //        sortorder: "desc",
-            //        threeStateSort: true,
-            //        sortIconsBeforeText: true,
-            //        headertitles: true,
-            //        //postData:  $("#myForm").serialize()
-            //        //,
-            //        rowList: [5, 10, 20, "10000:All"],
-            //        toppager: true,
-            //        multiselect: true,
-            //        pager: true,
-            //        toolbarfilter: true,
-            //        rowNum: 5,
-            //        viewrecords: true,
-            //        searching: {
-            //            defaultSearch: "cn"
-            //        },
-            //        cellEdit: true,
-            //        //beforeSelectRow: function (rowid, e) {
-            //        //    return false;
-            //        //},
-            //        caption: ""
-            //    });
 
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -763,6 +862,7 @@
     $(document).ready(function () {
         $('#ddlToDoPriorityToDoSearch').multiselect();
         $('#ddlTagToDoSearch').multiselect();
+        $('#ddlPermission').multiselect();
     });
 </script>
 <script type="text/javascript">
@@ -979,12 +1079,10 @@
         var item = 3;
         var itemLength = item + 3;
 
-        //$('#addRemoveButton').click(function () {
-        //    var buttonText = $(this).text();
-        //    $('#appendTextData').empty();
-        //});
-
-
+        $('#addRemoveButton').click(function () {
+            var buttonText = $(this).text();
+            $('#appendTextData').empty();
+        });
 
         $('.checkListUser').click(function () {
 
@@ -999,82 +1097,4 @@
 
     });
 </script>
-<script>
-    $(document).ready(function () {
-        $('.type1').click(function () {
-            //event.preventDefault();
-            var ids = $(this).attr('dataids');
-            $('#hiddenToDoDetailsId').val(ids);
-            //debugger;
-           // alert('sumit'+ids);
-            $.ajax({
-                        url: "@(Url.Action("SearchToDoMessage", "ToDo", null))",
-                        type: 'GET',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                        },
-                data: { ToDoDetailsId: ids },
-                success: function (result) {
-                            debugger;
 
-                            //alert(result);
-
-                            //console.log(result);
-                            //alert('Hi');
-                    $.each(JSON.parse(result), function (key, value) {
-                       // alert('Hi')
-                        //alert(data[i].PageName);
-                        //alert(item.ToDoMessageTitle);
-                        var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy+" </span></div>"
-                        $('#messageId').append(items);
-                    });
-
-                            $('#Setup1').modal('show');
-
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(errorThrown);
-                        }
-                    });
-
-
-           
-            //var rowKey = grid.getGridParam("selrow");
-            //alert(rowKey);
-        });
-
-
-        $('#btnPostComment').click(function () {
-            var textComment = $('#titleMessage').val();
-            var owner = $('input[name="chkOwner"]').prop('checked');
-            var notify = $('input[name="chkNotify"]').prop('checked');
-            var sub = $('input[name="chkSub"]').prop('checked');
-           // alert(textComment + owner + notify + sub);
-
-             $.ajax({
-                        url: "@(Url.Action("SaveToDoMessage", "ToDo", null))",
-                        type: 'GET',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                        },
-                 data: {
-                     todoDetailsId: $('#hiddenToDoDetailsId').val(), titleMessage: textComment, owner: owner, notify: true, sub: sub },
-                success: function (result) {
-                          
-                    if (result == "success") {
-                        alert('sucees');
-                        $('#messageId').prepend("<div><span>" + textComment + "</span> <span>ert</span></div>");
-
-                    }
-                           
-
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(errorThrown);
-                        }
-                    });
-        });
-    });
-</script>

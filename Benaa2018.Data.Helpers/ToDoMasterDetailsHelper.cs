@@ -56,11 +56,16 @@ namespace Benaa2018.Helper
 
 
 
-        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetails()
+        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetails(int projectId=0)
         {
             List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
             var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
             toDoInfo = toDoInfo.Where(a => a.DeletionStatus == false).ToList();
+            if(toDoInfo!=null && projectId>0)
+            {
+                toDoInfo = toDoInfo.Where(a => a.Project_ID == projectId).ToList();
+            }
+
             toDoInfo.ToList().ForEach(item =>
             {
                 lstToDoMasterModel.Add(new ToDoMasterDetailsViewModel
@@ -88,14 +93,17 @@ namespace Benaa2018.Helper
 
 
 
-        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsByTitle(string title = "", int status = 0, string priority = "")
+        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsByTitle(int projectId = 0,string title = "", int status = 0, string priority = "")
         {
             List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
             try
             {
-
-
                 var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
+                toDoInfo = toDoInfo.Where(a => a.DeletionStatus == false).ToList();
+                if (toDoInfo.Count()>0)
+                {
+                    toDoInfo = toDoInfo.Where(a => a.Project_ID == projectId).ToList();
+                }
                 if (toDoInfo.Count() > 0)
                 {
 

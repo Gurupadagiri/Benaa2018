@@ -84,8 +84,8 @@ namespace Benaa2018.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var tagsList = GetAllTags();
-            ViewBag.TagsList = tagsList.Result;
+            var tagsList =await GetAllTags();
+            ViewBag.TagsList = tagsList;
             ViewBag.TotalCheckList = 3;
 
             //var ownersList = GetAllOwners();
@@ -95,13 +95,13 @@ namespace Benaa2018.Controllers
             //ViewBag.SubContractorsList = subContractorsList.Result;
 
             #region populate ToDo
-            var toDoDetails = GetAllToDoDetails();
-            ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(toDoDetails.Result);
+            var toDoDetails =await GetAllToDoDetails();
+            ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(toDoDetails);
             // ViewBag.UserBaseToDoModel = toDoDetails.Result;
             #endregion
 
-            var differentUsersList = GetAllDifferentUsers();
-            ViewBag.SubContractorsList = differentUsersList.Result;
+            var differentUsersList =await GetAllDifferentUsers();
+            ViewBag.SubContractorsList = differentUsersList;
 
             // ViewBag.SubContractorsList1= new SelectList(, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", 1);
             return View();
@@ -181,22 +181,29 @@ namespace Benaa2018.Controllers
             return Json(result);
         }
 
+        public async Task<IActionResult> SearchToDobyProject(int projectId=0)
+        {
+            string result = string.Empty;
+            var lstToDoSearchDetails = await GetAllToDoDetails(projectId);
+            ViewBag.UserBaseToDoModel = null;
+            ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(lstToDoSearchDetails);
+
+            result = "success";
+            // return Json(result);
+            return Json(JsonConvert.SerializeObject(lstToDoSearchDetails));
+        }
+
 
         public async Task<IActionResult> SearchToDo(string keywords, string assignedto, int usersAssignedTo, int status, string priority, string tags = "")
         {
             string result = string.Empty;
-            //List<ToDoAllViewModel> lstToDoSearchDetails = new List<ToDoAllViewModel>();
-
-
-            var lstToDoSearchDetails = GetAllToDoDetailsSearch(keywords, status, priority, tags);
-            //  ViewBag.ToDoSearchResult = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
-            // ViewBag.UserBaseToDoModel = null;
+            var lstToDoSearchDetails = await GetAllToDoDetailsSearch(keywords, status, priority, tags);
             ViewBag.UserBaseToDoModel = null;
-            ViewBag.UserBaseToDoModel= JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
-            // ViewBag.UserBaseToDoModelSearch = JsonConvert.SerializeObject(lstToDoSearchDetails.Result);
+            ViewBag.UserBaseToDoModel= JsonConvert.SerializeObject(lstToDoSearchDetails);
+            
             result = "success";
            // return Json(result);
-            return Json(JsonConvert.SerializeObject(lstToDoSearchDetails.Result));
+            return Json(JsonConvert.SerializeObject(lstToDoSearchDetails));
         }
 
 
@@ -404,17 +411,14 @@ namespace Benaa2018.Controllers
             List<UserOwnerDifferentTypeViewModel> lstOwners1 = new List<UserOwnerDifferentTypeViewModel>();
             try
             {
+                
                 int index = 0;
-
-
-
-                //List<OwnerMasterViewModel> lstOwners = new List<OwnerMasterViewModel>();
-                var lstOwners = GetAllOwners();
-                var lstInternalUsers = GetAllUsers();
-                var lstSubContractors = GetAllSubContractors();
-                if (lstOwners.Result.Count > 0)
+                var lstOwners =await GetAllOwners();
+                var lstInternalUsers = await GetAllUsers();
+                var lstSubContractors = await GetAllSubContractors();
+                if (lstOwners.Count > 0)
                 {
-                    foreach (var item in lstOwners.Result)
+                    foreach (var item in lstOwners)
                     {
                         UserOwnerDifferentTypeViewModel item1 = new UserOwnerDifferentTypeViewModel()
                         {
@@ -427,9 +431,9 @@ namespace Benaa2018.Controllers
                         lstOwners1.Add(item1);
                     }
                 }
-                if (lstInternalUsers.Result.Count > 0)
+                if (lstInternalUsers.Count > 0)
                 {
-                    foreach (var item in lstInternalUsers.Result)
+                    foreach (var item in lstInternalUsers)
                     {
                         UserOwnerDifferentTypeViewModel item1 = new UserOwnerDifferentTypeViewModel()
                         {
@@ -442,9 +446,9 @@ namespace Benaa2018.Controllers
                         lstOwners1.Add(item1);
                     }
                 }
-                if (lstSubContractors.Result.Count > 0)
+                if (lstSubContractors.Count > 0)
                 {
-                    foreach (var item in lstSubContractors.Result)
+                    foreach (var item in lstSubContractors)
                     {
                         UserOwnerDifferentTypeViewModel item1 = new UserOwnerDifferentTypeViewModel()
                         {
@@ -589,12 +593,12 @@ namespace Benaa2018.Controllers
         }
 
 
-        private async Task<List<ToDoAllViewModel>> GetAllToDoDetails()
+        private async Task<List<ToDoAllViewModel>> GetAllToDoDetails(int projectId = 0)
         {
             List<ToDoAllViewModel> lstToDos = new List<ToDoAllViewModel>();
             try
             {
-                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetails();
+                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetails(projectId);
 
               
                 if (obj1.Count > 0)
@@ -628,6 +632,7 @@ namespace Benaa2018.Controllers
                         var objTags = await _tagToDoHelper.GetAllTags(item.TodoDetailsID);
                         string AllTagNames = string.Empty;
                         List<TagMasterViewModel> lstTagMasters = new List<TagMasterViewModel>();
+                        
                         if (objTags.Count > 0)
                         {
                             TagMasterViewModel TagsDetails = new TagMasterViewModel();
@@ -724,7 +729,7 @@ namespace Benaa2018.Controllers
                 List<ToDoMasterDetailsViewModel> lstToDoSearchDetails = new List<ToDoMasterDetailsViewModel>();
 
 
-                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsByTitle(title, status, priority);
+                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsByTitle(0,title, status, priority);
 
 
                 if (obj1.Count > 0)
