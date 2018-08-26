@@ -424,6 +424,157 @@
             }
 
         });
+
+
+          $('#ddlAssign').change(function () {
+
+            var text = $(this).val();
+           //alert(text);
+
+            if (text == "Mark Complete") {
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+
+                    $.ajax({
+                        url: "@(Url.Action("SaveToDoIsComplete", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        data: { ToDoDetailsId: result },
+                        success: function (result) {
+                            debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+            }
+            else if (text == "Assign To") {
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+                    $.ajax({
+                        url: "@(Url.Action("AssignToDoUser", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        data: { userids: "5", ToDoDetailsId: result },
+                        success: function (result) {
+                            //debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+
+            }
+
+            else if (text == "Delete Checked") {
+
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+                    $.ajax({
+                        url: "@(Url.Action("DeleteToDo", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                        data: { ToDoDetailsId: result },
+                        success: function (result) {
+                            debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+            }
+            else if (text == "Copy To-Dos") {
+                var grid = $("#internaluser");
+                var rowKey = grid.getGridParam("selrow");
+
+                if (!rowKey)
+                    alert("No rows are selected");
+                else {
+                    var selectedIDs = grid.getGridParam("selarrrow");
+                    var result = "";
+                    for (var i = 0; i < selectedIDs.length; i++) {
+                        result += selectedIDs[i] + ",";
+                    }
+
+                     $.ajax({
+                        url: "@(Url.Action("CopyToDo", "ToDo", null))",
+                        type: 'GET',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                        },
+                         data: { todoDetailIds: result },
+                        success: function (result) {
+                            debugger;
+
+                            alert('success');
+
+
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        }
+                    });
+                }
+
+
+            }
+
+            });
     });
 
     function BindGrid(projectId) {
