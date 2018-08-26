@@ -40,6 +40,8 @@ namespace Benaa2018.Helper.ViewModels
 
         public ToDochecklistViewModel ToDoCheckList { get; set; }
 
+        public int ToDoCheckListItemIndex { get; set; }
+
         public List<ToDochecklistDetailsViewModel> lstCheckListDetail { get; set; }
 
     }

@@ -315,6 +315,10 @@
                     });
     });
     $(document).ready(function () {
+        var itemCount = 3;
+        var itemMaxCount = itemCount + 3;
+
+        $('#hdnCheckListIndex').val(3);
         $('#todoContain').hide();
         $('.todoAreaVisible').hide();
         $("#projectname").text('To-Do');
@@ -347,6 +351,28 @@
                     });
         });*@
 
+        $('#addRemoveButton').click(function () {
+            //$('#addRemoveButton').val()
+            if ($(this).val() == "Remove Checklist") {
+
+                $('.cloneingboxholder').hide();
+                $('#hdnCheckListIndex').val(3);
+            }
+            
+        });
+
+        $('#btnAddExtra').click(function () {
+            //$(".cloneingboxholder").show();
+            for (var j = itemCount; j < itemMaxCount; j++) {
+                var index = 'cloneingboxholder' + j;
+               // alert(index);
+                $('#cloneingboxholder'+j).show();
+            }
+            itemCount = itemCount + 3;
+            itemMaxCount = itemMaxCount + 3;
+            $('#hdnCheckListIndex').val(itemCount);
+        });
+
         $('#btnAddTag').click(function () {
 
             var title = $('#txtTag').val();
@@ -361,12 +387,12 @@
                 },
                 data: { tagTitle: title},
         success: function (result) {
-            
+
             if (result == "success") {
                 alert('Success');
                 location.reload();
             }
-            
+
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
@@ -438,6 +464,7 @@
             });
 
         });
+
 
     });
 
