@@ -3,80 +3,79 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Index</h2>
-<div>
-    <input type="button" id="btnActivityMaster" value="Add Activity Master" />
+<div class="mainContentDiv calenderHolder" style="margin-left: 235px">
+    <div>
+        <button class="btn btn-primary btn-sm dropdown-toggle" id="btnActivityMaster" type="submit" data-toggle="dropdown">Add Activity Master</button>
 
-
-</div>
-<div id="grdNew">
-    @if (!Model.Any())
-    {
-        <tr><td>There are no Data</td></tr>
-    }
-    else
-    {
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>
-                        @Html.DisplayNameFor(model => model.ActivityId)
-                    </th>
-                    <th>
-                        @*<a asp-page="./Index" asp-route-sortOrder="GroupCode">
-                                @Html.DisplayNameFor(model => model.GroupCode)
-                            </a>*@
-                        @Html.DisplayNameFor(model => model.ActivityName)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.Sequence)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.MainActivityName)
-                    </th>
-                    <th>
-                        @*<a asp-page="./Index" asp-route-sortOrder="Sequence">
-                                @Html.DisplayNameFor(model => model.Sequence)
-                            </a>*@
-                        @Html.DisplayNameFor(model => model.Status)
-                    </th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+    </div>
+    <div id="grdNew">
+        @if (!Model.Any())
+        {
+            <tr><td>There are no Data</td></tr>
+        }
+        else
+        {
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ActivityId)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ActivityName)
-
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sequence)
-                        </td>
-                        <td>
+                        <th>
+                            @Html.DisplayNameFor(model => model.ActivityId)
+                        </th>
+                        <th>
+                            @*<a asp-page="./Index" asp-route-sortOrder="GroupCode">
+                                    @Html.DisplayNameFor(model => model.GroupCode)
+                                </a>*@
+                            @Html.DisplayNameFor(model => model.ActivityName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.Sequence)
+                        </th>
+                        <th>
                             @Html.DisplayNameFor(model => model.MainActivityName)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Status)
-                        </td>
-                        <td>
-                            @*<a asp-page="./Edit" asp-route-id="GroupId">Edit</a> |
-                                <a asp-page="./Details" asp-route-id="GroupId">Details</a> |
-                                <a asp-page="./Delete" asp-route-id="GroupId">Delete</a>*@
-
-                            <input type="button" class="btnEditGroup" value="Edit" />
-                            <input type="button" class="btnDeleteGroup" value="Delete" />
-                        </td>
+                        </th>
+                        <th>
+                            @*<a asp-page="./Index" asp-route-sortOrder="Sequence">
+                                    @Html.DisplayNameFor(model => model.Sequence)
+                                </a>*@
+                            @Html.DisplayNameFor(model => model.Status)
+                        </th>
+                        <th></th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    }
-    <script type="text/javascript">
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActivityId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ActivityName)
+
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sequence)
+                            </td>
+                            <td>
+                                @Html.DisplayNameFor(model => model.MainActivityName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Status)
+                            </td>
+                            <td>
+                                @*<a asp-page="./Edit" asp-route-id="GroupId">Edit</a> |
+                                    <a asp-page="./Details" asp-route-id="GroupId">Details</a> |
+                                    <a asp-page="./Delete" asp-route-id="GroupId">Delete</a>*@
+
+                                <input type="button" class="btnEditGroup" value="Edit" />
+                                <input type="button" class="btnDeleteGroup" value="Delete" />
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+        <script type="text/javascript">
 
         $(document).ready(function () {
             $('.btnEditGroup').click(function () {
@@ -114,5 +113,6 @@
                 window.location = '/Activity/InsertActivityMaster';
             });
         });
-    </script>
+        </script>
+    </div>
 </div>
