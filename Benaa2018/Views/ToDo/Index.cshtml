@@ -318,7 +318,7 @@
                 $('.cloneingboxholder').hide();
                 $('#hdnCheckListIndex').val(3);
             }
-            
+
         });
 
         $('#btnAddExtra').click(function () {
@@ -392,7 +392,42 @@
             var projectId = $(this).attr('data-projectid');
             $('#ProjectId').val(projectId);
             $('#hdnProjectIdToDo').val(projectId);
-           $.ajax({
+            BindGrid(projectId);
+        });
+        $('#FromCompletion').hide();
+        $('#ToCompletion').hide();
+        $('#FromDue').hide();
+        $('#TomDue').hide();
+        $('#ddlDueDate').click(function () {
+            var dueDate = $(this).val();
+            if (dueDate == 2) {
+                $('#FromDue').show();
+                $('#TomDue').show();
+            }
+            else {
+                $('#FromDue').hide();
+                $('#TomDue').hide();
+            }
+
+        });
+
+        $('#ddlCompletionDate').click(function () {
+            var completionDate = $(this).val();
+            if (completionDate == 2) {
+                $('#FromCompletion').show()
+                $('#ToCompletion').show()
+
+            }
+            else {
+                $('#FromCompletion').hide();
+                $('#ToCompletion').hide();
+            }
+
+        });
+    });
+
+    function BindGrid(projectId) {
+         $.ajax({
                 url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
                 type: 'POST',
                 headers: {
@@ -408,11 +443,7 @@
                     alert(errorThrown);
                 }
             });
-
-        });
-
-
-    });
+    }
 
     function formatNumberOfMessages(cellValue, options, rowObject) {
 
@@ -573,17 +604,12 @@
             link.click();
             document.body.removeChild(link);
         };
-
-
-
-
-
     });
 
     function formatNumberOfMessages(cellValue, options, rowObject) {
 
         var dataid = rowObject.ToDoDetails.TodoDetailsID;
-        var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";      
+        var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";
         return linkMessage;
     };
 </script>
@@ -638,14 +664,11 @@
                  data: {
                      todoDetailsId: $('#hiddenToDoDetailsId').val(), titleMessage: textComment, owner: owner, notify: true, sub: sub },
                 success: function (result) {
-
-                    if (result == "success") {
-                        alert('sucees');
-                        $('#messageId').prepend("<div><span>" + textComment + "</span> <span>ert</span></div>");
-
-                    }
-
-
+                            if (result == "success") {
+                                alert('sucees');
+                                $('#messageId').prepend("<div><span>" + textComment + "</span> <span>ert</span></div>");
+                                //BindGrid($('#ProjectId').val());
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(errorThrown);
@@ -654,8 +677,6 @@
         });
     });
 </script>
-
-
 
 <script type="text/javascript">
     $(function () {
