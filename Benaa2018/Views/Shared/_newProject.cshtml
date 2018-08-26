@@ -56,7 +56,7 @@
                                             </div>
                                             <div class="col-sm-6 form-group tooltip-div">
                                                 <label>Status <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Project Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. "><span class="glyphicon glyphicon-info-sign"></span></small></label>
-                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectStatusID, new SelectList(Model.ProjctStatusMasterModels, "StatusID", "StatusName"), new { @multiple = "multiple", @class = "noCheckbox required" })
+                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectStatusID, new SelectList(Model.ProjctStatusMasterModels, "StatusID", "StatusName"), new { @multiple = "multiple", @class = "withCheckbox required" })
                                                 <span class="errormessege ProjectStatusID" style="display:none;color:red">Please Select Project Status</span>
                                             </div>
                                             <div class="clearfix"></div>
@@ -66,7 +66,7 @@
                                                         <span class="glyphicon glyphicon-info-sign"></span>
                                                     </small>
                                                 </label>
-                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectTypeID, new SelectList(Model.ProjectTypeMasterModels, "ProjectTypeID", "ProjectTypeName"), new { @multiple = "multiple", @class = "noCheckbox required" })
+                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectTypeID, new SelectList(Model.ProjectTypeMasterModels, "ProjectTypeID", "ProjectTypeName"), new { @multiple = "multiple", @class = "withCheckbox required" })
                                                 <span class="errormessege ProjectTypeID" style="display:none;color:red">Please Select Project Type</span>
                                             </div>
                                             <div class="col-sm-3 form-group">

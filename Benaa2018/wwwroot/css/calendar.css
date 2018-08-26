@@ -179,7 +179,9 @@ input.form-control {
     border: 1px solid #ddd;
     overflow-x: scroll;
     overflow-y: auto;
-    background: #fff;
+    background: #fff!important;
+    width:100%;
+    float:left;
 }
 
     .tableContainer table {
@@ -959,10 +961,7 @@ table.dataTable {
     width: 1100px;
 }
 
-    .modalWidth1200 .customPopup .panel-body {
-        height: 85vh;
-        overflow-y: scroll;
-    }
+    
 
 .chHolder.odd {
     background: #fff;
@@ -2079,15 +2078,9 @@ legend:after {
     }
 }
 
-.modalWidth1200 .customPopup .panel-body {
-    height: 85vh;
-    overflow-y: scroll;
-}
 
-.modalWidth1200 .customPopup #frmSubmitProjectMaster .panel-body {
-    height: auto;
-    overflow: hidden;
-}
+
+
 
 
 /*========= for calender 07082018 ====================*/
@@ -2173,10 +2166,6 @@ legend:after {
     margin-bottom: 10px;
 }
 
-.panel-body {
-    height: 90vh;
-    overflow-y: scroll;
-}
 
 .grayBackgroundContent .input-group[class*=col-] {
     float: left;
@@ -2340,7 +2329,7 @@ legend:after {
 
     .filterContainer .panel-body {
         height: auto;
-        overflow: hidden;
+        overflow: visible;
     }
 /*========= END for calender 07082018 ====================*/
 body .btn-success,
@@ -2707,7 +2696,6 @@ body .panel-body {
     }
 
     #calendarmodal .width94 .panel-body {
-        height: 90vh;
         overflow-y: scroll;
     }
 

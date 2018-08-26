@@ -39,7 +39,7 @@
                                             </h4>
                                         </div>
                                         <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
-                                            <div class="panel-body">
+                                            <div class="panel-body project-list">
                                                 <div class="row">
                                                     <div class="col-sm-2 form-group">
                                                         <span>Project Group</span>
@@ -58,6 +58,7 @@
                                                         @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectTypeID, new SelectList(Model.ProjectTypeMasterModels, "ProjectTypeID", "ProjectTypeName"), new { @multiple = "", @class = "withCheckbox" })
                                                     </div>
                                                     <div class="col-sm-2 form-group tooltip-div">
+                                                        <span>&nbsp;</span>
                                                         <div class="input-group">
                                                             <input type="text" id="txtKeyWord" class="form-control" placeholder="Keyword">
                                                             <div class="input-group-btn">
@@ -110,13 +111,13 @@
                     </div>
                     <div class="tabsConatiner">
                         <ul class="tabs">
-                            <li class="active" rel="tab1">List</li>
-                            <li rel="tab2">Map</li>
-                            <li rel="tab3">Cluster Map</li>
+                            <li><a data-toggle="tab" href="#tab1" aria-expanded="true">List</a></li>
+                            <li><a data-toggle="tab" href="#tab2" aria-expanded="true">Map</a></li>
+                            <li><a data-toggle="tab" href="#tab3" aria-expanded="true">Cluster Map</a></li>
                         </ul>
-                        <div class="tab_container">
+                        <div class=" tab-content">
                             <h3 class="d_active tab_drawer_heading" rel="tab1">List</h3>
-                            <div id="tab1" class="tab_content">
+                            <div id="tab1" class="tab-pane fade active in">
                                 <div class="dataTableConatainer">
                                     <span>
                                         <button id="export">
@@ -128,7 +129,7 @@
                             </div>
                             <!-- #tab1 -->
                             <h3 class="tab_drawer_heading" rel="tab2">Tab 2</h3>
-                            <div id="tab2" class="tab_content">
+                            <div id="tab2" class="tab-pane fade">
                                 <div class="clusterMapCon">
                                     <div class="row">
                                         <div class="col-sm-4">
@@ -146,8 +147,8 @@
                                                         <div class="col-sm-2">
                                                             <button class="btn btn-default btn-sm" type="button" disabled>Previous</button>
                                                         </div>
-                                                        <div class="col-sm-4">
-                                                            Page&nbsp;<input type="text" class="inpWidth50">&nbsp;of 1
+                                                        <div class="col-sm-4 pageofHolder">
+                                                            <span class="pageofHolderL">Page</span><input type="text" class="inpWidth50"><span class="pageofHolderR">of 1</span>
                                                         </div>
                                                         <div class="col-sm-2">
                                                             <button class="btn btn-default btn-sm" type="button" disabled>Next</button>
@@ -173,7 +174,7 @@
                             </div>
                             <!-- #tab2 -->
                             <h3 class="tab_drawer_heading" rel="tab3">Tab 3</h3>
-                            <div id="tab3" class="tab_content">
+                            <div id="tab3" class="tab-pane fade">
                                 <div id="dvMapCluster" class="clusterMapCon">
 
                                 </div>

@@ -1084,7 +1084,7 @@ table.dataTable {
 .tab-pane.fade.in {
     opacity: 1;
     background: rgba(255, 255, 255, 1) !important;
-    padding: 15px;
+    padding: 15px 0;
 }
 
 .modal .modal {
@@ -1427,12 +1427,17 @@ table.dataTable {
 }
 
 .form-control {
-    height: 26px;
+    height: 36px;
     padding: 3px 12px;
     font-size: 12px;
     color: #555;
+    border-radius: 4px !important;
 }
-
+.todotoolbarRight .selectRight {
+    float:right!important;
+    margin-left:10px;
+    margin-right:0!important;
+}
 .btn-group-sm > .btn, .btn-sm {
     padding: 5px 10px;
     font-size: 12px;
@@ -1463,10 +1468,21 @@ table.dataTable {
     width: 75%;
 }
 
-    .modal-open .modal .modal-dialog .panel-body {
-        height: 80vh;
-        overflow-y: scroll;
-    }
+.modal-open .modal .modal-dialog .panel-body {
+    height: 80vh;
+    overflow-y: scroll;
+}
+.modal-open #infoModal.modal .modal-dialog {
+    width: 95%;
+}
+.customPopup .panel-body {
+    background: #fff;
+}
+.modal-open .modal .modal-dialog .panel-collapse .panel-body {
+    height: auto;
+    overflow-y: visible;
+    background:#fff;
+}
 
 .cloneingboxholder .multiInputHolder,
 .cloneingboxholder {
@@ -1725,9 +1741,13 @@ table.dataTable {
         padding: 7px 10px;
     }
 
-.clusterMapCon,
+
 #dvMapEdit {
     height: 269px;
+}
+.clusterMapCon {
+    height: 269px;
+    width: 100%;
 }
 
 .blueButton:hover {
@@ -2815,4 +2835,25 @@ body .blueButton, body .Projects-List .btn-primary {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+.pageofHolder .pageofHolderL,
+.pageofHolder .pageofHolderR{
+    padding:0 5px;
+}
+
+.filterMap .col-sm-4.pageofHolder {
+    padding-left: 15px;
+}
+.filterMap {
+    padding: 0 15px;
+}
+.filterMap .col-sm-2,
+.filterMap .col-sm-4 {
+    padding: 0;
+}
+@media (min-width: 1200px) {
+    .panel-body.project-list .col-sm-2 {
+        width: 20%;
+    }
+
 }

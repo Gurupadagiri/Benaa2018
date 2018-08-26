@@ -121,22 +121,15 @@ namespace Benaa2018.Helper
             }
             return new OwnerMasterViewModel();
         }
-
-
-
+        
         public async Task<List<OwnerMasterViewModel>> GetAllOwner()
         {
-
             List<OwnerMasterViewModel> lstOwnerMasterModel = new List<OwnerMasterViewModel>();
-          //  var ownerInfo = await _ownerMasterRepoisitory.GetAllAsync();
             IEnumerable<OwnerMaster> lstOwnerDet = null;
             lstOwnerDet = await _ownerMasterRepoisitory.GetAllAsync();
-
-
-           
             if (lstOwnerDet != null)
             {
-                foreach (var item in lstOwnerDet)
+                foreach (var item in lstOwnerDet.Where(a=> !string.IsNullOrEmpty(a.Owner_Name)))
                 {
                     lstOwnerMasterModel.Add(new OwnerMasterViewModel
                     {

@@ -30,7 +30,7 @@
 
                     <div class="tableContainer todoHolder todoAreaVisible">
                         <div class="table table-striped custab">
-                            <div class="pull-left col-sm-8"><a href="#home" data-toggle="modal" id="infoEdit" data-target="#infoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
+                            <div class="pull-left col-sm-8"><a href="#home" data-toggle="modal" id="infoEdit" data-target="#todoinfoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
                             <div class="pull-right col-sm-4">
                                 <select class="form-control" id="ddlAssign">
                                     <option>Checked Actions</option>
@@ -49,13 +49,13 @@
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
-                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#todocollapseOne" aria-expanded="true" aria-controls="collapseOne" class="">
                                             FILTER YOUR RESULTS
                                         </a>
                                     </h4>
                                 </div>
 
-                                <div id="collapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
+                                <div id="todocollapseOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne" aria-expanded="false" style="height: 0px;">
                                     <div class="panel-body">
                                         <div class="row">
                                             <div class="col-sm-3 form-group">
@@ -217,11 +217,8 @@
         </div>
     </div>
 </div>
-
-
 <div class="modal fade" id="infoModal1" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
-
         <div class="panel panel-primary customPopup">
             <div class="panel-heading themeColor">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -263,7 +260,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="infoModal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="todoinfoModal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 
 
     @Html.Partial("_toDoAddNew", Model)
@@ -278,17 +275,11 @@
 </div>
 
 <div id="calendarpage" class="ContentContainer greyTableBorder" style="margin-left: 235px;">
-    @*<div class="mainheader">
-            ToDo <span id="jobsiteName">
-            </span>
-        </div>*@
     <div id="pleaseselect" class="">
         « Please Select a Jobsite from the left menu to continue
     </div>
 </div>
 <script type="text/javascript">
-
-    //$(document).on("click", "#tblAccounts tbody tr td input"
     $(document).on('click', '.type1', function () {
         var ids = $(this).attr('dataids');
 
@@ -317,42 +308,11 @@
     $(document).ready(function () {
         var itemCount = 3;
         var itemMaxCount = itemCount + 3;
-
         $('#hdnCheckListIndex').val(3);
         $('#todoContain').hide();
         $('.todoAreaVisible').hide();
         $("#projectname").text('To-Do');
-
-        @*$('.type1').click(function () {
-            debugger;
-            //event.preventDefault();
-            alert('hi');
-            var ids = $(this).attr('dataids');
-            $('#hiddenToDoDetailsId').val(ids);
-            $.ajax({
-                        url: "@(Url.Action("SearchToDoMessage", "ToDo", null))",
-                        type: 'GET',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                        },
-                data: { ToDoDetailsId: ids },
-                success: function (result) {
-                            debugger;
-                    $.each(JSON.parse(result), function (key, value) {
-                        var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy+" </span></div>"
-                        $('#messageId').append(items);
-                    });
-                            $('#Setup1').modal('show');
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            alert(errorThrown);
-                        }
-                    });
-        });*@
-
         $('#addRemoveButton').click(function () {
-            //$('#addRemoveButton').val()
             if ($(this).val() == "Remove Checklist") {
 
                 $('.cloneingboxholder').hide();
@@ -362,10 +322,8 @@
         });
 
         $('#btnAddExtra').click(function () {
-            //$(".cloneingboxholder").show();
             for (var j = itemCount; j < itemMaxCount; j++) {
                 var index = 'cloneingboxholder' + j;
-               // alert(index);
                 $('#cloneingboxholder'+j).show();
             }
             itemCount = itemCount + 3;
@@ -374,10 +332,7 @@
         });
 
         $('#btnAddTag').click(function () {
-
             var title = $('#txtTag').val();
-
-            //alert(title);
             $.ajax({
                 url: "@(Url.Action("SaveTag", "ToDo", null))",
                 type: 'POST',
@@ -401,9 +356,7 @@
         });
 
         $('.multipleSelectBoxes .mainButton').click(function () {
-            // alert("Test Sumit working");
             $('.multiCheckBoxHolder, .multiInputHolder').slideToggle();
-
             if ($(this).val() == "Add Checklist")
                 $(this).val("Remove Checklist")
             else
@@ -422,10 +375,7 @@
                 $('.chosen-container.chosen-container-single').hide();
             }
         });
-
-
         $('.checkListUser').click(function () {
-            //alert('hi');
             if ($(this).prop("checked") == true) {
                 $('.ddlCheckListUser').show();
             }
@@ -434,7 +384,6 @@
             }
         });
         $('.allProject').click(function () {
-           // alert('hi'+ $(this).text());
             $('#calendarpage').hide();
             $('#todoContain').show();
             $('.todoAreaVisible').show();
@@ -443,7 +392,6 @@
             var projectId = $(this).attr('data-projectid');
             $('#ProjectId').val(projectId);
             $('#hdnProjectIdToDo').val(projectId);
-            //alert(projectId);
            $.ajax({
                 url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
                 type: 'POST',
@@ -453,8 +401,6 @@
                 },
                data: { projectId: projectId},
         success: function (result) {
-            //jQuery("#internaluser").setGridParam({ data: jQuery.parseJSON(result), datatype: "json" });
-
             $('#internaluser').jqGrid('clearGridData');
             $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
                 },
@@ -472,10 +418,6 @@
 
         var dataid = rowObject.ToDoDetails.TodoDetailsID;
         var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";
-        //var linkMessage = "<a href='' data-toggle='modal'  data-target='#Setup1'  class='type1' dataids=" + dataid+">" + cellValue + "<a/>";
-        // var linkMessage = "<a href='' data-toggle='modal'  data-target='#Setup1'  class='type1'>" + cellValue + "<a/>";
-        //console.log(rowObject.ToDoDetails.TodoDetailsID);
-        //var imageHtml = "<img src='images/" + cellValue + "' originalValue='" + 2 + "' />";
         return linkMessage;
     };
 </script>
@@ -497,14 +439,7 @@
                 $('.sheduleItemHolder').hide();
             }
         });
-        // alert('Hi');
-        // console.log(@Html.Raw(@ViewBag.UserBaseToDoModel));
-        //var mdata = JSON.parse(@ViewBag.UserBaseToDoModel);
         var mdata = @Html.Raw(@ViewBag.UserBaseToDoModel);
-        //var returnedData = $.grep(mdata, function (element) {
-        //    return element.category.indexOf('Project_ID') == 1002;
-        //});
-        //alert(mdata);
         $("#internaluser").jqGrid({
             colModel: [
 
@@ -648,11 +583,7 @@
     function formatNumberOfMessages(cellValue, options, rowObject) {
 
         var dataid = rowObject.ToDoDetails.TodoDetailsID;
-        var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";
-        //var linkMessage = "<a href='' data-toggle='modal'  data-target='#Setup1'  class='type1' dataids=" + dataid+">" + cellValue + "<a/>";
-       // var linkMessage = "<a href='' data-toggle='modal'  data-target='#Setup1'  class='type1'>" + cellValue + "<a/>";
-        //console.log(rowObject.ToDoDetails.TodoDetailsID);
-        //var imageHtml = "<img src='images/" + cellValue + "' originalValue='" + 2 + "' />";
+        var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";      
         return linkMessage;
     };
 </script>

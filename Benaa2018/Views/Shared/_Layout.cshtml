@@ -36,7 +36,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css">
     <link rel="stylesheet" href="~/css/jquery-ui.min.css">
     <link rel="stylesheet" href="~/css/ui.jqgrid.min.css">
-
+    <link href="~/css/calendar.css" rel="stylesheet" />
 </head>
 <body>
     @{
@@ -86,7 +86,7 @@
                                     {
                                         <li>
                                             <div class="inlineDiv">
-                                                <a href="#" class="icontxt">
+                                                <a href="@Menu.MenuUrl" class="icontxt">
                                                     <span class="@Menu.CssClass"></span>
                                                     <span>@Menu.MenuName</span>
                                                 </a>
@@ -123,6 +123,17 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <span class="glyphicon glyphicon-bell"></span><b class="caret caretMove"></b>
                         </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="/GroupMaster">Group Master</a>
+                            </li>
+                            <li>
+                                <a href="/mainactivitymaster">Main Activity Master</a>
+                            </li>
+                            <li>
+                                <a href="/activity">Activity Master</a>
+                            </li>
+                        </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -141,7 +152,6 @@
                             <span class="glyphicon glyphicon-cog"></span> <b class="caret caretMove"></b>
                         </a>
                         <ul class="dropdown-menu">
-                            @*<li><a href="#"><span class="fa fa-cogs"></span> Setup</a></li>*@
                             <li>
                                 <a data-toggle="modal" data-target="#Setup" href="javascript:void(0);">
                                     <span class="fa fa-cogs"></span> Setup
@@ -150,7 +160,7 @@
                             <li><a href="#" data-toggle="modal" data-target="#userPreference" data-original-title><span class="fa fa-user"></span> My User Preferences</a></li>
                             <li><a href="#"><span class="fa fa-sign-out"></span> Logout</a></li>
                         </ul>
-                    </li>
+                    </li>                    
                 </ul>
             </div>
         </nav>

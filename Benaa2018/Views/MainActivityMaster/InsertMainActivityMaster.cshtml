@@ -3,45 +3,39 @@
     ViewData["Title"] = "InsertMainActivityMaster";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>Insert MainActivityMaster</h2>
-
-<form method="post" action="/MainActivityMaster/InsertMainActivityMaster">
-    <div>
-
-        @*<input type="hidden" asp-for="GroupId" />*@
+<div class="mainContentDiv calenderHolder" style="margin-left: 235px">
+    <h2>Insert MainActivityMaster</h2>
+    <form method="post" action="/MainActivityMaster/InsertMainActivityMaster">
         <div>
-            <label asp-for="MainActivityName" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                <input asp-for="MainActivityName" class="form-control" />
-
+            <div>
+                <label asp-for="MainActivityName" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <input asp-for="MainActivityName" class="form-control" />
+                </div>
+            </div>
+            <div>
+                <label asp-for="GroupId" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <select asp-for="GroupId" class="form-control" asp-items="@(new SelectList(@ViewBag.listofGroup,"GroupId","GroupName"))"></select>
+                </div>
+            </div>
+            <div>
+                <label asp-for="Sequence" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <input asp-for="Sequence" class="form-control" />
+                </div>
+            </div>
+            <div>
+                <label asp-for="Status" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <input asp-for="Status" type="checkbox" />
+                </div>
+            </div>
+            <div>
+                <div class="col-md-12">
+                    <button type="submit">Save</button>
+                </div>
             </div>
         </div>
-        <div>
-            <label asp-for="GroupId" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                @*<input asp-for="Sequence" class="form-control" />*@
-                <select asp-for="GroupId" class="form-control" asp-items="@(new SelectList(@ViewBag.listofGroup,"GroupId","GroupName"))"></select>
-                @*<select asp-for="" class="form-control" asp-items="@(new SelectList(@ViewBag.listofCountry,"ID","Name"))"></select>*@
-            </div>
-
-        </div>
-        <div>
-            <label asp-for="Sequence" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                <input asp-for="Sequence" class="form-control" />
-            </div>
-        </div>
-        <div>
-            <label asp-for="Status" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                <input asp-for="Status" type="checkbox" />
-            </div>
-        </div>
-        <div>
-            <div class="col-md-12">
-                <button type="submit">Save</button>
-            </div>
-        </div>
-
-    </div>
-</form>
+    </form>
+</div>

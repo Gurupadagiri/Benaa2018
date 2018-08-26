@@ -4,42 +4,41 @@
     ViewData["Title"] = "InsertGroupMaster";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h2>InsertGroupMaster</h2>
-<form method="post" action="/GroupMaster/InsertGroupMaster">
-    <div>
+<div class="mainContentDiv calenderHolder" style="margin-left: 235px">
+    <h2>InsertGroupMaster</h2>
+    <form method="post" action="/GroupMaster/InsertGroupMaster">
+        <div>
+            <div>
+                <label asp-for="GroupCode" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <input asp-for="GroupCode" class="form-control" />
 
-        @*<input type="hidden" asp-for="GroupId" />*@
-        <div>
-            <label asp-for="GroupCode" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                <input asp-for="GroupCode" class="form-control" />
+                </div>
+            </div>
+            <div>
+                <label asp-for="GroupName" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <input asp-for="GroupName" class="form-control" />
+                </div>
 
             </div>
-        </div>
-        <div>
-            <label asp-for="GroupName" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                <input asp-for="GroupName" class="form-control" />
+            <div>
+                <label asp-for="Sequence" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <input asp-for="Sequence" class="form-control" />
+                </div>
             </div>
-
-        </div>
-        <div>
-            <label asp-for="Sequence" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                <input asp-for="Sequence" class="form-control" />
+            <div>
+                <label asp-for="Status" class="col-md-2 control-label"></label>
+                <div class="col-md-12">
+                    <input asp-for="Status" type="checkbox" />
+                </div>
             </div>
-        </div>
-        <div>
-            <label asp-for="Status" class="col-md-2 control-label"></label>
-            <div class="col-md-12">
-                <input asp-for="Status" type="checkbox" />
+            <div>
+                <div class="col-md-12">
+                    <button class="btn btn-primary btn-sm dropdown-toggle" type="submit" data-toggle="dropdown">Save</button>
+                </div>
             </div>
-        </div>
-        <div>
-            <div class="col-md-12">
-                <button type="submit">Save</button>
-            </div>
-        </div>
-
-    </div>
-</form>
+          </div>
+    </form>
+</div>

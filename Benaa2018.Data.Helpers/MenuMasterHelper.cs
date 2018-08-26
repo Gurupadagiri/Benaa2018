@@ -18,14 +18,14 @@ namespace Benaa2018.Helper
         {
             List<MenuViewModel> lstMenuItems = new List<MenuViewModel>();
             var menuItems = await _menuMasterRepoisitory.GetAllAsync();
-            menuItems.Where(a => a.PatentId == 0).ToList().ForEach(async item =>
+            menuItems.Where(a => a.PatentId == 0).ToList().ForEach(item =>
             {
                 MenuViewModel menuModel = new MenuViewModel
                 {
                     ImageUrl = string.Empty,
                     MenuId = item.Menu_ID,
                     MenuName = item.Menu_Name,
-                    MenuUrl = string.Empty,
+                    MenuUrl = item.Url,
                     CssClass = item.CssClass
                 };
                 var menusByID = _menuMasterRepoisitory.GetMenuItemsById(item.Menu_ID);
@@ -36,8 +36,8 @@ namespace Benaa2018.Helper
                         ImageUrl = string.Empty,
                         MenuId = menu.Menu_ID,
                         MenuName = menu.Menu_Name,
-                        MenuUrl = string.Empty,
-                        CssClass= menu.CssClass
+                        MenuUrl = menu.Url,
+                        CssClass = menu.CssClass,
                     };
                     menuModel.Menus.Add(subMenuModel);
                 });

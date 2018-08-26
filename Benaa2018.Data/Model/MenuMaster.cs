@@ -17,6 +17,7 @@ namespace Benaa2018.Data.Model
         public bool Active { get; set; }
         public bool Delflag { get; set; }
         public string CssClass { get; set; }
+        public string Url { get; set; }
 
         [NotMapped]
         public List<MenuMaster> MenuItems { get; set; }
