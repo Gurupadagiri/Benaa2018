@@ -903,6 +903,7 @@
             var status = $('#ddlToDoStatusToDoSearch :selected').val();
            // var priority = $('#ddlToDoPriorityToDoSearch :selected').text();
         var priority = $('#ddlToDoPriorityToDoSearch').next().children('button').children().text();
+        var projectId = $('#ProjectId').val();
 
         var selectedTags = $('#ddlTagToDoSearch').next().children('button').children().text();
     $.ajax({
@@ -912,7 +913,7 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-        data: { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: priority, tags:selectedTags  },
+        data: { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: priority, tags: selectedTags, selectedProjectId: projectId  },
         success: function (result) {
             //jQuery("#internaluser").setGridParam({ data: jQuery.parseJSON(result), datatype: "json" });
 

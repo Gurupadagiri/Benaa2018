@@ -228,10 +228,10 @@ namespace Benaa2018.Controllers
         }
 
 
-        public async Task<IActionResult> SearchToDo(string keywords, string assignedto, int usersAssignedTo, int status, string priority, string tags = "")
+        public async Task<IActionResult> SearchToDo(string keywords, string assignedto, int usersAssignedTo, int status, string priority, string tags = "", int selectedProjectId=0)
         {
             string result = string.Empty;
-            var lstToDoSearchDetails = await GetAllToDoDetailsSearch(keywords, status, priority, tags);
+            var lstToDoSearchDetails = await GetAllToDoDetailsSearch(keywords, status, priority, tags, selectedProjectId);
             ViewBag.UserBaseToDoModel = null;
             ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(lstToDoSearchDetails);
 
@@ -755,7 +755,7 @@ namespace Benaa2018.Controllers
             return lstToDos;
         }
 
-        private async Task<List<ToDoAllViewModel>> GetAllToDoDetailsSearch(string title = "", int status = 0, string priority = "", string tags = "")
+        private async Task<List<ToDoAllViewModel>> GetAllToDoDetailsSearch(string title = "", int status = 0, string priority = "", string tags = "", int selectedProjectId=0)
         {
             List<ToDoAllViewModel> lstToDos = new List<ToDoAllViewModel>();
             try
@@ -763,7 +763,7 @@ namespace Benaa2018.Controllers
                 List<ToDoMasterDetailsViewModel> lstToDoSearchDetails = new List<ToDoMasterDetailsViewModel>();
 
 
-                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsByTitle(0, title, status, priority);
+                var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsByTitle(selectedProjectId, title, status, priority);
 
 
                 if (obj1.Count > 0)
