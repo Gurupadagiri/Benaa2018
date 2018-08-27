@@ -44,7 +44,8 @@ namespace Benaa2018.Helper
                 StartDate = Convert.ToDateTime(calendarScheuledItem.StartDate),
                 StartTime = calendarScheuledItem.StartTime,
                 CompanyId = companyId,
-                ProjectId = calendarScheuledItem.ProjectId
+                ProjectId = calendarScheuledItem.ProjectId,
+                Status= calendarScheuledItem.Status
             };
             var companyObj = await _calendarScheduledItemRepoisitory.CreateAsync(calendarItem);
             return companyObj.ScheduledItemId;
@@ -66,7 +67,8 @@ namespace Benaa2018.Helper
                 StartDate = Convert.ToDateTime(calendarScheuledItem.StartDate),
                 StartTime = calendarScheuledItem.StartTime,
                 CompanyId = companyId,
-                ProjectId = calendarScheuledItem.ProjectId
+                ProjectId = calendarScheuledItem.ProjectId,
+                Status = calendarScheuledItem.Status
             };
             var companyObj = await _calendarScheduledItemRepoisitory.UpdateAsync(calendarItem);
             return companyObj.ScheduledItemId;

@@ -16,17 +16,27 @@ namespace Benaa2018.Data.Repository
         {
             _context = context;
         }
-        protected async void Save()
+        protected async Task Save()
         {
-            //var task = await _context.SaveChangesAsync();
-            await Task.WhenAll(_context.SaveChangesAsync());
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    await Task.WhenAll(_context.SaveChangesAsync());
+                    transaction.Commit();
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+            }
         }
 
         public async Task<T> CreateAsync(T entity)
         {
             await _context.AddAsync(entity);
             //_context.AddAsync(entity);
-            Save();
+            await Save();
             await _context.Entry(entity).GetDatabaseValuesAsync();
             return entity;
         }
@@ -34,7 +44,7 @@ namespace Benaa2018.Data.Repository
         public async virtual void DeleteAsync(T entity)
         {
             await Task.Factory.StartNew(() => _context.Remove(entity));
-            Save();
+            await Save();
         }
 
         public async Task<IEnumerable<T>> GetAllAsync()
@@ -50,7 +60,7 @@ namespace Benaa2018.Data.Repository
         public async Task<T> UpdateAsync(T entity)
         {
             _context.Entry(entity).State = EntityState.Modified;
-            Save();
+            await Save();
             await _context.Entry(entity).GetDatabaseValuesAsync();
             return entity;
         }

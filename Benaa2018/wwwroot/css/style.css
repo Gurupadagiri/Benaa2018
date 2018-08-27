@@ -13,6 +13,13 @@ body {
     background: #f4f4f4;
 }
 
+a,
+a:visited {
+    color: #555555;
+}
+a:hover {
+    color: #333333;
+}
 .navbar-inverse {
     background: #8f806d;
     border-bottom-color: #8f806d;
@@ -2856,4 +2863,132 @@ body .blueButton, body .Projects-List .btn-primary {
         width: 20%;
     }
 
+}
+
+#pleaseselect {
+    font-size: 13px;
+    font-weight: bold;
+    padding: 150px 10px 40px 20px;
+    background: #fff;
+    margin-bottom: 300px;
+}
+.mainheader {
+    background-image: none !important;
+    background-color: #626262;
+    text-align: center;
+}
+.fc-right {
+    border-bottom: 1px solid #ddd !important;
+}
+.form-control {
+    height: 26px;
+    padding: 3px 12px;
+    font-size: 12px;
+    color: #555;
+}
+.customPopup .companySection {
+    min-width: inherit;
+    text-align: center;
+}
+.customPopup .companySection .company-information-header{
+    font-size:14px;
+}
+#Setup .customPopup .panel-body {
+    background: #eee;
+    border-radius: 7px;
+}
+.customPopup .panel-heading.themeColor {
+    border-top-left-radius: 5px!important;
+    border-top-right-radius: 5px!important;
+}
+.modal-dialog .panel {
+    border: 0;
+    border-radius: 6px!important;
+}
+.customPopup .panel-body{
+    border-radius:7px;
+}
+.permissionContent.floatThead-table tr td .permissionTD,
+.chHolder {
+    background: #f7f7f7;
+}
+.chHolder {
+    background: #f7f7f7;
+    border-bottom: 0 !important;
+    border-left: 0 !important;
+    border-right: 0 !important;
+}
+.chHolder.odd,
+.chHolder.odd .permissionContent.floatThead-table tr td .permissionTD {
+    background: #fff;
+}
+.floatThead-container .permissionTD, .floatThead-container .innerPermission{
+    border-bottom:0!important;
+}
+.chHolder.odd .permissionContent tr td, 
+.chHolder .permissionContent tr td {
+    width: 50%;
+    border: 0;
+}
+
+.nav-tabs > li > a {
+    margin-right: 0 !important;
+    border-top: 1px solid #cecece !important;
+    border-left: 1px solid #cecece !important;
+    background: #f8f8f8 !important;
+    color: #626262 !important;
+    font-weight: bold;
+}
+.nav-tabs > li.active > a {
+    background: #fff !important;
+} 
+.nav-tabs > li:last-child > a {
+    border-right: 1px solid #cecece !important;
+}
+/*.nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover,*/
+.nav-tabs > li > a:focus, .nav-tabs > li > a:hover {
+    color: #555;
+    cursor: default;
+    background: #eaeaea !important;
+    border: 1px solid #ddd;
+    border-bottom-color: transparent;
+}
+.nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+    background: #fff !important;
+    color: #6097b5 !important;
+    font-weight: bold;
+}
+.nav-tabs {
+    border-bottom: 1px solid #ddd;
+    width: 100%;
+    float: left;
+    padding-bottom: 1px;
+    background: #fff;
+}
+.chHolder .permissionTDHolder ul {
+    padding: 0 29px 0 0;
+}
+.fc button {
+    padding: 0 20px !important;
+    text-transform: capitalize;
+}
+.collapse.in {
+    display: block;
+    padding-bottom: 15px;
+}
+.customPopup .filterContainer {
+    padding-left: 0;
+    padding-right: 0;
+}
+.customPopup .tab-content {
+    background: #eee;
+}
+.customPopup .tab-content .tab-pane .new-project-tab {
+    background: #fff !important;
+    padding: 15px !important;
+    margin: 15px !important;
+    border-radius:5px;
+}
+.customPopup .tab-pane.fade.in {
+    padding-top: 30px;
 }

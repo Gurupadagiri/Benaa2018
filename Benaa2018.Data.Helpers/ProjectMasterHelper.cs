@@ -225,7 +225,7 @@ namespace Benaa2018.Helper
 
             if (searchKeyWord != null)
             {
-                var projectNames = lstManagers.Where(a => a.Project_Name != null && a.Project_Name.StartsWith(searchKeyWord)).ToList();
+                var projectNames = lstManagers.Where(a => a.Project_Name != null && a.Project_Name.ToLower().StartsWith(searchKeyWord.ToLower())).ToList();
                 if(projectNames != null)
                 {
                     lstProjectMasterInfo.AddRange(projectNames);

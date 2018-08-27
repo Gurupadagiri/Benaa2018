@@ -36,7 +36,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css">
     <link rel="stylesheet" href="~/css/jquery-ui.min.css">
     <link rel="stylesheet" href="~/css/ui.jqgrid.min.css">
-    <link href="~/css/calendar.css" rel="stylesheet" />
 </head>
 <body>
     @{
@@ -160,7 +159,7 @@
                             <li><a href="#" data-toggle="modal" data-target="#userPreference" data-original-title><span class="fa fa-user"></span> My User Preferences</a></li>
                             <li><a href="#"><span class="fa fa-sign-out"></span> Logout</a></li>
                         </ul>
-                    </li>                    
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -183,7 +182,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="Setup" role="dialog">
             <div class="modal-dialog">
 
@@ -389,7 +388,6 @@
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
-
                                 <div class="row setupRow">
                                     <div class="col-xs-12 caption">
                                         <div class="mainheader">FILES</div>
@@ -499,10 +497,8 @@
                                             <a href="javascript:void(0);" class="setupButton">
                                                 <div class="setupBox">
                                                     <img src="images/bsAccounting.png" style="height: 35px; width: 35px;">
-
                                                     <span class="caption">
                                                         <span>Accounting</span>
-
                                                     </span>
                                                 </div>
                                             </a>
@@ -510,17 +506,12 @@
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
-
-
-
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-                    
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel1);
         </div>
@@ -531,14 +522,12 @@
     <script src="http://www.guriddo.net/demo/js/trirand/jquery.jqGrid.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/jquery.jqgrid.min.js"></script>
     <script src="~/js/vfs_fonts.js"></script>
-    <script src="~/js/buttons.html5.min.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
-    <script src="~/js/responsive-tabs.js"></script>
     <script src="~/js/jquery.multiselect.js"></script>
     <script src="~/js/bootstrap-datepicker.min.js"></script>
     <script src="~/js/bootstrapSwitch.js"></script>
     @RenderBody()
-       <section class="footerContainer">
+    <section class="footerContainer">
         <div class="container-fluid">
             <p class="smallTXT">
                 Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -619,7 +608,7 @@
                 </div>
             </div>
         </div>
-    }   
+    }
     <script type="text/javascript">
         $(document).ready(function () {
             $("#chkAllPermissionEmail").click(function (e) {
@@ -867,6 +856,10 @@
                 e.preventDefault();
                 $(this).tab('show');
             });
+
+            $('.scratch-project').on('click', function () {
+                $('#newProject').addClass('in').show()
+            });
         });
         $(function () {
             $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
@@ -1041,7 +1034,7 @@
                 var postData = { projectGroupId: projectGroupId, managerID: ManagerId };
                 $("#leftNavCon").load('@(Url.Action("FilterProjectDetailsAsync", "Home",null))', postData);
             });
-            
+
             //Filter Result
             $(document).on('change', '#ddlToDoLost', function () {
                 var days = parseInt($(this).val());
@@ -1049,7 +1042,7 @@
                 $("#tbltodolist").load('@(Url.Action("FilterToDoListAsync", "Home",null))', postData);
             });
 
-            $('#btnUpdateResults').click(function () {
+            $(document).on('click', '#btnUpdateResults',function () {
                 var projectGroup = $('#ddlProjectGroupID').val();
                 var projectManager = $('#ddlProjectManagerID').val();
                 var projectStatus = $('#ddlStatus').val();

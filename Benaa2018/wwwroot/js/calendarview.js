@@ -39,7 +39,10 @@ $(document).ready(function () {
             $('#frmPredecessor').find("input[type='text']").each(function (i, element) {
                 $(this).val('');
             });
-            BindCalendar(data);
+            $('#calendarmodal').remove('in').hide();
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
+            $('#calendar').fullCalendar('rerenderEvents');
             alert("Predecessor Details Successfully Added");
         });
     });
@@ -167,7 +170,7 @@ function BindCalendar(data) {
                 buttonText: 'Phases List'
             }
         },
-        defaultDate: '2018-03-12',
+        defaultDate: new Date(),
         navLinks: true,
         editable: true,
         eventLimit: true,
@@ -454,14 +457,14 @@ GnattView = View.extend({
         $('.fc-left').css('display', 'none');
         $('.fc-center').css('display', 'none');
         $('.fc-header-toolbar > .gnattToolbarHolder').remove();
-        $('.fc-header-toolbar').append('<div class="gnattToolbarHolder">'+
+        $('.fc-header-toolbar').append('<div class="gnattToolbarHolder">' +
             '<div class="gnattLeft" >' +
             '<button type="button" class="columnDisplaySettingsBtn" data-toggle="modal" data-target="#columnDisplaySettings"><i class="fa fa-cog" aria-hidden="true" title="Column Display Settings"></i></button>' +
             '</div >' +
             '<div class="gnattRight">' +
             '<div class="selectHolder">' +
             '<div class="daily">' +
-                        '<select>'+
+            '<select>' +
             ' <option>Daily</option>' +
             '<option>Weekly</option>' +
             ' </select>' +
@@ -483,7 +486,7 @@ GnattView = View.extend({
             '        <label for="highlightCriticalPath">Highlight critical path</label>' +
             '       </div>' +
             '</div>' +
-                '</div>');
+            '</div>');
 
         var projectId = $("#projectid").text();
         var postData = { "projectId": parseInt(projectId), "selectedDate": "" };
@@ -647,7 +650,7 @@ PhasesListView = View.extend({ // make a subclass of View
                     '<tr>' +
                     '<td style="border-right: 1px solid #d1d1d1; position: relative;border-left: 0!important;">' +
 
-                    '<div class="phaseHeader">'+
+                    '<div class="phaseHeader">' +
                     '<div class="leftHolder">' +
                     '<a href="javascript:void(0);" class="toggleAll"><img src="images/add.gif"></a>' +
                     '<div class="CheckBoxPhase"><input name="chkPhaseSelected" value="' + item.item1 + '" type="checkbox"></div>' +
@@ -656,7 +659,7 @@ PhasesListView = View.extend({ // make a subclass of View
                     '<div class="Status fieldHeader">Status: <span></span></div>' +
                     '<div class="ExpandPhase">' +
                     '<a href="javascript:void(0);"><img border="0" src="images/edit(1).gif"></a>' +
-                    '</div>' +                    
+                    '</div>' +
                     '<div class="PhaseTitle"><span>' + item.item2 + '</span></div>' +
                     '</div>' +
                     '</div>' +

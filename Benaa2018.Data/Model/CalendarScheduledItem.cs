@@ -24,5 +24,6 @@ namespace Benaa2018.Data.Model
         public bool Hourly { get; set; }
         public string StartTime { get; set; }
         public string EndTime { get; set; }
+        public int Status { get; set; }
     }
 }

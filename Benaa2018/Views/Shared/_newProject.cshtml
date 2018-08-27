@@ -19,13 +19,13 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li><a href="#">From Scratch</a></li>
+                                    <li class="scratch-project"><a href="javascript:void(0);">From Scratch</a></li>
                                     <li><a href="#">From a Template</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-sm-4 form-group pdleft0">
-                            <button class="btn btn-default btn-sm">Copy to Standalone Template</button>
+                            <button class="btn btn-default btn-sm" style="display:none">Copy to Standalone Template</button>
                             <button class="btn btn-default btn-sm btn-print">Print</button>
                         </div>
                         <div class="col-sm-4 text-right pull-right form-group">
@@ -46,181 +46,187 @@
                             <div class="tab-content">
                                 <div class="tab-pane fade active in" id="set1">
                                     <div class="tabConInfo">
-                                        <h4>Project Site Information</h4>
-                                        <div class="row">
-                                            <div class="col-sm-6 form-group">
-                                                @Html.LabelFor(a => a.ProjectMasterModel.ProjectName)
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.ProjectName, new { @class = "form-control required" })
-                                                @Html.HiddenFor(a => a.ProjectMasterModel.ProjectID)
-                                                <span class="errormessege" style="display:none;color:red">Please Enter Project Name</span>
+                                        <div class="new-project-tab">
+                                            <h4>Project Information</h4>
+                                            <div class="row">
+                                                <div class="col-sm-6 form-group">
+                                                    @Html.LabelFor(a => a.ProjectMasterModel.ProjectName)
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.ProjectName, new { @class = "form-control required" })
+                                                    @Html.HiddenFor(a => a.ProjectMasterModel.ProjectID)
+                                                    <span class="errormessege" style="display:none;color:red">Please Enter Project Name</span>
+                                                </div>
+                                                <div class="col-sm-6 form-group tooltip-div">
+                                                    <label>Status <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Project Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. "><span class="glyphicon glyphicon-info-sign"></span></small></label>
+                                                    @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectStatusID, new SelectList(Model.ProjctStatusMasterModels, "StatusID", "StatusName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                    <span class="errormessege ProjectStatusID" style="display:none;color:red">Please Select Project Status</span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label>
+                                                        Project Type <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Project Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. ">
+                                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                                        </small>
+                                                    </label>
+                                                    @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectTypeID, new SelectList(Model.ProjectTypeMasterModels, "ProjectTypeID", "ProjectTypeName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                    <span class="errormessege ProjectTypeID" style="display:none;color:red">Please Select Project Type</span>
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label>&nbsp;</label>
+                                                    <button class="btn btn-default" style="display:none">See Additional Options</button>
+                                                </div>
+                                                <div class="col-sm-6 form-group">
+                                                    <label>Project Managers </label>
+                                                    @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectManagerID, new SelectList(Model.ProjectManagerMasterModels, "ManagerID", "ManagerName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                    <span class="errormessege ProjectManagerID" style="display:none;color:red">Please Select Project Manager</span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-6 form-group addPlusMinus">
+                                                    <span class="plusMinusCon"><a href="#" class=" fa fa-plus-square" data-toggle="modal" data-target="#groupAddModal"></a><a href="#" class="fa fa-minus-square" data-toggle="modal" data-target="#groupMinusModal"></a></span>
+                                                    <label>Project Group </label>
+                                                    @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectGroupID, new SelectList(Model.ProjectGroupModels, "ProjectGroupID", "ProjectGroupName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                    <span class="errormessege ProjectGroupID" style="display:none;color:red">Please Select Project Group</span>
+                                                </div>
+                                                <div class="col-sm-6 form-group tooltip-div">
+                                                    <label>
+                                                        Project Site Prefix *
+                                                        <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Job Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. ">
+                                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                                        </small>
+                                                    </label>
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.JobsitePrefix, new { @class = "form-control required" })
+                                                    <span class="errormessege" style="display:none;color:red">Please Select Project Prefix</span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-6 form-group addMap">
+                                                    <span class="MapCon"><a href="#" class="fa fa-map-marker" data-toggle="modal" data-target="#locationModal"></a></span>
+                                                    @Html.LabelFor(a => a.ProjectMasterModel.StreetAddress)
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.StreetAddress, new { @class = "form-control required" })
+                                                    <span class="errormessege" style="display:none;color:red">Please Enter Address</span>
+                                                </div>
+                                                <div class="col-sm-6 form-group">
+                                                    <label>Lot Info<sup>*</sup></label>
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.LotInfo, new { @class = "form-control required" })
+                                                    <span class="errormessege" style="display:none;color:red">Please Enter Lot Info</span>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-2 form-group ">
+                                                    @Html.LabelFor(a => a.ProjectMasterModel.City)
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.City, new { @class = "form-control" })
+                                                </div>
+                                                <div class="col-sm-2 form-group ">
+                                                    @Html.LabelFor(a => a.ProjectMasterModel.State)
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.State, new { @class = "form-control" })
+                                                </div>
+                                                <div class="col-sm-2 form-group ">
+                                                    @Html.LabelFor(a => a.ProjectMasterModel.Zip)
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.Zip, new { @class = "form-control" })
+                                                </div>
+                                                <div class="col-sm-6 form-group">
+                                                    @Html.LabelFor(a => a.ProjectMasterModel.Permit)
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.Permit, new { @class = "form-control" })
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="col-sm-6 form-group">
+                                                    @Html.LabelFor(a => a.ProjectMasterModel.ContractPrice)
+                                                    @Html.TextBoxFor(a => a.ProjectMasterModel.ContractPrice, new { @class = "form-control" })
+                                                </div>
                                             </div>
-                                            <div class="col-sm-6 form-group tooltip-div">
-                                                <label>Status <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Project Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. "><span class="glyphicon glyphicon-info-sign"></span></small></label>
-                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectStatusID, new SelectList(Model.ProjctStatusMasterModels, "StatusID", "StatusName"), new { @multiple = "multiple", @class = "withCheckbox required" })
-                                                <span class="errormessege ProjectStatusID" style="display:none;color:red">Please Select Project Status</span>
-                                            </div>
+                                            @Html.HiddenFor(a => a.ProjectMasterModel.Latitude)
+                                            @Html.HiddenFor(a => a.ProjectMasterModel.Longitude)
                                             <div class="clearfix"></div>
-                                            <div class="col-sm-3 form-group">
-                                                <label>
-                                                    Project Type <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Project Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. ">
-                                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                                    </small>
-                                                </label>
-                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectTypeID, new SelectList(Model.ProjectTypeMasterModels, "ProjectTypeID", "ProjectTypeName"), new { @multiple = "multiple", @class = "withCheckbox required" })
-                                                <span class="errormessege ProjectTypeID" style="display:none;color:red">Please Select Project Type</span>
-                                            </div>
-                                            <div class="col-sm-3 form-group">
-                                                <label>&nbsp;</label>
-                                                <button class="btn btn-default">See Additional Options</button>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <label>Project Managers </label>
-                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectManagerID, new SelectList(Model.ProjectManagerMasterModels, "ManagerID", "ManagerName"), new { @multiple = "multiple", @class = "withCheckbox required" })
-                                                <span class="errormessege ProjectManagerID" style="display:none;color:red">Please Select Project Manager</span>
-                                            </div>
+                                        </div>
+                                        <div class="new-project-tab">
+                                            <h4>Project Notes</h4>
                                             <div class="clearfix"></div>
-                                            <div class="col-sm-6 form-group addPlusMinus">
-                                                <span class="plusMinusCon"><a href="#" class=" fa fa-plus-square" data-toggle="modal" data-target="#groupAddModal"></a><a href="#" class="fa fa-minus-square" data-toggle="modal" data-target="#groupMinusModal"></a></span>
-                                                <label>Project Group </label>
-                                                @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectGroupID, new SelectList(Model.ProjectGroupModels, "ProjectGroupID", "ProjectGroupName"), new { @multiple = "multiple", @class = "withCheckbox required" })
-                                                <span class="errormessege ProjectGroupID" style="display:none;color:red">Please Select Project Group</span>
-                                            </div>
-                                            <div class="col-sm-6 form-group tooltip-div">
-                                                <label>
-                                                    Project Site Prefix *
-                                                    <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Job Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. ">
-                                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                                    </small>
-                                                </label>
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.JobsitePrefix, new { @class = "form-control required" })
-                                                <span class="errormessege" style="display:none;color:red">Please Select Project Prefix</span>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="col-sm-6 form-group addMap">
-                                                <span class="MapCon"><a href="#" class="fa fa-map-marker" data-toggle="modal" data-target="#locationModal"></a></span>
-                                                @Html.LabelFor(a => a.ProjectMasterModel.StreetAddress)
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.StreetAddress, new { @class = "form-control required" })
-                                                <span class="errormessege" style="display:none;color:red">Please Enter Address</span>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <label>Lot Info<sup>*</sup></label>
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.LotInfo, new { @class = "form-control required" })
-                                                <span class="errormessege" style="display:none;color:red">Please Enter Lot Info</span>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="col-sm-2 form-group ">
-                                                @Html.LabelFor(a => a.ProjectMasterModel.City)
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.City, new { @class = "form-control" })
-                                            </div>
-                                            <div class="col-sm-2 form-group ">
-                                                @Html.LabelFor(a => a.ProjectMasterModel.State)
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.State, new { @class = "form-control" })
-                                            </div>
-                                            <div class="col-sm-2 form-group ">
-                                                @Html.LabelFor(a => a.ProjectMasterModel.Zip)
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.Zip, new { @class = "form-control" })
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                @Html.LabelFor(a => a.ProjectMasterModel.Permit)
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.Permit, new { @class = "form-control" })
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="col-sm-6 form-group">
-                                                @Html.LabelFor(a => a.ProjectMasterModel.ContractPrice)
-                                                @Html.TextBoxFor(a => a.ProjectMasterModel.ContractPrice, new { @class = "form-control" })
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="tabbable">
+                                                        <ul class="nav nav-tabs">
+                                                            <li class="active"><a href="#subA">Internal Notes</a></li>
+                                                            <li><a href="#subB">Sub Notes</a></li>
+                                                        </ul>
+                                                        <div class="tab-content nested">
+                                                            <div class="tab-pane fade active in" id="subA">
+                                                                @Html.TextAreaFor(a => a.ProjectMasterModel.InternalNotes, new { @class = "form-control" })
+                                                            </div>
+                                                            <div class="tab-pane fade" id="subB">
+                                                                @Html.TextAreaFor(a => a.ProjectMasterModel.SubNotes, new { @class = "form-control" })
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        @Html.HiddenFor(a=>a.ProjectMasterModel.Latitude)
-                                        @Html.HiddenFor(a => a.ProjectMasterModel.Longitude)
-                                        <div class="clearfix"></div>
-                                        <h4>Project Notes</h4>
-                                        <div class="clearfix"></div>
-                                        <div class="row">
-                                            <div class="col-sm-12">
-                                                <div class="tabbable">
-                                                    <ul class="nav nav-tabs">
-                                                        <li class="active"><a href="#subA">Internal Notes</a></li>
-                                                        <li><a href="#subB">Sub Notes</a></li>
-                                                    </ul>
-                                                    <div class="tab-content nested">
-                                                        <div class="tab-pane fade active in" id="subA">
-                                                            @Html.TextAreaFor(a => a.ProjectMasterModel.InternalNotes, new { @class = "form-control" })
-                                                        </div>
-                                                        <div class="tab-pane fade" id="subB">
-                                                            @Html.TextAreaFor(a => a.ProjectMasterModel.SubNotes, new { @class = "form-control" })
+
+                                        <div class="new-project-tab">
+                                            <h4>Project Schedule Information</h4>
+                                            <div class="row">
+                                                <div class="col-sm-3 form-group">
+                                                    @Html.LabelFor(a => a.ProjectScheduleMasterModel.ProjectStart)
+                                                    <div class="input-group">
+                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="clearfix"></div>
-                                        <h4>Project Schedule Information</h4>
-                                        <div class="row">
-                                            <div class="col-sm-3 form-group">
-                                                @Html.LabelFor(a => a.ProjectScheduleMasterModel.ProjectStart)
-                                                <div class="input-group">
-                                                    @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
+                                                <div class="col-sm-3 form-group">
+                                                    @Html.LabelFor(a => a.ProjectScheduleMasterModel.ActualStart)
+                                                    <div class="input-group">
+                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar"></i>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-sm-3 form-group">
-                                                @Html.LabelFor(a => a.ProjectScheduleMasterModel.ActualStart)
-                                                <div class="input-group">
-                                                    @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <label>
-                                                    Project Color
-                                                    <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right">
-                                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                                    </small>
-                                                    <select asp-for="ProjectScheduleMasterModel.ProjectColorId" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required." >
-                                                        <option value="">Select</option>
-                                                        @foreach (var item in Model.ProjectColorModels)
+                                                <div class="col-sm-6 form-group">
+                                                    <label>
+                                                        Project Color
+                                                        <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right">
+                                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                                        </small>
+                                                        <select asp-for="ProjectScheduleMasterModel.ProjectColorId" style="background-color:@Model.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                            <option value="">Select</option>
+                                                            @foreach (var item in Model.ProjectColorModels)
                                                         {
                                                             <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
                                                         }
-                                                    </select>
-                                                </label>
-                                            </div>
-                                            <div class="clearfix"></div>
-                                            <div class="col-sm-3 form-group">
-                                                @Html.LabelFor(a => a.ProjectScheduleMasterModel.ProjectCompletion)
-                                                <div class="input-group">
-                                                    @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar">
-                                                        </i>
-                                                    </div>
+                                                        </select>
+                                                    </label>
                                                 </div>
-                                            </div>
-
-                                            <div class="col-sm-3 form-group">
-                                                @Html.LabelFor(a => a.ProjectScheduleMasterModel.ActualCompletion)
-                                                <div class="input-group">
-                                                    @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
-                                                    <div class="input-group-addon">
-                                                        <i class="fa fa-calendar">
-                                                        </i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-6 form-group">
-                                                <label>Work Days<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="sdfgdfgdfgdfgdfgdf" data-original-title="" title=""><span class="glyphicon glyphicon-info-sign"></span></small></label>
                                                 <div class="clearfix"></div>
-                                                @foreach (var item in Model.ProjectScheduleMasterModel.DaysList)
+                                                <div class="col-sm-3 form-group">
+                                                    @Html.LabelFor(a => a.ProjectScheduleMasterModel.ProjectCompletion)
+                                                    <div class="input-group">
+                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar">
+                                                            </i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-sm-3 form-group">
+                                                    @Html.LabelFor(a => a.ProjectScheduleMasterModel.ActualCompletion)
+                                                    <div class="input-group">
+                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <div class="input-group-addon">
+                                                            <i class="fa fa-calendar">
+                                                            </i>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-sm-6 form-group">
+                                                    <label>Work Days<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="sdfgdfgdfgdfgdfgdf" data-original-title="" title=""><span class="glyphicon glyphicon-info-sign"></span></small></label>
+                                                    <div class="clearfix"></div>
+                                                    @foreach (var item in Model.ProjectScheduleMasterModel.DaysList)
                                                 {
                                                     <label class="checkbox-inline">
                                                         <input type="checkbox" id="worksdays_@item.Value" value="@item.Value">@item.Key
                                                     </label>
                                                 }
-                                                @Html.HiddenFor(a => a.ProjectScheduleMasterModel.WorkDays)
+                                                    @Html.HiddenFor(a => a.ProjectScheduleMasterModel.WorkDays)
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -229,8 +235,8 @@
                                     <div class="tabConInfo">
                                         <div class="panel panel-default mrgnTop15px">
                                             <div class="panel-heading">Owner Information</div>
-                                            <div class="panel-body"> 
-                                                @Html.Partial("_ownerMaster",Model)
+                                            <div class="panel-body">
+                                                @Html.Partial("_ownerMaster", Model)
                                             </div>
                                         </div>
                                         <div class="row">
@@ -252,7 +258,7 @@
                                                     <span class="imgCon"></span>
                                                     <label class="profileInfo">
                                                         <label>Profile Picture<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them."><span class="glyphicon glyphicon-info-sign"></span></small></label>
-                                                        <div class="clearfix"></div>                                                       
+                                                        <div class="clearfix"></div>
                                                         <input asp-for="ProjectMasterModel.ProfilePicture" type="file" class="form-control" style="height:auto" />
                                                         <input asp-for="OwnerMasterModel.FileName" type="hidden" />
                                                         <input asp-for="OwnerMasterModel.FileType" type="hidden" />
@@ -262,72 +268,74 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <h4>Owner Options</h4>
-                                        <div class="row">
-                                            <div class="col-sm-3 form-group">
-                                                <label>
-                                                    Limit Owner Calendar
-                                                    <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them."><span class="glyphicon glyphicon-info-sign"></span></small>
-                                                </label>
-                                                <select id="OwnerMasterModel_OwnerCalendar" name="OwnerMasterModel.OwnerCalendar" class="noCheckboxSearch">
-                                                    <option value="FullCalender">Full Calender</option>
-                                                    <option value="Open">Open</option>
-                                                    <option value="Closed">Closed</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-3 form-group">
-                                                <label>
-                                                    Show Calendar
-                                                    <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them.">
-                                                        <span class="glyphicon glyphicon-info-sign"></span>
-                                                    </small>
-                                                </label>
-                                                <div class="clearfix"></div>
-                                                <div class="btn-group" id="status" data-toggle="buttons">
-                                                    <label class="btn btn-default btn-on active">
-                                                        <input type="radio" value="1" checked="checked">Phases
+                                        <div class="new-project-tab">
+                                            <h4>Owner Options</h4>
+                                            <div class="row">
+                                                <div class="col-sm-3 form-group">
+                                                    <label>
+                                                        Limit Owner Calendar
+                                                        <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them."><span class="glyphicon glyphicon-info-sign"></span></small>
                                                     </label>
-                                                    <label class="btn btn-default btn-off">
-                                                        <input type="radio" value="0">Schedule Items
+                                                    <select id="OwnerMasterModel_OwnerCalendar" name="OwnerMasterModel.OwnerCalendar" class="noCheckboxSearch">
+                                                        <option value="FullCalender">Full Calender</option>
+                                                        <option value="Open">Open</option>
+                                                        <option value="Closed">Closed</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-3 form-group">
+                                                    <label>
+                                                        Show Calendar
+                                                        <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them.">
+                                                            <span class="glyphicon glyphicon-info-sign"></span>
+                                                        </small>
                                                     </label>
+                                                    <div class="clearfix"></div>
+                                                    <div class="btn-group" id="status" data-toggle="buttons">
+                                                        <label class="btn btn-default btn-on active">
+                                                            <input type="radio" value="1" checked="checked">Phases
+                                                        </label>
+                                                        <label class="btn btn-default btn-off">
+                                                            <input type="radio" value="0">Schedule Items
+                                                        </label>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div class="col-sm-12 form-group">
-                                            <div class="checkContainer">
-                                                <label class="checkbox-inline">
-                                                    @Html.CheckBoxFor(model => model.OwnerMasterModel.ShowProjectPrice)
-                                                    Show Project Price Summary to Owner <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="content will be placed here"><span class="glyphicon glyphicon-info-sign"></span></small>
-                                                </label>
-                                                <div class="clearfix"></div>
-                                                <label class="checkbox-inline">
-                                                    @Html.CheckBoxFor(model => model.OwnerMasterModel.ShowBudgetPurchaseOrders)
-                                                    Show Budget and Purchase Orders to Owner <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="content will be placed here"><span class="glyphicon glyphicon-info-sign"></span></small>
-                                                </label>
-                                                <div class="clearfix"></div>
-                                                <label class="checkbox-inline">
-                                                    @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowOrderRequests)
-                                                    Allow Owner to submit Change Order Requests
-                                                </label>
-                                                <div class="clearfix"></div>
+                                            <div class="col-sm-12 form-group">
+                                                <div class="checkContainer">
+                                                    <label class="checkbox-inline">
+                                                        @Html.CheckBoxFor(model => model.OwnerMasterModel.ShowProjectPrice)
+                                                        Show Project Price Summary to Owner <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="content will be placed here"><span class="glyphicon glyphicon-info-sign"></span></small>
+                                                    </label>
+                                                    <div class="clearfix"></div>
+                                                    <label class="checkbox-inline">
+                                                        @Html.CheckBoxFor(model => model.OwnerMasterModel.ShowBudgetPurchaseOrders)
+                                                        Show Budget and Purchase Orders to Owner <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="content will be placed here"><span class="glyphicon glyphicon-info-sign"></span></small>
+                                                    </label>
+                                                    <div class="clearfix"></div>
+                                                    <label class="checkbox-inline">
+                                                        @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowOrderRequests)
+                                                        Allow Owner to submit Change Order Requests
+                                                    </label>
+                                                    <div class="clearfix"></div>
 
-                                                <label class="checkbox-inline">
-                                                    @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowLockedSelections)
-                                                    Allow Owner to "Peek" at Locked Selections <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="content will be placed here"><span class="glyphicon glyphicon-info-sign"></span></small>
-                                                </label>
-                                                <div class="clearfix"></div>
+                                                    <label class="checkbox-inline">
+                                                        @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowLockedSelections)
+                                                        Allow Owner to "Peek" at Locked Selections <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="content will be placed here"><span class="glyphicon glyphicon-info-sign"></span></small>
+                                                    </label>
+                                                    <div class="clearfix"></div>
 
-                                                <label class="checkbox-inline">
-                                                    @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowWarrantyClaims)
-                                                    Allow Owner to Add Warranty Claims
-                                                </label>
-                                                <div class="clearfix"></div>
+                                                    <label class="checkbox-inline">
+                                                        @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowWarrantyClaims)
+                                                        Allow Owner to Add Warranty Claims
+                                                    </label>
+                                                    <div class="clearfix"></div>
 
-                                                <label class="checkbox-inline">
-                                                    @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowPaymentsTab)
-                                                    Allow Owner to See Payments Tab
-                                                </label>
-                                                <div class="clearfix"></div>
+                                                    <label class="checkbox-inline">
+                                                        @Html.CheckBoxFor(model => model.OwnerMasterModel.AllowPaymentsTab)
+                                                        Allow Owner to See Payments Tab
+                                                    </label>
+                                                    <div class="clearfix"></div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -345,30 +353,30 @@
                                             <tbody>
                                                 @foreach (var item in Model.UserMasterViewModels)
                                                 {
-                                                    <tr>
-                                                        <td>
-                                                            @item.UserName
+                                                <tr>
+                                                    <td>
+                                                        @item.UserName
                                                         @Html.HiddenFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].UserID)
                                                     </td>
 
                                                     <td>
                                                         @if (item.ViewAccess)
                                                         {
-                                                            @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
+                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
                                                         }
                                                         else
                                                         {
-                                                            @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess);
+                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess);
                                                         }
                                                     </td>
                                                     <td>
                                                         @if (item.JobNotification)
                                                         {
-                                                            @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification, new { @checked = "checked" });
+                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification, new { @checked = "checked" });
                                                         }
                                                         else
                                                         {
-                                                            @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification);
+                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification);
                                                         }
                                                     </td>
                                                 </tr>
@@ -389,22 +397,22 @@
                                             <tbody>
                                                 @foreach (var item in Model.ProjectSubcontractorConfigModels)
                                                 {
-                                                    <tr>
-                                                        <td>
-                                                            @Html.HiddenFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].SubContractorID)
-                                                            @item.SubcontractorName
-                                                        </td>
-                                                        <td>
-                                                            @if (item.ViewAccess)
+                                                <tr>
+                                                    <td>
+                                                        @Html.HiddenFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].SubContractorID)
+                                                        @item.SubcontractorName
+                                                    </td>
+                                                    <td>
+                                                        @if (item.ViewAccess)
                                                             {
-                                                                @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
+                                                            @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
                                                             }
                                                             else
                                                             {
-                                                                @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess);
+                                                            @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess);
                                                             }
-                                                        </td>
-                                                    </tr>
+                                                    </td>
+                                                </tr>
                                                 }
                                             </tbody>
                                         </table>
