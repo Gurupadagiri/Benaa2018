@@ -35,7 +35,6 @@ namespace Benaa2018.Data.Repository
         public async Task<T> CreateAsync(T entity)
         {
             await _context.AddAsync(entity);
-            //_context.AddAsync(entity);
             await Save();
             await _context.Entry(entity).GetDatabaseValuesAsync();
             return entity;
