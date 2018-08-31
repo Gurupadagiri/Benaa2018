@@ -11,9 +11,10 @@ using System;
 namespace Benaa2018.Data.Migrations
 {
     [DbContext(typeof(SBSDbContext))]
-    partial class SBSDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180830203238_www")]
+    partial class www
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,8 +23,9 @@ namespace Benaa2018.Data.Migrations
 
            
 
-          
+           
 
+           
             modelBuilder.Entity("Benaa2018.Data.Model.ToDoAssign", b =>
                 {
                     b.Property<int>("ToDoAssignID")
@@ -106,7 +108,9 @@ namespace Benaa2018.Data.Migrations
                     b.ToTable("To_Do_CheckList_Details");
                 });
 
-            
+        
+
+           
 
             modelBuilder.Entity("Benaa2018.Data.Model.ToDoTag", b =>
                 {
@@ -132,6 +136,7 @@ namespace Benaa2018.Data.Migrations
                     b.ToTable("To_Do_Tag");
                 });
 
+         
 #pragma warning restore 612, 618
         }
     }

@@ -44,11 +44,13 @@ namespace Benaa2018.Helper
                 Modified_Date = DateTime.Today
             };
             var userObj = await _toDoMasterDetailsHelper.CreateAsync(toDoMasterDetails);
+            //await Task.Delay(1000);
+            
             ToDoMasterDetailsViewModel toDoMasterDetailsViewModel = new ToDoMasterDetailsViewModel
             {
                 TodoDetailsID = Convert.ToInt32(userObj.TodoDetailsID)
             };
-
+            
             return toDoMasterDetailsViewModel;
         }
 
@@ -213,7 +215,7 @@ namespace Benaa2018.Helper
 
         public async Task<ToDoMasterDetailsViewModel> UpdateToDoMasterDetails(ToDoMasterDetailsViewModel masterDetailsViewModel)
         {
-            ToDoMasterDetails toDoMasterDetails = new ToDoMasterDetails()
+            ToDoMasterDetails toDoMasterDetails1 = new ToDoMasterDetails()
             {
                 TodoDetailsID = masterDetailsViewModel.TodoDetailsID,
                 Project_ID = masterDetailsViewModel.Project_ID,
@@ -237,7 +239,8 @@ namespace Benaa2018.Helper
                 Modified_Date = DateTime.Today
             };
             // storeContext.Entry(item).State = EntityState.Detached
-            var userObj = await _toDoMasterDetailsHelper.UpdateAsync(toDoMasterDetails);
+            var userObj = await _toDoMasterDetailsHelper.UpdateAsync(toDoMasterDetails1);
+            await Task.Delay(2000);
             ToDoMasterDetailsViewModel toDoMasterDetailsViewModel = new ToDoMasterDetailsViewModel
             {
                 TodoDetailsID = Convert.ToInt32(userObj.TodoDetailsID)

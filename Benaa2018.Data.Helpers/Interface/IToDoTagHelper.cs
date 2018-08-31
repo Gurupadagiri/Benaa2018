@@ -9,5 +9,7 @@ namespace Benaa2018.Helper.Interface
         Task<ToDoTagViewModel> SaveToDoTagDetails(ToDoTagViewModel toDoTagViewModel);
 
         Task<List<ToDoTagViewModel>> GetAllTags(int TodoDetailID = 0);
+
+        Task<ToDoTagViewModel> DeleteToDoTagDetails(ToDoTagViewModel toDoTagViewModel);
     }
 }

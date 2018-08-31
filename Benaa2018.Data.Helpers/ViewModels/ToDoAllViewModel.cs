@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Benaa2018.Helper.ViewModels
 {
-    public class ToDoAllViewModel
+    public class ToDoAllViewModel : CommonViewModel
     {
         public ToDoMasterDetailsViewModel ToDoDetails { get; set; }
 

@@ -15,6 +15,6 @@ namespace Benaa2018.Data.Model
         public int UserID { get; set; }
         public int TodoDetailsID { get; set; }
         public int ToDoUserAssignTypeId { get; set; }
-       
+        public bool DeletionStatus { get; set; }
     }
 }

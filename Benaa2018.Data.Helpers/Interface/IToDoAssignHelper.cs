@@ -10,5 +10,6 @@ namespace Benaa2018.Helper.Interface
 
         Task<ToDoAssignViewModel> SaveToDoAssignDetails1(int userId, int toDoDetailsId, int userTypeId = 0);
         Task<List<ToDoAssignViewModel>> GetToDoAssignByToDoDetailsId(int todoDetailsId);
+        Task<ToDoAssignViewModel> DeleteToDoAssignDetails(ToDoAssignViewModel toDoAssignViewModel);
     }
 }

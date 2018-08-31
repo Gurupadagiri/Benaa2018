@@ -16,5 +16,7 @@ namespace Benaa2018.Data.Model
        
         public bool ToDoAssignIsCheckListItem { get; set; }
         public bool ToDoAssignIFilesCheckListItem { get; set; }
+
+        public bool DeletionStatus { get; set; }
     }
 }

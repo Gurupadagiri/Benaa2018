@@ -17,7 +17,7 @@ namespace Benaa2018.Data.Interfaces
 
         Task<T> UpdateAsync(T entity);
 
-        void DeleteAsync(T entity);
+        Task DeleteAsync(T entity);
 
         Task<int> CountAsync(Func<T, bool> predicate);
 

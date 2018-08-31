@@ -43,9 +43,56 @@ namespace Benaa2018.Helper
             return lstTagDetailsModel;
         }
 
-        public Task<ToDochecklistDetailsViewModel> SaveToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel)
+        public async Task<ToDochecklistDetailsViewModel> SaveToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel)
         {
-            throw new NotImplementedException();
+            ToDochecklistDetails todoCheckDetl = new ToDochecklistDetails()
+            {
+
+                ToDoCheckListId = toDochecklistViewModel.ToDoCheckListId,
+                ToDoIsCheckList = toDochecklistViewModel.ToDoIsCheckList,
+                ToDoCheckListTitle = toDochecklistViewModel.ToDoCheckListTitle,
+                ToDoCheckListUserTypeId = toDochecklistViewModel.ToDoCheckListUserType,
+                ToDoCheckListUserId = toDochecklistViewModel.ToDoCheckListUserId,
+                Created_By = "aaaa",
+                Modified_By = "aaa",
+                Created_Date = DateTime.Today,
+                Modified_Date = DateTime.Today
+
+            };
+            var userObj = await _toDchecklistDetailsHelper.CreateAsync(todoCheckDetl);
+            //await Task.Delay(1000);
+            ToDochecklistDetailsViewModel toDoMasterDetailsViewModel = new ToDochecklistDetailsViewModel
+            {
+                ToDochecklistDetailsViewModelId = Convert.ToInt32(userObj.ToDochecklistDetailsId)
+            };
+            return toDoMasterDetailsViewModel;
+        }
+
+
+        public async Task<ToDochecklistDetailsViewModel> DeleteToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel)
+        {
+            ToDochecklistDetails todoCheckDetl = new ToDochecklistDetails()
+            {
+
+                ToDoCheckListId = toDochecklistViewModel.ToDoCheckListId,
+                ToDoIsCheckList = toDochecklistViewModel.ToDoIsCheckList,
+                ToDoCheckListTitle = toDochecklistViewModel.ToDoCheckListTitle,
+                ToDoCheckListUserTypeId = toDochecklistViewModel.ToDoCheckListUserType,
+                ToDoCheckListUserId = toDochecklistViewModel.ToDoCheckListUserId,
+                DeletionStatus=true,
+                Created_By = "aaaa",
+                Modified_By = "aaa",
+                Created_Date = DateTime.Today,
+                Modified_Date = DateTime.Today
+
+            };
+            var userObj = await _toDchecklistDetailsHelper.UpdateAsync(todoCheckDetl);
+            //await Task.Delay(1000);
+            ToDochecklistDetailsViewModel toDoMasterDetailsViewModel = new ToDochecklistDetailsViewModel
+            {
+                ToDochecklistDetailsViewModelId = Convert.ToInt32(userObj.ToDochecklistDetailsId)
+            };
+            return toDoMasterDetailsViewModel;
         }
     }
 }

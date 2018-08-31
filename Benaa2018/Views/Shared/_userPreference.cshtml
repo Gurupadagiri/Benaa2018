@@ -376,16 +376,6 @@
                                                             <div class="permissionTD">
                                                                 <div class="checkAllHolder">
                                                                     <div class="fieldHeader" style="float: left">Owner Payment Updated</div>
-                                                                    @*<div class="permissionTDHolder">
-
-                                                                            <ul>
-                                                                                <li class="checkAll view">
-                                                                                    <input id="" type="checkbox" title="View">
-                                                                                </li>
-
-                                                                            </ul>
-                                                                        </div>*@
-                                                                    @*<div style="float: right">*@
                                                                     <div class="rightTableAlign">
                                                                         <table>
                                                                             <tbody>
@@ -431,6 +421,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentReminderPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -454,6 +447,9 @@
                                                                                     <td class="checkAll edit">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentPastDuePush, new { @class = "chkAllPushPermission" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -480,6 +476,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentDiscussionPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -503,6 +502,9 @@
                                                                                     <td class="checkAll edit">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsOwnerPaymentAddedPush, new { @class = "chkAllPushPermission" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -603,6 +605,12 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsOtherEmployeeContactText, new { @class = "chkTextAllNotification" })
                                                                                     </td>
+                                                                                    <td class="checkAll edit">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" class="chkAllPushPermission" hidden>
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -627,6 +635,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsNewLeadPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -650,6 +661,9 @@
                                                                                     <td class="checkAll edit">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsLeadNotifyPush, new { @class = "chkAllPushPermission" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -703,6 +717,12 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsEmailQuotesAlertText, new { @class = "chkTextAllNotification" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -727,8 +747,11 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsAssignedToLeadActivityPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
-                                                                                    <td class="checkAll"></td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                     <td>
+
                                                                                         <a href="javascript:void(0);" id="" class="ToolTip " data-tooltip="User has permission login to the owner site." data-hasqtip="8">
                                                                                             <img src="images/iconToolTip.png" id="" align="absmiddle">
                                                                                         </a>
@@ -789,6 +812,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsLeadProposalViewedPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -808,6 +834,12 @@
                                                                                     <td class="checkAll add">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsLinkedClickedByLeadText, new { @class = "chkTextAllNotification" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -979,6 +1011,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsToDoCompletedPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -1002,6 +1037,9 @@
                                                                                     <td class="checkAll edit">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsToDoDiscussionAddedPush, new { @class = "chkAllPushPermission" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -1073,6 +1111,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsDailyLogNotificationPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -1095,6 +1136,9 @@
                                                                                     <td class="checkAll edit">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsDailyLogNotificationAddedPush, new { @class = "chkAllPushPermission" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
@@ -1167,6 +1211,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsBidSubmittedPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -1215,6 +1262,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsBidResubmittedPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -1240,6 +1290,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsBidDiscussionAddedPush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -1263,6 +1316,9 @@
                                                                                     <td class="checkAll edit">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsBidAcceptedBuilderPush, new { @class = "chkAllPushPermission" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>

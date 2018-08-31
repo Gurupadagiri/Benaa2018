@@ -14,5 +14,6 @@ namespace Benaa2018.Data.Model
         public int ToDoTagid { get; set; }
         public int Tagid { get; set; }
         public int TodoDetailsID { get; set; }
+        public bool DeletionStatus { get; set; }
     }
 }

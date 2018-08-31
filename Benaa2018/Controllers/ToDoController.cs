@@ -11,6 +11,7 @@ using System;
 using System.Net.Mail;
 using System.Net;
 
+
 namespace Benaa2018.Controllers
 {
     public class ToDoController : BaseController
@@ -84,6 +85,9 @@ namespace Benaa2018.Controllers
         }
         public async Task<IActionResult> Index()
         {
+
+
+
             var tagsList = await GetAllTags();
             ViewBag.TagsList = tagsList;
             ViewBag.TotalCheckList = 3;
@@ -105,22 +109,34 @@ namespace Benaa2018.Controllers
             #endregion
 
             var differentUsersList = await GetAllDifferentUsers();
+            //List<UserOwnerDifferentTypeViewModel> lstUsers = new List<UserOwnerDifferentTypeViewModel>();
+            //lstUsers = await GetAllDifferentUsers();
+            //List<DifferentTypeUser> lstUsers1 = new List<DifferentTypeUser>();
+            //if (lstUsers.Count > 0)
+            //{
+            //    foreach (var item in lstUsers)
+            //    {
+            //        DifferentTypeUser rrr = new DifferentTypeUser()
+            //        {
+            //            DifferentTypeUserId = item.UserOwnerDifferentTypeId,
+            //            Name = item.UserOwnerDifferentTypeValue,
+            //            Category = item.UserOriginaTypeText
+            //        };
+            //        lstUsers1.Add(rrr);
+            //    }
+            //}
             ViewBag.SubContractorsList = differentUsersList;
 
+
+            var usersList = await GetAllDifferentUsers1();
+            ViewBag.UsersDifferentList = usersList;
+            // ViewBag.SubContractorsList = new SelectList(lstUsers1, "DifferentTypeUserId", "Name", "Category", "1");
             // ViewBag.SubContractorsList1= new SelectList(, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", 1);
             return View();
         }
 
-
-
-        //[HttpPost]
-        //public async Task<IActionResult> Index(ToDoAllViewModel inputModel)
-        //{
-        //    return View();
-        //}
-
         [HttpPost]
-        //[RequestFormSizeLimit(valueCountLimit: 20000)]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveToDo(ToDoAllViewModel toDoAllView)
         {
             string result = string.Empty;
@@ -129,7 +145,8 @@ namespace Benaa2018.Controllers
 
                 var objToDoPrimary = await _todoMasterDetailsHelper.SaveToDoMasterDetails(toDoAllView.ToDoDetails);
                 //var obj = await _userMasterHelper.SaveUserMaster(userMasterViewModel);
-                if (objToDoPrimary.TodoDetailsID > 0)
+                int todoDetailsId = objToDoPrimary.TodoDetailsID;
+                if (todoDetailsId > 0)
                 {
                     if (toDoAllView.TagIds.Length > 0)
                     {
@@ -138,16 +155,17 @@ namespace Benaa2018.Controllers
                             ToDoTagViewModel tagview = new ToDoTagViewModel()
                             {
                                 Tagid = (int)item,//objToDoPrimary.Id
-                                TodoDetailsID = objToDoPrimary.TodoDetailsID
+                                TodoDetailsID = todoDetailsId
                             };
 
                             var objToTagSave = await _tagToDoHelper.SaveToDoTagDetails(tagview);
+                            //await Task.Delay(2000);
                         }
                     }
                     #region Assign user
                     ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
                     {
-                        TodoDetailsID = objToDoPrimary.TodoDetailsID,
+                        TodoDetailsID = todoDetailsId,
                         ToDoAssignID = 1,
                         ToDoUserAssignTypeId = 1
 
@@ -159,7 +177,7 @@ namespace Benaa2018.Controllers
                     #region Checklist
                     ToDochecklistViewModel toDoCheckListViewModel = new ToDochecklistViewModel
                     {
-                        TodoDetailsID = objToDoPrimary.TodoDetailsID,
+                        TodoDetailsID = todoDetailsId,
                         ToDoAssignIsCheckListItem = toDoAllView.ToDoCheckList.ToDoAssignIsCheckListItem,
                         ToDoAssignIFilesCheckListItem = toDoAllView.ToDoCheckList.ToDoAssignIFilesCheckListItem
                     };
@@ -182,16 +200,21 @@ namespace Benaa2018.Controllers
                         //var objToDoDetailsList = _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDoCheckListDetailsViewModel);
 
                         var objToDoDetailsList = await SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
+                        //await Task.Delay(1000);
                     }
 
+                    //ViewBag.executionStatus = 1;
                     #endregion
+                    // return RedirectToAction("Index", ViewBag.executionStatus);
 
+                    result = "Success";
+                    ModelState.Clear();
 
                 }
             }
             catch (Exception ex)
             {
-
+                result = "Failure";
             }
             //string[] selitems = toDoAllView.g
             return Json(result);
@@ -227,8 +250,206 @@ namespace Benaa2018.Controllers
             return Json(result);
         }
 
+        public async Task<IActionResult> UpdateTodo(int todoDetailsId = 0)
+        {
+            ToDoAllViewModel toDoAllView = new ToDoAllViewModel();
+            var tagsList = await GetAllTags();
+            ViewBag.TagsList = tagsList;
+            ViewBag.TotalCheckList = 3;
+            List<ToDoAllViewModel> lstToDoModel = new List<ToDoAllViewModel>();
+            lstToDoModel = await GetAllToDoDetails1(todoDetailsId);
+            if (lstToDoModel != null && lstToDoModel.Count > 0)
+            {
+                toDoAllView = lstToDoModel[0];
+            }
 
-        public async Task<IActionResult> SearchToDo(string keywords, string assignedto, int usersAssignedTo, int status, string priority, string tags = "", int selectedProjectId=0)
+
+            var differentUsersList = await GetAllDifferentUsers();
+
+            ViewBag.SubContractorsList = differentUsersList;
+            return PartialView("_toDoAddUpdate", toDoAllView);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> UpdateToDo(ToDoAllViewModel toDoAllView)
+        {
+            string result = string.Empty;
+            try
+            {
+
+                var objToDoPrimary = await _todoMasterDetailsHelper.UpdateToDoMasterDetails(toDoAllView.ToDoDetails);
+
+
+                var objTags = await _tagToDoHelper.GetAllTags(objToDoPrimary.TodoDetailsID);
+                string AllTagNames = string.Empty;
+                //List<ToDoTagViewModel> lstTagMasters = new List<ToDoTagViewModel>();
+                if (objTags.Count > 0)
+                {
+                    ToDoTagViewModel TagsDetails = new ToDoTagViewModel();
+
+                    foreach (var tag in objTags)
+                    {
+                        ToDoTagViewModel todoTagViewMdl = new ToDoTagViewModel()
+                        {
+                            ToDoTagid = tag.ToDoTagid,
+                            TodoDetailsID = tag.TodoDetailsID,
+                            Tagid = tag.Tagid
+                        };
+                        var objToTagSave = await _tagToDoHelper.DeleteToDoTagDetails(todoTagViewMdl);
+
+                    }
+
+
+                    int todoDetailsId = objToDoPrimary.TodoDetailsID;
+                    if (todoDetailsId > 0)
+                    {
+                        if (toDoAllView.TagIds.Length > 0)
+                        {
+                            foreach (var item in toDoAllView.TagIds)
+                            {
+                                ToDoTagViewModel tagview = new ToDoTagViewModel()
+                                {
+                                    Tagid = (int)item,//objToDoPrimary.Id
+                                    TodoDetailsID = todoDetailsId
+                                };
+
+                                var objToTagSave = await _tagToDoHelper.SaveToDoTagDetails(tagview);
+                                //await Task.Delay(2000);
+                            }
+                        }
+                        #region Assign user
+                        #region GetAssignUser and Delete
+
+                        var objAssign = await _toDoAssignHelper.GetToDoAssignByToDoDetailsId(objToDoPrimary.TodoDetailsID);
+                        string AllAssignNames = string.Empty;
+                        List<ToDoAssignViewModel> lstAssignModels = new List<ToDoAssignViewModel>();
+                        if (objAssign.Count > 0)
+                        {
+                            ToDoAssignViewModel AssignDetails = new ToDoAssignViewModel();
+                            foreach (var assign in objAssign)
+                            {
+                                ToDoAssignViewModel todoAssignUser=new ToDoAssignViewModel()
+                                {
+                                    ToDoAssignID = assign.ToDoAssignID,
+                                    UserID = assign.UserID,
+                                    TodoDetailsID = assign.TodoDetailsID,
+                                    ToDoUserAssignTypeId = assign.ToDoUserAssignTypeId
+                                };
+
+                                var deleteAsignUser = _toDoAssignHelper.DeleteToDoAssignDetails(todoAssignUser);
+
+                            }
+                        }
+                        #endregion
+
+                        ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                        {
+                            
+                            TodoDetailsID = todoDetailsId,
+                            ToDoAssignID = 1,
+                            ToDoUserAssignTypeId = 1
+
+                        };
+                        //  var objToUserAssign =  _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
+                        var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
+                        #endregion
+
+                        #region get and delete checklist
+                        #region GetCheckList
+
+
+                        var objCheckList = await _toDoCheckListHelper.GetAllCheclistDetails(objToDoPrimary.TodoDetailsID);
+                        string AllCheckLists = string.Empty;
+                        List<ToDochecklistViewModel> lstChecklistModels = new List<ToDochecklistViewModel>();
+                        List<ToDochecklistDetailsViewModel> lstCheckListDetails = new List<ToDochecklistDetailsViewModel>();
+                        if (objCheckList.Count > 0)
+                        {
+                            ToDochecklistViewModel toDoCheckLsit = new ToDochecklistViewModel();
+                            
+                            foreach (var checkList in objCheckList)
+                            {
+                                ToDochecklistViewModel todoChklst = new ToDochecklistViewModel()
+                                {
+                                    ToDoCheckListId = checkList.ToDoCheckListId,
+                                    TodoDetailsID= checkList.TodoDetailsID,
+                                    ToDoAssignIsCheckListItem= checkList.ToDoAssignIsCheckListItem,
+                                    ToDoAssignIFilesCheckListItem= checkList.ToDoAssignIFilesCheckListItem
+                                };
+
+                                var deleteCheckList = await _toDoCheckListHelper.DeleteToDochecklistDetails(todoChklst);
+
+                                var objCheckListDetails = await _toDoCheckListDetailsHelper.GetAllCheclistDetailsDescription(checkList.ToDoCheckListId);
+                                if (objCheckListDetails.Count > 0)
+                                {
+                                    ToDochecklistDetailsViewModel toCheckListDetails = new ToDochecklistDetailsViewModel();
+                                    foreach (var checkListDetails in objCheckListDetails)
+                                    {
+                                        ToDochecklistDetailsViewModel todoCheckListDetais=new ToDochecklistDetailsViewModel()
+                                        {
+                                            ToDochecklistDetailsViewModelId = checkListDetails.ToDochecklistDetailsViewModelId,
+                                            ToDoCheckListId = checkListDetails.ToDoCheckListId,
+                                            ToDoIsCheckList = checkListDetails.ToDoIsCheckList,
+                                            ToDoCheckListTitle = checkListDetails.ToDoCheckListTitle,
+                                            ToDoCheckListUserType = checkListDetails.ToDoCheckListUserType,
+                                            ToDoCheckListUserId = checkListDetails.ToDoCheckListUserId
+                                        };
+                                        var deletetCheckListdetails = await _toDoCheckListDetailsHelper.DeleteToDochecklistDetailsDescription(todoCheckListDetais);
+
+                                    }
+                                }
+                            }
+                        }
+                        #endregion
+
+                        #endregion
+
+                        #region Checklist
+
+
+                        ToDochecklistViewModel toDoCheckListViewModel = new ToDochecklistViewModel
+                        {
+                            TodoDetailsID = todoDetailsId,
+                            ToDoAssignIsCheckListItem = toDoAllView.ToDoCheckList.ToDoAssignIsCheckListItem,
+                            ToDoAssignIFilesCheckListItem = toDoAllView.ToDoCheckList.ToDoAssignIFilesCheckListItem
+                        };
+
+                        //  var objToDoCheckList = _toDoCheckListHelper.SaveToDochecklistDetails(toDoCheckListViewModel);
+                        var objToDoCheckList = await SaveToDochecklistDetails(toDoCheckListViewModel);
+
+                        for (int k = 0; k < toDoAllView.ToDoCheckListItemIndex; k++)
+                        {
+                            ToDochecklistDetailsViewModel toDoCheckListDetailsViewModel = new ToDochecklistDetailsViewModel
+                            {
+                                ToDoCheckListId = objToDoCheckList.ToDoCheckListId,
+                                ToDoIsCheckList = toDoAllView.lstCheckListDetail[k].ToDoIsCheckList,
+                                ToDoCheckListTitle = toDoAllView.lstCheckListDetail[k].ToDoCheckListTitle,
+                                ToDoCheckListUserType = 1,
+                                ToDoCheckListUserId = toDoAllView.lstCheckListDetail[k].ToDoCheckListUserId
+
+                            };
+
+                            //var objToDoDetailsList = _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDoCheckListDetailsViewModel);
+
+                            var objToDoDetailsList = await SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
+                            //await Task.Delay(1000);
+                        }
+
+
+                        // return Json(result);
+
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return Json(result);
+        }
+
+
+        public async Task<IActionResult> SearchToDo(string keywords, string assignedto, int usersAssignedTo, int status, string priority, string tags = "", int selectedProjectId = 0)
         {
             string result = string.Empty;
             var lstToDoSearchDetails = await GetAllToDoDetailsSearch(keywords, status, priority, tags, selectedProjectId);
@@ -288,44 +509,52 @@ namespace Benaa2018.Controllers
         public async Task<IActionResult> SaveToDoIsComplete(string ToDoDetailsId = "1002")
         {
             string result = string.Empty;
-            string[] toDoDetailsListForComplete = ToDoDetailsId.Split(',');
-            if (toDoDetailsListForComplete != null)
+            try
             {
-                foreach (var item in toDoDetailsListForComplete)
+                string[] toDoDetailsListForComplete = ToDoDetailsId.Split(',');
+                if (toDoDetailsListForComplete != null)
                 {
-                    if (!string.IsNullOrEmpty(item))
+                    foreach (var item in toDoDetailsListForComplete)
                     {
-                        int todoDetailsIdperRow = Convert.ToInt32(item.Split('_')[1]);
-
-                        var tododetailsId = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsById(todoDetailsIdperRow);
-                        if (tododetailsId != null)
+                        if (!string.IsNullOrEmpty(item))
                         {
-                            var toDoSelectedItemDetails = tododetailsId[0];
-                            ToDoMasterDetailsViewModel todoDetails = new ToDoMasterDetailsViewModel()
+                            int todoDetailsIdperRow = Convert.ToInt32(item.Split('_')[1]);
+
+                            var tododetailsId = await _todoMasterDetailsHelper.GetAllToDoMasterDetailsById(todoDetailsIdperRow);
+                            if (tododetailsId != null)
                             {
-                                TodoDetailsID = toDoSelectedItemDetails.TodoDetailsID,
-                                Project_ID = toDoSelectedItemDetails.Project_ID,
-                                Project_Site = toDoSelectedItemDetails.Project_Site,
-                                Title = toDoSelectedItemDetails.Title,
-                                Org_ID = toDoSelectedItemDetails.Org_ID,
-                                TypeNote = toDoSelectedItemDetails.TypeNote,
-                                IsMarkedComplete = true,
-                                Priority = toDoSelectedItemDetails.Priority,
-                                Duedate = toDoSelectedItemDetails.Duedate,
-                                DueDatetime = toDoSelectedItemDetails.DueDatetime,
-                                LinkToUnit = toDoSelectedItemDetails.LinkToUnit,
-                                LinkToDaysStatus = toDoSelectedItemDetails.LinkToDaysStatus,
-                                TillingWorkId = toDoSelectedItemDetails.TillingWorkId,
-                                TillingDate = toDoSelectedItemDetails.TillingDate
-                            };
+                                var toDoSelectedItemDetails = tododetailsId[0];
+                                ToDoMasterDetailsViewModel todoDetails1 = new ToDoMasterDetailsViewModel()
+                                {
+                                    TodoDetailsID = toDoSelectedItemDetails.TodoDetailsID,
+                                    Project_ID = toDoSelectedItemDetails.Project_ID,
+                                    Project_Site = toDoSelectedItemDetails.Project_Site,
+                                    Title = toDoSelectedItemDetails.Title,
+                                    Org_ID = toDoSelectedItemDetails.Org_ID,
+                                    TypeNote = toDoSelectedItemDetails.TypeNote,
+                                    IsMarkedComplete = true,
+                                    Priority = toDoSelectedItemDetails.Priority,
+                                    Duedate = toDoSelectedItemDetails.Duedate,
+                                    DueDatetime = toDoSelectedItemDetails.DueDatetime,
+                                    LinkToUnit = toDoSelectedItemDetails.LinkToUnit,
+                                    LinkToDaysStatus = toDoSelectedItemDetails.LinkToDaysStatus,
+                                    TillingWorkId = toDoSelectedItemDetails.TillingWorkId,
+                                    TillingDate = toDoSelectedItemDetails.TillingDate
+                                };
 
-                            var objToTagSave = await _todoMasterDetailsHelper.UpdateToDoMasterDetails(todoDetails);
+                                var objToTagSave = await _todoMasterDetailsHelper.UpdateToDoMasterDetails(todoDetails1);
+                                await Task.Delay(2000);
+
+                            }
                         }
-                    }
 
+                    }
                 }
             }
+            catch (Exception ex)
+            {
 
+            }
 
 
             return Json(result);
@@ -334,61 +563,108 @@ namespace Benaa2018.Controllers
         public async Task<IActionResult> AssignToDoUser(string userids, string toDoDetailsId)
         {
             string result = string.Empty;
-            string[] toDoDetailsListForAssign = toDoDetailsId.Split(',');
-            if (toDoDetailsListForAssign != null)
+            try
             {
-                foreach (var itemAssign in toDoDetailsListForAssign)
+                string[] toDoDetailsListForAssign = toDoDetailsId.Split(',');
+                if (toDoDetailsListForAssign != null)
                 {
-                    if (!string.IsNullOrEmpty(itemAssign))
+                    foreach (var itemAssign in toDoDetailsListForAssign)
                     {
-                        int todoDetailsIdperRow = Convert.ToInt32(itemAssign.Split('_')[1]);
-
-
-                        var lstUSerAssign = await _toDoAssignHelper.GetToDoAssignByToDoDetailsId(Convert.ToInt32(todoDetailsIdperRow));
-
-                        if (lstUSerAssign.Count > 0)
+                        if (!string.IsNullOrEmpty(itemAssign))
                         {
-                            foreach (var item in lstUSerAssign)
+                            int todoDetailsIdperRow = Convert.ToInt32(itemAssign.Split('_')[1]);
+
+
+                            var lstUSerAssign = await _toDoAssignHelper.GetToDoAssignByToDoDetailsId(Convert.ToInt32(todoDetailsIdperRow));
+
+                            string userNeedtoAssign = string.Empty;
+                            if (lstUSerAssign.Count > 0)
                             {
-
-                                if (item.UserID != Convert.ToInt32(userids))
+                                foreach (var item in lstUSerAssign)
                                 {
-                                    ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+
+                                    if (item.UserID != Convert.ToInt32(userids))
                                     {
-                                        TodoDetailsID = Convert.ToInt32(item.TodoDetailsID),
-                                        UserID = item.UserID,
-                                        ToDoUserAssignTypeId = item.ToDoUserAssignTypeId
+                                        if (string.IsNullOrEmpty(userNeedtoAssign))
+                                        {
+                                            userNeedtoAssign = userNeedtoAssign + userids + ",";
+                                        }
+                                        else
+                                        {
+                                            if (!userNeedtoAssign.Contains(userids))
+                                            {
+                                                userNeedtoAssign = userNeedtoAssign + userids + ",";
+                                            }
+                                        }
+                                    }
 
-                                    };
-                                    var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
-
-                                    int userid = item.UserID;
-                                    var userDetails = _userMasterHelper.GetUserByUserId(userid);
-                                    string userEmail = userDetails.Result.UserEmail;
-                                    SendMail(userEmail);
                                 }
 
+                                if (!string.IsNullOrEmpty(userNeedtoAssign))
+                                {
+                                    string[] differentUsers = userNeedtoAssign.Split(',');
+
+                                    if (differentUsers != null)
+                                    {
+                                        foreach (var users in differentUsers)
+                                        {
+                                            if (!string.IsNullOrEmpty(users))
+                                            {
+                                                ToDoAssignViewModel todoAssignViewModel1 = new ToDoAssignViewModel
+                                                {
+                                                    TodoDetailsID = Convert.ToInt32(itemAssign.Split('_')[1]),
+                                                    UserID = Convert.ToInt32(users),///item.UserID,
+                                                    ToDoUserAssignTypeId = 2
+
+                                                };
+                                                var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel1);
+
+                                                int userid = Convert.ToInt32(users);
+                                                var userDetails = _userMasterHelper.GetUserByUserId(userid);
+                                                string userEmail = userDetails.Result.UserEmail;
+                                                SendMail(userEmail);
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                        }
-                        else
-                        {
-                            //ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
-                            //{
-                            //    TodoDetailsID = Convert.ToInt32(toDoDetailsId),
-                            //    UserID =Convert.ToInt32( userids),
-                            //    ToDoUserAssignTypeId = 1
+                            else
+                            {
 
-                            //};
+                                ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                                {
+                                    TodoDetailsID = Convert.ToInt32(itemAssign.Split('_')[1]),
+                                    UserID = Convert.ToInt32(userids),///item.UserID,
+                                    ToDoUserAssignTypeId = 2
 
-                            var saveAssign = await _toDoAssignHelper.SaveToDoAssignDetails1(Convert.ToInt32(userids), Convert.ToInt32(todoDetailsIdperRow));
+                                };
+                                var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
+
+                                int userid = objToUserAssign.UserID;
+                                var userDetails = _userMasterHelper.GetUserByUserId(userid);
+                                string userEmail = userDetails.Result.UserEmail;
+                                SendMail(userEmail);
+                                //ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                                //{
+                                //    TodoDetailsID = Convert.ToInt32(toDoDetailsId),
+                                //    UserID =Convert.ToInt32( userids),
+                                //    ToDoUserAssignTypeId = 1
+
+                                //};
+
+                                // var saveAssign = await _toDoAssignHelper.SaveToDoAssignDetails1(Convert.ToInt32(userids), Convert.ToInt32(todoDetailsIdperRow));
+                            }
                         }
                     }
                 }
+                // var objToTagSave = _todoMasterDetailsHelper.DeleteToDoMasterDetails(ToDoDetailsId);
+
+                //  var objToUserAssign =  _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
             }
-            // var objToTagSave = _todoMasterDetailsHelper.DeleteToDoMasterDetails(ToDoDetailsId);
+            catch (Exception ex)
+            {
 
-            //  var objToUserAssign =  _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
-
+            }
             return Json(result);
         }
 
@@ -438,7 +714,67 @@ namespace Benaa2018.Controllers
         }
 
 
+        public async Task<List<UserOwnerDifferentTypeViewModel>> GetAllDifferentUsers1()
+        {
+            List<UserOwnerDifferentTypeViewModel> lstUsers = new List<UserOwnerDifferentTypeViewModel>();
+            try
+            {
+                int tt = 0;
+                int index = 0;
+                //var lstOwners = await GetAllOwners();
+                var lstInternalUsers = await GetAllUsers();
+                //var lstSubContractors = await GetAllSubContractors();
+                //if (lstOwners.Count > 0)
+                //{
+                //    foreach (var item in lstOwners)
+                //    {
+                //        tt = tt + 1;
+                //        DifferentTypeUser item = new DifferentTypeUser()
+                //        {
+                //            DifferentTypeUserId = tt,
+                //            Name =
+                //        };
+                //        lstOwners1.Add(item1);
+                //    }
+                //}
+                if (lstInternalUsers.Count > 0)
+                {
+                    foreach (var item in lstInternalUsers)
+                    {
+                        UserOwnerDifferentTypeViewModel item1 = new UserOwnerDifferentTypeViewModel()
+                        {
+                            UserOwnerDifferentTypeId = index + 1,
+                            UserOriginalId = item.UserID,
+                            UserOriginaTypeId = 2,
+                            UserOriginaTypeText = "Internal Users",
+                            UserOwnerDifferentTypeValue = item.FullName
+                        };
+                        lstUsers.Add(item1);
+                    }
+                }
+                //if (lstSubContractors.Count > 0)
+                //{
+                //    foreach (var item in lstSubContractors)
+                //    {
+                //        UserOwnerDifferentTypeViewModel item1 = new UserOwnerDifferentTypeViewModel()
+                //        {
+                //            UserOwnerDifferentTypeId = index + 1,
+                //            UserOriginalId = item.SubContractorID,
+                //            UserOriginaTypeId = 3,
+                //            UserOriginaTypeText = "Subs",
+                //            UserOwnerDifferentTypeValue = item.SubcontractorName
+                //        };
+                //        lstOwners1.Add(item1);
+                //    }
+                //}
 
+            }
+            catch (System.Exception ex)
+            {
+
+            }
+            return lstUsers;
+        }
 
         public async Task<List<UserOwnerDifferentTypeViewModel>> GetAllDifferentUsers()
         {
@@ -755,7 +1091,7 @@ namespace Benaa2018.Controllers
             return lstToDos;
         }
 
-        private async Task<List<ToDoAllViewModel>> GetAllToDoDetailsSearch(string title = "", int status = 0, string priority = "", string tags = "", int selectedProjectId=0)
+        private async Task<List<ToDoAllViewModel>> GetAllToDoDetailsSearch(string title = "", int status = 0, string priority = "", string tags = "", int selectedProjectId = 0)
         {
             List<ToDoAllViewModel> lstToDos = new List<ToDoAllViewModel>();
             try
@@ -985,11 +1321,15 @@ namespace Benaa2018.Controllers
             ToDochecklistDetailsViewModel toDochecklistDetailsl = new ToDochecklistDetailsViewModel();
             try
             {
+
                 var item = await _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDochecklistDetailsViewModel);
+
                 if (item.ToDochecklistDetailsViewModelId > 0)
                 {
                     toDochecklistDetailsl.ToDochecklistDetailsViewModelId = item.ToDochecklistDetailsViewModelId;
                 }
+
+
             }
             catch (Exception ex)
             {
@@ -1016,7 +1356,7 @@ namespace Benaa2018.Controllers
                         ToDoAllViewModel toDoView = new ToDoAllViewModel();
                         ToDoMasterDetailsViewModel todoMasterDetails = new ToDoMasterDetailsViewModel()
                         {
-                            // TodoDetailsID = item.TodoDetailsID,
+                            TodoDetailsID = item.TodoDetailsID,
                             Project_ID = item.Project_ID,
                             Project_Site = item.Project_Site,
                             Title = item.Title,
@@ -1121,6 +1461,8 @@ namespace Benaa2018.Controllers
                         #endregion
 
                         #region GetCheckList
+
+                       
                         var objCheckList = await _toDoCheckListHelper.GetAllCheclistDetails(item.TodoDetailsID);
                         string AllCheckLists = string.Empty;
                         List<ToDochecklistViewModel> lstChecklistModels = new List<ToDochecklistViewModel>();
@@ -1131,6 +1473,8 @@ namespace Benaa2018.Controllers
 
                             foreach (var checkList in objCheckList)
                             {
+
+
 
                                 var objCheckListDetails = await _toDoCheckListDetailsHelper.GetAllCheclistDetailsDescription(checkList.ToDoCheckListId);
                                 if (objCheckListDetails.Count > 0)
@@ -1267,4 +1611,5 @@ namespace Benaa2018.Controllers
         }
 
     }
+    #endregion
 }

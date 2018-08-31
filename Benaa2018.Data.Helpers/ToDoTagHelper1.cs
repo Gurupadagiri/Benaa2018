@@ -22,43 +22,17 @@ namespace Benaa2018.Helper
             ToDoTag toDoTagDetails = new ToDoTag
             {
                // ToDoTagid = toDoTagViewModel.ToDoTagid,
-                Tagid = toDoTagViewModel.Tagid,
+                Tagid = toDoTagViewModel.ToDoTagid,
                 TodoDetailsID = toDoTagViewModel.TodoDetailsID
             };
-            var TagObj = await _toDoTagHelper.CreateAsync(toDoTagDetails).ConfigureAwait(true);
-            //await Task.Delay(2000);
+            var TagObj = await _toDoTagHelper.CreateAsync(toDoTagDetails);
             ToDoTagViewModel toDoTagDetailsViewModel = new ToDoTagViewModel
             {
                 ToDoTagid = Convert.ToInt32(TagObj.ToDoTagid)
             };
-            
+
             return toDoTagDetailsViewModel;
         }
-
-        public async Task<ToDoTagViewModel> DeleteToDoTagDetails(ToDoTagViewModel toDoTagViewModel)
-        {
-
-            //ToDoTagViewModel toDoMasterDetailsViewModel = new ToDoTagViewModel();
-            ToDoTag toDoTagDetails = new ToDoTag
-            {
-                ToDoTagid = toDoTagViewModel.ToDoTagid,
-                //Tagid = toDoTagViewModel.Tagid,
-                //TodoDetailsID = toDoTagViewModel.TodoDetailsID,
-                //DeletionStatus=true
-                //Created_By = "aaaa",
-                //Modified_By = "aaa",
-                //Created_Date = DateTime.Today,
-                //Modified_Date = DateTime.Today
-            };
-
-           // _toDoTagHelper.Entry(entity).State = EntityState.Modified;
-            await _toDoTagHelper.DeleteAsync(toDoTagDetails);
-            
-
-            return toDoTagViewModel;
-        }
-
-
 
         public async Task<List<ToDoTagViewModel>> GetAllTags(int TodoDetailID = 0)
         {

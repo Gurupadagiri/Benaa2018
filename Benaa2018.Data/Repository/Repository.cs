@@ -40,9 +40,10 @@ namespace Benaa2018.Data.Repository
             return entity;
         }
 
-        public async virtual void DeleteAsync(T entity)
+        public async virtual Task DeleteAsync(T entity)
         {
             await Task.Factory.StartNew(() => _context.Remove(entity));
+           
             await Save();
         }
 
@@ -58,6 +59,7 @@ namespace Benaa2018.Data.Repository
 
         public async Task<T> UpdateAsync(T entity)
         {
+           // _context.UpdateRange(entity);
             _context.Entry(entity).State = EntityState.Modified;
             await Save();
             await _context.Entry(entity).GetDatabaseValuesAsync();
