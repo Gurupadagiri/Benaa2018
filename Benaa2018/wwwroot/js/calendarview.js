@@ -115,6 +115,9 @@ $(document).ready(function () {
         $.post("Calendar/GetFilteredScheduleAsync", postData, function (data) {
             $('#calendar').fullCalendar('removeEvents');
             $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
+            $('#calendar').fullCalendar('rerenderEvents');
             $('#calendar').fullCalendar('rerenderEvents');
         });
     });

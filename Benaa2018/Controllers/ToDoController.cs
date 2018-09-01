@@ -139,16 +139,13 @@ namespace Benaa2018.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveToDo(ToDoAllViewModel toDoAllView)
         {
-            string result = string.Empty;
             try
             {
-
                 var objToDoPrimary = await _todoMasterDetailsHelper.SaveToDoMasterDetails(toDoAllView.ToDoDetails);
-                //var obj = await _userMasterHelper.SaveUserMaster(userMasterViewModel);
                 int todoDetailsId = objToDoPrimary.TodoDetailsID;
                 if (todoDetailsId > 0)
                 {
-                    if (toDoAllView.TagIds.Length > 0)
+                    if (toDoAllView.TagIds?.Length > 0)
                     {
                         foreach (var item in toDoAllView.TagIds)
                         {
@@ -157,9 +154,7 @@ namespace Benaa2018.Controllers
                                 Tagid = (int)item,//objToDoPrimary.Id
                                 TodoDetailsID = todoDetailsId
                             };
-
                             var objToTagSave = await _tagToDoHelper.SaveToDoTagDetails(tagview);
-                            //await Task.Delay(2000);
                         }
                     }
                     #region Assign user
@@ -181,8 +176,6 @@ namespace Benaa2018.Controllers
                         ToDoAssignIsCheckListItem = toDoAllView.ToDoCheckList.ToDoAssignIsCheckListItem,
                         ToDoAssignIFilesCheckListItem = toDoAllView.ToDoCheckList.ToDoAssignIFilesCheckListItem
                     };
-
-                    //  var objToDoCheckList = _toDoCheckListHelper.SaveToDochecklistDetails(toDoCheckListViewModel);
                     var objToDoCheckList = await SaveToDochecklistDetails(toDoCheckListViewModel);
 
                     for (int k = 0; k < toDoAllView.ToDoCheckListItemIndex; k++)
@@ -196,28 +189,21 @@ namespace Benaa2018.Controllers
                             ToDoCheckListUserId = toDoAllView.lstCheckListDetail[k].ToDoCheckListUserId
 
                         };
-
-                        //var objToDoDetailsList = _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDoCheckListDetailsViewModel);
-
                         var objToDoDetailsList = await SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
-                        //await Task.Delay(1000);
                     }
-
-                    //ViewBag.executionStatus = 1;
                     #endregion
-                    // return RedirectToAction("Index", ViewBag.executionStatus);
-
-                    result = "Success";
+                  
+                    toDoAllView.ToDoAllModels = await GetAllToDoDetails(toDoAllView.ToDoDetails.Project_ID);
+                    toDoAllView.ToDoListContent = Newtonsoft.Json.JsonConvert.SerializeObject(toDoAllView.ToDoAllModels);
+                    toDoAllView.Success = true;                    
                     ModelState.Clear();
-
                 }
             }
             catch (Exception ex)
             {
-                result = "Failure";
+                toDoAllView.Success = false;
             }
-            //string[] selitems = toDoAllView.g
-            return Json(result);
+            return Json(toDoAllView);
         }
 
         public async Task<IActionResult> SearchToDobyProject(int projectId = 0)
@@ -267,7 +253,7 @@ namespace Benaa2018.Controllers
             var differentUsersList = await GetAllDifferentUsers();
 
             ViewBag.SubContractorsList = differentUsersList;
-            return PartialView("_toDoAddUpdate", toDoAllView);
+            return PartialView("_toDoAddNew", toDoAllView);
         }
 
         [HttpPost]

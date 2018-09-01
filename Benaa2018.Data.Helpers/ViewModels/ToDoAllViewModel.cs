@@ -6,6 +6,15 @@ namespace Benaa2018.Helper.ViewModels
 {
     public class ToDoAllViewModel : CommonViewModel
     {
+        public ToDoAllViewModel()
+        {
+            ToDoAllModels = new List<ToDoAllViewModel>();
+            lstTags = new List<TagMasterViewModel>();
+            lstAssigns = new List<ToDoAssignViewModel>();
+            lstCheckLists = new List<ToDochecklistViewModel>();
+            lstToDoDetails = new List<ToDoTagViewModel>();
+            lstCheckListDetail = new List<ToDochecklistDetailsViewModel>();
+        }
         public ToDoMasterDetailsViewModel ToDoDetails { get; set; }
 
         public ToDoAssignViewModel ToDoAssign { get; set; }
@@ -43,7 +52,8 @@ namespace Benaa2018.Helper.ViewModels
         public int ToDoCheckListItemIndex { get; set; }
 
         public List<ToDochecklistDetailsViewModel> lstCheckListDetail { get; set; }
-
+        public List<ToDoAllViewModel> ToDoAllModels { get; set; }
+        public string ToDoListContent { get; set; }
     }
 
     public class ToDoAllViewModelDetails

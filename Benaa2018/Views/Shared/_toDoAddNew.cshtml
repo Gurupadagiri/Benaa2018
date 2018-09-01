@@ -71,7 +71,7 @@
                                 <div class="formHolder">
                                     <div class="leftFormHeading">Priority:</div>
                                     <div class="rightFormText">
-                                        <select name="ToDoDetails.Priority" class="form-control">
+                                        <select asp-for="ToDoDetails.Priority" class="form-control">
                                             <option value="">None</option>
                                             <option value="Low">Low</option>
                                             <option value="High">High</option>
@@ -114,7 +114,7 @@
                                                             <span name="ToDoDetails.Duedate" data-bind="text: title"></span>
                                                         </label>
                                                         @*<input data-bind="value: value, dropdownTimePicker: { value: value, interval: $component.increment }, disable: readOnly, requiredValidationElement: value" class="form-control input-sm time timepicker ui-timepicker-input" autocomplete="off" type="text" placeholder="No Time Chosen">*@
-                                                        <select name="ToDoDetails.DueDatetime" class="form-control">
+                                                        <select asp-for="ToDoDetails.DueDatetime" class="form-control">
                                                             <option value="12:00 am">12:00 am</option>
                                                             <option value="12:30 am">12:30 am</option>
                                                             <option value="01:00 am">01:00 am</option>
@@ -178,7 +178,7 @@
                                                     <div class="bt-link-schedule-item--days" params="value: deadLineOffset, summaryMessage: $component.summaryMessage + ': Lag', min: -999, max: 999, valueUpdate: 'blur', readOnly: readOnly">
                                                         <div class="bt-whole-number">
                                                             <label class="bt-whole-number--label" data-bind="text: title, visible: title().length > 0" style="display: none;"></label>
-                                                            <input name="ToDoDetails.LinkToUnit" class="bt-whole-number--value form-control input-sm" type="number" data-bind="value: value, disable: readOnly, css: inputSize, attr: { placeholder: placeholder }, validationBorder: value, requiredValidationElement: value,valueUpdate: valueUpdate, hasFocus: valueFocused, event: { keypress: removeNonNumbers}">
+                                                            <input asp-for="ToDoDetails.LinkToUnit" class="bt-whole-number--value form-control input-sm" type="number" data-bind="value: value, disable: readOnly, css: inputSize, attr: { placeholder: placeholder }, validationBorder: value, requiredValidationElement: value,valueUpdate: valueUpdate, hasFocus: valueFocused, event: { keypress: removeNonNumbers}">
                                                             <!-- ko if: toolTipText().length > 0 --><!-- /ko -->
                                                         </div>
                                                         <span class="valMessage" data-bind="btValidationMessage: value" style="display: none;"></span>
@@ -204,7 +204,7 @@
                                                                     <ul class="chosen-results"></ul>
                                                                 </div>
                                                             </div>
-                                                            <select name="ToDoDetails.LinkToDaysStatus" class="form-control">
+                                                            <select asp-for="ToDoDetails.LinkToDaysStatus" class="form-control">
                                                                 <option value="Before">Before</option>
                                                                 <option value="After">After</option>
                                                             </select>
@@ -342,7 +342,7 @@
                                 <div class="formHolder">
                                     <div class="leftFormHeading">Reminder:</div>
                                     <div class="rightFormText">
-                                        <select name="ToDoDetails.ReminderId" class="form-control">
+                                        <select asp-for="ToDoDetails.ReminderId" class="form-control">
                                             <option value="None"> None </option>
                                             <option value="Just Before">Just Before</option>
                                             <option value="1 Hour"> 1 Hour</option>
