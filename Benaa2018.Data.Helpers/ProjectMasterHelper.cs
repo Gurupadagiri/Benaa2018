@@ -31,7 +31,7 @@ namespace Benaa2018.Helper
             _ownerMasterHelper = ownerMasterHelper;
             _projectTypeMasterRepository = projectTypeMasterRepository;
         }
-        public async Task<int> SaveProjectMaster(int userId, ProjectMasterViewModel projectMasterModel)
+        public async Task<int> SaveProjectMaster(int userId, int companyid, ProjectMasterViewModel projectMasterModel)
         {
             ProjectMaster projectMaster = new ProjectMaster
             {
@@ -52,14 +52,14 @@ namespace Benaa2018.Helper
                 Sub_Notes = projectMasterModel.SubNotes,
                 Project_Prefix= projectMasterModel.JobsitePrefix,
                 Country_ID = projectMasterModel.CountryID,
-                Org_ID = projectMasterModel.OrgID,
+                Org_ID = companyid,
                 Contract_Price = projectMasterModel.ContractPrice
             };
             projectMaster = await _projectMasterRepository.CreateAsync(projectMaster);
             return projectMaster.Project_ID;
         }
 
-        public async Task<int> UpdateProjectMaster(int userID, ProjectMasterViewModel projectMasterModel)
+        public async Task<int> UpdateProjectMaster(int userID, int companyid, ProjectMasterViewModel projectMasterModel)
         {
             ProjectMaster projectMaster = new ProjectMaster
             {
@@ -79,7 +79,7 @@ namespace Benaa2018.Helper
                 Sub_Notes = projectMasterModel.SubNotes,
                 Project_Prefix = projectMasterModel.JobsitePrefix,
                 Country_ID = projectMasterModel.CountryID,
-                Org_ID = projectMasterModel.OrgID,
+                Org_ID = companyid,
                 Contract_Price = projectMasterModel.ContractPrice
             };
             projectMaster = await _projectMasterRepository.UpdateAsync(projectMaster);

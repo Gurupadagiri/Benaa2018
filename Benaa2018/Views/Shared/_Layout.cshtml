@@ -77,34 +77,34 @@
                     </li>
                     @foreach (var item in baseModel.MenuContents)
                     {
-                        <li class="dropdown inlineIcon">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
-                            <ul class="dropdown-menu">
-                                <div class="liDiv">
-                                    @foreach (var Menu in item.Menus)
+                    <li class="dropdown inlineIcon">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">@item.MenuName <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <div class="liDiv">
+                                @foreach (var Menu in item.Menus)
                                     {
-                                        <li>
-                                            <div class="inlineDiv">
-                                                <a href="@Menu.MenuUrl" class="icontxt">
-                                                    <span class="@Menu.CssClass"></span>
-                                                    <span>@Menu.MenuName</span>
-                                                </a>
-                                                <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
-                                            </div>
-                                        </li>
+                                <li>
+                                    <div class="inlineDiv">
+                                        <a href="@Menu.MenuUrl" class="icontxt">
+                                            <span class="@Menu.CssClass"></span>
+                                            <span>@Menu.MenuName</span>
+                                        </a>
+                                        <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
+                                    </div>
+                                </li>
                                     }
-                                    <li class="videocontainer">
-                                        <div class="grayli">
-                                            <span class="fa fa-close grayClose" aria-hidden="true"></span>
-                                            <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
-                                                <b>Lorem Lipsum doller sit</b>
-                                                <p>Lorem Ipsum is simply dummy text of the printing</p>
-                                            </span>
-                                        </div>
-                                    </li>
-                                </div>
-                            </ul>
-                        </li>
+                                <li class="videocontainer">
+                                    <div class="grayli">
+                                        <span class="fa fa-close grayClose" aria-hidden="true"></span>
+                                        <a href="#" class="videoThumb"><img src="~/images/video.png" class="img-responsive"></a><span class="grayliTxt">
+                                            <b>Lorem Lipsum doller sit</b>
+                                            <p>Lorem Ipsum is simply dummy text of the printing</p>
+                                        </span>
+                                    </div>
+                                </li>
+                            </div>
+                        </ul>
+                    </li>
                     }
                 </ul>
                 <ul class="nav navbar-nav navbar-right user-support">
@@ -1019,11 +1019,19 @@
                 });
                var postData = infoForm.serialize();
                 $.post("home/SubmitProjectInfo", postData, function (data) {
-                    if (data == true) {
+                    if (data.success == true) {
                         infoForm.find("input[type='text']").each(function (i, element) {
                             $(this).val('');
                         });
+                        if (data.projectModelJsonString !== '') {
+                            $("#example").jqGrid("setGridParam", { datatype: "json" })
+                                .trigger("reloadGrid", [{ current: true }]);
+                            BindGrid('example', JSON.parse(data.projectModelJsonString));
+                        }
+                        $('#newProject').removeClass('in').hide()
                         alert("Project Details Successfully Added");
+                    } else {
+                        alert("Project Details not Saved");
                     }
                 });
             });
@@ -1247,21 +1255,20 @@
             $(document).on("click", "td[aria-describedby='example_ProjectName']", function () {
                 var projectId = parseInt($(this).prev().text());
                 SetProjectDetails(projectId);
-                $('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');
-                $('#projectclose').on('click', function () {
-                    $('#newProject').removeClass('in').removeAttr('style').attr('style', 'display:none');
-                });
+                $('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');                
+            });
+            $(document).on('click', '#projectclose', function () {
+                $('#newProject').removeClass('in').removeAttr('style').attr('style', 'display:none');
             });
             var innerexport = $('div.dataTableConatainer').children('span').html();
             $('#example_toppager_left').html(innerexport);
             $('#export').remove();
         });
-    </script>
-    @if (baseModel != null)
-    {
-        <script>
-            $(document).ready(function () {
-                $("#example").jqGrid({
+
+        function BindGrid(divId, jsondata) {
+            $("#" + divId).jqGrid("setGridParam", { datatype: "json" })
+                .trigger("reloadGrid", [{ current: true }]);
+            $("#" + divId).jqGrid({
                     colModel: [
                         { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
                         { name: "ProjectName", label: "Project Name", width: 53 },
@@ -1277,7 +1284,7 @@
                         { name: "MobileNo", label: "Cell", width: 41 },
                         { name: "Active", label: "Active", width: 51 }
                     ],
-                    data: @Html.Raw(baseModel.ProjectModelJsonString),
+                    data: jsondata,
                     iconSet: "fontAwesome",
                     idPrefix: "g5_",
                     rownumbers: true,
@@ -1289,13 +1296,21 @@
                     toppager: true,
                     pager: true,
 
-                    rowNum: 5,
+                    rowNum: 10,
                     viewrecords: true,
                     searching: {
                         defaultSearch: "cn"
                     },
                     caption: ""
                 });
+        }
+
+    </script>
+    @if (baseModel != null)
+    {
+        <script>
+            $(document).ready(function () {
+                BindGrid('example', @Html.Raw(baseModel.ProjectModelJsonString));
 
                 BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMap"));
                 BindAddress(@baseModel.CompanyMasterModel.Latitude, @baseModel.CompanyMasterModel.Longitude, document.getElementById("dvMapCluster"));
@@ -1339,8 +1354,8 @@
                 marker.setMap(map);
             }
 
-        </script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
+        </script>        
     }
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
 </body>
 </html>

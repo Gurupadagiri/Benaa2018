@@ -22,7 +22,7 @@
                             </div>
                         </div>
                         <div class="col-sm-2 text-right pull-right form-group">
-                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Map All</button>
+                            <button class="btn btn-default btn-sm dropdown-toggle" style="display:none" type="button" data-toggle="dropdown">Map All</button>
                         </div>
                     </div>
                     <div class="clearfix"></div>
@@ -71,7 +71,7 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-2 form-group">
-                                                        <label>Actual Start Date</label>
+                                                        <span>Actual Start Date</span>
                                                         <div class="input-group">
                                                             <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />  <div class="input-group-addon">
                                                                 <i class="fa fa-calendar">
@@ -80,7 +80,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2 form-group">
-                                                        <label>Actual End Date</label>
+                                                        <span>Actual End Date</span>
                                                         <div class="input-group">
                                                             <input class="form-control" id="date1" name="date" placeholder="MM/DD/YYYY" type="text" />  <div class="input-group-addon">
                                                                 <i class="fa fa-calendar">
@@ -89,7 +89,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-sm-2 form-group tooltip-div">
-                                                        <label>Name</label>
+                                                        <span>Name</span>
                                                         <div class="input-group">
                                                             <input type="text" id="serchtext" class="form-control" placeholder="Keyword">
                                                         </div>
@@ -136,14 +136,14 @@
                                             @foreach (var item in Model.ProjectMasterModels.Where(a => a.ProjectName != null).ToList())
                                             {
                                                 <div class="filterMap">
-                                                    <div class="row">
+                                                    <div class="row1">
                                                         <div class="col-sm-12">
                                                             <div class="listmapCon" data-project="@item.ProjectID">
                                                                 <span class="glyphicon glyphicon-map-marker" data-coordinate="@item.Latitude,@item.Longitude" ></span><a class="lnk" data-toggle="modal" data-target="#newProject"><label> @item.ProjectName</label></a>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="row">
+                                                    <div class="row1">
                                                         <div class="col-sm-2">
                                                             <button class="btn btn-default btn-sm" type="button" disabled>Previous</button>
                                                         </div>

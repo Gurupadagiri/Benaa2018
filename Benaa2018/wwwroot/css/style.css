@@ -209,6 +209,9 @@ input.form-control {
         border: 0;
         overflow-x: unset;
         overflow-y: unset;
+        width:100%;
+        float:left;
+        background:#fff;
     }
 
 .mainContentDiv.todoMainHolder {
@@ -245,7 +248,7 @@ input.form-control {
     float: right;
     background: #fff;
     border-radius: 3px !important;
-    padding: 5px 7px;
+    padding: 7px;
     border: 1px solid #cecece;
     color: #626262;
     font-size: 12px !important;
@@ -817,7 +820,7 @@ input.form-control {
 /*====filter accordian=============*/
 
 .filterContainer .panel {
-    border: 1px solid #cecece;
+    border: 1px solid #cecece !important;
 }
 
 .filterContainer .panel-title > a:before {
@@ -959,7 +962,7 @@ table.dataTable {
 
 .plusMinusCon {
     position: absolute;
-    right: 13px;
+    right: 20px;
     top: 30px;
     z-index: 999;
     background: #fff;
@@ -1006,6 +1009,12 @@ table.dataTable {
     border: 1px solid #ccc;
 }
 
+.tabsConatiner .nav > li:first-child > a {
+    border-radius: 5px 0 0 0 !important;
+}
+.tabsConatiner .nav > li:last-child > a {
+    border-radius: 0 5px 0 0 !important;
+}
 .tabsConatiner .nav li {
     text-decoration: none;
     background-color: #eee;
@@ -1023,8 +1032,9 @@ table.dataTable {
         height: 85vh;
         overflow-y: scroll;
     }
-
-
+body .panel-body {
+    background:#fff;
+}
 .modalWidth400 .customPopup .panel-body {
     height: auto;
 }
@@ -1446,11 +1456,12 @@ table.dataTable {
     margin-right:0!important;
 }
 .btn-group-sm > .btn, .btn-sm {
-    padding: 5px 10px;
+    padding: 8px 12px;
     font-size: 12px;
     line-height: 14px;
     border-radius: 3px;
 }
+
 
 .modal-dialog .panel {
     border: 0;
@@ -1482,6 +1493,10 @@ table.dataTable {
 .modal-open #infoModal.modal .modal-dialog {
     width: 95%;
 }
+.tabsConatiner ul li a:hover{
+    text-decoration:none;
+}
+
 .customPopup .panel-body {
     background: #fff;
 }
@@ -1755,6 +1770,7 @@ table.dataTable {
 .clusterMapCon {
     height: 269px;
     width: 100%;
+    margin-top:10px;
 }
 
 .blueButton:hover {
@@ -1779,21 +1795,43 @@ table.dataTable {
     .logInHolder .inputClass {
         display: block;
         width: 100%;
-        height: 34px;
-        padding: 6px 12px;
-        font-size: 14px;
-        line-height: 1.42857143;
+        height: 30px;
+        padding: 5px 10px;
+        font-size: 12px;
+        line-height: 1.5;
         color: #555;
         background-color: #fff;
         background-image: none;
         border: 1px solid #ccc;
-        border-radius: 4px !important;
-        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        border-radius: 3px !important;
+        /*-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075);*/
         -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
         -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
         transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
     }
+
+body .btn {
+    display: inline-block;
+    padding: 5px 12px 6px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
 
 .ui-jqgrid-* {
     width: 100% !important;
@@ -1817,7 +1855,10 @@ table.dataTable {
 }
 
 .filterMap .inpWidth50 {
-    width: 40px;
+    width: 33px;
+    height: 25px;
+    border-radius: 3px;
+    border: 1px solid #c3c3c3;
 }
 
 .inputHolder {
@@ -1952,8 +1993,37 @@ ul.tabs {
         height: auto;
         line-height: 100%;
         background: #f8f8f8 !important;
+        border-right:1px solid #cecece;
     }
 
+
+.popupTopBtnCon .form-group {
+   /* padding:0;*/
+}
+body .form-group {
+    margin-bottom: 10px;
+}
+.form-group label,
+.form-group span {
+    color: #626262;
+    font-size: 11px;
+}
+.form-group span.caret {
+    color: #fff;
+}
+body .ms-options-wrap > button:after {
+    content: ' ';
+    height: 0;
+    position: absolute;
+    top: 50%;
+    right: 11px;
+    width: 0;
+    border: 4px solid rgba(0, 0, 0, 0);
+    border-top-color: #000;
+    margin-top: -3px;
+}
+
+        
         .Projects-List .nav-tabs li:first-child a,
         ul.tabs li:first-child {
             border-radius: 5px 0 0 0 !important;
@@ -1975,14 +2045,31 @@ ul.tabs {
             color: #6097b5 !important;
             background: #fff !important;
         }
-/*.modal-dialog.width94{
+.tabs li.active a{
+    padding:1px;
+    position:relative;
+}
+
+ul.tabs li.active a:after {
+    content: "";
+    width: 100%;
+    height: 2px;
+    background: #fff;
+    position: absolute;
+    bottom: 0;
+}
+            
+        .Projects-List .nav-tabs li.active a:hover {
+            text-decoration: none;
+        }
+            /*.modal-dialog.width94{
     width: 80%;
 }*/
-.width94 .panel-default,
-.todoShortHolder .panel-default {
-    border: 1px solid #d4d4d4;
-    border-radius: 5px;
-}
+            .width94 .panel-default,
+            .todoShortHolder .panel-default {
+                border: 1px solid #d4d4d4;
+                border-radius: 5px;
+            }
 
     .width94 .panel-default .panel-title a,
     .todoShortHolder .panel-default .panel-title a {
@@ -2575,6 +2662,16 @@ input[type="checkbox"].single-to-do-check {
     background: #eeeeee;
     padding: 15px;
 }
+.filterContainer .panel-body {
+    padding-top:0;
+    padding-bottom:0;
+}
+
+.filterContainer .panel-heading {
+    border-bottom: 0;
+    padding-bottom: 0;
+}
+
 
 .ui-multiselect.btMultiSelect {
     height: 30px;
@@ -2844,19 +2941,36 @@ body .blueButton, body .Projects-List .btn-primary {
     user-select: none;
 }
 .pageofHolder .pageofHolderL,
-.pageofHolder .pageofHolderR{
-    padding:0 5px;
+.pageofHolder .pageofHolderR {
+    padding: 0 5px;
+    font-size: 11px;
 }
-
+.modal-dialog .filterMap .btn-default {
+    font-size: 11px;
+}
+.filterMap .form-control {
+    height: 26px;
+    padding: 3px 12px;
+    font-size: 10px;
+    color: #555;
+}
 .filterMap .col-sm-4.pageofHolder {
-    padding-left: 15px;
+    padding-left: 0;
+    text-align: center;
 }
 .filterMap {
-    padding: 0 15px;
+    padding: 15px;
+    width: 100%;
+    float: left;
+    border: 1px solid #cecece;
+    border-bottom: 0;
 }
 .filterMap .col-sm-2,
 .filterMap .col-sm-4 {
     padding: 0;
+}
+.modal-dialog .filterMap .btn-default {
+    padding: 5px;
 }
 @media (min-width: 1200px) {
     .panel-body.project-list .col-sm-2 {
@@ -2881,7 +2995,7 @@ body .blueButton, body .Projects-List .btn-primary {
     border-bottom: 1px solid #ddd !important;
 }
 .form-control {
-    height: 26px;
+    height: 30px;
     padding: 3px 12px;
     font-size: 12px;
     color: #555;
@@ -2974,14 +3088,16 @@ body .blueButton, body .Projects-List .btn-primary {
 }
 .collapse.in {
     display: block;
-    padding-bottom: 15px;
+    padding-bottom: 5px;
 }
 .customPopup .filterContainer {
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 15px;
+    padding-right: 15px;
 }
 .customPopup .tab-content {
-    background: #eee;
+    background: #fff;
+    width: 100%;
+    float: left;
 }
 .customPopup .tab-content .tab-pane .new-project-tab {
     background: #fff !important;
@@ -2989,6 +3105,97 @@ body .blueButton, body .Projects-List .btn-primary {
     margin: 15px !important;
     border-radius:5px;
 }
+
+
 .customPopup .tab-pane.fade.in {
-    padding-top: 30px;
+    padding-top: 0;
+}
+.glyphicon-map-marker,
+.lnk,
+.lnk label {
+    cursor: pointer;
+}
+.lnk:hover,
+.lnk label:hover{
+   text-decoration:underline;
+}
+.filterMap .row1 .col-sm-12 {
+    padding: 0;
+}
+.form-group.top-btn .btn,
+.form-group.top-btn .dropdown {
+    float:left;
+    margin-right:5px;
+}
+.form-group.top-btn .dropdown .btn {
+    margin-right:0;
+}
+.customPopup #frmSubmitProjectMaster .tab-content {
+    background: #eee;
+    width: 100%;
+    float: left;
+}
+.customPopup #frmSubmitProjectMaster .tab-content {
+    padding: 16px;
+}
+.customPopup #frmSubmitProjectMaster .tab-content .tab-pane .new-project-tab {
+    background: #fff !important;
+    padding: 15px !important;
+    margin: 0 0 15px !important;
+    border-radius: 5px;
+    width: 100%;
+    float: left;
+}
+.customPopup #frmSubmitProjectMaster .tab-content .tab-pane.fade.in {
+    opacity: 1;
+    background: transparent !important;
+    padding: 0;
+}
+.addMap input.form-control {
+    width:97%;
+}
+.color-select {
+    color:#fff;
+}
+#frmSubmitProjectMaster .panel-heading,
+.ownerheading {
+    font-size: 20px;
+    font-weight:400;
+}
+.ownerInfoBody{
+    padding:0;
+}
+body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
+    margin: 0 5px 0 0;
+    position: absolute;
+    left: 4px;
+    top: 6px;
+    text-align: left;
+    width: 17px !important;
+}
+.fc-button-group .fc-state-default.fc-state-active,
+.fc-button-group .fc-state-default{
+    font-weight: 700;
+}
+
+.todoToolRight .rm-control,
+.todoToolRight .todo-button {
+    float:right;
+}
+.todoToolRight {
+    width: 276px;
+}
+.customPopup.todo-popup .panel-body {
+    padding:0;
+    background:#eeeeee;
+}
+.row1{
+    padding:0 15px;
+}
+.multiCheckBoxHolder{
+    float:right;
+}
+.add-check-list {
+    width: 100%;
+    float: left
 }

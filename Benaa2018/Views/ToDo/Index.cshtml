@@ -32,7 +32,8 @@
                     <div class="tableContainer todoHolder todoAreaVisible">
                         <div class="table table-striped custab">
                             <div class="pull-left col-sm-8"><a href="#home" data-toggle="modal" id="infoEdit" data-target="#todoinfoModal" data-original-title="" class="btn btn-success btn-sm">New To-Do</a></div>
-                            <div class="pull-right col-sm-4">
+                            <div class="pull-right col-sm-4 todoToolRight">
+                                <div class="todo-button"><a href="#home" data-toggle="modal" data-target="#infoModal1" class="Click Import To-Do Template">Import To-Do's</a></div>
                                 <select class="form-control" id="ddlAssign">
                                     <option>Checked Actions</option>
                                     <option>Print Checked</option>
@@ -41,7 +42,7 @@
                                     <option>Copy To-Dos</option>
                                     <option>Delete Checked</option>
                                 </select>
-                                <div><a href="#home" data-toggle="modal" data-target="#infoModal1" class="Click Import To-Do Template">Import To-Do's</a></div>
+                                
                             </div>
                         </div>
                     </div>
@@ -102,8 +103,8 @@
                                                 </select>
                                             </div>
                                             <div class="col-sm-2 form-group">
-                                                <label>Tags</label>
-                                                <div class="input-group">
+                                                <label style="margin-bottom:0;">Tags</label>
+                                                <div class="">
                                                     @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTagToDoSearch", @class = "form-control", @multiple = "multiple" })
                                                 </div>
                                             </div>
@@ -183,7 +184,7 @@
                                             <div class="col-sm-6">
                                                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnUpdateResults">Update Results</button>&nbsp;
                                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
-                                                <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Save Filter</button>&nbsp;
+                                                <button class="btn btn-default btn-sm dropdown-toggle" style="display:none" type="button" data-toggle="dropdown">Save Filter</button>&nbsp;
                                                 @*<button class="btn btn-default btn-sm dropdown-toggle exportExcel" type="button" data-toggle="dropdown">Export to Excel</button>*@
 
                                                 @*<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Save Filter1</button>*@
@@ -221,7 +222,7 @@
 </div>
 <div class="modal fade" id="infoModal1" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg">
-        <div class="panel panel-primary customPopup">
+        <div class="panel panel-primary customPopup todo-popup">
             <div class="panel-heading themeColor">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="panel-title" id="contactLabel">Import Data From Template</h4>

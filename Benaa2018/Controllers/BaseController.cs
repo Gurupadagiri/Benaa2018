@@ -92,31 +92,5 @@ namespace Benaa2018.Controllers
             });
             return lstGridModel;
         }
-        
-        private async Task<List<UserMasterViewModel>> GetAllUsers()
-        {
-            List<UserMasterViewModel> lstUsers = new List<UserMasterViewModel>();
-            try
-            {
-                var objIntetnaluser = await _userMasterHelper.GetAllInternalUsers();
-                if (objIntetnaluser.Count > 0)
-                {
-                    foreach (var item in objIntetnaluser)
-                    {
-                        UserMasterViewModel selectListUser = new UserMasterViewModel
-                        {
-                            UserID = item.UserID,
-                            FullName = item.FullName
-                        };
-                        lstUsers.Add(selectListUser);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-
-            }
-            return lstUsers;
-        }
     }
 }
