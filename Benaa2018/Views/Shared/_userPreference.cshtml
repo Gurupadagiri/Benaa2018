@@ -22,11 +22,11 @@
                     <div class="logInHolder">
                         <div class="logInLeft col-md-6 col-sm-6 col-xs-12">
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.LabelFor(a => a.usermasters.UserFirstName)
-                                @Html.TextBoxFor(a => a.usermasters.UserFirstName, "this is default value", new { maxlength = 50, @class = "inputClass" })
+                                @Html.LabelFor(a => a.usermasters.UserFirstName)*
+                                @Html.TextBoxFor(a => a.usermasters.UserFirstName, "this is default value", new { maxlength = 50, @class = "inputClass", @required = "required" })
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.LabelFor(a => a.usermasters.UserLastName)
+                                @Html.LabelFor(a => a.usermasters.UserLastName)*
                                 @Html.TextBoxFor(a => a.usermasters.UserLastName, "this is default value", new { maxlength = 50, @class = "inputClass" })
                             </div>
                             <div class="col-md-12 col-sm-12 col-xs-12">
@@ -43,7 +43,7 @@
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                @Html.LabelFor(a => a.usermasters.UserName)
+                                @Html.LabelFor(a => a.usermasters.UserName)*
                                 @Html.TextBoxFor(a => a.usermasters.UserName, "this is default value", new { maxlength = 50, @class = "inputClass" })
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12 passwordHolder">
@@ -56,7 +56,7 @@
                                     <a href="javascript:void(0);" id="" class="ToolTip  " data-tooltip="Unchecking User Enabled will no longer allow this user login access to Buildertrend.  It will also remove this user from all active lists, however, all historical data will remain." data-hasqtip="0" aria-describedby="qtip-0"></a>
                                 </div>
 
-                                @Html.LabelFor(a => a.usermasters.UserPassword)
+                                @Html.LabelFor(a => a.usermasters.UserPassword)*
                                 @Html.PasswordFor(a => a.usermasters.UserPassword, new { maxlength = 50, @class = "inputClass" })
                                 @*<input type="password" name="flasttname" class="inputClass" />*@
                                 @*<input type="submit" value="Reset" class="ResetButton" />*@
@@ -866,21 +866,7 @@
                                                                 <div class="permissionTDHolder">
                                                                     <div class="fieldHeader">Customer Contacts</div>
                                                                     <ul>
-                                                                        @*@if (@Model.permissions.IsCustomerContactsViewReadOnly)
-                                                                            {
-                                                                                <li class="checkAll view">
-
-                                                                                    @Html.CheckBoxFor(a => a.permissions.IsCustomerContactsView, new { @class = "IsChkViewPermission" })
-                                                                                </li>
-                                                                            }
-                                                                            else
-                                                                            {
-                                                                                <li class="checkAll view">
-
-                                                                                    @Html.CheckBoxFor(a => a.permissions.IsCustomerContactsView, new { @class = "IsChkViewPermission", @disabled = "disabled" })
-                                                                                </li>
-
-                                                                            }*@
+                                                                   
 
                                                                         <li class="checkAll view">
 
@@ -1398,6 +1384,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsUserNeedToConfirmChangePush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -1422,6 +1411,9 @@
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsUserConfirmedChangePush, new { @class = "chkAllPushPermission" })
                                                                                     </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
+                                                                                    </td>
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>
@@ -1445,6 +1437,9 @@
                                                                                     <td class="checkAll edit">
                                                                                         @*<input id="" type="checkbox" name="" checked="checked">*@
                                                                                         @Html.CheckBoxFor(a => a.permissions.IsUserDeclinedChangePush, new { @class = "chkAllPushPermission" })
+                                                                                    </td>
+                                                                                    <td class="checkAll">
+                                                                                        <input id="" type="checkbox" name="" checked="checked" hidden>
                                                                                     </td>
                                                                                 </tr>
                                                                             </tbody>
