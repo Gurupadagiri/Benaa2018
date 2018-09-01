@@ -127,8 +127,12 @@
                             <span class="fieldHeader">Date:</span>
                         </div>
                         <div class="col-xs-8">
-                            <input type="text" asp-for="StartDate" class="form-control" value="" />
-                            <input type="hidden" asp-for="ProjectId" class="form-control" value="" />
+                            <label class="datetext"></label>
+                            <div style="display:none">
+                                <input type="text" asp-for="StartDate" class="form-control" value="" />
+                                <input type="text" asp-for="EndDate" class="form-control" value="" />
+                                <input type="hidden" asp-for="ProjectId" class="form-control" value="" />
+                            </div>
                         </div>
                     </div>
                     <div class="row bt-calendar-quick-add--body-row">
