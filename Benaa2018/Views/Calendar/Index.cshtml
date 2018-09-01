@@ -97,7 +97,7 @@
                                     <div class="col-sm-6">
                                         <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnCalendar">Update Results</button>&nbsp;
                                         <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
-                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Save Filter</button>
+                                        <button class="btn btn-default btn-sm dropdown-toggle" type="button" style="display:none" data-toggle="dropdown">Save Filter</button>
                                     </div>
                                 </div>
                                 <br />
@@ -173,11 +173,11 @@
 </div>
 <div class="modal fade" id="addphase" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
     <div class="panel panel-primary customPopup">
-        <div class="panel-heading themeColor">
+        <div class="panel-heading themeColor ">
             <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
             <h4 class="panel-title" id="contactLabel">Phase List</h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body phase-list">
             <input type="button" id="btnAddPhase" class="blueButton" value="Save">
             <div class="header">
                 Adding a schedule item Phase
@@ -208,7 +208,7 @@
             <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
             <h4 class="panel-title" id="contactLabel">Phase List</h4>
         </div>
-        <div class="panel-body">
+        <div class="panel-body phase-list">
             <input type="button" id="btnAddTag" class="blueButton" value="Save">
             <div class="header">
                 Adding a schedule item tag
@@ -225,6 +225,9 @@
     <div id="pleaseselect" class="">
         « Please Select a Project from the left menu to continue
     </div>
+</div>
+<div class="non-working-day">
+    <span></span>
 </div>
 <div id="projectid" style="display:none"></div>
 <link href="~/css/calendar.css" rel="stylesheet" />

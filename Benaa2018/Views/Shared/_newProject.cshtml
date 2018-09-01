@@ -9,10 +9,10 @@
             <div class="panel-body">
                 <div class="popupTopBtnCon">
                     <div class="row">
-                        <div class="col-sm-1 form-group">
+                        <div class="col-sm-7 form-group top-btn">
                             <button class="btn btn-primary btn-sm" id="saveJobInfo" type="button">Save</button>
-                        </div>
-                        <div class="col-sm-2 form-group pdleft0">
+                            @*</div>
+                                <div class="col-sm-2 form-group pdleft0">*@
                             <div class="dropdown">
                                 <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
                                     Save and New
@@ -23,9 +23,9 @@
                                     <li><a href="#">From a Template</a></li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="col-sm-4 form-group pdleft0">
-                            <button class="btn btn-default btn-sm" style="display:none">Copy to Standalone Template</button>
+                            @*</div>
+                                <div class="col-sm-4 form-group pdleft0">*@
+
                             <button class="btn btn-default btn-sm btn-print">Print</button>
                         </div>
                         <div class="col-sm-4 text-right pull-right form-group">
@@ -61,7 +61,7 @@
                                                     <span class="errormessege ProjectStatusID" style="display:none;color:red">Please Select Project Status</span>
                                                 </div>
                                                 <div class="clearfix"></div>
-                                                <div class="col-sm-3 form-group">
+                                                <div class="col-sm-6 form-group">
                                                     <label>
                                                         Project Type <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Project Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. ">
                                                             <span class="glyphicon glyphicon-info-sign"></span>
@@ -185,12 +185,12 @@
                                                         <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right">
                                                             <span class="glyphicon glyphicon-info-sign"></span>
                                                         </small>
-                                                        <select asp-for="ProjectScheduleMasterModel.ProjectColorId" style="background-color:@Model.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                        <select asp-for="ProjectScheduleMasterModel.ProjectColorId" style="background-color:@Model.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
                                                             <option value="">Select</option>
                                                             @foreach (var item in Model.ProjectColorModels)
-                                                        {
-                                                            <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
-                                                        }
+                                                            {
+                                                                <option value="@item.ColorCode" style="background-color:@item.ColorCode">@item.ProjectColorName</option>
+                                                            }
                                                         </select>
                                                     </label>
                                                 </div>
@@ -220,11 +220,11 @@
                                                     <label>Work Days<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="sdfgdfgdfgdfgdfgdf" data-original-title="" title=""><span class="glyphicon glyphicon-info-sign"></span></small></label>
                                                     <div class="clearfix"></div>
                                                     @foreach (var item in Model.ProjectScheduleMasterModel.DaysList)
-                                                {
-                                                    <label class="checkbox-inline">
-                                                        <input type="checkbox" id="worksdays_@item.Value" value="@item.Value">@item.Key
-                                                    </label>
-                                                }
+                                                    {
+                                                        <label class="checkbox-inline">
+                                                            <input type="checkbox" id="worksdays_@item.Value" value="@item.Value">@item.Key
+                                                        </label>
+                                                    }
                                                     @Html.HiddenFor(a => a.ProjectScheduleMasterModel.WorkDays)
                                                 </div>
                                             </div>
@@ -233,20 +233,20 @@
                                 </div>
                                 <div class="tab-pane fade" id="set2">
                                     <div class="tabConInfo">
-                                        <div class="panel panel-default mrgnTop15px">
+                                        <div class="panel panel-default">
                                             <div class="panel-heading">Owner Information</div>
                                             <div class="panel-body">
                                                 @Html.Partial("_ownerMaster", Model)
                                             </div>
                                         </div>
-                                        <div class="row">
+                                        <div class="new-project-tab">
                                             <div class="col-sm-8 form-group">
                                                 <div class="ownerDiv">
                                                     <strong class="ownerheading">Owner Activation</strong> <button class="btn btn-primary">View owner Site</button>
                                                 </div>
                                                 <div class="col-sm-6 form-group">
                                                     <label>Access Method<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them."><span class="glyphicon glyphicon-info-sign"></span></small></label>
-                                                    <select id="OwnerMasterModel_AccessMethod" name="OwnerMasterModel.AccessMethod" class="noCheckbox">
+                                                    <select id="OwnerMasterModel_AccessMethod" name="OwnerMasterModel.AccessMethod" class="form-control">
                                                         <option value="None">None</option>
                                                         <option value="Hotel">Closed</option>
                                                         <option value="Hotel">Closed</option>
@@ -259,7 +259,7 @@
                                                     <label class="profileInfo">
                                                         <label>Profile Picture<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them."><span class="glyphicon glyphicon-info-sign"></span></small></label>
                                                         <div class="clearfix"></div>
-                                                        <input asp-for="ProjectMasterModel.ProfilePicture" type="file" class="form-control" style="height:auto" />
+                                                        <input asp-for="ProjectMasterModel.ProfilePicture" type="file"  class="form-control" style="height:auto" />
                                                         <input asp-for="OwnerMasterModel.FileName" type="hidden" />
                                                         <input asp-for="OwnerMasterModel.FileType" type="hidden" />
                                                         <input asp-for="OwnerMasterModel.FileSize" type="hidden" />
@@ -276,7 +276,7 @@
                                                         Limit Owner Calendar
                                                         <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them."><span class="glyphicon glyphicon-info-sign"></span></small>
                                                     </label>
-                                                    <select id="OwnerMasterModel_OwnerCalendar" name="OwnerMasterModel.OwnerCalendar" class="noCheckboxSearch">
+                                                    <select id="OwnerMasterModel_OwnerCalendar" name="OwnerMasterModel.OwnerCalendar" class="form-control">
                                                         <option value="FullCalender">Full Calender</option>
                                                         <option value="Open">Open</option>
                                                         <option value="Closed">Closed</option>
@@ -353,33 +353,33 @@
                                             <tbody>
                                                 @foreach (var item in Model.UserMasterViewModels)
                                                 {
-                                                <tr>
-                                                    <td>
-                                                        @item.UserName
-                                                        @Html.HiddenFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].UserID)
-                                                    </td>
+                                                    <tr>
+                                                        <td>
+                                                            @item.UserName
+                                                            @Html.HiddenFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].UserID)
+                                                        </td>
 
-                                                    <td>
-                                                        @if (item.ViewAccess)
-                                                        {
-                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
-                                                        }
-                                                        else
-                                                        {
-                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess);
-                                                        }
-                                                    </td>
-                                                    <td>
-                                                        @if (item.JobNotification)
-                                                        {
-                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification, new { @checked = "checked" });
-                                                        }
-                                                        else
-                                                        {
-                                                        @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification);
-                                                        }
-                                                    </td>
-                                                </tr>
+                                                        <td>
+                                                            @if (item.ViewAccess)
+                                                            {
+                                                                @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].ViewAccess);
+                                                            }
+                                                        </td>
+                                                        <td>
+                                                            @if (item.JobNotification)
+                                                            {
+                                                                @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification, new { @checked = "checked" });
+                                                            }
+                                                            else
+                                                            {
+                                                                @Html.CheckBoxFor(m => m.UserMasterViewModels[Model.UserMasterViewModels.IndexOf(item)].JobNotification);
+                                                            }
+                                                        </td>
+                                                    </tr>
                                                 }
                                             </tbody>
                                         </table>
@@ -397,22 +397,22 @@
                                             <tbody>
                                                 @foreach (var item in Model.ProjectSubcontractorConfigModels)
                                                 {
-                                                <tr>
-                                                    <td>
-                                                        @Html.HiddenFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].SubContractorID)
-                                                        @item.SubcontractorName
-                                                    </td>
-                                                    <td>
-                                                        @if (item.ViewAccess)
+                                                    <tr>
+                                                        <td>
+                                                            @Html.HiddenFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].SubContractorID)
+                                                            @item.SubcontractorName
+                                                        </td>
+                                                        <td>
+                                                            @if (item.ViewAccess)
                                                             {
-                                                            @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
+                                                                @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess, new { @checked = "checked" });
                                                             }
                                                             else
                                                             {
-                                                            @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess);
+                                                                @Html.CheckBoxFor(m => m.ProjectSubcontractorConfigModels[Model.ProjectSubcontractorConfigModels.IndexOf(item)].ViewAccess);
                                                             }
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
                                                 }
                                             </tbody>
                                         </table>

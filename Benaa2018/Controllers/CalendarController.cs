@@ -144,12 +144,12 @@ namespace Benaa2018.Controllers
             var objScheduleDate = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
             
             if (sortOrder == 1)
-                objScheduleDate.OrderByDescending(a => a.StartDate).ToList();
+                objScheduleDate.OrderByDescending(a => a.StartDate.Date).ToList();
             else if (sortOrder == 0)
-                objScheduleDate.OrderBy(a => a.StartDate).ToList();
+                objScheduleDate.OrderBy(a => a.StartDate.Date).ToList();
             foreach (var item in objScheduleDate)
             {
-                item.StartDate = Convert.ToDateTime(item.StartDate).DayOfWeek + "," + Convert.ToDateTime(item.StartDate).ToString("MMM dd") + "," + Convert.ToDateTime(item.StartDate).ToString("yyyy");
+                item.SelectedDate = item.StartDate.DayOfWeek + "," + item.StartDate.ToString("MMM dd") + "," + item.StartDate.ToString("yyyy");
             }
             return objScheduleDate;
         }
@@ -222,7 +222,7 @@ namespace Benaa2018.Controllers
             try
             {
                 var startdate = Convert.ToDateTime(calendarModel.StartDate);
-                calendarModel.EndDate = Convert.ToDateTime(calendarModel.StartDate).AddDays(1).ToString();
+                calendarModel.EndDate = Convert.ToDateTime(calendarModel.StartDate).AddDays(1);
                 calendarModel.Duration = 1;
                 int scheduleId = await _calendarScheduleHelper.SaveCalendarScheduleItemAsync(1, calendarModel);
                 foreach (var item in calendarModel.PredecessorInformationModels)

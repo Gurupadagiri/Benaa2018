@@ -179,7 +179,11 @@ function BindCalendar(data) {
         },
         dayClick: function (date, allDay, jsEvent, view) {
             if (date._d.getDay() === 5 || date._d.getDay() === 6) {
-                alert(convert(date._d, '/') + ' is not a working day');
+                $('.non-working-day').fadeIn();
+                $('.non-working-day span').text(convert(date._d, '/') + ' is not a working day');
+                setTimeout(function () {
+                    $('.non-working-day').fadeOut();
+                }, 2500);
             }
             else {
                 $('#calendarmodalgeneral').addClass('in').css('display', 'block');
@@ -192,9 +196,7 @@ function BindCalendar(data) {
             $('#calendarmodal').addClass('in').css('display', 'block');
         },
         eventRender: function (event, element) {
-            $('.fc-right').insertBefore('.fc-left');
-            //$('.fc-sat').text('Non-Work Day');
-            //$('.fc-fri').text('Non-Work Day');
+            $('.fc-right').insertBefore('.fc-left');           
             //if ($('.select_month').length == 0) {
             //    $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
             //}            
@@ -316,7 +318,7 @@ AgendaView = View.extend({ // make a subclass of View
         var dayEvents = '';
         $.each(events, function (index, event) {
             dayEvents += '<tr>' +
-                '<td>' + event.startDate + '</td>' +
+                '<td>' + event.selectedDate + '</td>' +
                 '<td> Day ' + event.scheuleDay + ' of ' + event.totalScheuleDay + '</td> ' +
                 '<td><div style="position: absolute; top: 0px; left: 0px; height: 100%"><div style="width: 10px; height: 100%; background-color: ' + event.colorCode + '"></div></div><div class="dataschedule" data-schedule="' + event.scheduledItemId + '">' + event.title + '</div></td>' +
                 '<td>' + event.assignedTo + '</td>' +
@@ -333,13 +335,13 @@ ListView = View.extend({ // make a subclass of View
     render: function () {
         this.el.html('<div class="fc-view fc-agendaWeek-view fc-agenda-view" style=""> <div class="toolbatHolder">' +
             '<ul>' +
-            '<li><a href="#">Basic</a></li>' +
-            '<li><a href="#">Detailed</a></li>' +
-            '<li><a href="#">Print</a></li>' +
+            '<li><a class="basic" href="#">Basic</a></li>' +
+            '<li><a class="detail" href="javascript:void(0);">Detailed</a></li>' +
+            '<li><a class="print" href="javascript:void(0);">Print</a></li>' +
             '<li></li>' +
             '</ul>' +
-            '</div><div class="con">' +
-            '<h2> Schedule Items</h2><table class="listviewtable"></table></div></div>');
+            '</div><h2 class="list-header"> Schedule Items</h2><div class="con listview-holder">' +
+            '<table class="listviewtable"></table></div></div>');
     },
     setHeight: function (height, isAuto) {
     },
@@ -367,18 +369,18 @@ ListView = View.extend({ // make a subclass of View
                 });
             });
             t.el.find('.listviewtable').append('<tr class="header">' +
-                '<td class="checkBox" >' +
+                '<td width="30" class="checkBox" >' +
                 '<input type="checkbox" id="checkAll" data-bind="click: CalendarList.CheckAll">' +
                 '</td>' +
-                '<td class="tdID" >ID</td>' +
-                '<td class="title">Title</td>' +
-                '<td>Status</td>' +
-                '<td>Phase</td>' +
-                '<td>Files</td>' +
-                '<td>Dur.</td>' +
-                '<td>Start</td>' +
-                '<td>Finish</td>' +
-                '<td>' +
+                '<td width="40" class="tdID">ID</td>' +               
+                '<td width="75" class="title">Title</td>' +
+                '<td width="60">Status</td>' +
+                '<td width="70">Phase</td>' +
+                '<td width="70">Files</td>' +
+                '<td width="40">Dur.</td>' +
+                '<td width="60">Start</td>' +
+                '<td width="75">Finish</td>' +
+                '<td width="75">' +
                 '<div style="margin: 0 auto; display: table">' +
                 '<div style="margin-right: 23px;">Assigned To</div>' +
                 '<div style="position: relative; left: 76px; top: 50%; margin-top: -12px;">' +
@@ -387,10 +389,10 @@ ListView = View.extend({ // make a subclass of View
                 '</div>' +
                 '</div>' +
                 '</td>' +
-                '<td>' +
+                '<td width="45">' +
                 'User Confirm' +
                 '</td>' +
-                '<td class="checkBox">pred' +
+                '<td width="30" class="checkBox">pred' +
                 '</td>' +
                 '</tr>');
             var i = 0;
@@ -403,6 +405,13 @@ ListView = View.extend({ // make a subclass of View
             var postData = { "scheduledId": parseInt($(this).attr("data-schedule")) };
             $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
             $('#calendarmodal').addClass('in').css('display', 'block');
+        });
+        
+        $(document).on('click', '.detail', function () {
+            $('.colorcode').show();
+        });
+        $(document).on('click', '.basic', function () {
+            $('.colorcode').hide();
         });
     },
     destroyEvents: function () {
@@ -419,8 +428,8 @@ ListView = View.extend({ // make a subclass of View
                 '<input type="checkbox" id="checkAll" data-bind="click: CalendarList.CheckAll">' +
                 '</td>' +
                 '<td class="tdID">' + event.scheduledItemId + '</td>' +
-                '<td class="title" data-schedule="' + event.scheduledItemId + '">' + event.title + '</td>' +
-                '<td>Status</td>' +
+                '<td class="title title-color" data-schedule="' + event.scheduledItemId + '"><div class="colorcode" style=" background-color: ' + event.colorCode + '"></div><span>' + event.title + '</span></td>' +
+                '<td><input type="checkbox" id="listview' + event.scheduledItemId + '" /></td>' +
                 '<td>Phase</td>' +
                 '<td>Files</td>' +
                 '<td>' + event.duration + '</td>' +
@@ -550,7 +559,7 @@ BaselineView = View.extend({
         });
         function getDailyEvents(events) {
             t.el.find('.fc-baseline-view').append('<p>Baseline set for the 5th time by aryan singh on 07/08/18</p>');
-            t.el.find('.fc-baseline-view').append('<div class="con"><table class="listviewtable"></table><div>');
+            t.el.find('.fc-baseline-view').append('<div class="con listview-holder"><table class="listviewtable"></table><div>');
             t.el.find('.fc-baseline-view').append('<div class="SummaryHolder">' +
                 '<h2> Baseline Summary</h2>' +
                 '<table class="conheader">' +
@@ -652,25 +661,25 @@ PhasesListView = View.extend({ // make a subclass of View
 
                     '<div class="phaseHeader">' +
                     '<div class="leftHolder">' +
-                    '<a href="javascript:void(0);" class="toggleAll"><img src="images/add.gif"></a>' +
-                    '<div class="CheckBoxPhase"><input name="chkPhaseSelected" value="' + item.item1 + '" type="checkbox"></div>' +
+                    '<a href="javascript:void(0);" class="toggleAll "></a>' +
+                    '<div class="CheckBoxPhase"><input name="chkPhaseSelected" value="' + item.item1 + '" type="checkbox"><div class="PhaseTitle"><span>' + item.item2 + '</span></div></div>' +
                     '</div>' +
                     '<div class="rightHolder">' +
                     '<div class="Status fieldHeader">Status: <span></span></div>' +
                     '<div class="ExpandPhase">' +
-                    '<a href="javascript:void(0);"><img border="0" src="images/edit(1).gif"></a>' +
+                    '<a href="javascript:void(0);"></a>' +
                     '</div>' +
-                    '<div class="PhaseTitle"><span>' + item.item2 + '</span></div>' +
+                   
                     '</div>' +
                     '</div>' +
                     '</td>' +
                     '<td style="width: 20%; border-right: 1px solid #d1d1d1;">' +
                     '<div class="tdContent">' +
-                    '<div style="float: left">' +
+                    '<div class="phaselist-left" style="float: left">' +
                     '<div class="fieldHeader">Start Date<br></div>' +
                     '<span>' + convert(item.item3, '/') + '</span>' +
                     '</div>' +
-                    '<div style="float: right">' +
+                    '<div class="phaselist-right" style="float: right">' +
                     '<div class="fieldHeader" style="text-align: right">End Date<br></div>' +
                     '<span>' + convert(item.item4, '/') + '</span>' +
                     '</div>' +
@@ -680,7 +689,7 @@ PhasesListView = View.extend({ // make a subclass of View
                     '<td style="width: 13%; min-width: 200px">' +
                     '<div class="tdContent">' +
                     '<div class="fieldHeader">Items Completed</div>' +
-                    '<span>' + item.item6 + '</span> / <span >' + item.item5 + '</span>' +
+                    '<p><span>' + item.item6 + '</span> / <span >' + item.item5 + '</span></p>' +
                     '</div>' +
                     '</td>' +
                     '</tr>' +
@@ -689,7 +698,7 @@ PhasesListView = View.extend({ // make a subclass of View
                     '</div>');
                 t.el.find('.phaseBodyHolder').append('<div class="bottom">' +
                     '<div class="phaseList" data- bind="visible: showPhaseItems" style= "">' +
-                    '<table class="expandSelectItemTable">' +
+                    '<table class="expandSelectItemTable" style="display:none">' +
                     '<thead>' +
                     '<tr">' +
                     '<th style="width: 15px;"></th>' +
@@ -725,6 +734,15 @@ PhasesListView = View.extend({ // make a subclass of View
             var postData = { "scheduledId": parseInt($(this).attr("data-schedule")) };
             $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
             $('#calendarmodal').addClass('in').css('display', 'block');
+        });
+        $(document).on('click', '.toggleAll', function () {
+            if ($(this).parent().find('.open').length == 1) {
+                $(this).removeClass('open');
+            }
+            else {
+                $(this).addClass('open');
+            }            
+            $(this).parents('.phaseBodyHolderTop').next().find('.expandSelectItemTable').toggle();
         });
     },
     destroyEvents: function () {

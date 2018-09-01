@@ -89,21 +89,25 @@ namespace Benaa2018.Controllers
                 int projectId = 0;
                 if (homeContent.ProjectMasterModel.ProjectID == 0)
                 {
-                    projectId = await _projectMasterHelper.SaveProjectMaster(1, homeContent.ProjectMasterModel);
+                    projectId = await _projectMasterHelper.SaveProjectMaster(1, 1, homeContent.ProjectMasterModel);
                     await _userMasterHelper.SaveUserMaterConfig(1, projectId, homeContent.UserMasterViewModels);
                     await _projectScheduleMasterHelper.SaveProjectSchedules(1, projectId, homeContent.ProjectScheduleMasterModel);
                     await _ownerMasterHelper.SaveOwnerMasterAsync(projectId, homeContent.OwnerMasterModel);
                 }
                 else
                 {
-                    projectId = await _projectMasterHelper.UpdateProjectMaster(1, homeContent.ProjectMasterModel);
+                    projectId = await _projectMasterHelper.UpdateProjectMaster(1, 1, homeContent.ProjectMasterModel);
                     await _userMasterHelper.UpdateUserMaterConfig(projectId, homeContent.UserMasterViewModels);
                     await _projectScheduleMasterHelper.UpdateProjectSchedules(1, projectId, homeContent.ProjectScheduleMasterModel);
                     await _ownerMasterHelper.UpdateOwnerMaster(projectId, homeContent.OwnerMasterModel);
                 }
+                homeContent.ProjectMasterModels = await _projectMasterHelper.GetAllProjectByUserId(1);
+                homeContent.ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers();
+                homeContent.ProjectGridModels = BindProjectGrid(homeContent.ProjectMasterModels, homeContent.ProjectManagerMasterModels);
+                homeContent.ProjectModelJsonString = JsonConvert.SerializeObject(homeContent.ProjectGridModels);
                 homeContent.Success = true;
             }
-            return Json(homeContent.Success);
+            return Json(homeContent);
         }
 
         public async Task SaveFileAsync(OwnerMasterViewModel ownerMasterViewModel)
@@ -697,13 +701,13 @@ namespace Benaa2018.Controllers
 
         #region set user preference by permissions or notification
         [HttpGet]
-        public async Task<JsonResult> SetUserPreference(UserPreferenceViewModel userPreferenceViewModel,int caseSet,int setUserId)
+        public async Task<JsonResult> SetUserPreference(UserPreferenceViewModel userPreferenceViewModel, int caseSet, int setUserId)
         {
             int result = 0;
 
-            if(caseSet==1)
+            if (caseSet == 1)
             {
-                var obj2 = await _detaildPermissionHelper.GetUserDetailsInfoByInfo(setUserId,caseSet);
+                var obj2 = await _detaildPermissionHelper.GetUserDetailsInfoByInfo(setUserId, caseSet);
 
                 DetaildPermissionViewModel detailedPermissionViewModel = new DetaildPermissionViewModel
                 {
@@ -1554,7 +1558,7 @@ namespace Benaa2018.Controllers
 
                 };
             }
-                     
+
             return Json(result);
         }
         #endregion

@@ -3844,56 +3844,28 @@
 
                                                     <div class="dropdownHolder">
                                                         <p>Status</p>
-                                                        <div class="statusActionBtn">
-                                                            <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                                            <span>--All Items Selected--permissionHolder</span>
-                                                        </div>
-                                                        <div class="statusActionToggle">
-                                                            <div class="toggleSearch">
-                                                                <input type="search">
-                                                            </div>
-                                                            <ul class="ui-helper-reset">
-                                                                <li><a class="ui-multiselect-all" href="#"><span class="ui-icon ui-icon-check"></span><span>Check all</span></a></li>
-                                                                <li><a class="ui-multiselect-none" href="#"><span class="ui-icon ui-icon-closethick"></span><span>Uncheck all</span></a></li>
-                                                                <li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>
-                                                            </ul>
-
-                                                            <ul class="ui-multiselect-checkboxes ui-helper-reset" style="height: 176px;">
-                                                                <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-0" title="" class="ui-corner-all ui-state-hover-multiselect"><input id="ui-multiselect-ui-id-16-option-0" name="multiselect_ui-id-16" type="checkbox" value="1" title="Open Jobsites" checked="checked" aria-selected="true"><span>Open Jobsites</span></label></li>
-                                                                <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-1" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-1" name="multiselect_ui-id-16" type="checkbox" value="2" title="Closed Jobsites"><span>Closed Jobsites</span></label></li>
-                                                                <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-2" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-2" name="multiselect_ui-id-16" type="checkbox" value="8" title="Standalone Templates"><span>Standalone Templates</span></label></li>
-                                                            </ul>
-                                                        </div>
+                                                        <select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Status* field is required." multiple="">
+                                                            <option value="1">Open Jobsites</option>
+                                                            <option value="1">Closed Jobsites</option>
+                                                            <option value="2">Standalone Templates</option>
+                                                        </select>          
                                                     </div>
                                                     <div class="dropdownHolder">
                                                         <p>Groups</p>
                                                         <div class="groupholder">
-                                                            <div class="statusActionBtn">
-                                                                <span class="ui-icon ui-icon-triangle-1-s"></span>
-                                                                <span>--All Items Selected--</span>
-                                                            </div>
-                                                            <div class="statusActionToggle">
-                                                                <div class="toggleSearch">
-                                                                    <input type="search">
-                                                                </div>
-                                                                <ul class="ui-helper-reset">
-                                                                    <li><a class="ui-multiselect-all" href="#"><span class="ui-icon ui-icon-check"></span><span>Check all</span></a></li>
-                                                                    <li><a class="ui-multiselect-none" href="#"><span class="ui-icon ui-icon-closethick"></span><span>Uncheck all</span></a></li>
-                                                                    <li class="ui-multiselect-close"><a href="#" class="ui-multiselect-close"><span class="ui-icon ui-icon-circle-close"></span></a></li>
-                                                                </ul>
-
-                                                                <ul class="ui-multiselect-checkboxes ui-helper-reset" style="height: 176px;">
-                                                                    <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-0" title="" class="ui-corner-all ui-state-hover-multiselect"><input id="ui-multiselect-ui-id-16-option-0" name="multiselect_ui-id-16" type="checkbox" value="1" title="Open Jobsites" checked="checked" aria-selected="true"><span>Open Jobsites</span></label></li>
-                                                                    <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-1" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-1" name="multiselect_ui-id-16" type="checkbox" value="2" title="Closed Jobsites"><span>Closed Jobsites</span></label></li>
-                                                                    <li class=" " style="display: list-item;"><label for="ui-multiselect-ui-id-16-option-2" title="" class="ui-corner-all"><input id="ui-multiselect-ui-id-16-option-2" name="multiselect_ui-id-16" type="checkbox" value="8" title="Standalone Templates"><span>Standalone Templates</span></label></li>
-                                                                </ul>
-                                                            </div>
+                                                            <select class="withCheckbox jqmsLoaded" data-val="true" data-val-required="The Project Status* field is required."  multiple="">
+                                                                <option value="1">Open Jobsites</option>
+                                                                <option value="1">Closed Jobsites</option>
+                                                                <option value="2">Standalone Templates</option>
+                                                            </select>
                                                         </div>
 
                                                     </div>
                                                     <div class="clearfix"></div>
                                                     <button class="blueButton" data-bind="click: updateResults">Update Results</button>
                                                     <button class="mainButton" data-bind="click: resetFilters">Reset</button>
+                                                    </div>
+                                                </div>
                                         </section>
                                     </fieldset>
                                     <table class="jobsiteTable" cellspacing="0" border="0" width="100%">
@@ -3991,17 +3963,6 @@
 
 
                     <div class="panel-body">
-                        @*@Html.DropDownList("SelectedItem", (IEnumerable<SelectListItem>)ViewData["ListItems"])*@
-                        @*@Html.DropDownList("SelectedUsers", (IEnumerable<SelectListUser>)ViewBag.UsersList)*@
-                        @*@Html.DropDownList("SelectedUsers", ViewBag.UsersList as IEnumerable<SelectListItem>)*@
-                        @*@Html.DropDownList("ObjList", (IEnumerable<SelectListItem>)ViewBag.UsersList, new { id = "ddlLocations", @class = "form-control" })*@
-                        @*<select id="ddlPermission">
-                                <option value="0">--None Selected--</option>
-                                <option value="23">Volvo</option>
-                                <option value="24">Saab</option>
-                                <option value="25">Fiat</option>
-                                <option value="26">Audi</option>
-                            </select>*@
                         @Html.DropDownListFor(x => x.usermasters.UserID, new SelectList(ViewBag.UsersList, "UserID", "FullName"), "--None Selected--", new { id = "ddlPermission", @class = "form-control" })
 
                         <div class="paddingContent" style="text-align:center">
@@ -4027,17 +3988,6 @@
 
 
                     <div class="panel-body">
-                        @*@Html.DropDownList("SelectedItem", (IEnumerable<SelectListItem>)ViewData["ListItems"])*@
-                        @*@Html.DropDownList("SelectedUsers", (IEnumerable<SelectListUser>)ViewBag.UsersList)*@
-                        @*@Html.DropDownList("SelectedUsers", ViewBag.UsersList as IEnumerable<SelectListItem>)*@
-                        @*@Html.DropDownList("ObjList", (IEnumerable<SelectListItem>)ViewBag.UsersList, new { id = "ddlLocations", @class = "form-control" })*@
-                        @*<select id="ddlPermission">
-                                <option value="0">--None Selected--</option>
-                                <option value="23">Volvo</option>
-                                <option value="24">Saab</option>
-                                <option value="25">Fiat</option>
-                                <option value="26">Audi</option>
-                            </select>*@
                         @Html.DropDownListFor(x => x.usermasters.UserID, new SelectList(ViewBag.UsersList, "UserID", "FullName"), "--None Selected--", new { id = "ddlPermission", @class = "form-control" })
 
                         <div class="paddingContent" style="text-align:center">

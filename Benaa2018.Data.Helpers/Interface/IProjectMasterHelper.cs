@@ -12,8 +12,8 @@ namespace Benaa2018.Helper
         Task<List<ProjectMasterViewModel>> GetAllProjectByUserId(int userId);
         Task<string> GetNameByProjectId(int projectId);
         Task<ProjectMasterViewModel> GetProjectDetailsProjectId(int projectId);
-        Task<int> SaveProjectMaster(int userId, ProjectMasterViewModel projectMasterModel);
-        Task<int> UpdateProjectMaster(int userID, ProjectMasterViewModel projectMasterModel);
+        Task<int> SaveProjectMaster(int userId, int companyid, ProjectMasterViewModel projectMasterModel);
+        Task<int> UpdateProjectMaster(int userID, int companyid, ProjectMasterViewModel projectMasterModel);
         Task<List<ProjectManagerMasterViewModel>> GetAllManagers();
         Task<List<ProjectTypeMasterViewModel>> GetAllProjectType();
         List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels, List<ProjectManagerMasterViewModel> ProjectManagerMasterModels);
