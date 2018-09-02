@@ -7,6 +7,7 @@ namespace Benaa2018.Helper.Model
     public class ProjectGridModel
     {
         public int ProjectId { get; set; }
+        public string ProjectColor { get; set; }
         public string ProjectName { get; set; }
         public string StreetAddress { get; set; }
         public string City { get; set; }

@@ -25,5 +25,7 @@ namespace Benaa2018.Data.Model
         public string StartTime { get; set; }
         public string EndTime { get; set; }
         public int Status { get; set; }
+        public bool IsNotify { get; set; }
+        public bool IsRequiredConfirmation { get; set; }
     }
 }

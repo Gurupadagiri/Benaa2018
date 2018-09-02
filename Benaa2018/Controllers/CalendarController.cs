@@ -217,24 +217,26 @@ namespace Benaa2018.Controllers
             return PartialView("_addCalendar", calendarInfo);
         }
 
-        public async Task<bool> SubmitQuickSchedulerInfoAsync(CalendarScheduledItemViewModel calendarModel)
+        public async Task<IActionResult> SubmitQuickSchedulerInfoAsync(CalendarScheduledItemViewModel calendarModel)
         {
             try
             {
-                var startdate = Convert.ToDateTime(calendarModel.StartDate);
-                calendarModel.EndDate = Convert.ToDateTime(calendarModel.StartDate).AddDays(1);
-                calendarModel.Duration = 1;
+                calendarModel.Duration = calendarModel.EndDate.Subtract(calendarModel.StartDate).Days + 1;
                 int scheduleId = await _calendarScheduleHelper.SaveCalendarScheduleItemAsync(1, calendarModel);
                 foreach (var item in calendarModel.PredecessorInformationModels)
                 {
                     await _calendarScheduleHelper.SavePredecessorInformationAsync(scheduleId, calendarModel.ProjectId, calendarModel.CompanyId, item);
                 }
+                calendarModel.Success = true;
+                var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, calendarModel.ProjectId, DateTime.MinValue);
+                var result = ScheduledEvents(scheduledItem);
+                Tuple<bool, string> lstitem = new Tuple<bool, string>(true, result);
+                return Json(lstitem);
             }
             catch
             {
-                return false;
+                return Json(string.Empty);
             }
-            return true;
         }
 
         public async Task<bool> SubmitPhaseAsync(int projectId, string phaseName, int displayOrder, string phasecolor)

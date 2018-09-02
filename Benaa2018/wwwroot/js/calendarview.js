@@ -58,12 +58,16 @@ $(document).ready(function () {
     $('#btnQuickAddSave').on('click', function () {
         var postData = $('#frmSchedule').serialize();
         $.post("Calendar/SubmitQuickSchedulerInfoAsync", postData, function (data) {
-            if (data == true) {
+            if (data.item1 == true) {
                 $('#frmSchedule').find("input[type='text']").each(function (i, element) {
                     $(this).val('');
                 });
             }
+            $('#calendar').fullCalendar('removeEvents');
+            $('#calendar').fullCalendar('addEventSource', JSON.parse(data.item2));
+            $('#calendar').fullCalendar('rerenderEvents');            
             alert("Schedule Details Successfully Added");
+            $('#calendarmodalgeneral').remove('in').hide();
         });
     });
     $('#btnAddPhase').on('click', function () {
@@ -115,9 +119,6 @@ $(document).ready(function () {
         $.post("Calendar/GetFilteredScheduleAsync", postData, function (data) {
             $('#calendar').fullCalendar('removeEvents');
             $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
-            $('#calendar').fullCalendar('removeEvents');
-            $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
-            $('#calendar').fullCalendar('rerenderEvents');
             $('#calendar').fullCalendar('rerenderEvents');
         });
     });
@@ -139,6 +140,25 @@ $(document).ready(function () {
             $('.timeHolder').css('display', 'block');
         } else {
             $('.timeHolder').css('display', 'none');
+        }
+    });
+    $('#frmSchedule').find('#AssignedTo').on('change', function () {
+        if ($(this).val() != null) {
+            $('.notify').show();
+        }
+        else {
+            $('.notify').hide(); 
+            $('#IsNotify').prop('checked', false);
+            $('#IsRequiredConfirmation').prop('checked', false);
+        }
+    });
+    $('#IsNotify').on('change', function () {
+        if ($(this).prop('checked')) {
+            $('.confirmation').show();
+        }
+        else {
+            $('.confirmation').hide();           
+            $('#IsRequiredConfirmation').prop('checked', false);
         }
     });
 });
@@ -179,27 +199,14 @@ function BindCalendar(data) {
         eventLimit: true,
         events: JSON.parse(data),
         Click: function (date, jsEvent, view) {
-        },
-        dayClick: function (date, allDay, jsEvent, view) {
-            if (date._d.getDay() === 5 || date._d.getDay() === 6) {
-                $('.non-working-day').fadeIn();
-                $('.non-working-day span').text(convert(date._d, '/') + ' is not a working day');
-                setTimeout(function () {
-                    $('.non-working-day').fadeOut();
-                }, 2500);
-            }
-            else {
-                $('#calendarmodalgeneral').addClass('in').css('display', 'block');
-                $('#frmSchedule').find("#StartDate").val(convert(date._d, '-'));
-            }
-        },
+        },       
         eventClick: function (calEvent, jsEvent, view) {
             var postData = { "scheduledId": calEvent.id };
             $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
             $('#calendarmodal').addClass('in').css('display', 'block');
         },
         eventRender: function (event, element) {
-            $('.fc-right').insertBefore('.fc-left');           
+            $('.fc-right').insertBefore('.fc-left');
             //if ($('.select_month').length == 0) {
             //    $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
             //}            
@@ -221,6 +228,33 @@ function BindCalendar(data) {
             $(this).css('z-index', 8);
             $('.tooltiptopicevent').remove();
         },
+        selectable: true,
+        select: function (start, end, jsEvent, view) {
+            var endDate = new Date();
+            endDate.setDate(end._d.getDate() - 1);            
+            var diffDays = parseInt((new Date(end._d) - new Date(start._d)) / (1000 * 60 * 60 * 24));
+            if (diffDays == 1) {
+                $('.datetext').text(convert(end._d, '/'));
+            } else {
+                $('.datetext').text(convert(start._d, '/') + ' to ' + convert(endDate, '/'));
+            }            
+            var weekdate = (end._d.getDay() - 1);
+            if (weekdate === 5 || weekdate === -1) {
+                $('.non-working-day').fadeIn();
+                $('.non-working-day span').text(convert(endDate, '/') + ' is not a working day');
+                setTimeout(function () {
+                    $('.non-working-day').fadeOut();
+                }, 2500);
+            }
+            else {
+                $('#calendarmodalgeneral').addClass('in').css('display', 'block');
+                $('#frmSchedule').find("#StartDate").val(convert(start._d, '-'));
+                $('#frmSchedule').find("#EndDate").val(convert(end._d, '-'));
+            }           
+        },
+        selectOverlap: function (event) {
+            return !event.block;
+        }
     });
 }
 
@@ -375,7 +409,7 @@ ListView = View.extend({ // make a subclass of View
                 '<td width="30" class="checkBox" >' +
                 '<input type="checkbox" id="checkAll" data-bind="click: CalendarList.CheckAll">' +
                 '</td>' +
-                '<td width="40" class="tdID">ID</td>' +               
+                '<td width="40" class="tdID">ID</td>' +
                 '<td width="75" class="title">Title</td>' +
                 '<td width="60">Status</td>' +
                 '<td width="70">Phase</td>' +
@@ -409,7 +443,7 @@ ListView = View.extend({ // make a subclass of View
             $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
             $('#calendarmodal').addClass('in').css('display', 'block');
         });
-        
+
         $(document).on('click', '.detail', function () {
             $('.colorcode').show();
         });
@@ -672,7 +706,7 @@ PhasesListView = View.extend({ // make a subclass of View
                     '<div class="ExpandPhase">' +
                     '<a href="javascript:void(0);"></a>' +
                     '</div>' +
-                   
+
                     '</div>' +
                     '</div>' +
                     '</td>' +
@@ -744,7 +778,7 @@ PhasesListView = View.extend({ // make a subclass of View
             }
             else {
                 $(this).addClass('open');
-            }            
+            }
             $(this).parents('.phaseBodyHolderTop').next().find('.expandSelectItemTable').toggle();
         });
     },
