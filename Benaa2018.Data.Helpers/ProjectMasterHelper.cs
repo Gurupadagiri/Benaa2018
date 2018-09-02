@@ -17,7 +17,7 @@ namespace Benaa2018.Helper
         IProjectScheduleMasterHelper _projectScheduleMasterHelper;
         IOwnerMasterHelper _ownerMasterHelper;
         IProjectTypeMasterRepository _projectTypeMasterRepository;
-        
+
         public ProjectMasterHelper(IProjectMasterRepository projectMasterRepository,
             IProjectManagerMasterRepository projectManagerMasterRepoisitory,
             IProjectScheduleMasterHelper projectScheduleMasterHelper,
@@ -38,19 +38,19 @@ namespace Benaa2018.Helper
                 User_ID = userId,
                 Project_Name = projectMasterModel.ProjectName,
                 Address = projectMasterModel.StreetAddress,
-                Latitude= projectMasterModel.Latitude,
+                Latitude = projectMasterModel.Latitude,
                 Longitude = projectMasterModel.Longitude,
                 City = projectMasterModel.City,
-                Status_ID = projectMasterModel.ProjectStatusID,
-                Project_Type_ID = projectMasterModel.ProjectTypeID,
-                Project_Manager_id = projectMasterModel.ProjectManagerID,
-                Project_Group_ID = projectMasterModel.ProjectGroupID,
+                Status_ID = string.Join(",", projectMasterModel.ProjectStatusID),
+                Project_Type_ID = string.Join(",", projectMasterModel.ProjectTypeID),
+                Project_Manager_id = string.Join(",", projectMasterModel.ProjectManagerID),
+                Project_Group_ID = string.Join(",", projectMasterModel.ProjectGroupID),
                 State = projectMasterModel.State,
                 Zip = projectMasterModel.Zip,
-                Internal_Notes= projectMasterModel.InternalNotes,
-                Lot_Info= projectMasterModel.LotInfo,
+                Internal_Notes = projectMasterModel.InternalNotes,
+                Lot_Info = projectMasterModel.LotInfo,
                 Sub_Notes = projectMasterModel.SubNotes,
-                Project_Prefix= projectMasterModel.JobsitePrefix,
+                Project_Prefix = projectMasterModel.JobsitePrefix,
                 Country_ID = projectMasterModel.CountryID,
                 Org_ID = companyid,
                 Contract_Price = projectMasterModel.ContractPrice
@@ -68,10 +68,10 @@ namespace Benaa2018.Helper
                 Project_Name = projectMasterModel.ProjectName,
                 Address = projectMasterModel.StreetAddress,
                 City = projectMasterModel.City,
-                Status_ID = projectMasterModel.ProjectStatusID,
-                Project_Type_ID = projectMasterModel.ProjectTypeID,
-                Project_Manager_id = projectMasterModel.ProjectManagerID,
-                Project_Group_ID = projectMasterModel.ProjectGroupID,
+                Status_ID = string.Join(",", projectMasterModel.ProjectStatusID),
+                Project_Type_ID = string.Join(",", projectMasterModel.ProjectTypeID),
+                Project_Manager_id = string.Join(",", projectMasterModel.ProjectManagerID),
+                Project_Group_ID = string.Join(",", projectMasterModel.ProjectGroupID),
                 State = projectMasterModel.State,
                 Zip = projectMasterModel.Zip,
                 Internal_Notes = projectMasterModel.InternalNotes,
@@ -89,8 +89,8 @@ namespace Benaa2018.Helper
         public async Task<List<ProjectMasterViewModel>> GetAllProjectByUserId(int userId)
         {
             List<ProjectMasterViewModel> lstProjectScheduleMaster = new List<ProjectMasterViewModel>();
-            var projectSchedules = _projectMasterRepository.GetProjectByUserID(userId).Result.Where(a=>a.Project_Name != null).ToList();
-            foreach(var item in projectSchedules)
+            var projectSchedules = _projectMasterRepository.GetProjectByUserID(userId).Result.Where(a => a.Project_Name != null).ToList();
+            foreach (var item in projectSchedules)
             {
                 lstProjectScheduleMaster.Add(new ProjectMasterViewModel
                 {
@@ -101,11 +101,11 @@ namespace Benaa2018.Helper
                     JobsitePrefix = item.Project_Prefix,
                     LotInfo = item.Lot_Info,
                     Permit = item.Permit_No,
-                    ProjectGroupID = item.Project_Group_ID,
-                    ProjectManagerID = item.Project_Manager_id,
+                    ProjectGroupID = item.Project_Group_ID?.Split(","),
+                    ProjectManagerID = item.Project_Manager_id?.Split(","),
                     ProjectName = item.Project_Name,
-                    ProjectStatusID = item.Status_ID,
-                    ProjectTypeID = item.Project_Type_ID,
+                    ProjectStatusID = item.Status_ID?.Split(","),
+                    ProjectTypeID = item.Project_Type_ID?.Split(","),
                     State = item.State,
                     StreetAddress = item.Address,
                     SubNotes = item.Sub_Notes,
@@ -114,10 +114,10 @@ namespace Benaa2018.Helper
                     ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID).ConfigureAwait(true),
                     OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(item.Project_ID).ConfigureAwait(true),
                     OrgID = Convert.ToInt32(item.Org_ID),
-                    Latitude= item.Latitude,
-                    Longitude= item.Longitude
+                    Latitude = item.Latitude,
+                    Longitude = item.Longitude
                 });
-            }            
+            }
             return lstProjectScheduleMaster;
         }
 
@@ -133,11 +133,11 @@ namespace Benaa2018.Helper
                 JobsitePrefix = projectSchedules.Project_Prefix,
                 LotInfo = projectSchedules.Lot_Info,
                 Permit = projectSchedules.Permit_No,
-                ProjectGroupID = projectSchedules.Project_Group_ID,
-                ProjectManagerID = projectSchedules.Project_Manager_id,
+                ProjectGroupID = projectSchedules.Project_Group_ID.Split(","),
+                ProjectManagerID = projectSchedules.Project_Manager_id.Split(","),
                 ProjectName = projectSchedules.Project_Name,
-                ProjectStatusID = projectSchedules.Status_ID,
-                ProjectTypeID = projectSchedules.Project_Type_ID,
+                ProjectStatusID = projectSchedules.Status_ID.Split(","),
+                ProjectTypeID = projectSchedules.Project_Type_ID.Split(","),
                 State = projectSchedules.State,
                 StreetAddress = projectSchedules.Address,
                 SubNotes = projectSchedules.Sub_Notes,
@@ -199,7 +199,7 @@ namespace Benaa2018.Helper
             if (lstManagers == null) return new List<ProjectMasterViewModel>();
             if (projectGroups.Length > 0)
             {
-                var commonProjectGroupID = lstManagers.Select(a => a.Project_Group_ID).Intersect(projectGroups.Where(a=>a != null).ToList());
+                var commonProjectGroupID = lstManagers.Select(a => a.Project_Group_ID).Intersect(projectGroups.Where(a => a != null).ToList());
                 foreach (var item in commonProjectGroupID)
                 {
                     lstProjectMasterInfo.Add(lstManagers.Where(a => a.Project_Group_ID == item).FirstOrDefault());
@@ -226,10 +226,10 @@ namespace Benaa2018.Helper
             if (searchKeyWord != null)
             {
                 var projectNames = lstManagers.Where(a => a.Project_Name != null && a.Project_Name.ToLower().StartsWith(searchKeyWord.ToLower())).ToList();
-                if(projectNames != null)
+                if (projectNames != null)
                 {
                     lstProjectMasterInfo.AddRange(projectNames);
-                }                
+                }
             }
             lstProjectMasterInfo.ForEach(item =>
             {
@@ -242,11 +242,11 @@ namespace Benaa2018.Helper
                     JobsitePrefix = item.Project_Prefix,
                     LotInfo = item.Lot_Info,
                     Permit = item.Permit_No,
-                    ProjectGroupID = item.Project_Group_ID,
-                    ProjectManagerID = item.Project_Manager_id,
+                    ProjectGroupID = item.Project_Group_ID.Split(","),
+                    ProjectManagerID = item.Project_Manager_id.Split(","),
                     ProjectName = item.Project_Name,
-                    ProjectStatusID = item.Status_ID,
-                    ProjectTypeID = item.Project_Type_ID,
+                    ProjectStatusID = item.Status_ID.Split(","),
+                    ProjectTypeID = item.Project_Type_ID.Split(","),
                     State = item.State,
                     StreetAddress = item.Address,
                     SubNotes = item.Sub_Notes,
@@ -262,7 +262,8 @@ namespace Benaa2018.Helper
         {
             List<ProjectManagerMasterViewModel> lstProjectManagerMaster = new List<ProjectManagerMasterViewModel>();
             var lstManagers = await _projectManagerMasterRepoisitory.GetAllAsync();
-            lstManagers.ToList().ForEach(item => {
+            lstManagers.ToList().ForEach(item =>
+            {
                 lstProjectManagerMaster.Add(new ProjectManagerMasterViewModel
                 {
                     ManagerID = item.Manager_ID,
@@ -277,7 +278,8 @@ namespace Benaa2018.Helper
         {
             List<ProjectTypeMasterViewModel> ProjectTypeMasterModelLst = new List<ProjectTypeMasterViewModel>();
             var projectTypes = await _projectTypeMasterRepository.GetAllAsync();
-            projectTypes.ToList().ForEach(item => {
+            projectTypes.ToList().ForEach(item =>
+            {
                 ProjectTypeMasterModelLst.Add(new ProjectTypeMasterViewModel
                 {
                     Active = item.Active,
@@ -294,11 +296,16 @@ namespace Benaa2018.Helper
             List<ProjectGridModel> lstGridModel = new List<ProjectGridModel>();
             ProjectMasterModels.ForEach(a =>
             {
+                string managerName = string.Empty;
+                foreach (var item in a.ProjectManagerID)
+                {
+                    managerName = managerName + ProjectManagerMasterModels.Select(b => b.ManagerID == Convert.ToInt32(a)) + ",";
+                }
                 lstGridModel.Add(new ProjectGridModel
                 {
                     ProjectName = a.ProjectName,
                     City = a.City,
-                    ManagerName = ProjectManagerMasterModels.Where(b => b.ManagerID.ToString() == a.ProjectManagerID).Select(b => b.ManagerName).FirstOrDefault(),
+                    ManagerName = managerName.TrimEnd(','),
                     MobileNo = a.OwnerMasterModel.MobileNo,
                     OwnerName = a.OwnerMasterModel.OwnerName,
                     ProjectId = a.ProjectID,

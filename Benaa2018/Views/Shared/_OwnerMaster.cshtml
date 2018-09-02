@@ -46,6 +46,14 @@
                                 <tbody>
                                     @foreach (var item in Model.ProjectMasterModels)
                                     {
+                                        var managerName = string.Empty;
+                                        if (item.ProjectManagerID != null)
+                                        {
+                                            foreach (var itm in item.ProjectManagerID)
+                                            {
+                                                managerName = managerName + Model.ProjectManagerMasterModels.Where(a => a.ManagerID.ToString() == itm).Select(a => a.ManagerName).FirstOrDefault();
+                                            }
+                                        }
                                         <tr>
                                             <td><button data-projectid="@item.ProjectID" class="project-info" type="button">select</button></td>
                                             <td data-toggle="modal" data-target="#newProject" class="projectinfo" data-project="@item.ProjectID">@item.ProjectName</td>
@@ -53,7 +61,7 @@
                                             <td>@item.City</td>
                                             <td>@item.State</td>
                                             <td>@item.Zip</td>
-                                            <td>@Model.ProjectManagerMasterModels.Where(a => a.ManagerID.ToString() == item.ProjectManagerID).Select(a => a.ManagerName).FirstOrDefault()</td>
+                                            <td>@managerName?.TrimEnd(',')</td>
                                             <td>@item.OwnerMasterModel.OwnerName</td>
                                             <td>@item.OwnerMasterModel.Telephone</td>
                                             <td>@item.OwnerMasterModel.MobileNo</td>

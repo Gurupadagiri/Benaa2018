@@ -879,7 +879,7 @@
     </script>
     <script>
         $(document).ready(function () {
-            $("#saveJobInfo").click(function () {
+            $("#saveJobInfo,.scratch-project-new").click(function () {
                  var infoForm = $("#frmSubmitProjectMaster");
                 if ($('#ProjectMasterModel_ProjectName').val() == '') {
                     $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'block');
@@ -1028,7 +1028,9 @@
                             // refresh the grid
                             $("#example").trigger('reloadGrid');
                         }
-                        $('#newProject').removeClass('in').hide()
+                        if ($(this).context.className !== "scratch-project-new") { 
+                            $('#newProject').removeClass('in').hide();
+                        }                        
                         alert("Project Details Successfully Added");
                     } else {
                         alert("Project Details not Saved");
