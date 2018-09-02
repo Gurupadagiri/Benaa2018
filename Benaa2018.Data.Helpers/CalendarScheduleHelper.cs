@@ -37,15 +37,17 @@ namespace Benaa2018.Helper
                 AssignedTo = calendarScheuledItem.AssignedTo,
                 ColorCode = calendarScheuledItem.ColorCode,
                 Duration = calendarScheuledItem.Duration,
-                EndDate = Convert.ToDateTime(calendarScheuledItem.EndDate),
+                EndDate = calendarScheuledItem.EndDate,
                 EndTime = calendarScheuledItem.EndTime,
                 Hourly = calendarScheuledItem.Hourly,
                 Reminder = calendarScheuledItem.Reminder,
-                StartDate = Convert.ToDateTime(calendarScheuledItem.StartDate),
+                StartDate = calendarScheuledItem.StartDate,
                 StartTime = calendarScheuledItem.StartTime,
                 CompanyId = companyId,
                 ProjectId = calendarScheuledItem.ProjectId,
-                Status= calendarScheuledItem.Status
+                Status= calendarScheuledItem.Status,
+                IsNotify = calendarScheuledItem.IsNotify,
+                IsRequiredConfirmation = calendarScheuledItem.IsRequiredConfirmation
             };
             var companyObj = await _calendarScheduledItemRepoisitory.CreateAsync(calendarItem);
             return companyObj.ScheduledItemId;
@@ -68,7 +70,9 @@ namespace Benaa2018.Helper
                 StartTime = calendarScheuledItem.StartTime,
                 CompanyId = companyId,
                 ProjectId = calendarScheuledItem.ProjectId,
-                Status = calendarScheuledItem.Status
+                Status = calendarScheuledItem.Status,
+                IsNotify = calendarScheuledItem.IsNotify,
+                IsRequiredConfirmation = calendarScheuledItem.IsRequiredConfirmation
             };
             var companyObj = await _calendarScheduledItemRepoisitory.UpdateAsync(calendarItem);
             return companyObj.ScheduledItemId;

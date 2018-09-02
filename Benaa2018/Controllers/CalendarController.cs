@@ -221,8 +221,6 @@ namespace Benaa2018.Controllers
         {
             try
             {
-                calendarModel.StartDate = Convert.ToDateTime(calendarModel.StartDate);
-                calendarModel.EndDate = Convert.ToDateTime(calendarModel.EndDate);
                 calendarModel.Duration = calendarModel.EndDate.Subtract(calendarModel.StartDate).Days + 1;
                 int scheduleId = await _calendarScheduleHelper.SaveCalendarScheduleItemAsync(1, calendarModel);
                 foreach (var item in calendarModel.PredecessorInformationModels)

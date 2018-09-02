@@ -142,6 +142,25 @@ $(document).ready(function () {
             $('.timeHolder').css('display', 'none');
         }
     });
+    $('#frmSchedule').find('#AssignedTo').on('change', function () {
+        if ($(this).val() != null) {
+            $('.notify').show();
+        }
+        else {
+            $('.notify').hide(); 
+            $('#IsNotify').prop('checked', false);
+            $('#IsRequiredConfirmation').prop('checked', false);
+        }
+    });
+    $('#IsNotify').on('change', function () {
+        if ($(this).prop('checked')) {
+            $('.confirmation').show();
+        }
+        else {
+            $('.confirmation').hide();           
+            $('#IsRequiredConfirmation').prop('checked', false);
+        }
+    });
 });
 
 function populatecalendar(projectid) {

@@ -151,6 +151,22 @@
                             @Html.DropDownListFor(a => a.AssignedTo, new SelectList(baseModel.UserMasterViewModels, "UserID", "FullName"), new { @multiple = "multiple", @class = "withCheckbox required" })
                         </div>
                     </div>
+                    <div class="row bt-calendar-quick-add--body-row notify" style="display:none">
+                        <div class="col-xs-4">
+                            <span class="fieldHeader">Notify?</span>
+                        </div>
+                        <div class="col-xs-8">
+                            <input type="checkbox" asp-for="IsNotify" />
+                        </div>
+                        <div class="confirmation" style="float:right;display:none">
+                            <div class="col-xs-4">
+                                <span class="fieldHeader">Require Confirmation?</span>
+                            </div>
+                            <div class="col-xs-8">
+                                <input type="checkbox" asp-for="IsRequiredConfirmation" />
+                            </div>
+                        </div>
+                    </div>
                     <div class="row bt-calendar-quick-add--body-row">
                         <div class="col-xs-4">
                             <span class="fieldHeader">Color:</span>
