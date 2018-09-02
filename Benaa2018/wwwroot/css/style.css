@@ -1469,8 +1469,8 @@ body .panel-body {
 
 .modal-dialog .btn-primary {
     color: #fff;
-    background-color: #91650c;
-    border-color: #91650c;
+    background-color: #626262;
+    border-color: #626262;
 }
 
 .modal-dialog .btn-default {
@@ -1484,6 +1484,7 @@ body .panel-body {
 
 .modal-open .modal .modal-dialog {
     width: 75%;
+    border-radius: 9px;
 }
 
 .modal-open .modal .modal-dialog .panel-body {
@@ -1492,6 +1493,8 @@ body .panel-body {
 }
 .modal-open #infoModal.modal .modal-dialog {
     width: 95%;
+    background: rgba(0,0,0,0);
+    border-radius: 7px;
 }
 .tabsConatiner ul li a:hover{
     text-decoration:none;
@@ -2104,8 +2107,16 @@ ul.tabs li.active a:after {
 }
 
 .passwordHolder .inputClass {
-    width: 80%;
+    width: 74%;
     float: left;
+}
+
+.spacing{
+    margin:6px 0 10px;
+}
+
+.passwordHolder .inputClass .ResetButton {
+    padding: 7px;
 }
 
 .ResetButton {
@@ -2139,7 +2150,9 @@ ul.tabs li.active a:after {
     font-weight: 400;
 }
 
-.permissionTD,
+.permissionTD{
+    border:0;
+}
 .innerPermission,
 .floatThead-container .permissionTD,
 .floatThead-container .innerPermission {
@@ -2161,15 +2174,24 @@ ul.tabs li.active a:after {
         display: inline-block;
         background: transparent;
         font-size: 12px;
-        padding: 0 0 0 9px;
+        padding: 0;
+        text-align:center;
     }
+
+.floatThead-container .permissionTD .checkAll.delete input {
+    margin-right: 4px;
+}
 
 .chHolder .permissionTDHolder ul {
     padding: 0 29px 0 0;
 }
 
 .chHolder .permissionTDHolder .checkAll {
-    padding: 0 0 0 18px;
+    padding: 0 1px 0 18px;
+}
+
+.chHolder .permissionTDHolder .checkAll.edit {
+    padding: 0 3px 0 16px;
 }
 
 .chHolder.odd .permissionContent tr td:last-child .permissionTDHolder {
@@ -2695,6 +2717,7 @@ input[type="checkbox"].single-to-do-check {
 
 .contactLabelPopUp .modal-dialog {
     width: 350px;
+    border-radius: 6px;
 }
 
 .floatThead-table {
@@ -2727,7 +2750,7 @@ input[type="checkbox"].single-to-do-check {
 
 .chHolder .permissionContent tr td:last-child .permissionTDHolder ul {
     /*padding-right:40px;*/
-    padding-left: 40px;
+    padding-left: 50px;
     padding-right: 0;
     float: left;
 }
@@ -2807,27 +2830,34 @@ input[type="checkbox"].single-to-do-check {
 }
 
 .permissionContent .rightTableAlign {
-    width: 35%;
+    width: 32%;
     float: right;
     margin-right: 16px;
 }
+.chHolder.odd .permissionContent .rightTableAlign{
+    margin-right:21px;
+}
 
-    .permissionContent .rightTableAlign table {
-        width: 100%;
-        float: left;
-    }
+.permissionContent .rightTableAlign table {
+    width: 100%;
+    float: left;
+}
 
     .permissionContent .rightTableAlign tr td.checkAll {
-        width: 25px;
+        width: 25px!important;
         text-align: left;
         border: 0;
         padding-left: 0;
     }
+        .permissionContent .rightTableAlign tr td.checkAll + td,
+        .permissionContent .rightTableAlign tr td.checkAll + td + td{
+            width: 25px !important;
+        }
 
-.chHolder.odd .permissionContent tr td,
-.chHolder .permissionContent tr td {
-    padding: 5px;
-}
+        .chHolder.odd .permissionContent tr td,
+        .chHolder .permissionContent tr td {
+            padding: 5px;
+        }
 body .btn-success,
 body .blueButton, body .Projects-List .btn-primary {
     color: #fff !important;
@@ -2841,6 +2871,12 @@ body .blueButton, body .Projects-List .btn-primary {
         background-color: #ad9563 !important;
         border-color: #ad9563 !important;
     }
+
+body .customPopup .blueButton,
+body .customPopup .blueButton :hover{
+    background-color: #626262 !important;
+    border-color: #626262 !important;
+}
 
 
 
@@ -3018,6 +3054,7 @@ body .blueButton, body .Projects-List .btn-primary {
 .modal-dialog .panel {
     border: 0;
     border-radius: 6px!important;
+    padding-bottom:6px;
 }
 .customPopup .panel-body{
     border-radius:7px;
@@ -3079,9 +3116,15 @@ body .blueButton, body .Projects-List .btn-primary {
     padding-bottom: 1px;
     background: #fff;
 }
-.chHolder .permissionTDHolder ul {
-    padding: 0 29px 0 0;
+
+.customPopup .nav-tabs {
+    padding-left:15px;
 }
+
+.chHolder .permissionTDHolder ul {
+    padding: 0 22px 0 0;
+}
+
 .fc button {
     padding: 0 20px !important;
     text-transform: capitalize;
@@ -3198,4 +3241,57 @@ body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
 .add-check-list {
     width: 100%;
     float: left
+}
+#infoModal .panel-body,
+#frmSubmitUserPreferenceMaster .panel-body {
+    padding: 15px;
+}
+#infoModal .customPopup .filterContainer {
+    padding-left: 0;
+    padding-right: 0;
+    margin-top: 15px;
+}
+#frmSubmitUserPreferenceMaster label {
+    margin: 10px 0 3px;
+    font-size: 12px;
+    font-family: Arial;
+    color: #626262;
+    font-weight:400;
+}
+
+#frmSubmitUserPreferenceMaster .ResetButton {
+    float: right;
+    padding: 6px 7px;
+}
+
+body .flatTextBox, 
+body .flatTextBoxReadOnly{
+    height:30px;
+}
+
+body .currencySymbol {
+    height: 30px;
+    padding: 5px 9px;
+    margin-top: 10px;
+}
+.adminLabel {
+    padding-top: 6px;
+    margin-right: 7px;
+}
+.moretext {
+    padding-top: 6px;
+    margin-left: 2px;
+}
+.chHolder.odd .permissionContent tr td a/*, .chHolder .permissionContent tr td a*/{
+    float:right;
+    margin-top:4px;
+}
+.chHolder.odd .permissionContent tr td .checkboxLine a {
+    float:none;
+    margin-left:10px;
+}
+#frmSubmitUserPreferenceMaster .mainTab {
+    width: 100%;
+    float: left;
+    margin-top:15px;
 }
