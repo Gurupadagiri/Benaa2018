@@ -1264,11 +1264,15 @@
             $('#example_toppager_left').html(innerexport);
             $('#export').remove();
         });
-
+        function formatColor(cellValue, options, rowObject) {
+            var linkMessage = '<div class="colorcode" style= "background-color: ' + cellValue + '"></div>';
+            return linkMessage;
+        };
         function BindGrid(divId, jsondata) {       
             $("#" + divId).jqGrid({
                     colModel: [
                         { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
+                        { name: "ProjectColor", label: "Project Color", width: 53, formatter: formatColor },
                         { name: "ProjectName", label: "Project Name", width: 53 },
                         {
                             name: "StreetAddress", label: "Street Address", width: 75
@@ -1285,7 +1289,7 @@
                     data: jsondata,
                     iconSet: "fontAwesome",
                     idPrefix: "g5_",
-                    rownumbers: true,
+                    rownumbers: false,
                     sortname: "ProjectName",
                     sortorder: "desc",
                     threeStateSort: true,
@@ -1293,7 +1297,6 @@
                     headertitles: true,
                     toppager: true,
                     pager: true,
-
                     rowNum: 10,
                     viewrecords: true,
                     searching: {
@@ -1302,7 +1305,6 @@
                     caption: ""
                 });
         }
-
     </script>
     @if (baseModel != null)
     {

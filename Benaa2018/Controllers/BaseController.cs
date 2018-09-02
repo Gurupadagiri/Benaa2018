@@ -78,6 +78,7 @@ namespace Benaa2018.Controllers
                 lstGridModel.Add(new ProjectGridModel
                 {
                     ProjectName = a.ProjectName,
+                    ProjectColor = a.ProjectScheduleMasterModel.JobColorID,
                     City = a.City,
                     ManagerName = ProjectManagerMasterModels.Where(b => b.ManagerID.ToString() == a.ProjectManagerID).Select(b => b.ManagerName).FirstOrDefault(),
                     MobileNo = a.OwnerMasterModel.MobileNo,

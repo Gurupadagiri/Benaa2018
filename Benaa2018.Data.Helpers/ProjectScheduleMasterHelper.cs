@@ -26,11 +26,10 @@ namespace Benaa2018.Helper
                 {
                     Project_Schedule_ID = item.Schedule_ID,
                     OrgID = item.Org_ID,
-                    ProjectColorId = item.Project_Color_ID,
                     ProjectId = item.Project_ID,
                     ActualCompletion = item.Actual_Completion.ToString("dd/MM/yyyy"),
                     ActualStart = item.Actual_Start.ToString("d/MM/yyyy"),
-                    JobColorID = item.Project_Color_ID,
+                    JobColorID = item.ProjectColorId,
                     WorkDays = item.Works_Days,
                     ProjectStart = item.Projected_Start.ToString("d/MM/yyyy"),
                     ProjectCompletion = item.Projected_Completion.ToString("d/MM/yyyy")
@@ -47,11 +46,10 @@ namespace Benaa2018.Helper
             {
                 Project_Schedule_ID = projectScheduleMaster.Schedule_ID,
                 OrgID = projectScheduleMaster.Org_ID,
-                ProjectColorId = projectScheduleMaster.Project_Color_ID,
                 ProjectId = projectScheduleMaster.Project_ID,
                 ActualCompletion = projectScheduleMaster.Actual_Completion.ToString("d/MM/yyyy"),
                 ActualStart = projectScheduleMaster.Actual_Start.ToString("d/MM/yyyy"),
-                JobColorID = projectScheduleMaster.Project_Color_ID,
+                JobColorID = projectScheduleMaster.ProjectColorId,
                 WorkDays = projectScheduleMaster.Works_Days,
                 ProjectStart = projectScheduleMaster.Projected_Start.ToString("d/MM/yyyy"),
                 ProjectCompletion = projectScheduleMaster.Projected_Completion.ToString("d/MM/yyyy"),
@@ -67,10 +65,9 @@ namespace Benaa2018.Helper
                 Projected_Completion = Convert.ToDateTime(projectScheduleMasterModel.ProjectCompletion),
                 Org_ID = 1,
                 Projected_Start = Convert.ToDateTime(projectScheduleMasterModel.ProjectStart),
-                Project_ID = projectMasterId,
-                Project_Color_ID = projectScheduleMasterModel.JobColorID,
+                Project_ID = projectMasterId,                
                 Works_Days = projectScheduleMasterModel.WorkDays,
-                ProjectColorId = projectScheduleMasterModel.ProjectColorId                
+                ProjectColorId = projectScheduleMasterModel.JobColorID                
             };
             await _projectScheduleMasterRepository.CreateAsync(projectScheduleMaster);
         }

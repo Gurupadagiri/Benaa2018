@@ -21,9 +21,7 @@ namespace Benaa2018.Helper.ViewModels
         public int OrgID { get; set; }
 
         public int ProjectId { get; set; }
-
-        public string ProjectColorId { get; set; }
-
+                
         [DataType(DataType.DateTime)]
         [Display(Name = "Project Start")]
         public string ProjectStart { get; set; }
