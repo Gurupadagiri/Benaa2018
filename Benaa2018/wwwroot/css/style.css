@@ -3295,3 +3295,6 @@ body .currencySymbol {
     float: left;
     margin-top:15px;
 }
+.customPopup .popupTopBtnCon .form-group.top-btn {
+    padding: 15px 32px !important;
+}

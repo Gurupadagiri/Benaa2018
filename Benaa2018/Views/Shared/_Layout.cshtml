@@ -1033,7 +1033,10 @@
                     } else {
                         alert("Project Details not Saved");
                     }
-                });
+                });               
+            });
+            $('.color-select').on('change', function () {
+                $(this).css('background-color', $(this).val());
             });
             //Filter Result
             $('a.filterproject').on('click', function () {
@@ -1265,7 +1268,7 @@
             $('#export').remove();
         });
         function formatColor(cellValue, options, rowObject) {
-            var linkMessage = '<div class="colorcode" style= "background-color: ' + cellValue + '"></div>';
+            var linkMessage = '<div class="colorcode" style= "background-color: ' + cellValue + '; padding: 10px 47px; margin: -2px;"></div>';
             return linkMessage;
         };
         function BindGrid(divId, jsondata) {       
