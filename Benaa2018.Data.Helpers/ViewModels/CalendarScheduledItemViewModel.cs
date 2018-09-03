@@ -23,9 +23,9 @@ namespace Benaa2018.Helper.ViewModels
         //public int TagId { get; set; }
         public int ProjectId { get; set; }
         public string ColorCode { get; set; }
-        public DateTime StartDate { get; set; }
+        public string StartDate { get; set; }
         public string SelectedDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; }
         public int Duration { get; set; }
         public string AssignedTo { get; set; }
         public int Reminder { get; set; }
@@ -41,6 +41,8 @@ namespace Benaa2018.Helper.ViewModels
         public int Status { get; set; }
         public int TotalScheuleDay { get; set; }
         public int ScheuleDay { get; set; }
+        public bool IsNotify { get; set; }
+        public bool IsRequiredConfirmation { get; set; }
         public CalendarPhaseViewModel CalendarPhaseModel { get; set; }
         public CalendarTagViewModel CalendarTagModel { get; set; }
         public List<CalendarPhaseViewModel> CalendarPhaseModels { get; set; }

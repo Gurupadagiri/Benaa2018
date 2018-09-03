@@ -25,17 +25,17 @@ namespace Benaa2018.Helper.ViewModels
         public int OrgID { get; set; }
         public int CountryID { get; set; }
         [Display(Name = "Project Status*")]
-        public int ProjectStatusID { get; set; }
+        public string[] ProjectStatusID { get; set; }
         public int UserID { get; set; }   
 
         [Display(Name = "Project Group*")]
-        public string ProjectGroupID { get; set; }
+        public string[] ProjectGroupID { get; set; }
 
         [Display(Name = "Project Type*")]
-        public int ProjectTypeID { get; set; }
+        public string[] ProjectTypeID { get; set; }
 
         [Display(Name = "Project Manager*")]
-        public string ProjectManagerID { get; set; }
+        public string[] ProjectManagerID { get; set; }
 
         [Required]
         [DataType(DataType.Text)]

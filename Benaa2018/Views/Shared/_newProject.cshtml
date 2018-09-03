@@ -19,8 +19,8 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li class="scratch-project"><a href="javascript:void(0);">From Scratch</a></li>
-                                    <li><a href="#">From a Template</a></li>
+                                    <li class="scratch-project-new"><a href="javascript:void(0);">From Scratch</a></li>
+                                    @*<li><a href="#">From a Template</a></li>*@
                                 </ul>
                             </div>
                             @*</div>
@@ -185,7 +185,7 @@
                                                         <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right">
                                                             <span class="glyphicon glyphicon-info-sign"></span>
                                                         </small>
-                                                        <select asp-for="ProjectScheduleMasterModel.ProjectColorId" style="background-color:@Model.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                                                        <select asp-for="ProjectScheduleMasterModel.JobColorID" style="background-color:@Model.ProjectColorModels.FirstOrDefault().ColorCode" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
                                                             <option value="">Select</option>
                                                             @foreach (var item in Model.ProjectColorModels)
                                                             {

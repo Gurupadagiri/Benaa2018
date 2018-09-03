@@ -45,7 +45,9 @@ namespace Benaa2018.Helper
                 StartTime = calendarScheuledItem.StartTime,
                 CompanyId = companyId,
                 ProjectId = calendarScheuledItem.ProjectId,
-                Status= calendarScheuledItem.Status
+                Status= calendarScheuledItem.Status,
+                IsNotify = calendarScheuledItem.IsNotify,
+                IsRequiredConfirmation = calendarScheuledItem.IsRequiredConfirmation
             };
             var companyObj = await _calendarScheduledItemRepoisitory.CreateAsync(calendarItem);
             return companyObj.ScheduledItemId;
@@ -68,7 +70,9 @@ namespace Benaa2018.Helper
                 StartTime = calendarScheuledItem.StartTime,
                 CompanyId = companyId,
                 ProjectId = calendarScheuledItem.ProjectId,
-                Status = calendarScheuledItem.Status
+                Status = calendarScheuledItem.Status,
+                IsNotify = calendarScheuledItem.IsNotify,
+                IsRequiredConfirmation = calendarScheuledItem.IsRequiredConfirmation
             };
             var companyObj = await _calendarScheduledItemRepoisitory.UpdateAsync(calendarItem);
             return companyObj.ScheduledItemId;
@@ -91,11 +95,11 @@ namespace Benaa2018.Helper
                     ColorCode = a.ColorCode,
                     CreatdDate = a.Created_Date,
                     Duration = a.Duration,
-                    EndDate = a.EndDate,
+                    EndDate = a.EndDate.ToString(),
                     EndTime = a.EndTime,
                     Hourly = a.Hourly,
                     Reminder = a.Reminder,
-                    StartDate = a.StartDate,
+                    StartDate = a.StartDate.ToString(),
                     StartTime = a.StartTime,
                     CompanyId = a.CompanyId,
                     ProjectId = a.ProjectId,
@@ -121,11 +125,11 @@ namespace Benaa2018.Helper
                 ColorCode = scheduledItems.ColorCode,
                 CreatdDate = scheduledItems.Created_Date,
                 Duration = scheduledItems.Duration,
-                EndDate = scheduledItems.EndDate,
+                EndDate = scheduledItems.EndDate.ToString(),
                 EndTime = scheduledItems.EndTime,
                 Hourly = scheduledItems.Hourly,
                 Reminder = scheduledItems.Reminder,
-                StartDate = scheduledItems.StartDate,
+                StartDate = scheduledItems.StartDate.ToString(),
                 StartTime = scheduledItems.StartTime,
                 CompanyId = scheduledItems.CompanyId,
                 ProjectId = scheduledItems.ProjectId,

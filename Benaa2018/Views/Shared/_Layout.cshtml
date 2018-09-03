@@ -947,8 +947,8 @@
     </script>
     <script>
         $(document).ready(function () {
-            $("#saveJobInfo").click(function () {
-                var infoForm = $("#frmSubmitProjectMaster");
+            $("#saveJobInfo,.scratch-project-new").click(function () {
+                 var infoForm = $("#frmSubmitProjectMaster");
                 if ($('#ProjectMasterModel_ProjectName').val() == '') {
                     $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'block');
                     $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
@@ -1091,17 +1091,22 @@
                         infoForm.find("input[type='text']").each(function (i, element) {
                             $(this).val('');
                         });
-                        if (data.projectModelJsonString !== '') {
-                            $("#example").jqGrid("setGridParam", { datatype: "json" })
-                                .trigger("reloadGrid", [{ current: true }]);
-                            BindGrid('example', JSON.parse(data.projectModelJsonString));
+                        if (data.projectModelJsonString !== '') {                            
+                            $("#example").jqGrid('setGridParam', { data: JSON.parse(data.projectModelJsonString) });
+                            // refresh the grid
+                            $("#example").trigger('reloadGrid');
                         }
-                        $('#newProject').removeClass('in').hide()
+                        if ($(this).context.className !== "scratch-project-new") { 
+                            $('#newProject').removeClass('in').hide();
+                        }                        
                         alert("Project Details Successfully Added");
                     } else {
                         alert("Project Details not Saved");
                     }
-                });
+                });               
+            });
+            $('.color-select').on('change', function () {
+                $(this).css('background-color', $(this).val());
             });
             //Filter Result
             $('a.filterproject').on('click', function () {
@@ -1323,7 +1328,7 @@
             $(document).on("click", "td[aria-describedby='example_ProjectName']", function () {
                 var projectId = parseInt($(this).prev().text());
                 SetProjectDetails(projectId);
-                $('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');                
+                $('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');
             });
             $(document).on('click', '#projectclose', function () {
                 $('#newProject').removeClass('in').removeAttr('style').attr('style', 'display:none');
@@ -1332,13 +1337,15 @@
             $('#example_toppager_left').html(innerexport);
             $('#export').remove();
         });
-
-        function BindGrid(divId, jsondata) {
-            $("#" + divId).jqGrid("setGridParam", { datatype: "json" })
-                .trigger("reloadGrid", [{ current: true }]);
+        function formatColor(cellValue, options, rowObject) {
+            var linkMessage = '<div class="colorcode" style= "background-color: ' + cellValue + '; padding: 10px 47px; margin: -2px;"></div>';
+            return linkMessage;
+        };
+        function BindGrid(divId, jsondata) {       
             $("#" + divId).jqGrid({
                     colModel: [
                         { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
+                        { name: "ProjectColor", label: "", width: 15, formatter: formatColor },
                         { name: "ProjectName", label: "Project Name", width: 53 },
                         {
                             name: "StreetAddress", label: "Street Address", width: 75
@@ -1355,7 +1362,7 @@
                     data: jsondata,
                     iconSet: "fontAwesome",
                     idPrefix: "g5_",
-                    rownumbers: true,
+                    rownumbers: false,
                     sortname: "ProjectName",
                     sortorder: "desc",
                     threeStateSort: true,
@@ -1363,7 +1370,6 @@
                     headertitles: true,
                     toppager: true,
                     pager: true,
-
                     rowNum: 10,
                     viewrecords: true,
                     searching: {
@@ -1372,7 +1378,6 @@
                     caption: ""
                 });
         }
-
     </script>
     @if (baseModel != null)
     {
@@ -1422,7 +1427,7 @@
                 marker.setMap(map);
             }
 
-        </script>        
+        </script>
     }
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
 </body>
