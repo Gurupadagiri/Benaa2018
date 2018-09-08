@@ -40,13 +40,20 @@ namespace Benaa2018.Data.Repository
             return entity;
         }
 
-        public async virtual Task DeleteAsync(T entity)
+        //public async virtual Task DeleteAsync(T entity)
+        //{
+        //    await Task.Factory.StartNew(() => _context.Remove(entity));
+
+        //    await Save();
+        //}
+
+
+        public async Task DeleteAsync(T entity)
         {
             await Task.Factory.StartNew(() => _context.Remove(entity));
-           
+
             await Save();
         }
-
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await Task.Factory.StartNew(() => _context.Set<T>());
@@ -57,13 +64,51 @@ namespace Benaa2018.Data.Repository
             return await _context.Set<T>().FindAsync(id);
         }
 
+
+
         public async Task<T> UpdateAsync(T entity)
         {
-           // _context.UpdateRange(entity);
-            _context.Entry(entity).State = EntityState.Modified;
-            await Save();
-            await _context.Entry(entity).GetDatabaseValuesAsync();
-            return entity;
+            using (var transaction = _context.Database.BeginTransaction())
+            {
+                try
+                {
+                    // _context.Update() = System.Data.Entity.EntityState.Deleted
+
+                    //_context.Entry(entity).State = EntityState.Deleted;
+                    //if(_context.Entry(entity).State== EntityState.Detached)
+                    //{
+
+                    //}
+                    
+                    _context.Entry(entity).State = EntityState.Detached;
+                    
+                    //_context.Entry(entity).State = EntityState.Deleted;
+
+                 
+                    _context.SaveChanges();
+                    
+                     _context.UpdateRange(entity);
+                    //await _context.AddAsync(entity);
+                    //await Save();
+
+                    //await _context.AddAsync(entity);
+
+                    //_context.Entry(entity).State = EntityState.Modified;
+                    //await _context.Update(entity);
+                    //var group = _context.Group.First(g => g.Id == entity..Group.Id);
+                    // _context.Entry(group).CurrentValues.SetValues(entity.Equals()==gr);
+                    // await Save();
+                    await _context.Entry(entity).GetDatabaseValuesAsync();
+                    // _context.Dispose();
+                    // _context.Entry(entity).State = EntityState.Detached;
+                    
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                }
+                return entity;
+            }
         }
 
         public async Task<IEnumerable<T>> FindAsync(Func<T, bool> predicate)
