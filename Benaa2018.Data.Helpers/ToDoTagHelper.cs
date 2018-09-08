@@ -38,24 +38,38 @@ namespace Benaa2018.Helper
         public async Task<ToDoTagViewModel> DeleteToDoTagDetails(ToDoTagViewModel toDoTagViewModel)
         {
 
-            //ToDoTagViewModel toDoMasterDetailsViewModel = new ToDoTagViewModel();
-            ToDoTag toDoTagDetails = new ToDoTag
+            
+            ToDoTag toDoTagDetails = new ToDoTag()
             {
-                ToDoTagid = toDoTagViewModel.ToDoTagid,
-                //Tagid = toDoTagViewModel.Tagid,
-                //TodoDetailsID = toDoTagViewModel.TodoDetailsID,
-                //DeletionStatus=true
-                //Created_By = "aaaa",
-                //Modified_By = "aaa",
-                //Created_Date = DateTime.Today,
-                //Modified_Date = DateTime.Today
+               ToDoTagid = toDoTagViewModel.ToDoTagid,
+                TodoDetailsID= toDoTagViewModel.TodoDetailsID,
+                Tagid= toDoTagViewModel.Tagid,
+                DeletionStatus =true,
+                Created_By = "aaaa",
+                Modified_By = "aaa",
+                Created_Date = DateTime.Today,
+                Modified_Date = DateTime.Today
             };
 
-           // _toDoTagHelper.Entry(entity).State = EntityState.Modified;
-            await _toDoTagHelper.DeleteAsync(toDoTagDetails);
-            
+            //_toDoTagHelper.Entry(entity).State = EntityState.Modified;
+            //await _toDoTagHelper.DeleteAsync(toDoTagDetails);
+            //var ert=toDoTagDetails.ToDoTagid=Model.
+            //var group = _context.Group.First(g => g.Id == model.Group.Id);
+            //_context.Entry(group).CurrentValues.SetValues(model.Group);
+            // await _context.SaveChangesAsync();
+            var tyu = await _toDoTagHelper.CreateAsync(toDoTagDetails);
+            //var updateOperations= await _toDoTagHelper.UpdateAsync(toDoTagDetails);
 
-            return toDoTagViewModel;
+            //await _toDoTagHelper.DeleteAsync(toDoTagDetails);
+            //       ToDoTagViewModel toDoMasterDetailsViewModel = new ToDoTagViewModel
+            //       {
+            //         ToDoTagid = updateOperations.ToDoTagid,
+            //Tagid = updateOperations.Tagid,
+
+            // TodoDetailsID = updateOperations.TodoDetailsID
+            //       };
+            ToDoTagViewModel toDoMasterDetailsViewModel = new ToDoTagViewModel();
+            return toDoMasterDetailsViewModel;
         }
 
 

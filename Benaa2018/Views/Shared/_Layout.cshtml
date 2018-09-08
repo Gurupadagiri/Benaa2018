@@ -610,15 +610,106 @@
         </div>
     }
     <script type="text/javascript">
-        $(document).ready(function () {
-            $("#chkAllPermissionEmail").click(function (e) {
-                if ($('#chkAllPermissionEmail').prop('checked')) {
-                    $('.chkEmailAllNotification').attr('checked', true);
-                }
-                else {
-                    $('.chkEmailAllNotification').attr('checked', false);
-                }
+
+        $(document).on('click', '#usermasters_UserIsForumHandle', function (e) {
+            if ($(this).prop('checked')) {
+                //$('.chkEmailAllNotification').attr('checked', true);
+                $("#usermasters_UserForumHandle").prop("readonly", false);
+            }
+            else {
+                // $('.chkEmailAllNotification').attr('checked', false);
+                $("#usermasters_UserForumHandle").prop("readonly", true);
+            }
+        });
+        $(document).on('click', '#saveUserPreference', function (e) {
+                e.preventDefault();
+            //var infoForm = $("#frmSubmitUserPreferenceMaster");
+                //var postData = infoForm.serializeArray();
+            $('#usermasters_UserFirstName').removeAttr('style');
+            $('#usermasters_UserLastName').removeAttr('style');
+            $('#usermasters_UserName').removeAttr('style');
+            $('#usermasters_UserPassword').removeAttr('style');
+            $('#usermasters_UserForumHandle').removeAttr('style');
+
+            var firstName = $('#usermasters_UserFirstName').val().trim();
+            var lastName = $('#usermasters_UserLastName').val().trim();
+            var userName = $('#usermasters_UserName').val().trim();
+            var password = $('#usermasters_UserPassword').val().trim();
+            var forumValidate = '0';
+            if (!$('#usermasters_UserForumHandle').is('[readonly]')) {
+                forumValidate = '1';
+             }
+
+            var validate = '0';
+            if (firstName == '') {
+                $('#usermasters_UserFirstName').css('border-color', 'red');
+                validate = '1';
+            }
+            if (lastName == '') {
+                $('#usermasters_UserLastName').css('border-color', 'red');
+                validate = '1';
+            }
+            if (userName == '') {
+                $('#usermasters_UserName').css('border-color', 'red');
+                validate = '1';
+            }
+            if (password == '') {
+                $('#usermasters_UserPassword').css('border-color', 'red');
+                validate = '1';
+            }
+            if (forumValidate == '1') {
+                if ($('#usermasters_UserForumHandle').val().trim() == '')
+
+                    $('#usermasters_UserForumHandle').css('border-color', 'red');
+
+            }
+
+
+
+            debugger;
+            if (validate == '0') {
+            //alert(JSON.stringify($('#frmSubmitUserPreferenceMaster').serializeArray()) );
+                $.ajax({
+                    url: "@(Url.Action("UserPreferences", "Home",null))",
+                    type: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                    },
+                    data: $("#frmSubmitUserPreferenceMaster").serialize(),
+                    success: function (result) {
+                        if (result == '1') {
+                            //infoForm.find("input[type='text']").each(function (i, element) {
+                            //    $(this).val('');
+                            //});
+                            alert("User Details Successfully Added");
+                            location.reload(true);
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
             });
+
+        $(document).on('click', '#chkAllPermissionEmail', function (e) {
+            if ($('#chkAllPermissionEmail').prop('checked')) {
+                $('.chkEmailAllNotification').attr('checked', true);
+            }
+            else {
+                $('.chkEmailAllNotification').attr('checked', false);
+            }
+        });
+        $(document).ready(function () {
+            //$("#chkAllPermissionEmail").click(function (e) {
+            //    if ($('#chkAllPermissionEmail').prop('checked')) {
+            //        $('.chkEmailAllNotification').attr('checked', true);
+            //    }
+            //    else {
+            //        $('.chkEmailAllNotification').attr('checked', false);
+            //    }
+            //});
 
             $("#chkAllPermissionText").click(function (e) {
                 if ($('#chkAllPermissionText').prop('checked')) {
@@ -648,6 +739,7 @@
             });
             $("#chkAllView").click(function (e) {
                 if ($('#chkAllView').prop('checked')) {
+                    $('.IsChkViewPermission').attr('checked', true);
                 } else
                     {
                         $('.IsChkViewPermission').attr('checked', false);
@@ -681,40 +773,16 @@
                 }
             });
 
-            $("#saveUserPreference").click(function () {
-                e.preventDefault();
-                var infoForm = $("#frmSubmitUserPreference");
-                var postData = infoForm.serializeArray();
-                $.ajax({
-                    url: "@(Url.Action("UserPreferences", "Home",null))",
-                    type: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    data: infoForm.serialize(),
-                    success: function (data) {
-                        if (data == true) {
-                            infoForm.find("input[type='text']").each(function (i, element) {
-                                $(this).val('');
-                            });
-                            alert("Project Details Successfully Added");
-                        }
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert(errorThrown);
-                    }
-                });
-            });
+
 
             $("#btnPermissionUser").click(function () {
-                var postData = $("#frmSubmitUserPreference").serializeArray();
+                var postData = $("#frmSubmitUserPreferenceMaster").serializeArray();
                 $.ajax({
                     url: "@(Url.Action("SetUserPreference", "Home",null))",
                     type: 'Get',
                     headers: {
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                     },
                     data: {
                         userPreferenceViewModel: postData,

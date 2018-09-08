@@ -45,7 +45,6 @@
                     </div>
                     <div class="topSection ">
                         <div class="col-md-6 leftDiv">
-                            @*@Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })*@
                             @Html.EditorFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
                             @Html.EditorFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
                         </div>
@@ -365,14 +364,14 @@
                                     </a>
                                 </div>
                                 <div class="rightFormText">
-                                    @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTag", @class = "form-control", @multiple = "multiple" })
+                                    @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTagUpdate", @class = "form-control", @multiple = "multiple" })
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="topSection multipleSelectBoxes">
                         <h2>
-                            Checklist <input type="button" name="" value="Add Checklist" class="mainButton" id="addRemoveButton">
+                            Checklist <input type="button" name="" value="Add Checklist" class="mainButton" id="addRemoveButtonUpdate">
                             <div class="multiCheckBoxHolder">
                                 <div class="checkbox checkboxAssignChecklist">
                                     <label>
@@ -431,7 +430,7 @@
                                 <div id="appendTextData"></div>
                             </div>
                             <a href="#">
-                                <img class="btnCheckList" src="images/expandHeader.png" alt="" title="" id="btnAddExtra" />
+                                <img class="btnCheckList" src="images/expandHeader.png" alt="" title="" id="btnAddExtraUpdate" />
                             </a>
                         </div>
                     </div>

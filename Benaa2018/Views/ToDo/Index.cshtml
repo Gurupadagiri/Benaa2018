@@ -6,6 +6,14 @@
 @{
     Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
 }
+<style type="text/css">
+    .state_active {
+        
+        text-decoration: line-through;
+        /*content: "\00B7";
+        font-size: 1px;*/
+    }
+</style>
 @if (ViewBag.IsleftMenuVisible != false)
 {
     <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
@@ -24,7 +32,6 @@
                     </div>
 
                     <div class="col-xs-8">
-                        @*<input type="text" asp-for="StartDate" class="form-control" value="" />*@
                         <input type="hidden" id="ProjectId" class="form-control" value="" />
                         <input type="hidden" id="hdnAssignNewUsersRole" class="form-control" value="" />
                     </div>
@@ -42,7 +49,7 @@
                                     <option>Copy To-Dos</option>
                                     <option>Delete Checked</option>
                                 </select>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -77,7 +84,7 @@
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <span>Users Assigned To</span>
-                                                @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlToDoAssignToDoSearch", @class = "form-control" })
+                                                @*@Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlToDoAssignToDoSearch", @class = "form-control" })*@
 
                                             </div>
                                             <div class="col-sm-3 form-group">
@@ -198,7 +205,7 @@
                         </div>
 
 
-                        <div class="tabsConatiner" id="todoContain" >
+                        <div class="tabsConatiner" id="todoContain">
                             <div class="tabbable boxed parentTabs">
                                 <div class="tab-content">
                                     <div class="tab-pane fade active in">
@@ -295,8 +302,8 @@
                         </div>
                     </div>
                 </div>
-                
-               
+
+
             </div>
         </div>
     </div>
@@ -349,6 +356,21 @@
                     });
     });
 
+    $(document).on('click', '#btnAddExtraUpdate', function (e) {
+        alert('Hi');
+        for (var j = 3; j < 6; j++) {
+            var index = 'cloneingboxholder' + j;
+            $('#cloneingboxholder' + j).show();
+        }
+        itemCount = itemCount + 3;
+        itemMaxCount = itemMaxCount + 3;
+        $('#hdnCheckListIndex').val(itemCount);
+    });
+    $(document).on('click', '#addRemoveButtonUpdate', function (e) {
+
+    });
+
+
     $(document).on('click', '#btnUpdateToDo', function (e) {
         e.preventDefault();
        // alert('update');
@@ -384,6 +406,8 @@
         $('#todoContain').hide();
         $('.todoAreaVisible').hide();
         $("#projectname").text('To-Do');
+
+        $('#ddltravelmode111').multiselect();
         $('#addRemoveButton').click(function () {
             if ($(this).val() == "Remove Checklist") {
 
@@ -404,6 +428,8 @@
             itemMaxCount = itemMaxCount + 3;
             $('#hdnCheckListIndex').val(itemCount);
         });
+
+
         $('#btnAddTag').click(function () {
             var title = $('#txtTag').val();
             $.ajax({
@@ -480,7 +506,8 @@
             }
         });
         $('.allProject').click(function () {
-            $('#calendarpage').hide();
+
+            //$('#calendarpage').hide();
             $('#todoContain').show();
             $('.todoAreaVisible').show();
             $("#projectname").text($(this).text());
@@ -488,7 +515,24 @@
             var projectId = $(this).attr('data-projectid');
             $('#ProjectId').val(projectId);
             $('#hdnProjectIdToDo').val(projectId);
-            BindGrid(projectId);
+            //alert('Hi   ' + projectId);
+           // BindGrid(projectId);
+             $.ajax({
+                url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
+                type: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+               data: { projectId: projectId},
+        success: function (result) {
+            $('#internaluser').jqGrid('clearGridData');
+            $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
         });
         $('#FromCompletion').hide();
         $('#ToCompletion').hide();
@@ -659,6 +703,7 @@
     });
 
     function BindGrid(projectId) {
+        //alert('hi ' + projectId);
          $.ajax({
                 url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
                 type: 'POST',
@@ -722,7 +767,8 @@
 
                 },
                 {
-                    name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox', editoptions: { checked: "" }, formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
+                    //name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox', editoptions: { checked: "" }, formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
+                    name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox', formatter: 'checkbox', formatoptions: { disabled: false }, width: '100'
                 },
                 { name: "ToDoDetails.Priority", label: "Priority", width: 65 },
                 { name: "UserNames", label: "AssignedTo", width: 65 },
@@ -762,13 +808,48 @@
             //},
             caption: "",
             reload: true,
-            refresh: true
+            refresh: true,
+            onCellSelect: function (rowid, index, contents, event) {
+                //alert('Hi');
+                var cm = $("#internaluser").jqGrid('getGridParam', 'colModel');
+                if (cm[index].name == "ToDoDetails.IsMarkedComplete") {
+                    var rowData = $('#internaluser').jqGrid('getRowData', rowid);
+                    //var dataid = rowObject.ToDoDetails.TodoDetailsID;
+                    var celValue2 = $("#internaluser").jqGrid('getCell', rowid, 'ToDoDetails.TodoDetailsID');
+                    var celValue1 = $("#internaluser").jqGrid('getCell', rowid, 'ToDoDetails.IsMarkedComplete');
+                   // alert(celValue2 + '  ' + celValue1);
+                    if (celValue1 == 'Yes') {
+                        
+
+                        var trElement = jQuery("#" + rowid, jQuery('#internaluser'));
+                        trElement.removeClass('state_active');
+                        //trElement.addClass('ui-widget-content');
+                        //trElement.css("line-through"); 
+                        //var celValue1 = $("#internaluser").jqGrid('getCell', rowid, 'ToDoDetails.IsMarkedComplete');
+                        //celValue1.css("line-through"); 
+                        
+                        //trElement.css({ display: "none" });
+                    }
+                    else {
+                        var trElement = jQuery("#" + rowid, jQuery('#internaluser'));
+                        trElement.removeClass('ui-widget-content');
+                        trElement.addClass('state_active');
+                        trElement.delay(2500).fadeOut(1600);
+                    }
+                    
+                }
+            }
+            
         });
 
         $("#internaluser").jqGrid('navGrid', '#gridpager',
             { add: false, edit: false, del: false, search: false, refresh: true },
             { width: 5 });
 
+        $("#internaluser").jqGrid('setLabel',
+            'Complete',
+            '<img src="~/images/message.png width=16 height=16>');
+        
         $('#btnExcelLink').click(function () {
             console.log('test');
             JSONToCSVConvertor(JSON.stringify($('#internaluser').jqGrid('getRowData')), 'Title', true);
@@ -863,6 +944,18 @@
         return linkMessage;
 
     }
+    //function formatStrikepnCompleteion(cellValue, options, rowObject) {
+    //    var dataid = rowObject.ToDoDetails.TodoDetailsID;
+    //    //var linkMessage = "<a href='' data-toggle='modal'  class='typeTitle' dataids=" + dataid + ">" + cellValue + "<a/>";
+    //    //return linkMessage;
+    //    if ($(this).prop("checked") == true) {
+    //        alert("Checkbox is checked.");
+    //    }
+    //    else if ($(this).prop("checked") == false) {
+    //        alert("Checkbox is unchecked.");
+    //    }
+
+    //}
 </script>
 
 <script>
@@ -969,6 +1062,9 @@
         $('#ddlTag').multiselect({
             includeSelectAllOption: true
         });
+        $('#ddlTagUpdate').multiselect({
+            includeSelectAllOption: true
+        });
     })
 </script>
 <script>
@@ -1025,7 +1121,7 @@
                         }
                         $('#todoinfoModal').removeClass('in').hide();
                         alert("Todo Saved Successfully");
-                    }                    
+                    }
                     else {
                         alert("Some problem occurred!! Please try again");
                     }
@@ -1034,22 +1130,6 @@
                     alert(errorThrown);
                 }
             });
-        });
-
-
-        
-        //$("#ddltag").next(div).click(function () {
-        //    alert('hi');
-        //});
-
-        $("#ddlTag").next('.ms-options-wrap').children(".ms-options").click(function () {
-           // alert('Hi')
-          var totalnumer=$("#ddlTag").next('.ms-options-wrap').children(".ms-options").children("ul").children().length;
-            var totalSelected = $("#ddlTag").next('.ms-options-wrap').children(".ms-options").children("ul").children(".selected").length;
-            console.log(totalnumer + " " + totalSelected);
-
-
-           // $("#ddlTag").next('.ms-options-wrap').children("button").children("span").text('Hi');
         });
     });
 
@@ -1100,13 +1180,12 @@
     $(document).ready(function () {
         $('#ddlToDoPriorityToDoSearch').multiselect();
         $('#ddlTagToDoSearch').multiselect();
+
         //$('#ddlPermission').multiselect();
     });
 </script>
 <script type="text/javascript">
     $(document).ready(function () {
-
-
         $('#FromCompletion').hide();
         $('#ToCompletion').hide();
         $('#FromDue').hide();
@@ -1116,7 +1195,7 @@
 
             var dueDate = $(this).val();
             //console.log('Hi ' +dueDate);
-           // alert('Hi ' + dueDate);
+            // alert('Hi ' + dueDate);
             if (dueDate == 2) {
 
                 //$('#FromCompletion').hide();
