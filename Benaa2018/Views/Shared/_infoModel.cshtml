@@ -16,7 +16,10 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li class="scratch-project"><a href="javascript:void(0);">From Scratch</a></li>
+                                    <li>
+                                        <a href="#newProject" data-toggle="modal">From Scratch</a>
+                                        @*<a href="javascript:void(0);">From Scratch</a> class="scratch-project"*@
+                                    </li>
                                     @*<li><a href="#">From a Template</a></li>*@
                                 </ul>
                             </div>
@@ -73,7 +76,7 @@
                                                     <div class="col-sm-2 form-group">
                                                         <span>Actual Start Date</span>
                                                         <div class="input-group">
-                                                            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text" />  <div class="input-group-addon">
+                                                            <input class="form-control" id="ActualStartDate" placeholder="dd/MM/yyyy" type="text" />  <div class="input-group-addon">
                                                                 <i class="fa fa-calendar">
                                                                 </i>
                                                             </div>
@@ -82,18 +85,18 @@
                                                     <div class="col-sm-2 form-group">
                                                         <span>Actual End Date</span>
                                                         <div class="input-group">
-                                                            <input class="form-control" id="date1" name="date" placeholder="MM/DD/YYYY" type="text" />  <div class="input-group-addon">
+                                                            <input class="form-control" id="ActualEndDate" name="date" placeholder="dd/MM/yyyy" type="text" />  <div class="input-group-addon">
                                                                 <i class="fa fa-calendar">
                                                                 </i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div class="col-sm-2 form-group tooltip-div">
+                                                    @*<div class="col-sm-2 form-group tooltip-div">
                                                         <span>Name</span>
                                                         <div class="input-group">
                                                             <input type="text" id="serchtext" class="form-control" placeholder="Keyword">
                                                         </div>
-                                                    </div>
+                                                    </div>*@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-sm-6">
