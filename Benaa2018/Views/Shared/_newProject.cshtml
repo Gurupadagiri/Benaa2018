@@ -1,5 +1,5 @@
 ﻿@model Benaa2018.Helper.ViewModels.BaseViewModel
-<div class="modal fade" id="newProject" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+<div class="modal fade" id="newProject">
     <div class="modal-dialog modalWidth1200">
         <div class="panel panel-primary customPopup">
             <div class="panel-heading themeColor">
@@ -19,7 +19,7 @@
                                     <span class="caret"></span>
                                 </button>
                                 <ul class="dropdown-menu">
-                                    <li class="scratch-project"><a href="javascript:void(0);">From Scratch</a></li>
+                                    <li class="scratch-project-new"><a href="javascript:void(0);">From Scratch</a></li>
                                     @*<li><a href="#">From a Template</a></li>*@
                                 </ul>
                             </div>
@@ -57,7 +57,7 @@
                                                 </div>
                                                 <div class="col-sm-6 form-group tooltip-div">
                                                     <label>Status <small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="The Project Status allows you To mark a Projectsite As Closed, which places it in an archived status. This will remove the Projectsite from your everyday list, but will keep it archived for your records. "><span class="glyphicon glyphicon-info-sign"></span></small></label>
-                                                    @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectStatusID, new SelectList(Model.ProjctStatusMasterModels, "StatusID", "StatusName"), new { @multiple = "multiple", @class = "withCheckbox required" })
+                                                    @Html.DropDownListFor(a => a.ProjectMasterModel.ProjectStatusID, new SelectList(Model.ProjctStatusMasterModels, "StatusID", "StatusName"), new {@class = "form-control required" })
                                                     <span class="errormessege ProjectStatusID" style="display:none;color:red">Please Select Project Status</span>
                                                 </div>
                                                 <div class="clearfix"></div>
@@ -164,7 +164,8 @@
                                                 <div class="col-sm-3 form-group">
                                                     @Html.LabelFor(a => a.ProjectScheduleMasterModel.ProjectStart)
                                                     <div class="input-group">
-                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <input class="form-control cal" asp-for="ProjectScheduleMasterModel.ProjectStart" placeholder="MM/DD/YYYY" type="text" value="">
+                                                        @*@Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })*@
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-calendar"></i>
                                                         </div>
@@ -173,7 +174,8 @@
                                                 <div class="col-sm-3 form-group">
                                                     @Html.LabelFor(a => a.ProjectScheduleMasterModel.ActualStart)
                                                     <div class="input-group">
-                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <input class="form-control cal" asp-for="ProjectScheduleMasterModel.ActualStart" placeholder="MM/DD/YYYY" type="text" value="">
+                                                        @*@Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualStart, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })*@
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-calendar"></i>
                                                         </div>
@@ -198,7 +200,8 @@
                                                 <div class="col-sm-3 form-group">
                                                     @Html.LabelFor(a => a.ProjectScheduleMasterModel.ProjectCompletion)
                                                     <div class="input-group">
-                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <input class="form-control cal" asp-for="ProjectScheduleMasterModel.ProjectCompletion" placeholder="MM/DD/YYYY" type="text" value="">
+                                                        @*@Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ProjectCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })*@
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-calendar">
                                                             </i>
@@ -209,14 +212,15 @@
                                                 <div class="col-sm-3 form-group">
                                                     @Html.LabelFor(a => a.ProjectScheduleMasterModel.ActualCompletion)
                                                     <div class="input-group">
-                                                        @Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })
+                                                        <input class="form-control cal" asp-for="ProjectScheduleMasterModel.ActualCompletion" placeholder="MM/DD/YYYY" type="text" value="">
+                                                        @*@Html.TextBoxFor(a => a.ProjectScheduleMasterModel.ActualCompletion, new { name = "date", placeholder = "MM/DD/YYYY", @class = "form-control cal" })*@
                                                         <div class="input-group-addon">
                                                             <i class="fa fa-calendar">
                                                             </i>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-sm-6 form-group">
+                                                <div class="col-sm-6 form-group work-days">
                                                     <label>Work Days<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="right" data-content="sdfgdfgdfgdfgdfgdf" data-original-title="" title=""><span class="glyphicon glyphicon-info-sign"></span></small></label>
                                                     <div class="clearfix"></div>
                                                     @foreach (var item in Model.ProjectScheduleMasterModel.DaysList)
@@ -259,7 +263,7 @@
                                                     <label class="profileInfo">
                                                         <label>Profile Picture<small class="infoPopover" data-toggle="popover" data-trigger="hover" data-placement="bottom" data-content="Email invitations allow the Owner to choose their own username & password. Select Configure Manually to set their username & password for them."><span class="glyphicon glyphicon-info-sign"></span></small></label>
                                                         <div class="clearfix"></div>
-                                                        <input asp-for="ProjectMasterModel.ProfilePicture" type="file"  class="form-control" style="height:auto" />
+                                                        <input asp-for="ProjectMasterModel.ProfilePicture" type="file" class="form-control" style="height:auto" />
                                                         <input asp-for="OwnerMasterModel.FileName" type="hidden" />
                                                         <input asp-for="OwnerMasterModel.FileType" type="hidden" />
                                                         <input asp-for="OwnerMasterModel.FileSize" type="hidden" />

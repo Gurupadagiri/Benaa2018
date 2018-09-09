@@ -40,13 +40,20 @@ namespace Benaa2018.Data.Repository
             return entity;
         }
 
-        public async virtual Task DeleteAsync(T entity)
+        //public async virtual Task DeleteAsync(T entity)
+        //{
+        //    await Task.Factory.StartNew(() => _context.Remove(entity));
+
+        //    await Save();
+        //}
+
+
+        public async Task DeleteAsync(T entity)
         {
             await Task.Factory.StartNew(() => _context.Remove(entity));
-           
+
             await Save();
         }
-
         public async Task<IEnumerable<T>> GetAllAsync()
         {
             return await Task.Factory.StartNew(() => _context.Set<T>());
@@ -57,15 +64,27 @@ namespace Benaa2018.Data.Repository
             return await _context.Set<T>().FindAsync(id);
         }
 
+
+
         public async Task<T> UpdateAsync(T entity)
         {
-           // _context.UpdateRange(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            if (entity == null)
+            {
+                return null;
+            }
+                        
+            //context.Entry(entity).State = EntityState.Modified;
+            //_context.Set<T>().Attach(entity);
             await Save();
-            await _context.Entry(entity).GetDatabaseValuesAsync();
-            return entity;
-        }
 
+            return entity;
+
+            //_context.Set<T>().Update(entity);
+            //await Save();
+            //await _context.Entry(entity).GetDatabaseValuesAsync();
+            //return entity;
+        }
+        
         public async Task<IEnumerable<T>> FindAsync(Func<T, bool> predicate)
         {
             return await Task.Factory.StartNew(() => _context.Set<T>().Where(predicate));

@@ -11,11 +11,12 @@ namespace Benaa2018.Data.Model
     public class ProjectMaster : BaseModel
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Project_ID { get; set; }
         public Int64 Org_ID { get; set; }
         public int User_ID { get; set; }
-        public int Project_Type_ID { get; set; }
-        public int Status_ID { get; set; }
+        public string Project_Type_ID { get; set; }
+        public string Status_ID { get; set; }
         public string Project_Group_ID { get; set; }
         public string Project_Manager_id { get; set; }
         public string Project_Name { get; set; }

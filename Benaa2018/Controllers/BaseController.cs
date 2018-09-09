@@ -66,21 +66,29 @@ namespace Benaa2018.Controllers
             ViewBag.Basemodel = Basemodel;
             ViewBag.UsersList = Basemodel.UserMasterViewModels;
             base.OnActionExecuting(context);
-            await next(); 
+            await next();
         }
-      
+
         public List<ProjectGridModel> BindProjectGrid(List<ProjectMasterViewModel> ProjectMasterModels,
            List<ProjectManagerMasterViewModel> ProjectManagerMasterModels)
         {
             List<ProjectGridModel> lstGridModel = new List<ProjectGridModel>();
             ProjectMasterModels.ForEach(a =>
             {
+                string managerName = string.Empty;
+                if(a.ProjectManagerID != null)
+                {
+                    foreach (var item in a.ProjectManagerID)
+                    {
+                        managerName = managerName + ProjectManagerMasterModels.Where(b => b.ManagerID == Convert.ToInt32(item)).Select(b => b.ManagerName).FirstOrDefault() + ",";
+                    }
+                }         
                 lstGridModel.Add(new ProjectGridModel
                 {
                     ProjectName = a.ProjectName,
                     ProjectColor = a.ProjectScheduleMasterModel.JobColorID,
                     City = a.City,
-                    ManagerName = ProjectManagerMasterModels.Where(b => b.ManagerID.ToString() == a.ProjectManagerID).Select(b => b.ManagerName).FirstOrDefault(),
+                    ManagerName = managerName?.TrimEnd(','),
                     MobileNo = a.OwnerMasterModel.MobileNo,
                     OwnerName = a.OwnerMasterModel.OwnerName,
                     ProjectId = a.ProjectID,

@@ -2741,6 +2741,7 @@ input[type="checkbox"].single-to-do-check {
 .chHolder .permissionContent tr td,
 .floatThead-table tr td {
     width: 50%;
+    
 }
 
 .chHolder.odd .permissionContent tr td {
@@ -3076,9 +3077,10 @@ body .customPopup .blueButton :hover{
 .floatThead-container .permissionTD, .floatThead-container .innerPermission{
     border-bottom:0!important;
 }
-.chHolder.odd .permissionContent tr td, 
+.chHolder.odd .permissionContent tr td,
 .chHolder .permissionContent tr td {
     width: 50%;
+    /*width: 22%;*/
     border: 0;
 }
 
