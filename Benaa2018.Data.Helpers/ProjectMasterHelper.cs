@@ -58,6 +58,7 @@ namespace Benaa2018.Helper
                 Project_Prefix = projectMasterModel.JobsitePrefix,
                 Country_ID = projectMasterModel.CountryID,
                 Org_ID = companyid,
+                Permit_No = projectMasterModel.Permit,
                 Contract_Price = projectMasterModel.ContractPrice
             };
             projectMaster = await _projectMasterRepository.CreateAsync(projectMaster);
