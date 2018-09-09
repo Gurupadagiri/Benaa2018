@@ -141,8 +141,9 @@
                                                 <div class="filterMap">
                                                     <div class="row1">
                                                         <div class="col-sm-12">
-                                                            <div class="listmapCon" data-project="@item.ProjectID">
-                                                                <span class="glyphicon glyphicon-map-marker" data-coordinate="@item.Latitude,@item.Longitude" ></span><a class="lnk" data-toggle="modal" data-target="#newProject"><label> @item.ProjectName</label></a>
+                                                            <div class="listmapCon">
+                                                                <span class="glyphicon glyphicon-map-marker" data-coordinate="@item.Latitude,@item.Longitude" ></span>
+                                                                <a class="lnk" data-toggle="modal" data-project="@item.ProjectID" data-target="#newProject"><label> @item.ProjectName</label></a>
                                                             </div>
                                                         </div>
                                                     </div>
