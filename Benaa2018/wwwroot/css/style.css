@@ -742,7 +742,8 @@ input.form-control {
     box-shadow: 0 1px 1px rgba(0,0,0,.05);*/
 }
 
-.customPopup .panel-heading.themeColor {
+.customPopup .panel-heading.themeColor,
+.modal-content .modal-header {
     color: #fff;
     background-color: #626262;
     border-color: #626262;
@@ -3223,9 +3224,44 @@ body .ms-options-wrap > .ms-options > ul input[type="checkbox"] {
     font-weight: 700;
 }
 
+.fc-center .select_month {
+    float: none;
+    background: #8f806d;
+    border: 1px #8f806d;
+    font-size: 16px;
+    color: #fff;
+    outline:none;
+}
+
+.panel-body.phase-list {
+    padding:0!important;
+}
+.btnHolder {
+    padding:15px;
+    background:#f7f7f7;
+    width:100%;
+    float:left;
+    margin:0!important;
+}
+.innerBodyholder {
+    width:100%;
+    float:left;
+    padding:15px;
+}
+#addphase .innerBodyholder .input-group {
+    margin-bottom: 10px;
+    width: 45%;
+}
+.panel-heading.themeColor {
+    background: #626262;
+}
+#frmSchedule .panel-heading .panel-title {
+    color:#fff;
+}
+
 .todoToolRight .rm-control,
 .todoToolRight .todo-button {
-    float:right;
+    float: right;
 }
 .todoToolRight {
     width: 276px;

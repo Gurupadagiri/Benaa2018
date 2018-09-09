@@ -495,7 +495,7 @@ body .customPopup .btn-success:hover{
     left: 40%;
     right: 0;
     width: 200px;
-    top: 30px;
+    top: 32px;
     text-align: center;
 }
 
@@ -541,18 +541,22 @@ body .customPopup .btn-success:hover{
     background-attachment: fixed;
     color: #fff;
     position:relative;
-
+    z-index:999;
 }
-.fc-sat:after,
-.fc-fri:after {
-    content: "Non-Work Day";
-    color: #fff;
-    font-size: 14px;
-    font-weight: 700;
-    position: absolute;
-    top: 52px;
-    left: 25px;
+.fc-widget-header.fc-sat:after,
+.fc-widget-header.fc-fri:after {
+    display:none;
 }
+    .fc-sat:after,
+    .fc-fri:after {
+        content: "Non-Work Day";
+        color: #fff;
+        font-size: 14px;
+        font-weight: 700;
+        position: absolute;
+        top: 52px;
+        left: 25px;
+    }
 
 th.fc-sat,
     th.fc-fri {

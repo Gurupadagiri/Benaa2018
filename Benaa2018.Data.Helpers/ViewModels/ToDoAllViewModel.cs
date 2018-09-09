@@ -14,6 +14,7 @@ namespace Benaa2018.Helper.ViewModels
             lstCheckLists = new List<ToDochecklistViewModel>();
             lstToDoDetails = new List<ToDoTagViewModel>();
             lstCheckListDetail = new List<ToDochecklistDetailsViewModel>();
+            CalendarScheduledItemModel = new CalendarScheduledItemViewModel();
         }
         public ToDoMasterDetailsViewModel ToDoDetails { get; set; }
 
@@ -25,7 +26,7 @@ namespace Benaa2018.Helper.ViewModels
 
         public int[] SubContractorMasters { get; set; }
 
-        public TagMasterViewModel  TagMaster { get; set; }
+        public TagMasterViewModel TagMaster { get; set; }
 
         public string UserNames { get; set; }
 
@@ -56,13 +57,15 @@ namespace Benaa2018.Helper.ViewModels
         public string ToDoListContent { get; set; }
 
         public string Operation { get; set; }
+        public CalendarScheduledItemViewModel CalendarScheduledItemModel { get; set; }
+
+
+        public class ToDoAllViewModelDetails
+        {
+            public List<ToDoAllViewModel> lstToDoAllViewModel { get; set; }
+        }
+
+
+
     }
-
-    public class ToDoAllViewModelDetails
-    {
-        public List<ToDoAllViewModel> lstToDoAllViewModel { get; set; }
-    }
-
-
-
 }
