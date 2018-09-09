@@ -26,7 +26,7 @@ namespace Benaa2018
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;"));
+            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=kuttu;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;").EnableSensitiveDataLogging());
             services.AddAuthentication("SBSSecurityScheme")
                     .AddCookie("SBSSecurityScheme", options =>
                     {
@@ -58,65 +58,65 @@ namespace Benaa2018
                         options.SlidingExpiration = true;
                     });
 
-            services.AddDbContext<SBSDbContext>(ServiceLifetime.Transient);
-            services.AddTransient<IUserMasterRepository, UserMasterRepository>();
-            services.AddTransient<ILoginDetailsInfoRepository, LoginDetailsInfoRepository>();
-            services.AddTransient<IProjectMasterRepository, ProjectMasterRepository>();
-            services.AddTransient<IMenuMasterRepository, MenuMasterRepository>();
-            services.AddTransient<IProjectTypeMasterRepository, ProjectTypeMasterRepository>();
-            services.AddTransient<IProjectSubcontractorConfigRepository, ProjectSubcontractorConfigRepository>();
-            services.AddTransient<IProjectStatusMasterRepository, ProjectStatusMasterRepository>();
-            services.AddTransient<IProjectScheduleMasterRepository, ProjectScheduleMasterRepository>();
-            services.AddTransient<IProjectManagerMasterRepository, ProjectManagerMasterRepoitory>();
-            services.AddTransient<IProjectGroupRepository, ProjectGroupRepository>();
-            services.AddTransient<IToDoMasterRepoisitory, ToDoMasterRepoisitory>();
-            services.AddTransient<ISubContractorMasterRepository, SubContractorMasterRepository>();
-            services.AddTransient<IProjectUserIntConfigMasterRepository, ProjectUserIntConfigMasterRepository>();
-            services.AddTransient<IOwnerMasterRepoisitory, OwnerMasterRepoisitory>();
-            services.AddTransient<IWarrentyAlertRepoisitory, WarrentyAlertRepoisitory>();
-            services.AddTransient<IProjectColorRepoisitory, ProjectColorRepoisitory>();
-            services.AddTransient<ICompanyMasterRespository, CompanyMasterRespository>();
-            services.AddTransient<ICompanyMasterHelper, CompanyMasterHelper>();
-            services.AddTransient<IDetaildPermissionRepository, DetaildPermissionRepository>();
-            services.AddTransient<IToDoMasterDetailsRepository, ToDoMasterDetailsRepository>();
-            services.AddTransient<ITagMasterRepository, TagMasterRepository>();
-            services.AddTransient<IToDoTagRepository, ToDoTagRepository>();
-            services.AddTransient<IToDoAssignRepository, ToDoAssignRepository>();
-            services.AddTransient<IToDochecklistDetailsRepository, ToDochecklistDetailsRepository>();
-            services.AddTransient<IToDochecklistRepository, ToDochecklistRepository>();
-            services.AddTransient<ICalendarScheduledItemRepoisitory, CalendarScheduledItemRepository>();
-            services.AddTransient<IPredecessorInformationRepository, PredecessorInformationRepository>();
-            services.AddTransient<ICalendarPhaseRepository, CalendarPhaseRepository>();
-            services.AddTransient<ICalendarTagRepository, CalendarTagRepository>();
-            services.AddTransient<IGroupMasterRepository, GroupMasterRepository>();
-            services.AddTransient<IMainActivityMasterRepository, MainActivityMasterRepository>();
-            services.AddTransient<IActivityMasterRepository, ActivityMasterRepository>();
-            services.AddTransient<IToDoMessageRepository, ToDoMessageRepository>();
-
-
-            services.AddTransient<IMenuMasterHelper, MenuMasterHelper>();
-            services.AddTransient<IOwnerMasterHelper, OwnerMasterHelper>();
-            services.AddTransient<IProjectColorHelper, ProjectColorHelper>();
-            services.AddTransient<IProjectGroupHelper, ProjectGroupHelper>();
-            services.AddTransient<IProjectMasterHelper, ProjectMasterHelper>();
-            services.AddTransient<IProjectScheduleMasterHelper, ProjectScheduleMasterHelper>();
-            services.AddTransient<IProjectStatusMasterHelper, ProjectStatusMasterHelper>();
-            services.AddTransient<ISubContractorHelper, SubContractorHelper>();
-            services.AddTransient<IToDoMasterHelper, ToDoMasterHelper>();
-            services.AddTransient<IUserMasterHelper, UserMasterHelper>();
-            services.AddTransient<IWarrentyAlertHelper, WarrentyAlertHelper>();
-            services.AddTransient<IDetaildPermissionHelper, DetaildPermissionHelper>();
-            services.AddTransient<IToDoMasterDetailsHelper, ToDoMasterDetailsHelper>();
-            services.AddTransient<ITagMasterHelper, TagMasterHelper>();
-            services.AddTransient<IToDoTagHelper, ToDoTagHelper>();
-            services.AddTransient<IToDoAssignHelper, ToDoAssignHelper>();
-            services.AddTransient<IToDoCheckListHelper, ToDoCheckListHelper>();
-            services.AddTransient<IToDoCheckListDetailsHelper, ToDoCheckListDetailsHelper>();
-            services.AddTransient<ICalendarScheduleHelper, CalendarScheduleHelper>();
-            services.AddTransient<IGroupMasterHelper, GroupMasterHelper>();
-            services.AddTransient<IMainActivityMasterHelper, MainActivityMasterHelper>();
-            services.AddTransient<IActivityMasterHelper, ActivityMasterHelper>();
-            services.AddTransient<IToDoMessageHelper, ToDoMessageHelper>();
+            services.AddDbContext<SBSDbContext>(c =>
+            c.UseInMemoryDatabase(System.Guid.NewGuid().ToString()).UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking));
+            services.AddScoped<IUserMasterRepository, UserMasterRepository>();
+            services.AddScoped<ILoginDetailsInfoRepository, LoginDetailsInfoRepository>();
+            services.AddScoped<IProjectMasterRepository, ProjectMasterRepository>();
+            services.AddScoped<IMenuMasterRepository, MenuMasterRepository>();
+            services.AddScoped<IProjectTypeMasterRepository, ProjectTypeMasterRepository>();
+            services.AddScoped<IProjectSubcontractorConfigRepository, ProjectSubcontractorConfigRepository>();
+            services.AddScoped<IProjectStatusMasterRepository, ProjectStatusMasterRepository>();
+            services.AddScoped<IProjectScheduleMasterRepository, ProjectScheduleMasterRepository>();
+            services.AddScoped<IProjectManagerMasterRepository, ProjectManagerMasterRepoitory>();
+            services.AddScoped<IProjectGroupRepository, ProjectGroupRepository>();
+            services.AddScoped<IToDoMasterRepoisitory, ToDoMasterRepoisitory>();
+            services.AddScoped<ISubContractorMasterRepository, SubContractorMasterRepository>();
+            services.AddScoped<IProjectUserIntConfigMasterRepository, ProjectUserIntConfigMasterRepository>();
+            services.AddScoped<IOwnerMasterRepoisitory, OwnerMasterRepoisitory>();
+            services.AddScoped<IWarrentyAlertRepoisitory, WarrentyAlertRepoisitory>();
+            services.AddScoped<IProjectColorRepoisitory, ProjectColorRepoisitory>();
+            services.AddScoped<ICompanyMasterRespository, CompanyMasterRespository>();
+            services.AddScoped<ICompanyMasterHelper, CompanyMasterHelper>();
+            services.AddScoped<IDetaildPermissionRepository, DetaildPermissionRepository>();
+            services.AddScoped<IToDoMasterDetailsRepository, ToDoMasterDetailsRepository>();
+            services.AddScoped<ITagMasterRepository, TagMasterRepository>();
+            services.AddScoped<IToDoTagRepository, ToDoTagRepository>();
+            services.AddScoped<IToDoAssignRepository, ToDoAssignRepository>();
+            services.AddScoped<IToDochecklistDetailsRepository, ToDochecklistDetailsRepository>();
+            services.AddScoped<IToDochecklistRepository, ToDochecklistRepository>();
+            services.AddScoped<ICalendarScheduledItemRepoisitory, CalendarScheduledItemRepository>();
+            services.AddScoped<IPredecessorInformationRepository, PredecessorInformationRepository>();
+            services.AddScoped<ICalendarPhaseRepository, CalendarPhaseRepository>();
+            services.AddScoped<ICalendarTagRepository, CalendarTagRepository>();
+            services.AddScoped<IGroupMasterRepository, GroupMasterRepository>();
+            services.AddScoped<IMainActivityMasterRepository, MainActivityMasterRepository>();
+            services.AddScoped<IActivityMasterRepository, ActivityMasterRepository>();
+            services.AddScoped<IToDoMessageRepository, ToDoMessageRepository>();
+            
+            services.AddScoped<IMenuMasterHelper, MenuMasterHelper>();
+            services.AddScoped<IOwnerMasterHelper, OwnerMasterHelper>();
+            services.AddScoped<IProjectColorHelper, ProjectColorHelper>();
+            services.AddScoped<IProjectGroupHelper, ProjectGroupHelper>();
+            services.AddScoped<IProjectMasterHelper, ProjectMasterHelper>();
+            services.AddScoped<IProjectScheduleMasterHelper, ProjectScheduleMasterHelper>();
+            services.AddScoped<IProjectStatusMasterHelper, ProjectStatusMasterHelper>();
+            services.AddScoped<ISubContractorHelper, SubContractorHelper>();
+            services.AddScoped<IToDoMasterHelper, ToDoMasterHelper>();
+            services.AddScoped<IUserMasterHelper, UserMasterHelper>();
+            services.AddScoped<IWarrentyAlertHelper, WarrentyAlertHelper>();
+            services.AddScoped<IDetaildPermissionHelper, DetaildPermissionHelper>();
+            services.AddScoped<IToDoMasterDetailsHelper, ToDoMasterDetailsHelper>();
+            services.AddScoped<ITagMasterHelper, TagMasterHelper>();
+            services.AddScoped<IToDoTagHelper, ToDoTagHelper>();
+            services.AddScoped<IToDoAssignHelper, ToDoAssignHelper>();
+            services.AddScoped<IToDoCheckListHelper, ToDoCheckListHelper>();
+            services.AddScoped<IToDoCheckListDetailsHelper, ToDoCheckListDetailsHelper>();
+            services.AddScoped<ICalendarScheduleHelper, CalendarScheduleHelper>();
+            services.AddScoped<IGroupMasterHelper, GroupMasterHelper>();
+            services.AddScoped<IMainActivityMasterHelper, MainActivityMasterHelper>();
+            services.AddScoped<IActivityMasterHelper, ActivityMasterHelper>();
+            services.AddScoped<IToDoMessageHelper, ToDoMessageHelper>();
             services.AddMvc();
         }
 

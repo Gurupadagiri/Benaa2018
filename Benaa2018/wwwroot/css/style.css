@@ -691,7 +691,7 @@ input.form-control {
     border-right: 1px solid #fff;
 }
 
-/*.ui-sortable-helper{ border:3px dashed #000;}*/
+
 
 .projectNameContainer {
     height: 80px;
@@ -2351,7 +2351,7 @@ legend:after {
 
 .ui-icon, .ui-widget-content .ui-icon {
     /*background-image: url(images/ui-icons_222222_256x240.png);*/
-    background-image: url(../images/ui-icons_222222_256x240.png) !important;
+    /*background-image: url(../images/ui-icons_222222_256x240.png) !important;*/
 }
 
 .ui-icon-triangle-1-n {
@@ -3301,7 +3301,7 @@ body .currencySymbol {
     padding: 15px 32px !important;
 }
 
-/*cost code*/
+
 
 .ccNewHolderLeft {
     float: left;
@@ -3595,4 +3595,34 @@ body .currencySymbol {
 
 
 
-/*end cost code*/
+
+.form-group.top-btn .dropdown .btn:hover,
+.form-group.top-btn .dropdown .btn:active,
+.form-group.top-btn .dropdown .btn:focus,
+.btn-primary.active.focus, .btn-primary.active:focus,
+.btn-primary.active:hover, .btn-primary:active.focus,
+.btn-primary:active:focus, .btn-primary:active:hover,
+.open > .dropdown-toggle.btn-primary.focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary:hover {
+    background: #555555 !important;
+    outline: none !important;
+}
+
+.optgroup{
+    text-align:left;
+}
+
+.optgroup .label {
+    font-size: 14px;
+    font-weight: 700 !important;
+    color: #333;
+    text-align: left;
+    margin-bottom: 9px;
+}
+
+body .dropdown .btn-success {
+    color: #fff !important;
+    background-color: #626262 !important;
+    border-color: #626262 !important;
+}

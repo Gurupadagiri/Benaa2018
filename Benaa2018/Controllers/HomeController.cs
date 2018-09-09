@@ -1,18 +1,12 @@
-﻿using Benaa2018.Data.Interfaces;
-using Benaa2018.Helper;
-using Benaa2018.Helper.Model;
+﻿using Benaa2018.Helper;
 using Benaa2018.Helper.ViewModels;
-using Benaa2018.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
-using Benaa2018.Helper.ViewModels;
 
 namespace Benaa2018.Controllers
 {
@@ -84,30 +78,37 @@ namespace Benaa2018.Controllers
         //[RequestFormSizeLimit(valueCountLimit: 20000)]
         public async Task<IActionResult> SubmitProjectInfo(BaseViewModel homeContent)
         {
-            if (homeContent != null && homeContent.ProjectMasterModel != null)
+            try
             {
-                int projectId = 0;
-                if (homeContent.ProjectMasterModel.ProjectID == 0)
+                if (homeContent != null && homeContent.ProjectMasterModel != null)
                 {
-                    projectId = await _projectMasterHelper.SaveProjectMaster(1, 1, homeContent.ProjectMasterModel);
-                    await _userMasterHelper.SaveUserMaterConfig(1, projectId, homeContent.UserMasterViewModels);
-                    await _projectScheduleMasterHelper.SaveProjectSchedules(1, projectId, homeContent.ProjectScheduleMasterModel);
-                    await _ownerMasterHelper.SaveOwnerMasterAsync(projectId, homeContent.OwnerMasterModel);
+                    int projectId = 0;
+                    if (homeContent.ProjectMasterModel.ProjectID == 0)
+                    {
+                        projectId = await _projectMasterHelper.SaveProjectMaster(1, 1, homeContent.ProjectMasterModel);
+                        await _userMasterHelper.SaveUserMaterConfig(1, projectId, homeContent.UserMasterViewModels);
+                        await _projectScheduleMasterHelper.SaveProjectSchedules(1, projectId, homeContent.ProjectScheduleMasterModel);
+                        await _ownerMasterHelper.SaveOwnerMasterAsync(projectId, homeContent.OwnerMasterModel);
+                    }
+                    else
+                    {
+                        projectId = await _projectMasterHelper.UpdateProjectMaster(1, 1, homeContent.ProjectMasterModel);
+                        await _userMasterHelper.UpdateUserMaterConfig(projectId, homeContent.UserMasterViewModels);
+                        await _projectScheduleMasterHelper.UpdateProjectSchedules(1, projectId, homeContent.ProjectScheduleMasterModel);
+                        await _ownerMasterHelper.UpdateOwnerMaster(projectId, homeContent.OwnerMasterModel);
+                    }
+                    homeContent.ProjectMasterModels = await _projectMasterHelper.GetAllProjectByUserId(1);
+                    homeContent.ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers();
+                    homeContent.ProjectGridModels = BindProjectGrid(homeContent.ProjectMasterModels, homeContent.ProjectManagerMasterModels);
+                    homeContent.ProjectModelJsonString = JsonConvert.SerializeObject(homeContent.ProjectGridModels);
+                    homeContent.Success = true;
                 }
-                else
-                {
-                    projectId = await _projectMasterHelper.UpdateProjectMaster(1, 1, homeContent.ProjectMasterModel);
-                    await _userMasterHelper.UpdateUserMaterConfig(projectId, homeContent.UserMasterViewModels);
-                    await _projectScheduleMasterHelper.UpdateProjectSchedules(1, projectId, homeContent.ProjectScheduleMasterModel);
-                    await _ownerMasterHelper.UpdateOwnerMaster(projectId, homeContent.OwnerMasterModel);
-                }
-                homeContent.ProjectMasterModels = await _projectMasterHelper.GetAllProjectByUserId(1);
-                homeContent.ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers();
-                homeContent.ProjectGridModels = BindProjectGrid(homeContent.ProjectMasterModels, homeContent.ProjectManagerMasterModels);
-                homeContent.ProjectModelJsonString = JsonConvert.SerializeObject(homeContent.ProjectGridModels);
-                homeContent.Success = true;
+                return Json(homeContent);
             }
-            return Json(homeContent);
+            catch(Exception ex)
+            {
+                return Json(string.Empty);
+            }
         }
 
         public async Task SaveFileAsync(OwnerMasterViewModel ownerMasterViewModel)
@@ -125,8 +126,12 @@ namespace Benaa2018.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetProjectInfoByProjectID(int projectID)
+        public async Task<IActionResult> GetProjectInfoByProjectID(int projectID)
         {
+            //BaseViewModel model = ViewBag.Basemodel;
+            //model.ProjectMasterModel = await _projectMasterHelper.GetProjectDetailsProjectId(projectID);
+            //model.OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(projectID);
+            //return PartialView("_addCalendar", model);
             var projectInfo = new Tuple<ProjectMasterViewModel, OwnerMasterViewModel>(
                 await _projectMasterHelper.GetProjectDetailsProjectId(projectID),
                 await _ownerMasterHelper.GetOwnerInfoByInfo(projectID));
@@ -169,17 +174,24 @@ namespace Benaa2018.Controllers
             string[] status,
             string[] projectTypes,
             string searchKeyWord,
-            string[] mappedStatus,
-            string searchText)
+            string startDate,
+            string endDate)
         {
-            BaseViewModel homeViewModel = new BaseViewModel
+            try
             {
-                ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
-                ProjectMasterModels = await _projectMasterHelper.FilterProjectResults(projectGroups, projectManagers, status, projectTypes, searchKeyWord, mappedStatus, searchText)
-            };
-            Basemodel.ProjectGridModels = _projectMasterHelper.BindProjectGrid(homeViewModel.ProjectMasterModels, homeViewModel.ProjectManagerMasterModels);
-            Basemodel.ProjectModelJsonString = JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
-            return PartialView("_infoModel", homeViewModel);
+                BaseViewModel homeViewModel = new BaseViewModel
+                {
+                    ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
+                    ProjectMasterModels = await _projectMasterHelper.FilterProjectResults(1, projectGroups, projectManagers, status, projectTypes, searchKeyWord, startDate, endDate)
+                };
+                homeViewModel.ProjectGridModels = BindProjectGrid(homeViewModel.ProjectMasterModels, homeViewModel.ProjectManagerMasterModels);
+                homeViewModel.ProjectModelJsonString = JsonConvert.SerializeObject(homeViewModel.ProjectGridModels);
+                return Json(homeViewModel);
+            }
+            catch (Exception ex)
+            {
+                return Json(string.Empty);
+            }
         }
 
         [HttpPost]

@@ -68,49 +68,23 @@ namespace Benaa2018.Data.Repository
 
         public async Task<T> UpdateAsync(T entity)
         {
-            using (var transaction = _context.Database.BeginTransaction())
+            if (entity == null)
             {
-                try
-                {
-                    // _context.Update() = System.Data.Entity.EntityState.Deleted
-
-                    //_context.Entry(entity).State = EntityState.Deleted;
-                    //if(_context.Entry(entity).State== EntityState.Detached)
-                    //{
-
-                    //}
-                    
-                    _context.Entry(entity).State = EntityState.Detached;
-                    
-                    //_context.Entry(entity).State = EntityState.Deleted;
-
-                 
-                    _context.SaveChanges();
-                    
-                     _context.UpdateRange(entity);
-                    //await _context.AddAsync(entity);
-                    //await Save();
-
-                    //await _context.AddAsync(entity);
-
-                    //_context.Entry(entity).State = EntityState.Modified;
-                    //await _context.Update(entity);
-                    //var group = _context.Group.First(g => g.Id == entity..Group.Id);
-                    // _context.Entry(group).CurrentValues.SetValues(entity.Equals()==gr);
-                    // await Save();
-                    await _context.Entry(entity).GetDatabaseValuesAsync();
-                    // _context.Dispose();
-                    // _context.Entry(entity).State = EntityState.Detached;
-                    
-                }
-                catch (Exception ex)
-                {
-                    transaction.Rollback();
-                }
-                return entity;
+                return null;
             }
-        }
+                        
+            //context.Entry(entity).State = EntityState.Modified;
+            //_context.Set<T>().Attach(entity);
+            await Save();
 
+            return entity;
+
+            //_context.Set<T>().Update(entity);
+            //await Save();
+            //await _context.Entry(entity).GetDatabaseValuesAsync();
+            //return entity;
+        }
+        
         public async Task<IEnumerable<T>> FindAsync(Func<T, bool> predicate)
         {
             return await Task.Factory.StartNew(() => _context.Set<T>().Where(predicate));

@@ -4,18 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - SBS2018</title>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="images/favicon.ico">
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <link rel="icon" href="images/favicon.ico" />
     <title>Shada</title>
     <!-- Bootstrap core CSS -->
-    <link href="~/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" />
     <!-- Custom Fonts -->
-    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="~/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -31,11 +31,11 @@
     <link href="~/css/UserControlCssIncludes_MultiSelect.css" rel="stylesheet" />
     <link href="~/css/boostrapSwitchCss.css" rel="stylesheet" />
 
-    <link href="~/css/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css">
-    <link rel="stylesheet" href="~/css/jquery-ui.min.css">
-    <link rel="stylesheet" href="~/css/ui.jqgrid.min.css">
+    <link href="~/css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/themes/redmond/jquery-ui.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/free-jqgrid/4.15.4/css/ui.jqgrid.min.css" />
+    <link rel="stylesheet" href="~/css/jquery-ui.min.css" />
+    <link rel="stylesheet" href="~/css/ui.jqgrid.min.css" />
 </head>
 <body>
     @{
@@ -83,6 +83,7 @@
                                 <div class="liDiv">
                                     @foreach (var Menu in item.Menus)
                                     {
+
                                         <li>
                                             <div class="inlineDiv">
                                                 <a href="@Menu.MenuUrl" class="icontxt">
@@ -92,6 +93,17 @@
                                                 <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
                                             </div>
                                         </li>
+
+                                    <li>
+                                        <div class="inlineDiv">
+                                            <a href="@Menu.MenuUrl" class="icontxt">
+                                                <span class="@Menu.CssClass"></span>
+                                                <span>@Menu.MenuName</span>
+                                            </a>
+                                            <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
+                                        </div>
+                                    </li>
+
                                     }
                                     <li class="videocontainer">
                                         <div class="grayli">
@@ -874,8 +886,9 @@
     <script src="~/js/vfs_fonts.js"></script>
     <script src="~/js/bootstrap.min.js"></script>
     <script src="~/js/jquery.multiselect.js"></script>
-    <script src="~/js/bootstrap-datepicker.min.js"></script>
-    <script src="~/js/bootstrapSwitch.js"></script>
+    <script src="~/js/bootstrap-datepicker.min.js"></script>    
+    <script src="~/js/bootstrapSwitch.js"></script>    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.3/moment.min.js"></script>
     @RenderBody()
     <section class="footerContainer">
         <div class="container-fluid">
@@ -940,24 +953,24 @@
             </div>
         </div>
         <div id="locationModal" class="modal fade" role="dialog" data-backdrop="static" data-keyboard="false" style="z-index:9999">
-            <div class="modal-dialog">
-                <!-- Modal content-->
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close closeModal" data-dismiss="#locationModal">&times;</button>
-                        <h4 class="modal-title">Project Group Editor</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div id="dvMap" class="col-sm-12" style="width:100%;height:500px">
-                                Map Will be placed here
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close closeModal" data-dismiss="#locationModal">&times;</button>
+                            <h4 class="modal-title">Project Group Editor</h4>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div id="dvMap" class="col-sm-12" style="width:100%;height:500px">
+                                    Map Will be placed here
+                                </div>
+                                <div class="clearfix"></div>
                             </div>
-                            <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
     }
 
 
@@ -1311,10 +1324,6 @@
                 e.preventDefault();
                 $(this).tab('show');
             });
-
-            $('.scratch-project').on('click', function () {
-                $('#newProject').addClass('in').show()
-            });
         });
         $(function () {
             $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
@@ -1483,9 +1492,15 @@
                             // refresh the grid
                             $("#example").trigger('reloadGrid');
                         }
+
                         if ($(this).context.className !== "scratch-project-new") {
                             $('#newProject').removeClass('in').hide();
                         }
+
+                        //if ($(this).context.className !== "scratch-project-new") {
+                            $('#newProject').removeClass('in').hide();
+                        //}
+
                         alert("Project Details Successfully Added");
                     } else {
                         alert("Project Details not Saved");
@@ -1511,36 +1526,49 @@
             });
 
             $(document).on('click', '#btnUpdateResults',function () {
-                var projectGroup = $('#ddlProjectGroupID').val();
-                var projectManager = $('#ddlProjectManagerID').val();
-                var projectStatus = $('#ddlStatus').val();
-                var projectType = $('#ddlProjectType').val();
+                var projectGroup = $('#ProjectMasterModel_ProjectGroupID').val();
+                var projectManager = $('#ProjectMasterModel_ProjectManagerID').val();
+                var projectStatus = $('#ProjectMasterModel_ProjectStatusID').val();
+                var projectType = $('#ProjectMasterModel_ProjectTypeID').val();
                 var searchKeyWord = $('#txtKeyWord').val();
-                var mappedStatus = $('#ddlMapedStatus').val();
-                var searchText = $('#serchtext').val();
+                var startDate = $('#ActualStartDate').val();
+                var endDate = $('#ActualEndDate').val();
                 var datainfo = {
                     projectGroups: projectGroup,
                     projectManagers: projectManager,
                     status: projectStatus,
                     projectTypes: projectType,
                     searchKeyWord: searchKeyWord,
-                    mappedStatus: mappedStatus,
-                    searchText: searchText
+                    startDate: startDate,
+                    endDate: endDate
                 };
-                $("#example").load('@(Url.Action("FilterProjectsAsync", "Home",null))', datainfo);
+                $.post("home/FilterProjectsAsync", datainfo, function (data) {
+                    $('#example').jqGrid('clearGridData');
+                    $("#example").jqGrid('setGridParam', { data: JSON.parse(data.projectModelJsonString) });
+                    // refresh the grid
+                    $("#example").trigger('reloadGrid');
+                });
             });
-
+            $(document).on('click', '#btnResetInfo', function () {
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectGroupID', ['']);
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectManagerID', ['']);
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectStatusID', ['']);
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectTypeID', ['']);
+                $('#txtKeyWord').val('');
+                $('#ActualStartDate').val('');
+                $('#ActualEndDate').val('');
+            });
             $('#btnProjectGroup').off('click').on('click', function () {
                 var jobGroupName = $('#Projectgroupname').val();
                 if (jobGroupName != '') {
                     var datainfo = { "jobGroupName": jobGroupName };
                     $.get("home/SaveProjectGroup", datainfo, function (data) {
-                        $('#ProjectMasterModel_ProjectGroupID')
+                        $('#newProject').find('#ProjectMasterModel_ProjectGroupID')
                             .append($("<option></option>")
-                            .attr("value", data.result)
+                            .attr("value", data)
                             .text(jobGroupName));
-                        var resjobstr = '<li data-search-term="' + jobGroupName + '"><label for="ms-opt-18"><input type="checkbox" title="' + jobGroupName + '" id="ms-opt-18" value="' + data.result + '">"' + jobGroupName + '"</label></li>'
-                        $('#ProjectMasterModel_ProjectGroupID').next().find('ul').append(resjobstr);
+                        var resjobstr = '<li data-search-term="' + jobGroupName + '"><label for="ms-opt-18"><input type="checkbox" title="' + jobGroupName + '" id="ms-opt-18" value="' + data + '">' + jobGroupName + '</label></li>'
+                        $('#newProject').find('#ProjectMasterModel_ProjectGroupID').next().find('ul').append(resjobstr);
                         $('#groupAddModal').hide();
                     });
                 }
@@ -1655,8 +1683,8 @@
                     type: 'post',
                     data: param,
                     success: function (data) {
-                        $('#existingower').css('display', 'none');
-                        $("div.owner-existing-info").css('display', 'block');
+                        $('#existingower').hide();
+                        $('div.owner-existing-info').show();
                         $('#OwnerMasterModel_OwnerName').val(data.ownerMasterModel.ownerName);
                         $('#OwnerMasterModel_Email').val(data.ownerMasterModel.email);
                         $('#OwnerMasterModel_Telephone').val(data.ownerMasterModel.telephone);
@@ -1671,51 +1699,21 @@
                     }
                 });
             });
+            
+            $("#newProject").on('shown.bs.modal', function () {
+                $(this).find('input[type="text"]').focus();
+            });
         });
         $(window).load(function () {
-            function SetProjectDetails(projectId) {
-                var datainfo = { "projectID": projectId };
-                $.post("home/GetProjectInfoByProjectID", datainfo, function (data) {
-                    $('#infoModal').show();
-                    $('#leftNavCon').css("z-index", "000000");
-                    $('#infoModal').css("z-index", "000000");
-                    $("#ProjectMasterModel_ProjectName").val(data.item1.projectName);
-                    $("#ProjectMasterModel_StreetAddress").val(data.item1.streetAddress);
-                    $("#ProjectMasterModel_JobsitePrefix").val(data.item1.jobsitePrefix);
-                    $("#ProjectMasterModel_LotInfo").val(data.item1.LotInfo);
-                    $("#ProjectMasterModel_Permit").val(data.item1.permit);
-                    $("#ProjectMasterModel_City").val(data.item1.city);
-                    $("#ProjectMasterModel_State").val(data.item1.state);
-                    $("#ProjectMasterModel_Zip").val(data.item1.zip);
-                    $("#ProjectMasterModel_ContractPrice").val(data.item1.contractPrice);
-                    $('#ProjectMasterModel_ProjectID').val(data.item1.projectID);
-                    //Project Schedule
-                    $('#OwnerMasterModel_OwnerName').val(data.item2.ownerName);
-                    $('#OwnerMasterModel_Address').val(data.item2.address);
-                    $('#OwnerMasterModel_City').val(data.item2.city);
-                    $('#OwnerMasterModel_State').val(data.item2.state);
-                    $('#OwnerMasterModel_Zip').val(data.item2.zip);
-                    $('#OwnerMasterModel_Telephone').val(data.item2.telephone);
-                    $('#OwnerMasterModel_MobileNo').val(data.item2.mobileNo);
-                    $('#OwnerMasterModel_Email').val(data.item2.email);
-                    $('#OwnerMasterModel_AccessMethod').val(data.item2.accessMethod);
-                    $('#OwnerMasterModel_OwnerCalendar').val(data.item2.ownerCalendar);
-                    $('#OwnerMasterModel_ShowProjectPrice').prop('checked', data.item2.showProjectPrice)
-                    $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.item2.showBudgetPurchaseOrders)
-                    $('#OwnerMasterModel_AllowOrderRequests').prop('checked', data.item2.allowOrderRequests);
-                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections)
-                    $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections);
-                    $('#OwnerMasterModel_AllowPaymentsTab').prop('checked', data.item2.allowPaymentsTab);
-                });
-            }
+                   
             $(document).on("click", "div.listmapCon > a", function () {
                 var projectId = parseInt($(this).attr('data-project'));
                 SetProjectDetails(projectId);
             });
             $(document).on("click", "td[aria-describedby='example_ProjectName']", function () {
-                var projectId = parseInt($(this).prev().text());
+                var projectId = parseInt($(this).prev().prev().text());
                 SetProjectDetails(projectId);
-                $('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');
+                //$('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');
             });
             $(document).on('click', '#projectclose', function () {
                 $('#newProject').removeClass('in').removeAttr('style').attr('style', 'display:none');
@@ -1723,17 +1721,108 @@
             var innerexport = $('div.dataTableConatainer').children('span').html();
             $('#example_toppager_left').html(innerexport);
             $('#export').remove();
+            $('.datepicker-dropdown').hide();    
         });
+        function SetProjectDetails(projectId) {
+            var datainfo = { "projectID": projectId };
+            $.post("home/GetProjectInfoByProjectID", datainfo, function (data) {
+                $('#infoModal').show();
+                $('#leftNavCon').css("z-index", "000000");
+                $('#infoModal').css("z-index", "000000");
+                                
+                $("#ProjectMasterModel_ProjectName").val(data.item1.projectName);
+                $("#ProjectMasterModel_StreetAddress").val(data.item1.streetAddress);
+                $("#ProjectMasterModel_JobsitePrefix").val(data.item1.jobsitePrefix);
+                $("#ProjectMasterModel_LotInfo").val(data.item1.lotInfo);
+                $("#ProjectMasterModel_Permit").val(data.item1.permit);
+                $("#ProjectMasterModel_City").val(data.item1.city);
+                $("#ProjectMasterModel_State").val(data.item1.state);
+                $("#ProjectMasterModel_Zip").val(data.item1.zip);
+                $("#ProjectMasterModel_ContractPrice").val(data.item1.contractPrice);
+                $('#ProjectMasterModel_ProjectID').val(data.item1.projectID);
+                $("#ProjectMasterModel_Latitude").val(data.item1.latitude);
+                $("#ProjectMasterModel_Longitude").val(data.item1.longitude);
+                $('#ProjectMasterModel_ProjectTypeID').val(data.item1.projectTypeID);
+                setmultiselectvalue('newProject','ProjectMasterModel_ProjectGroupID', data.item1.projectGroupID);
+                setmultiselectvalue('newProject','ProjectMasterModel_ProjectManagerID', data.item1.projectManagerID);
+                setmultiselectvalue('newProject','ProjectMasterModel_ProjectStatusID', data.item1.projectStatusID);
+                if (data.item1.latitude != null) {                   
+                    BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMap"));
+                    BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMapEdit"));
+                    BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMapCluster"));
+                }
+                
+                //Ownwr Schedule
+                $('.owner-existing-info').show();
+                $('#OwnerMasterModel_OwnerName').val(data.item2.ownerName);
+                $('#OwnerMasterModel_Address').val(data.item2.address);
+                $('#OwnerMasterModel_City').val(data.item2.city);
+                $('#OwnerMasterModel_State').val(data.item2.state);
+                $('#OwnerMasterModel_Zip').val(data.item2.zip);
+                $('#OwnerMasterModel_Telephone').val(data.item2.telephone);
+                $('#OwnerMasterModel_MobileNo').val(data.item2.mobileNo);
+                $('#OwnerMasterModel_Email').val(data.item2.email);
+                $('#OwnerMasterModel_AccessMethod').val(data.item2.accessMethod);
+                $('#OwnerMasterModel_OwnerCalendar').val(data.item2.ownerCalendar);
+                $('#OwnerMasterModel_ShowProjectPrice').prop('checked', data.item2.showProjectPrice)
+                $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.item2.showBudgetPurchaseOrders)
+                $('#OwnerMasterModel_AllowOrderRequests').prop('checked', data.item2.allowOrderRequests);
+                $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections)
+                $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections);
+                $('#OwnerMasterModel_AllowPaymentsTab').prop('checked', data.item2.allowPaymentsTab);
+
+                //Schedule Info
+                $('#ProjectMasterModel_InternalNotes').val(data.item1.internalNotes);
+                $('#ProjectMasterModel_SubNotes').val(data.item1.subNotes);
+                $("#ProjectScheduleMasterModel_ProjectStart").datepicker("setDate", data.item1.projectScheduleMasterModel.projectStart);
+                $("#ProjectScheduleMasterModel_ActualStart").datepicker("setDate", data.item1.projectScheduleMasterModel.actualStart);
+                $("#ProjectScheduleMasterModel_ProjectCompletion").datepicker("setDate", data.item1.projectScheduleMasterModel.projectCompletion);
+                $("#ProjectScheduleMasterModel_ActualCompletion").datepicker("setDate", data.item1.projectScheduleMasterModel.actualCompletion);
+                $('#ProjectScheduleMasterModel_JobColorID').val(data.item1.projectScheduleMasterModel.jobColorID);
+                $('#ProjectScheduleMasterModel_JobColorID').css('background-color', data.item1.projectScheduleMasterModel.jobColorID)
+                $('.datepicker-dropdown').hide();
+                if (data.item1.projectScheduleMasterModel.workDays !== '' && data.item1.projectScheduleMasterModel.workDays !== null) {
+                    var workdays = data.item1.projectScheduleMasterModel.workDays.split(',');
+                    $('#newProject').find('.work-days input[type=checkbox]').prop('prop', false);
+                    for (var i = 0; i < workdays; i++) {
+                        $('#newProject').find('.work-days input[type=checkbox]').each(function () {
+                            if ($(this).val() == workdays[i]) {
+                                $(this).prop('prop', true);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+        function setmultiselectvalue(parentid, id, values) {
+            var selectedtext = '';
+            $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').prop('checked', false);
+            $('#' + parentid).find('#' + id).next().find('button > span').text('--Select--');
+            for (var i = 0; i < values.length; i++) {
+                $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').each(function () {
+                    if ($(this).val() == values[i]) {
+                        $(this).click();
+                        selectedtext = selectedtext + $(this).attr('title') + ', ';
+                    }
+                });
+            }
+        }
         function formatColor(cellValue, options, rowObject) {
             var linkMessage = '<div class="colorcode" style= "background-color: ' + cellValue + '; padding: 10px 47px; margin: -2px;"></div>';
             return linkMessage;
         };
+
+        function formatName(cellValue, options, rowObject) {
+            var linkMessage = '<a href="#newProject" data-toggle="modal">' + cellValue + '</a>';
+            return linkMessage;
+        };
+
         function BindGrid(divId, jsondata) {
             $("#" + divId).jqGrid({
                     colModel: [
                         { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
                         { name: "ProjectColor", label: "", width: 15, formatter: formatColor },
-                        { name: "ProjectName", label: "Project Name", width: 53 },
+                        { name: "ProjectName", label: "Project Name", width: 53, formatter: formatName },
                         {
                             name: "StreetAddress", label: "Street Address", width: 75
                         },
@@ -1767,7 +1856,7 @@
         }
     </script>
     @if (baseModel != null)
-    {
+            {
         <script>
             $(document).ready(function () {
                 BindGrid('example', @Html.Raw(baseModel.ProjectModelJsonString));

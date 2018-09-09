@@ -1,5 +1,6 @@
 $(document).ready(function () {
     $(document).on('click', 'a.allProject', function () {
+        $('a.allProject').removeClass('selected-project');
         $(this).addClass('selected-project');
         $('#projectid').text($(this).attr('data-projectid'));
         $('#frmSchedule').find("#ProjectId").val($(this).attr('data-projectid'));
