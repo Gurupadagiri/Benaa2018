@@ -1143,9 +1143,16 @@
                     // refresh the grid
                     $("#example").trigger('reloadGrid');
                 });
-                //$("#example").load('@(Url.Action("FilterProjectsAsync", "Home",null))', datainfo);
             });
-
+            $(document).on('click', '#btnResetInfo', function () {
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectGroupID', ['']);
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectManagerID', ['']);
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectStatusID', ['']);
+                setmultiselectvalue('infoModal','ProjectMasterModel_ProjectTypeID', ['']);
+                $('#txtKeyWord').val('');
+                $('#ActualStartDate').val('');
+                $('#ActualEndDate').val('');
+            });
             $('#btnProjectGroup').off('click').on('click', function () {
                 var jobGroupName = $('#Projectgroupname').val();
                 if (jobGroupName != '') {
@@ -1317,8 +1324,7 @@
                 $('#infoModal').show();
                 $('#leftNavCon').css("z-index", "000000");
                 $('#infoModal').css("z-index", "000000");
-                
-                
+                                
                 $("#ProjectMasterModel_ProjectName").val(data.item1.projectName);
                 $("#ProjectMasterModel_StreetAddress").val(data.item1.streetAddress);
                 $("#ProjectMasterModel_JobsitePrefix").val(data.item1.jobsitePrefix);
@@ -1332,9 +1338,9 @@
                 $("#ProjectMasterModel_Latitude").val(data.item1.latitude);
                 $("#ProjectMasterModel_Longitude").val(data.item1.longitude);
                 $('#ProjectMasterModel_ProjectTypeID').val(data.item1.projectTypeID);
-                setmultiselectvalue('ProjectMasterModel_ProjectGroupID', data.item1.projectGroupID);
-                setmultiselectvalue('ProjectMasterModel_ProjectManagerID', data.item1.projectManagerID);
-                setmultiselectvalue('ProjectMasterModel_ProjectStatusID', data.item1.projectStatusID);
+                setmultiselectvalue('newProject','ProjectMasterModel_ProjectGroupID', data.item1.projectGroupID);
+                setmultiselectvalue('newProject','ProjectMasterModel_ProjectManagerID', data.item1.projectManagerID);
+                setmultiselectvalue('newProject','ProjectMasterModel_ProjectStatusID', data.item1.projectStatusID);
                 if (data.item1.latitude != null) {                   
                     BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMap"));
                     BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMapEdit"));
@@ -1383,19 +1389,18 @@
                 }
             });
         }
-        function setmultiselectvalue(id, values) {
+        function setmultiselectvalue(parentid, id, values) {
             var selectedtext = '';
-            $('#newProject').find('#' + id).next().find('input[type=checkbox]').prop('checked', false);
+            $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').prop('checked', false);
+            $('#' + parentid).find('#' + id).next().find('button > span').text('');
             for (var i = 0; i < values.length; i++) {
-                $('#newProject').find('#' + id).next().find('input[type=checkbox]').each(function () {
+                $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').each(function () {
                     if ($(this).val() == values[i]) {
-                        //$(this).prop('checked', true);
                         $(this).click();
                         selectedtext = selectedtext + $(this).attr('title') + ', ';
                     }
                 });
             }
-            //$('#newProject').find('#' + id).next().find('button[type=button] > span').text(selectedtext);
         }
         function formatColor(cellValue, options, rowObject) {
             var linkMessage = '<div class="colorcode" style= "background-color: ' + cellValue + '; padding: 10px 47px; margin: -2px;"></div>';
