@@ -214,7 +214,7 @@ namespace Benaa2018.Helper
                 var commonProjectGroupID = lstProjectGroups.Select(a => a.Project_Goup_ID).Intersect(projectGroups.Where(a => a != null).Select(b => Convert.ToInt32(b)).ToList());
                 foreach (var item in commonProjectGroupID)
                 {
-                    lstProjectMasterInfo.Add(lstManagers.Where(a => a.Project_Group_ID != null && a.Project_Group_ID.Contains(item.ToString())).FirstOrDefault());
+                    lstProjectMasterInfo.AddRange(lstManagers.Where(a => a.Project_Group_ID != null && a.Project_Group_ID.Contains(item.ToString())));
                 }
             }
             if (projectManagers.Length > 0 && projectManagers[0] != null)
@@ -223,7 +223,7 @@ namespace Benaa2018.Helper
                 var commonProjectManagerID = lstProjectManagers.Select(a => a.Manager_ID).Intersect(projectManagers.Where(a => a != null).Select(b => Convert.ToInt32(b)).ToList());
                 foreach (var item in commonProjectManagerID)
                 {
-                    lstProjectMasterInfo.Add(lstManagers.Where(a => a.Project_Manager_id != null && a.Project_Manager_id.Contains(item.ToString())).FirstOrDefault());
+                    lstProjectMasterInfo.AddRange(lstManagers.Where(a => a.Project_Manager_id != null && a.Project_Manager_id.Contains(item.ToString())));
                 }
             }
             if (status.Length > 0 && status[0] != null)
@@ -232,7 +232,7 @@ namespace Benaa2018.Helper
                 var commonProjectTypeID = lstProjectStatus.Select(a => a.Status_ID.ToString()).Intersect(status.Where(a => a != null).ToList());
                 foreach (var item in commonProjectTypeID)
                 {
-                    lstProjectMasterInfo.Add(lstManagers.Where(a => a.Project_Type_ID != null && a.Project_Type_ID.ToString().Contains(item)).FirstOrDefault());
+                    lstProjectMasterInfo.AddRange(lstManagers.Where(a => a.Project_Type_ID != null && a.Project_Type_ID.ToString().Contains(item)));
                 }
             }
             if (projectTypes.Length > 0 && projectTypes[0] != null)
@@ -241,7 +241,7 @@ namespace Benaa2018.Helper
                 var commonProjectTypeID = lstProjectTypes.Select(a => a.Project_Type_ID.ToString()).Intersect(projectTypes.Where(a => a != null).ToList());
                 foreach (var item in commonProjectTypeID)
                 {
-                    lstProjectMasterInfo.Add(lstManagers.Where(a => a.Project_Type_ID != null && a.Project_Type_ID.ToString() == item).FirstOrDefault());
+                    lstProjectMasterInfo.AddRange(lstManagers.Where(a => a.Project_Type_ID != null && a.Project_Type_ID.ToString().Contains(item)));
                 }
             }
             if (searchKeyWord != null)
@@ -292,10 +292,14 @@ namespace Benaa2018.Helper
                     }
                 }
             }
-            foreach (var item in lstProjectMasterInfo)
+            if(lstProjectMasterInfo.Count == 0)
+            {
+                lstProjectMasterInfo = lstManagers.ToList();
+            }
+            foreach (var item in lstProjectMasterInfo.Distinct())
             {
                 lstProjectMasterModel.Add(new ProjectMasterViewModel
-                {
+                {                   
                     ProjectID = item.Project_ID,
                     City = item.City,
                     ContractPrice = item.Contract_Price,
@@ -313,7 +317,8 @@ namespace Benaa2018.Helper
                     SubNotes = item.Sub_Notes,
                     UserID = item.User_ID,
                     Zip = item.Zip,
-                    ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID)
+                    ProjectScheduleMasterModel = await _projectScheduleMasterHelper.GetProjectScheduleByProjectID(item.Project_ID),
+                    OwnerMasterModel = await _ownerMasterHelper.GetOwnerInfoByInfo(item.Project_ID)
                 });
             };
             return lstProjectMasterModel;
