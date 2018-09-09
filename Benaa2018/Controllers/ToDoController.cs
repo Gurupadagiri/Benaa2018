@@ -10,7 +10,9 @@ using Benaa2018.Helper.Model;
 using System;
 using System.Net.Mail;
 using System.Net;
-
+using System.Data;
+using System.Web;
+using System.Text;
 
 namespace Benaa2018.Controllers
 {
@@ -109,30 +111,17 @@ namespace Benaa2018.Controllers
             #endregion
 
             var differentUsersList = await GetAllDifferentUsers();
-            //List<UserOwnerDifferentTypeViewModel> lstUsers = new List<UserOwnerDifferentTypeViewModel>();
-            //lstUsers = await GetAllDifferentUsers();
-            //List<DifferentTypeUser> lstUsers1 = new List<DifferentTypeUser>();
-            //if (lstUsers.Count > 0)
-            //{
-            //    foreach (var item in lstUsers)
-            //    {
-            //        DifferentTypeUser rrr = new DifferentTypeUser()
-            //        {
-            //            DifferentTypeUserId = item.UserOwnerDifferentTypeId,
-            //            Name = item.UserOwnerDifferentTypeValue,
-            //            Category = item.UserOriginaTypeText
-            //        };
-            //        lstUsers1.Add(rrr);
-            //    }
-            //}
+
             ViewBag.SubContractorsList = differentUsersList;
-           // ViewBag.SubContractorsList = new SelectList(differentUsersList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText","1");
+
+
+            // ViewBag.SubContractorsList = new SelectList(differentUsersList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText","1");
 
             var usersList = await GetAllDifferentUsers1();
             ViewBag.UsersDifferentList = usersList;
 
 
-            ViewBag.ProductList = new SelectList(differentUsersList , "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", "1");
+            ViewBag.ProductList = new SelectList(differentUsersList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", "1");
             // ViewBag.SubContractorsList = new SelectList(lstUsers1, "DifferentTypeUserId", "Name", "Category", "1");
             // ViewBag.SubContractorsList1= new SelectList(, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", 1);
             return View();
@@ -161,15 +150,64 @@ namespace Benaa2018.Controllers
                         }
                     }
                     #region Assign user
-                    ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
-                    {
-                        TodoDetailsID = todoDetailsId,
-                        ToDoAssignID = 1,
-                        ToDoUserAssignTypeId = 1
 
-                    };
+                    string differentUserNamesWithType = Request.Cookies["UserDetailsListCookie"];
+                    List<DifferentUserWithType> lstDifferentUserWithType = new List<DifferentUserWithType>();
+                    if (!string.IsNullOrEmpty(differentUserNamesWithType))
+                    {
+
+                        string[] useretailsDescriptionWithType = differentUserNamesWithType.Split('|');
+                        //int length = useretailsDescriptionWithType.Length;
+                        if (useretailsDescriptionWithType != null)
+                        {
+
+                            foreach (string individualUSerDetails in useretailsDescriptionWithType)
+                            {
+                                if (!string.IsNullOrEmpty(individualUSerDetails.Trim()))
+                                {
+
+
+                                    string[] individualUser = individualUSerDetails.Split(',');
+                                    if (individualUser != null)
+                                    {
+
+                                        DifferentUserWithType diffUSerDetails = new DifferentUserWithType()
+                                        {
+                                            DifferentUserWithTypeId = Convert.ToInt32(individualUser[0]),
+                                            DifferentUserWithTypewithTypeId = Convert.ToInt32(individualUser[1]),
+                                            DifferentUserWithTypeOriginalId = Convert.ToInt32(individualUser[2])
+                                        };
+                                        lstDifferentUserWithType.Add(diffUSerDetails);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (toDoAllView.UserMasters != null)
+                    {
+                        foreach (int i in toDoAllView.UserMasters)
+                        {
+                            var userDetails = lstDifferentUserWithType.FindAll(a => a.DifferentUserWithTypeId == i);
+                            ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                            {
+                                TodoDetailsID = todoDetailsId,
+                                ToDoAssignID = userDetails[0].DifferentUserWithTypeOriginalId,
+                                ToDoUserAssignTypeId = userDetails[0].DifferentUserWithTypewithTypeId
+
+                            };
+                            var objToUserAssign = _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
+                        }
+                    }
+
+                    //ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
+                    //{
+                    //    TodoDetailsID = todoDetailsId,
+                    //    ToDoAssignID = 1,
+                    //    ToDoUserAssignTypeId = 1
+
+                    //};
                     //  var objToUserAssign =  _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
-                    var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
+                    //var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
                     #endregion
 
                     #region Checklist
@@ -258,7 +296,7 @@ namespace Benaa2018.Controllers
             ViewBag.SubContractorsList = differentUsersList;
 
             toDoAllView.Operation = "Update";
-           // return PartialView("_toDoAddNew", toDoAllView);
+            // return PartialView("_toDoAddNew", toDoAllView);
             return PartialView("_toDoAddUpdate", toDoAllView);
 
         }
@@ -299,7 +337,7 @@ namespace Benaa2018.Controllers
                     int todoDetailsId = toDoAllView.ToDoDetails.TodoDetailsID;
                     if (todoDetailsId > 0)
                     {
-                        if (toDoAllView.TagIds!=null)
+                        if (toDoAllView.TagIds != null)
                         {
                             if (toDoAllView.TagIds.Length > 0)
                             {
@@ -792,7 +830,7 @@ namespace Benaa2018.Controllers
                         index = index + 1;
                         UserOwnerDifferentTypeViewModel item1 = new UserOwnerDifferentTypeViewModel()
                         {
-                            UserOwnerDifferentTypeId = index ,
+                            UserOwnerDifferentTypeId = index,
                             UserOriginalId = item.OwnerID,
                             UserOriginaTypeId = 1,
                             UserOriginaTypeText = "Owners",
@@ -833,7 +871,33 @@ namespace Benaa2018.Controllers
                         lstOwners1.Add(item1);
                     }
                 }
-                //lstOwners1 = lstOwners1.Sort(a=>a.UserOriginaTypeId).tol;
+
+                List<DifferentUserWithType> lstDifferentUserWithType = new List<DifferentUserWithType>();
+                if (lstOwners1?.Count > 0)
+                {
+                    foreach (var item in lstOwners1)
+                    {
+                        DifferentUserWithType usertype1 = new DifferentUserWithType()
+                        {
+                            DifferentUserWithTypeId = item.UserOwnerDifferentTypeId,
+                            DifferentUserWithTypewithTypeId = item.UserOriginaTypeId,
+                            DifferentUserWithTypeOriginalId = item.UserOriginalId
+                        };
+                        lstDifferentUserWithType.Add(usertype1);
+                    }
+                }
+                StringBuilder sbMyValue = new StringBuilder("");
+                if (lstDifferentUserWithType?.Count > 0)
+                {
+                    foreach (var item in lstDifferentUserWithType)
+                    {
+                        sbMyValue.Append(item.DifferentUserWithTypeId + "," + item.DifferentUserWithTypewithTypeId + "," + item.DifferentUserWithTypeOriginalId + "|");
+                    }
+
+                }
+                string userDetailsList = Convert.ToString(sbMyValue);
+                HttpContext.Response.Cookies.Append("UserDetailsListCookie", userDetailsList);
+
             }
             catch (System.Exception ex)
             {

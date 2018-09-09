@@ -8,7 +8,6 @@
 }
 <style type="text/css">
     .state_active {
-        
         text-decoration: line-through;
         /*content: "\00B7";
         font-size: 1px;*/
@@ -407,7 +406,11 @@
         $('.todoAreaVisible').hide();
         $("#projectname").text('To-Do');
 
+
         $('#ddltravelmode111').multiselect();
+        $('#ddlUserDiffer1').multiselect();
+        $('#ddlUserDiffer2').multiselect();
+        $('#ddlUserDiffer0').multiselect();
         $('#addRemoveButton').click(function () {
             if ($(this).val() == "Remove Checklist") {
 
@@ -515,6 +518,7 @@
             var projectId = $(this).attr('data-projectid');
             $('#ProjectId').val(projectId);
             $('#hdnProjectIdToDo').val(projectId);
+            $('#spnproject').text($(this).text());
             //alert('Hi   ' + projectId);
            // BindGrid(projectId);
              $.ajax({
@@ -687,7 +691,23 @@
                             debugger;
 
                             alert('success');
-                            location.reload(true);
+                            //location.reload(true);
+                            //$('#todoinfoModal').show();
+                            $('#hdnProjectIdToDo').val(projectId);
+                            $.ajax({
+                                url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
+                                type: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                                },
+                                data: { projectId: projectId },
+                                success: function (result) {
+                                    $('#internaluser').jqGrid('clearGridData');
+                                    $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
+                                }
+
+                                });
 
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -819,15 +839,15 @@
                     var celValue1 = $("#internaluser").jqGrid('getCell', rowid, 'ToDoDetails.IsMarkedComplete');
                    // alert(celValue2 + '  ' + celValue1);
                     if (celValue1 == 'Yes') {
-                        
+
 
                         var trElement = jQuery("#" + rowid, jQuery('#internaluser'));
                         trElement.removeClass('state_active');
                         //trElement.addClass('ui-widget-content');
-                        //trElement.css("line-through"); 
+                        //trElement.css("line-through");
                         //var celValue1 = $("#internaluser").jqGrid('getCell', rowid, 'ToDoDetails.IsMarkedComplete');
-                        //celValue1.css("line-through"); 
-                        
+                        //celValue1.css("line-through");
+
                         //trElement.css({ display: "none" });
                     }
                     else {
@@ -836,10 +856,10 @@
                         trElement.addClass('state_active');
                         trElement.delay(2500).fadeOut(1600);
                     }
-                    
+
                 }
             }
-            
+
         });
 
         $("#internaluser").jqGrid('navGrid', '#gridpager',
@@ -849,7 +869,7 @@
         $("#internaluser").jqGrid('setLabel',
             'Complete',
             '<img src="~/images/message.png width=16 height=16>');
-        
+
         $('#btnExcelLink').click(function () {
             console.log('test');
             JSONToCSVConvertor(JSON.stringify($('#internaluser').jqGrid('getRowData')), 'Title', true);

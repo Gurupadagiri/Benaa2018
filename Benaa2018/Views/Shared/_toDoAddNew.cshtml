@@ -87,29 +87,9 @@
                             <div class="formHolder">
                                 <div class="leftFormHeading">Assigned To:</div>
                                 <div class="rightFormText">
-                                    @*<select name="TeavelMode" id="ddltravelmode">
-                                            <option value="0">Select</option>
-                                            @foreach (var pitem in ViewBag.SubContractorsList)
-                                            {
-                                                <optgroup label="@pitem.UserOriginaTypeText">
-                                                    @{
-                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
 
-                                                        if (childitemfilter != null)
-                                                        {
-                                                            foreach (var citem in ViewBag.SubContractorsList)
-                                                            {
-                                                                string selectedValue = "";
-                                                    <option value="UserOwnerDifferentTypeId" @selectedValue>@citem.UserOwnerDifferentTypeValue</option>
-                                                            }
-                                                        }
-                                                    }
-                                                </optgroup>
-                                            }
-                                        </select>*@
+                                    <select id="ddltravelmode111" multiple="multiple" asp-for="UserMasters">
 
-                                    <select id="ddltravelmode111" multiple="multiple" name="ToDoDetails.UserMasters">
-                                        @*<option value="0">Select</option>*@
                                         @for (var j = 1; j < 4; j++)
                                         {
                                             var ert = 0;
@@ -120,7 +100,6 @@
                                                 {
                                                     ert = j;
                                                     <optgroup label="@pitem.UserOriginaTypeText">
-                                                        @*<span> @pitem.UserOriginaTypeText</span>*@
                                                         @{
                                                             var childitemfilter = pitem.UserOwnerDifferentTypeId;
 
@@ -130,16 +109,12 @@
                                                                 {
                                                                     if (citem.UserOriginaTypeId == j)
                                                                     {
-                                                                       // string selectedValue = "";
+
                                                                         <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
                                                                     }
-
                                                                 }
                                                             }
-
                                                         }
-
-
                                                     </optgroup>
 
                                                 }
@@ -147,10 +122,7 @@
                                             }
                                         }
                                     </select>
-                                    @*@Html.DropDownListFor("SubContractorsList");*@
-                                    @*@Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlPermission", @class = "form-control" })*@
-                                    @*@Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOriginaTypeText", "UserOwnerDifferentTypeValue"), new { id = "ddlPermission", @class = "form-control" })*@
-                                    @*@Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "DifferentTypeUserId", "Name", "Category"), new { id = "ddlPermission", @class = "form-control" })*@
+
                                 </div>
                             </div>
                             <div class="formHolder">
@@ -181,7 +153,8 @@
                                                     <div style="flex: 1">
                                                         <!-- Wrap with a flex div in order to share space better with the below bt-tooltip -->
                                                         <div class="input-group input-group-sm date bt-date-picker--value" data-provide="datepicker" data-bind="validationBorder: value">
-                                                            @Html.TextBoxFor(a => a.ToDoDetails.Duedate, new { @class = "form-control datePicker hasDatepicker", @dataprovide = "datepicker", @name = "ToDoDetails.Duedate" })
+
+                                                            @Html.TextBoxFor(a => a.ToDoDetails.DueDateFormat, new { @class = "form-control datePicker hasDatepicker", @dataprovide = "datepicker", @name = "ToDoDetails.DueDateFormat" })
                                                             <label class="input-group-addon" data-bind="uniqueFor: uniqueId, css: { 'disabled-text': ko.unwrap(readOnly) }" for="ui-id-4">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
                                                             </label>
@@ -278,7 +251,7 @@
                                                         </select>
 
                                                         <div class="chosen-container chosen-container-single chosen-container-single-nosearch" title="" id="ui_id_6_chosen" style="width: 100%;">
-                                                            <a class="chosen-single beforeClass" style="display:none;"> 
+                                                            <a class="chosen-single beforeClass" style="display:none;">
                                                                 <input class="chosen-search-input" type="text" autocomplete="off" readonly="">
                                                                 <span>BEFORE</span>
                                                                 <div><b></b></div>
@@ -506,9 +479,48 @@
                                             <div class="liColumn1" title="">
                                                 <a class="chosen-single">
                                                 </a>
-                                                @Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })
+                                                @*@Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })*@
+
+
+                                                <select id="ddlUserDiffer@(i)" multiple="multiple" name="ToDoDetails.UserMasters">
+
+
+                                                    @for (var j = 1; j < 4; j++)
+                                                    {
+                                                        var ert = 0;
+                                                        @foreach (var pitem in ViewBag.SubContractorsList)
+                                                        {
+
+                                                            @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                                            {
+                                                                ert = j;
+                                                                <optgroup label="@pitem.UserOriginaTypeText">
+                                                                    @{
+                                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
+
+                                                                        if (childitemfilter != null)
+                                                                        {
+                                                                            foreach (var citem in ViewBag.SubContractorsList)
+                                                                            {
+                                                                                if (citem.UserOriginaTypeId == j)
+                                                                                {
+
+                                                                                    <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </optgroup>
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                </select>
+
                                             </div>
                                         </div>
+
                                     }
                                     else
 
@@ -531,7 +543,41 @@
                                             <div class="liColumn1" title="">
                                                 <a class="chosen-single">
                                                 </a>
-                                                @Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })
+                                                @*@Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })*@
+                                                <select id="ddlUserDiffer@(i)" multiple="multiple" name="ToDoDetails.UserMasters">
+
+                                                    @for (var j = 1; j < 4; j++)
+                                                    {
+                                                        var ert = 0;
+                                                        @foreach (var pitem in ViewBag.SubContractorsList)
+                                                        {
+
+                                                            @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                                            {
+                                                                ert = j;
+                                                                <optgroup label="@pitem.UserOriginaTypeText">
+                                                                    @{
+                                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
+
+                                                                        if (childitemfilter != null)
+                                                                        {
+                                                                            foreach (var citem in ViewBag.SubContractorsList)
+                                                                            {
+                                                                                if (citem.UserOriginaTypeId == j)
+                                                                                {
+
+                                                                                    <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </optgroup>
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                </select>
                                             </div>
                                         </div>
 

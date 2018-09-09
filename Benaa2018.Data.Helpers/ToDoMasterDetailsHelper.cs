@@ -4,6 +4,7 @@ using Benaa2018.Helper.Interface;
 using Benaa2018.Helper.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -20,9 +21,18 @@ namespace Benaa2018.Helper
 
         public async Task<ToDoMasterDetailsViewModel> SaveToDoMasterDetails(ToDoMasterDetailsViewModel masterDetailsViewModel)
         {
+            DateTime dt2 = DateTime.Now;
+            if (!string.IsNullOrEmpty(masterDetailsViewModel.DueDateFormat))
+            {
+
+            
+            string dt1 = masterDetailsViewModel.DueDateFormat.ToString();
+            var datetoEnter = DateTime.ParseExact(dt1, "dd/mm/yyyy", CultureInfo.InvariantCulture);
+             dt2 = datetoEnter;
+}
             ToDoMasterDetails toDoMasterDetails = new ToDoMasterDetails()
             {
-                TodoDetailsID = masterDetailsViewModel.TodoDetailsID,
+               // TodoDetailsID = masterDetailsViewModel.TodoDetailsID,
                 Project_ID = masterDetailsViewModel.Project_ID,
                 Project_Site = masterDetailsViewModel.Title ?? string.Empty,
                 Title = masterDetailsViewModel.Title ?? string.Empty,
@@ -30,8 +40,10 @@ namespace Benaa2018.Helper
                 TypeNote = masterDetailsViewModel.TypeNote ?? string.Empty,
                 IsMarkedComplete = masterDetailsViewModel.IsMarkedComplete,
                 Priority = masterDetailsViewModel.Priority ?? string.Empty,
-                Duedate = masterDetailsViewModel.Duedate,
-                DueDatetime = masterDetailsViewModel.DueDatetime ?? string.Empty,
+               // Duedate = masterDetailsViewModel.Duedate,
+              // Duedate= Convert.ToDateTime(masterDetailsViewModel.DueDateFormat),
+                Duedate = dt2,
+            DueDatetime = masterDetailsViewModel.DueDatetime ?? string.Empty,
                 LinkToUnit = masterDetailsViewModel.LinkToUnit,
                 LinkToDaysStatus = masterDetailsViewModel.LinkToDaysStatus,
                 LinkToWorkId = masterDetailsViewModel.TillingWorkId,
