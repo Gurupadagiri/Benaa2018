@@ -192,7 +192,8 @@ namespace Benaa2018.Controllers
                             {
                                 TodoDetailsID = todoDetailsId,
                                 ToDoAssignID = userDetails[0].DifferentUserWithTypeOriginalId,
-                                ToDoUserAssignTypeId = userDetails[0].DifferentUserWithTypewithTypeId
+                                ToDoUserAssignTypeId = userDetails[0].DifferentUserWithTypewithTypeId,
+                                UserID= userDetails[0].DifferentUserWithTypeOriginalId
 
                             };
                             var objToUserAssign = _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
@@ -219,19 +220,19 @@ namespace Benaa2018.Controllers
                     };
                     var objToDoCheckList = await SaveToDochecklistDetails(toDoCheckListViewModel);
 
-                    for (int k = 0; k < toDoAllView.ToDoCheckListItemIndex; k++)
-                    {
-                        ToDochecklistDetailsViewModel toDoCheckListDetailsViewModel = new ToDochecklistDetailsViewModel
-                        {
-                            ToDoCheckListId = objToDoCheckList.ToDoCheckListId,
-                            ToDoIsCheckList = toDoAllView.lstCheckListDetail[k].ToDoIsCheckList,
-                            ToDoCheckListTitle = toDoAllView.lstCheckListDetail[k].ToDoCheckListTitle,
-                            ToDoCheckListUserType = 1,
-                            ToDoCheckListUserId = toDoAllView.lstCheckListDetail[k].ToDoCheckListUserId
+                    //for (int k = 0; k < toDoAllView.ToDoCheckListItemIndex; k++)
+                    //{
+                    //    ToDochecklistDetailsViewModel toDoCheckListDetailsViewModel = new ToDochecklistDetailsViewModel
+                    //    {
+                    //        ToDoCheckListId = objToDoCheckList.ToDoCheckListId,
+                    //        ToDoIsCheckList = toDoAllView.lstCheckListDetail[k].ToDoIsCheckList,
+                    //        ToDoCheckListTitle = toDoAllView.lstCheckListDetail[k].ToDoCheckListTitle,
+                    //        ToDoCheckListUserType = 1,
+                    //        ToDoCheckListUserId = toDoAllView.lstCheckListDetail[k].ToDoCheckListUserId
 
-                        };
-                        var objToDoDetailsList = await SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
-                    }
+                    //    };
+                    //    var objToDoDetailsList = await SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
+                    //}
                     #endregion
 
                     toDoAllView.ToDoAllModels = await GetAllToDoDetails(toDoAllView.ToDoDetails.Project_ID);

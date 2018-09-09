@@ -476,13 +476,13 @@
                                                 <br>
                                                 <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_licChecklistRedesign__li_0_rvTDLineDescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
                                             </div>
-                                            <div class="liColumn1" title="">
+                                            <div class="liColumn1" title="" style="display:none">
                                                 <a class="chosen-single">
                                                 </a>
                                                 @*@Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })*@
 
 
-                                                <select id="ddlUserDiffer@(i)" multiple="multiple" name="ToDoDetails.UserMasters">
+                                                <select id="ddlUserDiffer@(i)" multiple="multiple"  asp-for="UserMasters" class="ddldropdown">
 
 
                                                     @for (var j = 1; j < 4; j++)
@@ -544,7 +544,7 @@
                                                 <a class="chosen-single">
                                                 </a>
                                                 @*@Html.DropDownListFor(x => x.lstCheckListDetail[i].ToDoCheckListUserId, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { @class = "form-control ddlCheckListUser", @style = "display:none" })*@
-                                                <select id="ddlUserDiffer@(i)" multiple="multiple" name="ToDoDetails.UserMasters">
+                                                <select id="ddlUserDiffer@(i)" multiple="multiple"  asp-for="UserMasters">
 
                                                     @for (var j = 1; j < 4; j++)
                                                     {
