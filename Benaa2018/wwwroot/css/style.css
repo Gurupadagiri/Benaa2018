@@ -3300,3 +3300,16 @@ body .currencySymbol {
 .customPopup .popupTopBtnCon .form-group.top-btn {
     padding: 15px 32px !important;
 }
+
+.form-group.top-btn .dropdown .btn:hover,
+.form-group.top-btn .dropdown .btn:active,
+.form-group.top-btn .dropdown .btn:focus,
+.btn-primary.active.focus, .btn-primary.active:focus,
+.btn-primary.active:hover, .btn-primary:active.focus,
+.btn-primary:active:focus, .btn-primary:active:hover,
+.open > .dropdown-toggle.btn-primary.focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.open > .dropdown-toggle.btn-primary:hover {
+    background: #555555 !important;
+    outline: none !important;
+}
