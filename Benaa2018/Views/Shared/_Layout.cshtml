@@ -1392,7 +1392,7 @@
         function setmultiselectvalue(parentid, id, values) {
             var selectedtext = '';
             $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').prop('checked', false);
-            $('#' + parentid).find('#' + id).next().find('button > span').text('');
+            $('#' + parentid).find('#' + id).next().find('button > span').text('--Select--');
             for (var i = 0; i < values.length; i++) {
                 $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').each(function () {
                     if ($(this).val() == values[i]) {
