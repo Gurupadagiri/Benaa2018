@@ -1335,7 +1335,12 @@
                 setmultiselectvalue('ProjectMasterModel_ProjectGroupID', data.item1.projectGroupID);
                 setmultiselectvalue('ProjectMasterModel_ProjectManagerID', data.item1.projectManagerID);
                 setmultiselectvalue('ProjectMasterModel_ProjectStatusID', data.item1.projectStatusID);
-
+                if (data.item1.latitude != null) {                   
+                    BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMap"));
+                    BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMapEdit"));
+                    BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMapCluster"));
+                }
+                
                 //Ownwr Schedule
                 $('.owner-existing-info').show();
                 $('#OwnerMasterModel_OwnerName').val(data.item2.ownerName);
