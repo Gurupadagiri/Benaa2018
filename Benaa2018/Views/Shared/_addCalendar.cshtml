@@ -2,7 +2,7 @@
 @{
     Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
 }
-<link href="~/css/calendar.css" rel="stylesheet" />
+@*<link href="~/css/calendar.css" rel="stylesheet" />*@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/lib/moment.min.js"></script>
 <script src="https://fullcalendar.io/releases/fullcalendar/3.9.0/fullcalendar.min.js"></script>
@@ -47,6 +47,7 @@
                                                     <input asp-for="Title" class="form-control" />
                                                     <input type="hidden" asp-for="ProjectId" />
                                                     <input type="hidden" asp-for="ScheduledItemId" />
+                                                    <input type="hidden" asp-for="PageType" value="" />
                                                 </div>
                                                 <div class="col-sm-2 form-group pull-right">
                                                     <span>Display Color</span>

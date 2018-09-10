@@ -24,28 +24,44 @@ $(document).ready(function () {
         $('#calendarmodalgeneral').removeClass('in').css('display', 'none');
     });
     $(document).on('click', '#morepredecessors', function () {
-        var cntpredeitem = $('div.predecessoritem div.form-group').length;
-        var innerhtml = $('div.predecessoritem > div.form-group:eq(0)').html();
+        var cntpredeitem = $('#frmPredecessor').find('div.predecessoritem div.form-group').length;
+        var innerhtml = $('#frmPredecessor').find('div.predecessoritem > div.form-group:eq(0)').html();
         innerhtml = innerhtml.replace('PredecessorInformationModels[0].ScheduledItemId', "PredecessorInformationModels[" + cntpredeitem + "].ScheduledItemId")
             .replace('PredecessorInformationModels_0__ScheduledItemId', "PredecessorInformationModels_" + cntpredeitem + "__ScheduledItemId")
             .replace('PredecessorInformationModels_0__TimeFrame', "PredecessorInformationModels_" + cntpredeitem + "__TimeFrame")
             .replace('PredecessorInformationModels[0].TimeFrame', "PredecessorInformationModels[" + cntpredeitem + "].TimeFrame")
             .replace('PredecessorInformationModels_0__Lag', "PredecessorInformationModels_" + cntpredeitem + "__Lag")
             .replace('PredecessorInformationModels[0].Lag', "PredecessorInformationModels[" + cntpredeitem + "].Lag");
-        $('.predecessoritem').append('<div class="form-group">' + innerhtml + '</div>');
+        $('#frmPredecessor').find('.predecessoritem').append('<div class="form-group">' + innerhtml + '</div>');
     });
     $('.btncalendar').on('click', function () {
         var postData = $('#frmPredecessor').serialize();
         $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
-            $('#frmPredecessor').find("input[type='text']").each(function (i, element) {
-                $(this).val('');
-            });
-            $('#calendarmodal').remove('in').hide();
-            $('#calendar').fullCalendar('removeEvents');
-            $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
-            $('#calendar').fullCalendar('rerenderEvents');
-            alert("Predecessor Details Successfully Added");
+            if (data.success == true) {
+                $('#frmPredecessor').find("input[type='text']").each(function (i, element) {
+                    $(this).val('');
+                });
+                if (data.pageType === 'todoitem') {
+                    $('#frmSubmitToDoMaster').find('#ScheduleItems')
+                        .append($("<option></option>")
+                            .attr("value", data.scheduledItemId)
+                            .text(data.Title));
+                    var resjobstr = '<li data-search-term="' + data.title + '"><label for="ms-opt-18"><input type="checkbox" title="' + data.title + '" id="ms-opt-18" value="' + data.scheduledItemId + '">' + data.title + '</label></li>'
+                    $('#frmSubmitToDoMaster').find('#ScheduleItems').next().find('ul').append(resjobstr);
+                } else {
+                    $('#calendar').fullCalendar('removeEvents');
+                    $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
+                    $('#calendar').fullCalendar('rerenderEvents');
+                }
+                $('#calendarmodal').remove('in').hide();                
+                alert("Schedule Details Successfully Added.");
+            } else {
+                alert("Schedule Details not Added!");
+            }            
         });
+    });
+    $('#calendaritem').on('click', function () {
+        $('#PageType').val('todoitem');
     });
     $('.fc-content-skeleton td').on('click', function () {
         if ($(this).attr('class') === undefined) {
@@ -208,9 +224,10 @@ function BindCalendar(data) {
         },
         eventRender: function (event, element) {
             $('.fc-right').insertBefore('.fc-left');
-            //if ($('.select_month').length == 0) {
-            //    $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
-            //}            
+            $(".fc-center > h2").hide();
+            if ($('.select_month').length == 0) {
+                $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
+            }            
         },
         eventMouseover: function (data, event, view) {
             tooltip = '<div class="tooltiptopicevent">' +

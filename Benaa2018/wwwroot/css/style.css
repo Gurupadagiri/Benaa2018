@@ -3662,3 +3662,140 @@ body .dropdown .btn-success {
     background-color: #626262 !important;
     border-color: #626262 !important;
 }
+/*=== ToDo Caleder Popup ===*/
+
+#calendarmodal .width94 .panel-body {
+    position: relative;
+}
+
+.tabsConatiner.mainTab {
+    background: #eee;
+    padding: 15px;
+}
+
+.popupTopBtnCon, .popupTopBtnCon .tabsConatiner {
+    width: 100%;
+    float: left;
+    /* padding: 15px 15px 0; */
+}
+
+.customPopup .nav-tabs {
+    padding-left: 15px;
+}
+
+.grayBackgroundContent {
+    padding-top: 15px;
+}
+
+.dataTableConatainer .tabheading {
+    font-size: 20px;
+    padding: 0 0 10px;
+    border-bottom: 1px solid #e9e9e9;
+    color: #626262;
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+
+.grayBackgroundContent .input-group label {
+    float: left;
+    margin-top: 9px;
+    margin-right: 10px;
+}
+.grayBackgroundContent .Predecessorlink {
+    margin-bottom: 0;
+    background: #fff;
+    padding: 0 15px 5px;
+    border-radius: 5px 5px 0 0;
+    width: 100%;
+    float: left;
+}
+
+.grayBackgroundContent .input-group[class*=col-] {
+    float: left;
+}
+
+.grayBackgroundContent .form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    float: left;
+}
+.width94 .panel-default.topPart .row:first-child {
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    padding-top: 10px;
+}
+.middleHolder {
+    padding: 15px 0;
+}
+.width94 .panel-default.topPart .row:first-child .form-group select {
+    width: 70%;
+}
+#accordion .start-holder .input-group, #accordion .timeHolderDiv .input-group, #accordion .assignToDiv .input-group {
+    width: 67%;
+    float: right;
+}
+
+.grayBackgroundContent .form-group {
+    margin-bottom: 15px;
+    width: 100%;
+    float: left;
+}
+.grayBackgroundContent .input-group {
+    display: block;
+}
+.thisedualtem .LinkedScheduleItemTable {
+    width: 100%;
+    float: left;
+}
+.thisedualtem .LinkedScheduleItemTable tr td {
+    width: 20%;
+    font-weight: bold;
+    color: #404040;
+    background: #ddd;
+    border-top: none;
+    border-right: 1px solid #cecece;
+    padding: 5px;
+    text-align: center;
+}
+
+.grayBackgroundContent #phase .input-group {
+    width: 50%;
+}
+.time-holder .input-group.selectHolder {
+    text-align: left;
+    width: 100%;
+    float: left;
+    margin-top: 15px;
+}
+.time-holder input#Hourly {
+    float: left;
+    width: auto;
+    margin-right: 8px;
+    margin-top: 2px;
+}
+
+@media (min-width: 768px) {
+    #calendarmodal .width94 .col-sm-2 {
+        width: 25%;
+    }
+
+    #calendarmodal .width94 .panel-body {
+        overflow-y: scroll;
+        padding: 0;
+    }
+
+    #calendarmodal .modal-dialog .grayBackgroundContent .input-group .form-control {
+        width: 75%;
+        float: left;
+    }
+    #calendarmodal .width94 .col-sm-2 {
+        width: 25%;
+    }
+    
+}
+
+.selected-project {
+    background: #fff !important;
+}
+
+/*=== end ToDo Caleder Popup ===*/

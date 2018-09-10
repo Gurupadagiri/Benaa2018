@@ -80,13 +80,14 @@ namespace Benaa2018.Controllers
             return View(calendar);
         }
 
-        public async Task<string> SubmitPredecessorInfoAsync(CalendarScheduledItemViewModel calendarModel)
+        public async Task<JsonResult> SubmitPredecessorInfoAsync(CalendarScheduledItemViewModel calendarModel)
         {
             try
             {
+                int scheduleId = 0;
                 if (calendarModel.ScheduledItemId == 0)
                 {
-                    int scheduleId = await _calendarScheduleHelper.SaveCalendarScheduleItemAsync(1, calendarModel);
+                    scheduleId = await _calendarScheduleHelper.SaveCalendarScheduleItemAsync(1, calendarModel);
                     foreach (var item in calendarModel.PredecessorInformationModels)
                     {
                         await _calendarScheduleHelper.SavePredecessorInformationAsync(scheduleId, calendarModel.ProjectId, calendarModel.CompanyId, item);
@@ -94,18 +95,27 @@ namespace Benaa2018.Controllers
                 }
                 else
                 {
-                    int scheduleId = await _calendarScheduleHelper.UpdateCalendarScheduleItemAsync(1, calendarModel);
+                    scheduleId = await _calendarScheduleHelper.UpdateCalendarScheduleItemAsync(1, calendarModel);
                     foreach (var item in calendarModel.PredecessorInformationModels)
                     {
                         await _calendarScheduleHelper.UpdatePredecessorInformationAsync(item);
                     }
                 }
-                var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, calendarModel.ProjectId, DateTime.MinValue);
-                return ScheduledEvents(scheduledItem);
+                calendarModel.Success = true;
+                if (calendarModel.PageType == "todoitem")
+                {
+                    calendarModel.ScheduledItemId = scheduleId;
+                }
+                else
+                {
+                    var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, calendarModel.ProjectId, DateTime.MinValue);
+                    calendarModel.ResponseJsonString = ScheduledEvents(scheduledItem);
+                }
+                return Json(calendarModel);
             }
             catch
             {
-                return string.Empty;
+                return Json(string.Empty);
             }
         }
 

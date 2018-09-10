@@ -73,7 +73,7 @@ namespace Benaa2018.Data.Repository
                 return null;
             }
                         
-            //context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
             //_context.Set<T>().Attach(entity);
             await Save();
 

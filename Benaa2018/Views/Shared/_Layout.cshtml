@@ -1492,11 +1492,7 @@
                             // refresh the grid
                             $("#example").trigger('reloadGrid');
                         }
-
-                        if ($(this).context.className !== "scratch-project-new") {
-                            $('#newProject').removeClass('in').hide();
-                        }
-
+                        
                         //if ($(this).context.className !== "scratch-project-new") {
                             $('#newProject').removeClass('in').hide();
                         //}
@@ -1765,7 +1761,7 @@
                 $('#OwnerMasterModel_AccessMethod').val(data.item2.accessMethod);
                 $('#OwnerMasterModel_OwnerCalendar').val(data.item2.ownerCalendar);
                 $('#OwnerMasterModel_ShowProjectPrice').prop('checked', data.item2.showProjectPrice)
-                $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.item2.showBudgetPurchaseOrders)
+                $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.item2.showBudgetPurchaseOrders);
                 $('#OwnerMasterModel_AllowOrderRequests').prop('checked', data.item2.allowOrderRequests);
                 $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections)
                 $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections);
@@ -1784,10 +1780,10 @@
                 if (data.item1.projectScheduleMasterModel.workDays !== '' && data.item1.projectScheduleMasterModel.workDays !== null) {
                     var workdays = data.item1.projectScheduleMasterModel.workDays.split(',');
                     $('#newProject').find('.work-days input[type=checkbox]').prop('prop', false);
-                    for (var i = 0; i < workdays; i++) {
+                    for (var i = 0; i < workdays.length; i++) {
                         $('#newProject').find('.work-days input[type=checkbox]').each(function () {
                             if ($(this).val() == workdays[i]) {
-                                $(this).prop('prop', true);
+                                $(this).prop('checked', true);
                             }
                         });
                     }

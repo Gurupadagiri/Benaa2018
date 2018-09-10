@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Benaa2018.Infrastructure;
 
 namespace Benaa2018.Controllers
 {
@@ -47,24 +48,28 @@ namespace Benaa2018.Controllers
         }
         public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            Basemodel = new BaseViewModel
+            var isAjax = Request.IsAjaxRequest();
+            if (!isAjax)
             {
-                UserMasterModel = await _userMasterHelper.GetUserByUserId(1),
-                ProjectTypeMasterModels = await _projectMasterHelper.GetAllProjectType(),
-                ProjectGroupModels = await _projectGroupHelper.GetProjectGroupByUserID(1),
-                ProjectSubcontractorConfigModels = await _subContractorHelper.GetAllSubContractorByOrg(1),
-                ProjctStatusMasterModels = await _projectStatusMasterHelper.GetAllProjectStatus(),
-                ProjectColorModels = await _projectColorHelper.GetAllProjectColor(),
-                CompanyMasterModel = await _companyMasterHelper.GetCompanyByID(1),
-                UserMasterViewModels = await _userMasterHelper.GetAllInternalUsers(),
-                ProjectMasterModels = await _projectMasterHelper.GetAllProjectByUserId(1),
-                ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
-                MenuContents = await _menuMasterHelper.GetMenuItems()
-            };
-            Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
-            Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
-            ViewBag.Basemodel = Basemodel;
-            ViewBag.UsersList = Basemodel.UserMasterViewModels;
+                Basemodel = new BaseViewModel
+                {
+                    UserMasterModel = await _userMasterHelper.GetUserByUserId(1),
+                    ProjectTypeMasterModels = await _projectMasterHelper.GetAllProjectType(),
+                    ProjectGroupModels = await _projectGroupHelper.GetProjectGroupByUserID(1),
+                    ProjectSubcontractorConfigModels = await _subContractorHelper.GetAllSubContractorByOrg(1),
+                    ProjctStatusMasterModels = await _projectStatusMasterHelper.GetAllProjectStatus(),
+                    ProjectColorModels = await _projectColorHelper.GetAllProjectColor(),
+                    CompanyMasterModel = await _companyMasterHelper.GetCompanyByID(1),
+                    UserMasterViewModels = await _userMasterHelper.GetAllInternalUsers(),
+                    ProjectMasterModels = await _projectMasterHelper.GetAllProjectByUserId(1),
+                    ProjectManagerMasterModels = await _projectMasterHelper.GetAllManagers(),
+                    MenuContents = await _menuMasterHelper.GetMenuItems()
+                };
+                Basemodel.ProjectGridModels = BindProjectGrid(Basemodel.ProjectMasterModels, Basemodel.ProjectManagerMasterModels);
+                Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
+                ViewBag.Basemodel = Basemodel;
+                ViewBag.UsersList = Basemodel.UserMasterViewModels;
+            }            
             base.OnActionExecuting(context);
             await next();
         }

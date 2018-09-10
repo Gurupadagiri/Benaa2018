@@ -808,10 +808,6 @@ body .modal-dialog .btn-primary {
         padding: 0 10px 10px;
     }
 
-.selected-project {
-    background: #fff !important;
-}
-
 .phaseHolder .phaseHeader input#chkAll {
     margin-top: 1px;
 }

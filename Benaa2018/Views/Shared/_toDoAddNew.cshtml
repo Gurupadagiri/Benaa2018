@@ -92,34 +92,28 @@
                                             var ert = 0;
                                             @foreach (var pitem in ViewBag.SubContractorsList)
                                             {
-
-                                                @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                                if (pitem.UserOriginaTypeId == j && j > ert)
                                                 {
                                                     ert = j;
                                                     <optgroup label="@pitem.UserOriginaTypeText">
-                                                        @{
-                                                            var childitemfilter = pitem.UserOwnerDifferentTypeId;
-
-                                                            if (childitemfilter != null)
+                                                    @{
+                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
+                                                        if (childitemfilter != null)
+                                                        {
+                                                            foreach (var citem in ViewBag.SubContractorsList)
                                                             {
-                                                                foreach (var citem in ViewBag.SubContractorsList)
+                                                                if (citem.UserOriginaTypeId == j)
                                                                 {
-                                                                    if (citem.UserOriginaTypeId == j)
-                                                                    {
-
-                                                                        <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
-                                                                    }
+                                                                    <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
                                                                 }
                                                             }
                                                         }
+                                                    }
                                                     </optgroup>
-
                                                 }
-
                                             }
                                         }
                                     </select>
-
                                 </div>
                             </div>
                             <div class="formHolder">
@@ -135,34 +129,32 @@
                             </div>
                             <div class="formHolder">
                                 <div class="leftFormHeading">
-                                    <div data-bind="visible: displayToggle" class=" bt-link-schedule-item--switch">
+                                    <div class=" bt-link-schedule-item--switch">
                                         <div class="bootstrap-switch bootstrap-switch-wrapper bootstrap-switch-mini bootstrap-switch-id-ui-id-3 bootstrap-switch-animate bootstrap-switch-off" style="width: 91px;">
                                             <div class="bootstrap-switch-container" style="width: 160px; margin-left: -71px;"><span class="bootstrap-switch-handle-on bootstrap-switch-default" style="width: 71px;">Link To</span><span class="bootstrap-switch-label" style="width: 36px;">&nbsp;</span><span class="bootstrap-switch-handle-off bootstrap-switch-default" style="width: 71px;">Due Date</span><input type="checkbox" data-bind="addUniqueID: relatedItemSliderID, attr: { 'data-on-text': switchLabelOn, 'data-off-text': switchLabelOff }, disable: readOnly, bootstrapSwitchOn: isDeadlineLinked.value" id="ui-id-3" data-on-text="Link To" data-off-text="Due Date"></div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="rightFormText">
-                                    <div class="bt-link-schedule-item--datetime-picker col-md-12" data-bind="visible: !isDeadlineLinked.value(), css: rightPaneClass" style="">
-                                        <div class="bt-link-schedule-item--date-picker" params="value: deadLine, readOnly: readOnly, summaryMessage: $component.summaryMessage">
+                                    <div class="bt-link-schedule-item--datetime-picker col-md-12">
+                                        <div class="bt-link-schedule-item--date-picker">
                                             <div class="bt-date-picker">
-                                                <label data-bind="text: title, uniqueFor: uniqueId, visible: title().length > 0" for="ui-id-4" style="display: none;"></label>
+                                                <label for="ui-id-4" style="display: none;"></label>
                                                 <div class="bt-date-picker--value-wrapper">
                                                     <div style="flex: 1">
-                                                        <!-- Wrap with a flex div in order to share space better with the below bt-tooltip -->
-                                                        <div class="input-group input-group-sm date bt-date-picker--value" data-provide="datepicker" data-bind="validationBorder: value">
-
+                                                        <div class="input-group input-group-sm date bt-date-picker--value" data-provide="datepicker">
                                                             @Html.TextBoxFor(a => a.ToDoDetails.DueDateFormat, new { @class = "form-control datePicker hasDatepicker", @dataprovide = "datepicker", @name = "ToDoDetails.DueDateFormat" })
-                                                            <label class="input-group-addon" data-bind="uniqueFor: uniqueId, css: { 'disabled-text': ko.unwrap(readOnly) }" for="ui-id-4">
+                                                            <label class="input-group-addon" for="ui-id-4">
                                                                 <i class="glyphicon glyphicon-calendar"></i>
                                                             </label>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span class="valMessage bt-date-picker--validator" data-bind="btValidationMessage: value" style="display: none;"></span>
+                                            <span class="valMessage bt-date-picker--validator" style="display: none;"></span>
                                         </div>
                                         <div class="bt-link-schedule-item--time-picker-padding"></div>
-                                        <div class="bt-link-schedule-item--time-picker" params="value: $component.timePicker.selectedTime, title: '', pickerType: $component.timePicker.type, increment: $component.timePicker.increment, readOnly: readOnly">
+                                        <div class="bt-link-schedule-item--time-picker">
                                             <div class="bt-time-picker">
                                                 <div class="form-group bt-time-picker--wrapper">
                                                     <label class="bt-time-picker--label" data-bind="uniqueFor: uniqueId, visible: title().length > 0" style="display: none;">
@@ -224,8 +216,8 @@
                                         </div>
                                         <!-- /ko -->
                                     </div>
-                                    <div data-bind="visible: isDeadlineLinked.value(), css: rightPaneClass" class="col-md-12 sheduleItemHolder" style="display: none;">
-                                        <div data-bind="visible: showOffsetOptions &amp;&amp; isBuilder" class="row bt-link-schedule-item--row-spacing">
+                                    <div class="col-md-12 sheduleItemHolder" style="display: none;">
+                                        <div class="row bt-link-schedule-item--row-spacing">
                                             <div class="col-xs-12 bt-link-schedule-item--days-section">
                                                 <div class="bt-link-schedule-item--days" params="value: deadLineOffset, summaryMessage: $component.summaryMessage + ': Lag', min: -999, max: 999, valueUpdate: 'blur', readOnly: readOnly">
                                                     <div class="bt-whole-number">
@@ -237,13 +229,12 @@
                                                 </div>
                                                 <span class="bt-link-schedule-item--daysText">day(s)</span>
                                                 <bt-single-select-dropdown class="bt-link-schedule-item--typeSelect" >
-                                                    <label data-bind="text: title, visible: ko.unwrap(title).length > 0" style="display: none;"></label>
+                                                    <label style="display: none;"></label>
                                                     <div class="bt-single-select-dropdown bt-dropdown-chosen-container" id="ui-id-5">
                                                         <select class="chosen-select" id="ui-id-6" style="display: none;">
                                                             <option value="2">BEFORE</option>
                                                             <option value="1">AFTER</option>
                                                         </select>
-
                                                         <div class="chosen-container chosen-container-single chosen-container-single-nosearch" title="" id="ui_id_6_chosen" style="width: 100%;">
                                                             <a class="chosen-single beforeClass" style="display:none;">
                                                                 <input class="chosen-search-input" type="text" autocomplete="off" readonly="">
@@ -274,7 +265,7 @@
                                                       @Html.DropDownListFor(a => a.ScheduleItems, new SelectList(Model.CalendarScheduledItemModel.CalendarScheduledItemModels, "ScheduledItemId", "Title"), new { @multiple = "multiple", @class = "withCheckbox required" })
                                                     </div>
                                                     <div class="input-group-btn">
-                                                        <a href="#" data-toggle="modal" data-target="#calendarmodal" type="button" class="btn btn-default bt-link-schedule-item--schedule-btn" aria-label="Add Schedule">
+                                                        <a href="#" data-toggle="modal" data-target="#calendarmodal" id="calendaritem" type="button" class="btn btn-default bt-link-schedule-item--schedule-btn" aria-label="Add Schedule">
                                                             <span class="glyphicon glyphicon-plus"></span>
                                                         </a>                                                       
                                                     </div>
