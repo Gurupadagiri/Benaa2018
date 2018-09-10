@@ -59,13 +59,10 @@ namespace Benaa2018.Helper.ViewModels
         public string Operation { get; set; }
         public CalendarScheduledItemViewModel CalendarScheduledItemModel { get; set; }
 
-
+        public string ScheduleItems { get; set; }
         public class ToDoAllViewModelDetails
         {
             public List<ToDoAllViewModel> lstToDoAllViewModel { get; set; }
         }
-
-
-
     }
 }

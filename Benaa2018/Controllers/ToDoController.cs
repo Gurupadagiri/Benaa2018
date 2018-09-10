@@ -35,6 +35,7 @@ namespace Benaa2018.Controllers
         private readonly IToDoCheckListHelper _toDoCheckListHelper;
         private readonly IToDoCheckListDetailsHelper _toDoCheckListDetailsHelper;
         private readonly IToDoMessageHelper _toDoMessageHelper;
+        private readonly ICalendarScheduleHelper _calendarScheduleHelper;
 
         public ToDoController(IMenuMasterHelper menuMasterHelper,
             IOwnerMasterHelper ownerMasterHelper,
@@ -54,7 +55,7 @@ namespace Benaa2018.Controllers
            IToDoCheckListHelper toDoCheckListHelper,
            IToDoCheckListDetailsHelper toDoCheckListDetailsHelper,
            IToDoMessageHelper toDoMessageHelper,
-            ICompanyMasterHelper companyMasterHelper) : base(menuMasterHelper,
+            ICompanyMasterHelper companyMasterHelper, ICalendarScheduleHelper calendarScheduleHelper) : base(menuMasterHelper,
             ownerMasterHelper,
             projectColorHelper,
             projectGroupHelper,
@@ -63,7 +64,6 @@ namespace Benaa2018.Controllers
             projectStatusMasterHelper,
             subContractorHelper,
             userMasterHelper,
-
             companyMasterHelper)
         {
             _menuMasterHelper = menuMasterHelper;
@@ -83,48 +83,36 @@ namespace Benaa2018.Controllers
             _toDoCheckListHelper = toDoCheckListHelper;
             _toDoCheckListDetailsHelper = toDoCheckListDetailsHelper;
             _toDoMessageHelper = toDoMessageHelper;
-
+            _calendarScheduleHelper = calendarScheduleHelper;
         }
         public async Task<IActionResult> Index()
         {
-
-
-
+            ToDoAllViewModel todoModel = new ToDoAllViewModel();
             var tagsList = await GetAllTags();
             ViewBag.TagsList = tagsList;
             ViewBag.TotalCheckList = 3;
-
-            //var ownersList = GetAllOwners();
-            //ViewBag.OwnersList = ownersList.Result;
-
-            //var subContractorsList = GetAllSubContractors();
-            //ViewBag.SubContractorsList = subContractorsList.Result;
-
             #region populate ToDo
             var toDoDetails = await GetAllToDoDetails();
             ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(toDoDetails);
-            // ViewBag.UserBaseToDoModel = toDoDetails.Result;
-            #endregion
-
-            #region priority
-
             #endregion
 
             var differentUsersList = await GetAllDifferentUsers();
-
             ViewBag.SubContractorsList = differentUsersList;
-
-
-            // ViewBag.SubContractorsList = new SelectList(differentUsersList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText","1");
-
             var usersList = await GetAllDifferentUsers1();
             ViewBag.UsersDifferentList = usersList;
-
-
             ViewBag.ProductList = new SelectList(differentUsersList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", "1");
-            // ViewBag.SubContractorsList = new SelectList(lstUsers1, "DifferentTypeUserId", "Name", "Category", "1");
-            // ViewBag.SubContractorsList1= new SelectList(, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", 1);
-            return View();
+
+            todoModel.CalendarScheduledItemModel.CalendarScheduledItemModels = await _calendarScheduleHelper.GetAllScheduledItems(1, 1, DateTime.MinValue);
+            todoModel.CalendarScheduledItemModel.CalendarPhaseModels = await _calendarScheduleHelper.GetAllPhaseAsync(1, 1);
+            todoModel.CalendarScheduledItemModel.CalendarTagModels = await _calendarScheduleHelper.GetAllTagAsync(1, 1);
+            
+            todoModel.CalendarScheduledItemModel.PredecessorInformationModels.Add(new PredecessorInformationViewModel
+            {
+                ScheduledItemId = 0,
+                Lag = 0,
+                TimeFrame = "1"
+            });
+            return View(todoModel);
         }
 
         [HttpPost]
@@ -155,9 +143,7 @@ namespace Benaa2018.Controllers
                     List<DifferentUserWithType> lstDifferentUserWithType = new List<DifferentUserWithType>();
                     if (!string.IsNullOrEmpty(differentUserNamesWithType))
                     {
-
                         string[] useretailsDescriptionWithType = differentUserNamesWithType.Split('|');
-                        //int length = useretailsDescriptionWithType.Length;
                         if (useretailsDescriptionWithType != null)
                         {
 
@@ -165,12 +151,9 @@ namespace Benaa2018.Controllers
                             {
                                 if (!string.IsNullOrEmpty(individualUSerDetails.Trim()))
                                 {
-
-
                                     string[] individualUser = individualUSerDetails.Split(',');
                                     if (individualUser != null)
                                     {
-
                                         DifferentUserWithType diffUSerDetails = new DifferentUserWithType()
                                         {
                                             DifferentUserWithTypeId = Convert.ToInt32(individualUser[0]),
@@ -193,22 +176,12 @@ namespace Benaa2018.Controllers
                                 TodoDetailsID = todoDetailsId,
                                 ToDoAssignID = userDetails[0].DifferentUserWithTypeOriginalId,
                                 ToDoUserAssignTypeId = userDetails[0].DifferentUserWithTypewithTypeId,
-                                UserID= userDetails[0].DifferentUserWithTypeOriginalId
+                                UserID = userDetails[0].DifferentUserWithTypeOriginalId
 
                             };
                             var objToUserAssign = _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
                         }
                     }
-
-                    //ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
-                    //{
-                    //    TodoDetailsID = todoDetailsId,
-                    //    ToDoAssignID = 1,
-                    //    ToDoUserAssignTypeId = 1
-
-                    //};
-                    //  var objToUserAssign =  _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
-                    //var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
                     #endregion
 
                     #region Checklist
@@ -220,19 +193,6 @@ namespace Benaa2018.Controllers
                     };
                     var objToDoCheckList = await SaveToDochecklistDetails(toDoCheckListViewModel);
 
-                    //for (int k = 0; k < toDoAllView.ToDoCheckListItemIndex; k++)
-                    //{
-                    //    ToDochecklistDetailsViewModel toDoCheckListDetailsViewModel = new ToDochecklistDetailsViewModel
-                    //    {
-                    //        ToDoCheckListId = objToDoCheckList.ToDoCheckListId,
-                    //        ToDoIsCheckList = toDoAllView.lstCheckListDetail[k].ToDoIsCheckList,
-                    //        ToDoCheckListTitle = toDoAllView.lstCheckListDetail[k].ToDoCheckListTitle,
-                    //        ToDoCheckListUserType = 1,
-                    //        ToDoCheckListUserId = toDoAllView.lstCheckListDetail[k].ToDoCheckListUserId
-
-                    //    };
-                    //    var objToDoDetailsList = await SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
-                    //}
                     #endregion
 
                     toDoAllView.ToDoAllModels = await GetAllToDoDetails(toDoAllView.ToDoDetails.Project_ID);
@@ -256,7 +216,6 @@ namespace Benaa2018.Controllers
             ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(lstToDoSearchDetails);
 
             result = "success";
-            // return Json(result);
             return Json(JsonConvert.SerializeObject(lstToDoSearchDetails));
         }
 

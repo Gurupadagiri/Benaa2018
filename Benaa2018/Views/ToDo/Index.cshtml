@@ -221,13 +221,10 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-sm-6">
-                                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnUpdateResults">Update Results</button>&nbsp;
+                                                <button class="btn btn-primary btn-sm dropdown-toggle" type="button" style="background-color: #626262; border-color: #626262;" data-toggle="dropdown" id="btnUpdatetodoResults">Update Results</button>&nbsp;
                                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
                                                 <button class="btn btn-default btn-sm dropdown-toggle" style="display:none" type="button" data-toggle="dropdown">Save Filter</button>&nbsp;
-                                                @*<button class="btn btn-default btn-sm dropdown-toggle exportExcel" type="button" data-toggle="dropdown">Export to Excel</button>*@
-
-                                                @*<button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Save Filter1</button>*@
-
+                                               
                                                 <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="export">Export to Excel</button>
                                             </div>
                                         </div>
@@ -303,12 +300,13 @@
     </div>
 </div>
 <div class="modal fade" id="todoinfoModal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-
-
     @Html.Partial("_toDoAddNew", Model)
 </div>
 <div class="modal fade selectSedualedItem" id="selectSedualedItem" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     @Html.Partial("_toDoAddSchedule", Model)
+</div>
+<div class="modal fade" id="calendarmodal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    @Html.RenderPartialAsync("_addCalendar", Model.CalendarScheduledItemModel)
 </div>
 <div class="modal fade" id="todoAssignNewUsers" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
 
@@ -1233,7 +1231,7 @@
 </script>
 <script type="text/javascript">
 
-    $('#btnUpdateResults').click(function (e) {
+    $('#btnUpdatetodoResults').click(function (e) {
 
 
         //$('#internaluser1').clearGridData();
