@@ -8,7 +8,6 @@
 }
 <style type="text/css">
     .state_active {
-        
         text-decoration: line-through;
         /*content: "\00B7";
         font-size: 1px;*/
@@ -85,7 +84,40 @@
                                             <div class="col-sm-3 form-group">
                                                 <span>Users Assigned To</span>
                                                 @*@Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlToDoAssignToDoSearch", @class = "form-control" })*@
+                                                <select id="ddltravelmodeSearchFilter" multiple="multiple" asp-for="UserMasters">
 
+                                                    @for (var j = 1; j < 4; j++)
+                                                    {
+                                                        var ert = 0;
+                                                        @foreach (var pitem in ViewBag.SubContractorsList)
+                                                        {
+
+                                                            @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                                            {
+                                                                ert = j;
+                                                                <optgroup label="@pitem.UserOriginaTypeText">
+                                                                    @{
+                                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
+
+                                                                        if (childitemfilter != null)
+                                                                        {
+                                                                            foreach (var citem in ViewBag.SubContractorsList)
+                                                                            {
+                                                                                if (citem.UserOriginaTypeId == j)
+                                                                                {
+
+                                                                                    <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                </optgroup>
+
+                                                            }
+
+                                                        }
+                                                    }
+                                                </select>
                                             </div>
                                             <div class="col-sm-3 form-group">
                                                 <span>Status</span>
@@ -290,7 +322,42 @@
                         <div class="formHolder">
                             <div class="leftFormHeading">Assigned To:</div>
                             <div class="rightFormText">
-                                @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.UsersDifferentList, "UserOriginalId", "UserOwnerDifferentTypeValue"), new { id = "ddlPermissionUser", @class = "form-control" })
+                                @*@Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.UsersDifferentList, "UserOriginalId", "UserOwnerDifferentTypeValue"), new { id = "ddlPermissionUser", @class = "form-control" })*@
+
+                                <select id="ddlPermissionUserAssign" multiple="multiple" asp-for="UserMasters">
+
+                                    @for (var j = 1; j < 4; j++)
+                                    {
+                                        var ert = 0;
+                                        @foreach (var pitem in ViewBag.SubContractorsList)
+                                        {
+
+                                            @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                            {
+                                                ert = j;
+                                                <optgroup label="@pitem.UserOriginaTypeText">
+                                                    @{
+                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
+
+                                                        if (childitemfilter != null)
+                                                        {
+                                                            foreach (var citem in ViewBag.SubContractorsList)
+                                                            {
+                                                                if (citem.UserOriginaTypeId == j)
+                                                                {
+
+                                                                    <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                </optgroup>
+
+                                            }
+
+                                        }
+                                    }
+                                </select>
                             </div>
                             <div>
                                 <input type="checkbox" id="chkNotifyNewUser" />Notify new assigned users
@@ -407,7 +474,16 @@
         $('.todoAreaVisible').hide();
         $("#projectname").text('To-Do');
 
+
         $('#ddltravelmode111').multiselect();
+        $('#ddlUserDiffer1').multiselect();
+        $('#ddlUserDiffer2').multiselect();
+        $('#ddlUserDiffer0').multiselect();
+        $('#ddlPermissionUserAssign').multiselect();
+        $('#ddltravelmodeSearchFilter').multiselect();
+        $("#ddlUserDiffer1").removeAttr("style");
+        $("#ddlUserDiffer2").removeAttr("style");
+        $("#ddlUserDiffer0").removeAttr("style");
         $('#addRemoveButton').click(function () {
             if ($(this).val() == "Remove Checklist") {
 
@@ -421,8 +497,9 @@
         });
         $('#btnAddExtra').click(function () {
             for (var j = itemCount; j < itemMaxCount; j++) {
-                var index = 'cloneingboxholder' + j;
-                $('#cloneingboxholder'+j).show();
+                //var index = 'cloneingboxholder' + j;
+                //$('#cloneingboxholder'+j).show();
+                $('.cloneingboxholder').show();
             }
             itemCount = itemCount + 3;
             itemMaxCount = itemMaxCount + 3;
@@ -499,10 +576,12 @@
         });
         $('.checkListUser').click(function () {
             if ($(this).prop("checked") == true) {
-                $('.ddlCheckListUser').show();
+               // $('.ddlCheckListUser').show();
+                $('.liColumn1').show();
             }
             else if ($(this).prop("checked") == false) {
-                $('.ddlCheckListUser').hide();
+                //$('.ddlCheckListUser').hide();
+                $('.liColumn1').hide();
             }
         });
         $('.allProject').click(function () {
@@ -516,6 +595,7 @@
             var projectId = $(this).attr('data-projectid');
             $('#ProjectId').val(projectId);
             $('#hdnProjectIdToDo').val(projectId);
+            $('#spnproject').text($(this).text());
             //alert('Hi   ' + projectId);
            // BindGrid(projectId);
              $.ajax({
@@ -688,7 +768,23 @@
                             debugger;
 
                             alert('success');
-                            location.reload(true);
+                            //location.reload(true);
+                            //$('#todoinfoModal').show();
+                            $('#hdnProjectIdToDo').val(projectId);
+                            $.ajax({
+                                url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
+                                type: 'POST',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                                },
+                                data: { projectId: projectId },
+                                success: function (result) {
+                                    $('#internaluser').jqGrid('clearGridData');
+                                    $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
+                                }
+
+                                });
 
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
@@ -820,15 +916,15 @@
                     var celValue1 = $("#internaluser").jqGrid('getCell', rowid, 'ToDoDetails.IsMarkedComplete');
                    // alert(celValue2 + '  ' + celValue1);
                     if (celValue1 == 'Yes') {
-                        
+
 
                         var trElement = jQuery("#" + rowid, jQuery('#internaluser'));
                         trElement.removeClass('state_active');
                         //trElement.addClass('ui-widget-content');
-                        //trElement.css("line-through"); 
+                        //trElement.css("line-through");
                         //var celValue1 = $("#internaluser").jqGrid('getCell', rowid, 'ToDoDetails.IsMarkedComplete');
-                        //celValue1.css("line-through"); 
-                        
+                        //celValue1.css("line-through");
+
                         //trElement.css({ display: "none" });
                     }
                     else {
@@ -837,10 +933,10 @@
                         trElement.addClass('state_active');
                         trElement.delay(2500).fadeOut(1600);
                     }
-                    
+
                 }
             }
-            
+
         });
 
         $("#internaluser").jqGrid('navGrid', '#gridpager',
@@ -850,7 +946,7 @@
         $("#internaluser").jqGrid('setLabel',
             'Complete',
             '<img src="~/images/message.png width=16 height=16>');
-        
+
         $('#btnExcelLink').click(function () {
             console.log('test');
             JSONToCSVConvertor(JSON.stringify($('#internaluser').jqGrid('getRowData')), 'Title', true);

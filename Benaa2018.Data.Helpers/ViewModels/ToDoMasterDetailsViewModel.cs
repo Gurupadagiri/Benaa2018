@@ -15,6 +15,7 @@ namespace Benaa2018.Helper.ViewModels
         public bool IsMarkedComplete { get; set; }
         public string Priority { get; set; }
         public DateTime Duedate { get; set; }
+        public string DueDateFormat { get; set; }
         public string DueDatetime { get; set; }
         public int LinkToUnit { get; set; }
         public string LinkToDaysStatus { get; set; }
