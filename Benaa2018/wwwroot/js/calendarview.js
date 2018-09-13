@@ -53,11 +53,11 @@ $(document).ready(function () {
                     $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
                     $('#calendar').fullCalendar('rerenderEvents');
                 }
-                $('#calendarmodal').remove('in').hide();                
+                $('#calendarmodal').remove('in').hide();
                 alert("Schedule Details Successfully Added.");
             } else {
                 alert("Schedule Details not Added!");
-            }            
+            }
         });
     });
     $('#calendaritem').on('click', function () {
@@ -82,7 +82,7 @@ $(document).ready(function () {
             }
             $('#calendar').fullCalendar('removeEvents');
             $('#calendar').fullCalendar('addEventSource', JSON.parse(data.item2));
-            $('#calendar').fullCalendar('rerenderEvents');            
+            $('#calendar').fullCalendar('rerenderEvents');
             alert("Schedule Details Successfully Added");
             $('#calendarmodalgeneral').remove('in').hide();
         });
@@ -164,7 +164,7 @@ $(document).ready(function () {
             $('.notify').show();
         }
         else {
-            $('.notify').hide(); 
+            $('.notify').hide();
             $('#IsNotify').prop('checked', false);
             $('#IsRequiredConfirmation').prop('checked', false);
         }
@@ -174,7 +174,7 @@ $(document).ready(function () {
             $('.confirmation').show();
         }
         else {
-            $('.confirmation').hide();           
+            $('.confirmation').hide();
             $('#IsRequiredConfirmation').prop('checked', false);
         }
     });
@@ -216,7 +216,7 @@ function BindCalendar(data) {
         eventLimit: true,
         events: JSON.parse(data),
         Click: function (date, jsEvent, view) {
-        },       
+        },
         eventClick: function (calEvent, jsEvent, view) {
             var postData = { "scheduledId": calEvent.id };
             $("#calendarmodal").load('Calendar/GetScheduledDetailsByIdAsync', postData);
@@ -226,8 +226,22 @@ function BindCalendar(data) {
             $('.fc-right').insertBefore('.fc-left');
             $(".fc-center > h2").hide();
             if ($('.select_month').length == 0) {
-                $(".fc-center").append('<select class="select_month"><option value="">Select Month</option><option value="1">Jan</option><option value="2">Feb</option><option value="3">Mrch</option><option value="4">Aprl</option><option value="5">May</option><option value="6">June</option><option value="7">July</option><option value="8">Aug</option><option value="9">Sep</option><option value="10">Oct</option><option value="11">Nov</option><option value="12">Dec</option></select>');
-            }            
+                var currentyear = new Date().getFullYear();
+                var currentmonth = new Date().getMonth();
+                const monthNames = ["January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
+                var monthitem = '<select class="select_month">';
+                for (var i = 0; i < monthNames.length; i++) {
+                    if (i === currentmonth) {
+                        monthitem = monthitem + '<option selected="selected" value= "' + (i + 1) + '">' + monthNames[i] + ' ' + currentyear + '</option > '
+                    } else {
+                        monthitem = monthitem + '<option value= "' + (i + 1) + '">' + monthNames[i] + ' ' + currentyear + '</option > '
+                    }
+                }
+                monthitem = monthitem + '</select>';
+                $(".fc-center").append(monthitem);
+            }
         },
         eventMouseover: function (data, event, view) {
             tooltip = '<div class="tooltiptopicevent">' +
@@ -249,13 +263,13 @@ function BindCalendar(data) {
         selectable: true,
         select: function (start, end, jsEvent, view) {
             var endDate = new Date();
-            endDate.setDate(end._d.getDate() - 1);            
+            endDate.setDate(end._d.getDate() - 1);
             var diffDays = parseInt((new Date(end._d) - new Date(start._d)) / (1000 * 60 * 60 * 24));
             if (diffDays == 1) {
                 $('.datetext').text(convert(end._d, '/'));
             } else {
                 $('.datetext').text(convert(start._d, '/') + ' to ' + convert(endDate, '/'));
-            }            
+            }
             var weekdate = (end._d.getDay() - 1);
             if (weekdate === 5 || weekdate === -1) {
                 $('.non-working-day').fadeIn();
@@ -268,7 +282,7 @@ function BindCalendar(data) {
                 $('#calendarmodalgeneral').addClass('in').css('display', 'block');
                 $('#frmSchedule').find("#StartDate").val(convert(start._d, '-'));
                 $('#frmSchedule').find("#EndDate").val(convert(end._d, '-'));
-            }           
+            }
         },
         selectOverlap: function (event) {
             return !event.block;
