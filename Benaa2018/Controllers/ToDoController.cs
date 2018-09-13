@@ -102,6 +102,14 @@ namespace Benaa2018.Controllers
             ViewBag.UsersDifferentList = usersList;
             ViewBag.ProductList = new SelectList(differentUsersList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText", "1");
 
+            for (int i= 0;i<= 2; i++)
+            {
+                todoModel.lstCheckListDetail.Add(new ToDochecklistDetailsViewModel
+                {
+                    ToDoCheckListId = i,
+                });
+            }           
+
             todoModel.CalendarScheduledItemModel.CalendarScheduledItemModels = await _calendarScheduleHelper.GetAllScheduledItems(1, 1, DateTime.MinValue);
             todoModel.CalendarScheduledItemModel.CalendarPhaseModels = await _calendarScheduleHelper.GetAllPhaseAsync(1, 1);
             todoModel.CalendarScheduledItemModel.CalendarTagModels = await _calendarScheduleHelper.GetAllTagAsync(1, 1);
@@ -210,13 +218,15 @@ namespace Benaa2018.Controllers
 
         public async Task<IActionResult> SearchToDobyProject(int projectId = 0)
         {
-            string result = string.Empty;
-            var lstToDoSearchDetails = await GetAllToDoDetails(projectId);
-            ViewBag.UserBaseToDoModel = null;
-            ViewBag.UserBaseToDoModel = JsonConvert.SerializeObject(lstToDoSearchDetails);
-
-            result = "success";
-            return Json(JsonConvert.SerializeObject(lstToDoSearchDetails));
+            try
+            {
+                var lstToDoSearchDetails = await GetAllToDoDetails(projectId);
+                return Json(JsonConvert.SerializeObject(lstToDoSearchDetails));
+            }
+            catch(Exception ex)
+            {
+                return Json(string.Empty);
+            }
         }
 
         public async Task<IActionResult> SaveTag(string tagTitle)

@@ -561,6 +561,9 @@
             }
         });
         $('.checkListUser').click(function () {
+            $('#ddlUserDiffer1').multiselect();
+            $('#ddlUserDiffer2').multiselect();
+            $('#ddlUserDiffer0').multiselect();
             if ($(this).prop("checked") == true) {
                 $('.liColumn1').show();
             }
@@ -580,21 +583,10 @@
             $('#ProjectId').val(projectId);
             $('#hdnProjectIdToDo').val(projectId);
             $('#spnproject').text($(this).text());
-            $.ajax({
-                url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
-                type: 'POST',
-                headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                data: { projectId: projectId},
-                success: function (result) {
-                    $('#internaluser').jqGrid('clearGridData');
-                    $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
-                },
-                error: function (jqXHR, textStatus, errorThrown) {
-                alert(errorThrown);
-                }
+            var postData = { "projectId": parseInt(projectId) };
+            $.post("ToDo/SearchToDobyProject", postData, function (result) { 
+                $('#internaluser').jqGrid('clearGridData');
+                $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result) }).trigger('reloadGrid');
             });
             $('#internaluser_toppager_left').empty().append('<button id="btnExcelLink"><span class="ui-icon ui-icon-excel"></span></button>');
         });
@@ -723,7 +715,7 @@
                             'Accept': 'application/json',
                             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                         },
-                            data: { todoDetailIds: result },
+                        data: { todoDetailIds: result },
                         success: function (result) {
                             alert('success');
                             $('#hdnProjectIdToDo').val(projectId);

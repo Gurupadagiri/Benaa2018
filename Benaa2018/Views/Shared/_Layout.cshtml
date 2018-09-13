@@ -83,7 +83,6 @@
                                 <div class="liDiv">
                                     @foreach (var Menu in item.Menus)
                                     {
-
                                         <li>
                                             <div class="inlineDiv">
                                                 <a href="@Menu.MenuUrl" class="icontxt">
@@ -93,17 +92,6 @@
                                                 <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
                                             </div>
                                         </li>
-
-                                    <li>
-                                        <div class="inlineDiv">
-                                            <a href="@Menu.MenuUrl" class="icontxt">
-                                                <span class="@Menu.CssClass"></span>
-                                                <span>@Menu.MenuName</span>
-                                            </a>
-                                            <a href="#" class="addtxt"><span class="fa fa-phone"></span> New</a>
-                                        </div>
-                                    </li>
-
                                     }
                                     <li class="videocontainer">
                                         <div class="grayli">
@@ -189,7 +177,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-3  col-lg-3">
                     <div class="ProjectrunningTotal">
-                        Project Running Total : $250,000,000
+                        Project Running Total : $xxx,xxx,xxx
                     </div>
                 </div>
             </div>
@@ -524,7 +512,6 @@
                 </div>
             </div>
         </div>
-
         <div class="modal fade in" id="costCode" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
             <div class="modal-dialog modalWidth1200">
                 <div class="panel panel-primary customPopup">
@@ -532,8 +519,6 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 class="panel-title" id="contactLabel">BDS Setup</h4>
                     </div>
-
-
                     <div class="panel-body">
                         <a href="javascript:void(0);" class="backButton" data-dismiss="modal">Back</a>
                         <hr>
@@ -560,8 +545,6 @@
                                 </div>
                             </div>
                         </div>
-
-
                         <div class="col-md-4">
                             <h2 class="header1">Costs</h2>
                             <div class="costCodeList costCodeListOdd">
@@ -621,17 +604,11 @@
                             <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
                             <span class="chkText">Show Inactive Codes</span>
                         </div>
-
-
-
                     </div>
                 </div>
             </div>
-
         </div>
-
-
-
+        
         <div class="modal fade in" id="groupSetup" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
             <div class="modal-dialog activityHolder">
                 <div class="panel panel-primary customPopup">
@@ -639,9 +616,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                         <h4 class="panel-title" id="contactLabel">Group Setup</h4>
                     </div>
-
                     <div class="panel-body">
-
                         <div class="dropdown">
                             <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown">
                                 Save
@@ -656,20 +631,16 @@
                                 <input type="checkbox" name="activity"><span>Active</span>
                             </div>
                         </div>
-
                         <div class="tabsConatiner">
                             <div class="mainTab">
                                 <div class="dataTableConatainer Predecessorlink">
                                     <h2 class="header">Adding a Group</h2>
                                     <div class="predecessoritem">
                                         <div class="form-group">
-
                                             <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                                 <label>Group Code </label>
                                                 <input class="form-control" type="text">
                                             </div>
-
-
                                             <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                                 <label>Group Name</label>
                                                 <input class="form-control" type="text">
@@ -678,28 +649,19 @@
                                                 <label>Sequence</label>
                                                 <input class="form-control" type="text">
                                             </div>
-
                                             <div class="input-group col-md-12 col-sm-12 col-xs-12">
                                                 <label>Details</label>
                                                 <textarea class="flatTextBox" rows="6" cols="20"></textarea>
                                             </div>
-
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-        </div>
-
-
+        </div>        
         <div class="modal fade in" id="mainActivity" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
             <div class="modal-dialog activityHolder">
                 <div class="panel panel-primary customPopup">
@@ -736,29 +698,10 @@
                                                 <label>Main Activity Code</label>
                                                 <input class="form-control" type="text">
                                             </div>
-
-
                                             <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                                 <label>Main Activity Name</label>
                                                 <input class="form-control" type="text">
                                             </div>
-
-                                            <!-- <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                                                                        <label>Category</label>
-                                                                        <select class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required." id="PredecessorInformationModels_0__ScheduledItemId" name="PredecessorInformationModels[0].ScheduledItemId">
-                                                                            <option value="">-----------</option>
-                                                                                    <option value="1">test .... 03-03-2018 to 25-04-2018</option>
-                                                                                    <option value="2">Test Prede .... 01-04-2018 to 21-04-2018</option>
-                                                                                    <option value="3">Test Again .... 03-03-2018 to 09-03-2018</option>
-                                                                                    <option value="1002">Test Pre .... 07-03-2018 to 20-03-2018</option>
-                                                                                    <option value="1003">teststs .... 07-04-2018 to 20-04-2018</option>
-                                                                                    <option value="1004">pred .... 07-03-2018 to 15-03-2018</option>
-                                                                                    <option value="1005">Link .... 10-04-2018 to 20-04-2018</option>
-                                                                                    <option value="1006">ghfh .... 03-03-2018 to 04-03-2018</option>
-                                                                                    <option value="1007">lunch time .... 10-03-2018 to 25-03-2018</option>
-                                                                                    <option value="1008">fgb .... 05-04-2018 to 10-04-2018</option>
-                                                                        </select>
-                                                                    </div> -->
                                             <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                                 <label>Sequence</label>
                                                 <input class="form-control" type="text">
@@ -768,23 +711,15 @@
                                                 <label>Details</label>
                                                 <textarea class="flatTextBox" rows="6" cols="20"></textarea>
                                             </div>
-
-
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
         </div>
-
         <div class="modal fade in" id="activity" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
             <div class="modal-dialog activityHolder">
                 <div class="panel panel-primary customPopup">
@@ -1022,9 +957,6 @@
             }
         });
         $(document).on('click', '#saveUserPreference', function (e) {
-                e.preventDefault();
-            //var infoForm = $("#frmSubmitUserPreferenceMaster");
-                //var postData = infoForm.serializeArray();
             $('#usermasters_UserFirstName').removeAttr('style');
             $('#usermasters_UserLastName').removeAttr('style');
             $('#usermasters_UserName').removeAttr('style');
@@ -1063,12 +995,7 @@
                     $('#usermasters_UserForumHandle').css('border-color', 'red');
 
             }
-
-
-
-            debugger;
             if (validate == '0') {
-            //alert(JSON.stringify($('#frmSubmitUserPreferenceMaster').serializeArray()) );
                 $.ajax({
                     url: "@(Url.Action("UserPreferences", "Home",null))",
                     type: 'POST',
@@ -1079,9 +1006,6 @@
                     data: $("#frmSubmitUserPreferenceMaster").serialize(),
                     success: function (result) {
                         if (result == '1') {
-                            //infoForm.find("input[type='text']").each(function (i, element) {
-                            //    $(this).val('');
-                            //});
                             alert("User Details Successfully Added");
                             location.reload(true);
                         }
@@ -1102,15 +1026,6 @@
             }
         });
         $(document).ready(function () {
-            //$("#chkAllPermissionEmail").click(function (e) {
-            //    if ($('#chkAllPermissionEmail').prop('checked')) {
-            //        $('.chkEmailAllNotification').attr('checked', true);
-            //    }
-            //    else {
-            //        $('.chkEmailAllNotification').attr('checked', false);
-            //    }
-            //});
-
             $("#chkAllPermissionText").click(function (e) {
                 if ($('#chkAllPermissionText').prop('checked')) {
                     $('.chkTextAllNotification').attr('checked', true);
@@ -1172,9 +1087,6 @@
                     $('.IsChkDeletePermission').attr('checked', false);
                 }
             });
-
-
-
             $("#btnPermissionUser").click(function () {
                 var postData = $("#frmSubmitUserPreferenceMaster").serializeArray();
                 $.ajax({
