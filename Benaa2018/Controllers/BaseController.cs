@@ -48,8 +48,7 @@ namespace Benaa2018.Controllers
         }
         public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
-            var isAjax = Request.IsAjaxRequest();
-            if (!isAjax)
+            if (!IsAjaxRequest())
             {
                 Basemodel = new BaseViewModel
                 {
@@ -69,7 +68,17 @@ namespace Benaa2018.Controllers
                 Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
                 ViewBag.Basemodel = Basemodel;
                 ViewBag.UsersList = Basemodel.UserMasterViewModels;
-            }            
+            }
+            else
+            {
+                Basemodel = new BaseViewModel
+                {     
+                    ProjectColorModels = await _projectColorHelper.GetAllProjectColor(),
+                    UserMasterViewModels = await _userMasterHelper.GetAllInternalUsers(),
+                    IsAjaxRequest = true
+                };
+                ViewBag.Basemodel = Basemodel;
+            }
             base.OnActionExecuting(context);
             await next();
         }
@@ -105,6 +114,11 @@ namespace Benaa2018.Controllers
                 });
             });
             return lstGridModel;
+        }
+
+        public bool IsAjaxRequest()
+        {
+            return Request.IsAjaxRequest();
         }
     }
 }

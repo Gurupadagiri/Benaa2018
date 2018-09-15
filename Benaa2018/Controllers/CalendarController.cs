@@ -96,10 +96,14 @@ namespace Benaa2018.Controllers
                 else
                 {
                     scheduleId = await _calendarScheduleHelper.UpdateCalendarScheduleItemAsync(1, calendarModel);
-                    foreach (var item in calendarModel.PredecessorInformationModels)
+                    await _calendarScheduleHelper.DeletePredecessorInformationAsync(scheduleId);
+                    if(calendarModel.PredecessorInformationModels?.FirstOrDefault().ScheduledItemId != 0)
                     {
-                        await _calendarScheduleHelper.UpdatePredecessorInformationAsync(item);
-                    }
+                        foreach (var item in calendarModel.PredecessorInformationModels)
+                        {
+                            await _calendarScheduleHelper.SavePredecessorInformationAsync(scheduleId, calendarModel.ProjectId, calendarModel.CompanyId, item);
+                        }
+                    }                    
                 }
                 calendarModel.Success = true;
                 if (calendarModel.PageType == "todoitem")
@@ -113,7 +117,7 @@ namespace Benaa2018.Controllers
                 }
                 return Json(calendarModel);
             }
-            catch
+            catch(Exception ex)
             {
                 return Json(string.Empty);
             }

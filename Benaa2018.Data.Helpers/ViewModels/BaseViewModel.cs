@@ -29,7 +29,8 @@ namespace Benaa2018.Helper.ViewModels
             ProjectMasterModels = new List<ProjectMasterViewModel>();
             ProjectManagerMasterModels = new List<ProjectManagerMasterViewModel>();
         }
-        public UserMasterViewModel UserMasterModel { get; set; }
+        public bool IsAjaxRequest { get; set; } = false;
+        public UserMasterViewModel UserMasterModel { get; set; }        
         public List<MenuViewModel> MenuContents { get; set; }
         public List<ProjectColorViewModel> ProjectColorModels { get; set; }
         public List<ProjectSubcontractorConfigViewModel> ProjectSubcontractorConfigModels { get; set; }

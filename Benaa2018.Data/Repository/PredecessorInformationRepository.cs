@@ -19,5 +19,10 @@ namespace Benaa2018.Data.Repository
         {
             return _context.PredecessorInformations.Where(a => a.SourceScheuledId == scheduledId).ToList();
         }
+
+        public async override Task DeleteAsync(PredecessorInformation predecessorInformation)
+        {
+            _context.PredecessorInformations.Remove(predecessorInformation);
+        }
     }
 }

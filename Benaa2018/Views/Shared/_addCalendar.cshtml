@@ -1,4 +1,5 @@
 ﻿@model Benaa2018.Helper.ViewModels.CalendarScheduledItemViewModel
+@using Benaa2018.Controllers
 @{
     Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
 }
@@ -27,7 +28,7 @@
                                     Save
                                     <span class="caret"></span>
                                 </button>
-                                <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                                <button class="btn btn-success btn-sm dropdown-toggle btncalendarnew" type="button" data-toggle="dropdown">
                                     Save &amp; New
                                     <span class="caret"></span>
                                 </button>
@@ -63,18 +64,19 @@
                                                 <div class="col-sm-4 form-group start-holder">
                                                     <div class="stHolder">
                                                         <label>Start Date</label>
-                                                        <div class="input-group actualstartdate">                                                          
-                                                            <input class="form-control cal" asp-for="StartDate" placeholder="MM/DD/YYYY" type="text" value="" />  
-                                                            @*<input class="form-control cal" placeholder="MM/DD/YYYY" type="text" value="">*@
+                                                        <div class="input-group actualstartdate">
+                                                            <input class="form-control cal" asp-for="StartDate" placeholder="MM/DD/YYYY" type="text" value="" />
+                                                            <span id="startdate" style="display:none">@Model.StartDate</span>
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-calendar">
                                                                 </i>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div  class="stHolder">
+                                                    <div class="stHolder">
                                                         <label>End Date</label>
                                                         <div class="input-group actualenddate">
+                                                            <span id="enddate" style="display:none">@Model.EndDate</span>
                                                             <input class="form-control cal" asp-for="EndDate" placeholder="MM/DD/YYYY" type="text" value="" />
                                                             <div class="input-group-addon">
                                                                 <i class="fa fa-calendar">
@@ -92,7 +94,7 @@
                                                         <label>Hourly</label>
                                                     </div>
                                                 </div>
-                                               
+
                                                 <div class="col-sm-4 form-group tooltip-div assignTo pull-right">
                                                     <div class="assignToDiv">
                                                         <label>Assigned To</label>
@@ -120,7 +122,7 @@
                                                             </select>
                                                         </div>
                                                     </div>
-                                                    </div>
+                                                </div>
                                                 <div class="clearfix"></div>
                                                 <div class="col-sm-7 form-group timeHolder" style="display:none">
                                                     <div class="timeHolderDiv">
@@ -171,11 +173,11 @@
                                                             {
                                                                 if (item.ScheduledItemId == itm.ScheduledItemId)
                                                                 {
-                                                                    <option selected="selected" value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
+                                                            <option selected="selected" value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
                                                                 }
                                                                 else
                                                                 {
-                                                                    <option value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
+                                                            <option value="@item.ScheduledItemId">@(item.Title + " .... " + Convert.ToDateTime(item.StartDate).ToString("dd-MM-yyyy") + " to " + Convert.ToDateTime(item.EndDate).ToString("dd-MM-yyyy"))</option>
                                                                 }
                                                             }
                                                         </select>
@@ -408,3 +410,18 @@
         </div>
     </div>
 </form>
+@{
+    if (baseModel.IsAjaxRequest)
+    {
+        <script src="~/js/jquery.multiselect.js"></script>
+        <script>
+            $(document).ready(function () {
+                $("#frmPredecessor").find("#StartDate").datepicker("setDate", $("#frmPredecessor").find("#startdate").text());
+                $("#frmPredecessor").find("#EndDate").datepicker("setDate", $("#frmPredecessor").find("#enddate").text());
+                if ($("#frmPredecessor").find("#Hourly").prop('checked')) {
+                    $("#frmPredecessor").find(".timeHolder").show();
+                }
+            });
+        </script>
+    }
+}

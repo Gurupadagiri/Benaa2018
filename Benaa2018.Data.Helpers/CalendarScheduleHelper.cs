@@ -125,11 +125,11 @@ namespace Benaa2018.Helper
                 ColorCode = scheduledItems.ColorCode,
                 CreatdDate = scheduledItems.Created_Date,
                 Duration = scheduledItems.Duration,
-                EndDate = scheduledItems.EndDate.ToString(),
+                EndDate = scheduledItems.EndDate.ToString("MM/dd/yyy"),
                 EndTime = scheduledItems.EndTime,
                 Hourly = scheduledItems.Hourly,
                 Reminder = scheduledItems.Reminder,
-                StartDate = scheduledItems.StartDate.ToString(),
+                StartDate = scheduledItems.StartDate.ToString("MM/dd/yyy"),
                 StartTime = scheduledItems.StartTime,
                 CompanyId = scheduledItems.CompanyId,
                 ProjectId = scheduledItems.ProjectId,
@@ -152,6 +152,16 @@ namespace Benaa2018.Helper
             var predecessorObj = await _predecessorInformationRepository.CreateAsync(predecessor);
             return predecessorObj.PredecessorId;
         }
+        public async Task DeletePredecessorInformationAsync(int sourceScheduleId)
+        {            
+            var predecessorObj = await _predecessorInformationRepository.GetAllAsync();
+            predecessorObj = predecessorObj.Where(a => a.SourceScheuledId == sourceScheduleId);
+            foreach(var item in predecessorObj)
+            {
+                await _predecessorInformationRepository.DeleteAsync(item);
+            }
+        }
+
 
         public async Task<int> UpdatePredecessorInformationAsync(PredecessorInformationViewModel predecessorInformation)
         {

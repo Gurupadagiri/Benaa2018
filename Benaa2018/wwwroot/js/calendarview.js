@@ -35,30 +35,10 @@ $(document).ready(function () {
         $('#frmPredecessor').find('.predecessoritem').append('<div class="form-group">' + innerhtml + '</div>');
     });
     $('.btncalendar').on('click', function () {
-        var postData = $('#frmPredecessor').serialize();
-        $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
-            if (data.success == true) {
-                $('#frmPredecessor').find("input[type='text']").each(function (i, element) {
-                    $(this).val('');
-                });
-                if (data.pageType === 'todoitem') {
-                    $('#frmSubmitToDoMaster').find('#ScheduleItems')
-                        .append($("<option></option>")
-                            .attr("value", data.scheduledItemId)
-                            .text(data.Title));
-                    var resjobstr = '<li data-search-term="' + data.title + '"><label for="ms-opt-18"><input type="checkbox" title="' + data.title + '" id="ms-opt-18" value="' + data.scheduledItemId + '">' + data.title + '</label></li>'
-                    $('#frmSubmitToDoMaster').find('#ScheduleItems').next().find('ul').append(resjobstr);
-                } else {
-                    $('#calendar').fullCalendar('removeEvents');
-                    $('#calendar').fullCalendar('addEventSource', JSON.parse(data));
-                    $('#calendar').fullCalendar('rerenderEvents');
-                }
-                $('#calendarmodal').remove('in').hide();
-                alert("Schedule Details Successfully Added.");
-            } else {
-                alert("Schedule Details not Added!");
-            }
-        });
+        SaveCalendaInfo(true);
+    });
+    $('.btncalendarnew').on('click', function () {
+        SaveCalendaInfo(false);
     });
     $('#calendaritem').on('click', function () {
         $('#PageType').val('todoitem');
@@ -179,7 +159,34 @@ $(document).ready(function () {
         }
     });
 });
-
+function SaveCalendaInfo(isclosed) {
+    var postData = $('#frmPredecessor').serialize();
+    $.post("Calendar/SubmitPredecessorInfoAsync", postData, function (data) {
+        if (data.success == true) {
+            $('#frmPredecessor').find("input[type='text']").each(function (i, element) {
+                $(this).val('');
+            });
+            if (data.pageType === 'todoitem') {
+                $('#frmSubmitToDoMaster').find('#ScheduleItems')
+                    .append($("<option></option>")
+                        .attr("value", data.scheduledItemId)
+                        .text(data.Title));
+                var resjobstr = '<li data-search-term="' + data.title + '"><label for="ms-opt-18"><input type="checkbox" title="' + data.title + '" id="ms-opt-18" value="' + data.scheduledItemId + '">' + data.title + '</label></li>'
+                $('#frmSubmitToDoMaster').find('#ScheduleItems').next().find('ul').append(resjobstr);
+            } else {
+                $('#calendar').fullCalendar('removeEvents');
+                $('#calendar').fullCalendar('addEventSource', JSON.parse(data.responseJsonString));
+                $('#calendar').fullCalendar('rerenderEvents');
+            }
+            if (isclosed) {
+                $('#calendarmodal').remove('in').hide();
+            }            
+            alert("Schedule Details Successfully Added.");
+        } else {
+            alert("Schedule Details not Added!");
+        }
+    });
+}
 function populatecalendar(projectid) {
     var postData = { "projectId": parseInt(projectid) };
     $.post("Calendar/GetScheduledItemsByProjectId", postData, function (data) {

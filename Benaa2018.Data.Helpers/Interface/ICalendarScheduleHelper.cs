@@ -11,6 +11,7 @@ namespace Benaa2018.Helper.Interface
         Task<int> UpdateCalendarScheduleItemAsync(int companyId, CalendarScheduledItemViewModel calendarScheuledItem);
         Task<int> SavePredecessorInformationAsync(int sourceScheduleId, int projectId, int companyId, PredecessorInformationViewModel predecessorInformation);
         Task<int> UpdatePredecessorInformationAsync(PredecessorInformationViewModel predecessorInformation);
+        Task DeletePredecessorInformationAsync(int sourceScheduleId);
         Task<CalendarScheduledItemViewModel> GetAllScheduledItem(int scheduledId);
         Task<List<CalendarScheduledItemViewModel>> GetAllScheduledItems(int companyId, int projectId, DateTime startDate);
         Task<int> SaveCalendarPhaseAsync(CalendarPhaseViewModel calendarPhaseModel);
