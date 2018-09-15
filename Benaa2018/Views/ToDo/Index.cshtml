@@ -344,9 +344,10 @@
         </div>
     </div>
 </div>
-
-<div class="modal fade" id="ToDoUpdate">
-    @Html.Partial("_toDoAddUpdate", Model)
+<div class="modal fade" id="ToDoUpdate" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    @*<div class="modal fade" id="ToDoUpdate">*@
+    @*@Html.Partial("_toDoAddUpdate", Model)*@
+    @Html.Partial("_toDoAddNew", Model)
 </div>
 <div class="modal fade" id="Setup1">
     @Html.Partial("_todoConversionDetails", Model)
@@ -407,12 +408,17 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(document).on('click', '.typeTitle', function () {
+        $(document).on('click', '.typeTitle', function (e) {
             var ids = $(this).attr('dataids');
-            var url = '@Url.Action("UpdateTodo", "ToDo")';
+            @*var url = '@Url.Action("UpdateTodo", "ToDo")';
             url += '/?ToDoDetailsId=' + ids ;
             $("#ToDoUpdate").load(url);
-            $('#ToDoUpdate').modal('show');
+            $('#ToDoUpdate').modal('show');*@
+
+            var postData = { "ToDoDetailsId": ids };
+            $("#ToDoUpdate").load('ToDo/UpdateTodo', postData);
+            $('#ToDoUpdate').addClass('in').css('display', 'block');
+            //$(e).preventDefault();
         });
         $(document).on('click', '.type1', function () {
             var ids = $(this).attr('dataids');

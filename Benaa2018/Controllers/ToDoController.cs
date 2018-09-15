@@ -266,8 +266,8 @@ namespace Benaa2018.Controllers
             ViewBag.SubContractorsList = differentUsersList;
 
             toDoAllView.Operation = "Update";
-            // return PartialView("_toDoAddNew", toDoAllView);
-            return PartialView("_toDoAddUpdate", toDoAllView);
+             return PartialView("_toDoAddNew", toDoAllView);
+           // return PartialView("_toDoAddUpdate", toDoAllView);
 
         }
 
