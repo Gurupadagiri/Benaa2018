@@ -153,65 +153,80 @@ namespace Benaa2018.Controllers
 
         public async Task<List<CalendarScheduledItemViewModel>> GetScheduledItems(int projectId, string selectedDate = "", int sortOrder = -1)
         {
-            DateTime currentDate = DateTime.MinValue;
-            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
-            var objScheduleDate = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
-            
-            if (sortOrder == 1)
-                objScheduleDate.OrderByDescending(a => a.StartDate).ToList();
-            else if (sortOrder == 0)
-                objScheduleDate.OrderBy(a => a.StartDate).ToList();
-            foreach (var item in objScheduleDate)
+            List<CalendarScheduledItemViewModel> objScheduleDate = new List<CalendarScheduledItemViewModel>(); 
+            try
             {
-                item.SelectedDate = Convert.ToDateTime(item.StartDate).DayOfWeek + "," + Convert.ToDateTime(item.StartDate).ToString("MMM dd") + "," + Convert.ToDateTime(item.StartDate).ToString("yyyy");
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                objScheduleDate = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+
+                if (sortOrder == 1)
+                    objScheduleDate.OrderByDescending(a => a.StartDate).ToList();
+                else if (sortOrder == 0)
+                    objScheduleDate.OrderBy(a => a.StartDate).ToList();
+                foreach (var item in objScheduleDate)
+                {
+                    item.SelectedDate = Convert.ToDateTime(item.StartDate).DayOfWeek + "," + Convert.ToDateTime(item.StartDate).ToString("MMM dd") + "," + Convert.ToDateTime(item.StartDate).ToString("yyyy");
+                }
+                return objScheduleDate;
             }
-            return objScheduleDate;
+            catch(Exception ex)
+            {
+                return objScheduleDate;
+            }            
         }
 
         public async Task<string> GetGnattItems(int projectId, string selectedDate = "")
         {
-            List<GanttChartModel> lstGnattModel = new List<GanttChartModel>();
-            DateTime currentDate = DateTime.MinValue;
-            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
-            var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
-            if (scheduledItem.Count != 0)
+            try
             {
-                foreach (var a in scheduledItem)
+                List<GanttChartModel> lstGnattModel = new List<GanttChartModel>();
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+                if (scheduledItem.Count != 0)
                 {
-                    lstGnattModel.Add(new GanttChartModel
+                    foreach (var a in scheduledItem)
                     {
-                        id = a.ScheduledItemId,
-                        text = a.Title,
-                        start_date = Convert.ToDateTime(a.StartDate).ToString("dd-MM-yyyy"),
-                        end_date = Convert.ToDateTime(a.EndDate).ToString("dd-MM-yyyy"),
-                        duration = a.Duration.ToString(),
-                        color = a.ColorCode,
-                        status = true,
-                        pred = "",
-                        users = new List<string> { a.AssignedTo },
-                    });
+                        lstGnattModel.Add(new GanttChartModel
+                        {
+                            id = a.ScheduledItemId,
+                            text = a.Title,
+                            start_date = Convert.ToDateTime(a.StartDate).ToString("dd-MM-yyyy"),
+                            end_date = Convert.ToDateTime(a.EndDate).ToString("dd-MM-yyyy"),
+                            duration = a.Duration.ToString(),
+                            color = a.ColorCode,
+                            status = true,
+                            pred = "",
+                            users = new List<string> { a.AssignedTo },
+                        });
+                    }
                 }
-            }
-            List<CalendarLink> lstCalendarLink = new List<CalendarLink>();
-            var count = 0;
-            scheduledItem.ForEach(async a =>
-            {
-                count++;
-                var predessorInfo = await _calendarScheduleHelper.GetPredecessorByScheduleIdAsyn(a.ScheduledItemId);
-                predessorInfo.ForEach(b =>
+                List<CalendarLink> lstCalendarLink = new List<CalendarLink>();
+                var count = 0;
+                scheduledItem.ForEach(async a =>
                 {
-                    lstCalendarLink.Add(new CalendarLink
+                    count++;
+                    var predessorInfo = await _calendarScheduleHelper.GetPredecessorByScheduleIdAsyn(a.ScheduledItemId);
+                    predessorInfo.ForEach(b =>
                     {
-                        id = count,
-                        source = b.SourceScheuledId,
-                        target = b.ScheduledItemId,
-                        type = 0
+                        lstCalendarLink.Add(new CalendarLink
+                        {
+                            id = count,
+                            source = b.SourceScheuledId,
+                            target = b.ScheduledItemId,
+                            type = 0
+                        });
                     });
                 });
-            });
-            var projectInfo = new Tuple<List<GanttChartModel>, List<CalendarLink>>(
-                lstGnattModel, lstCalendarLink);
-            return JsonConvert.SerializeObject(projectInfo);
+                var projectInfo = new Tuple<List<GanttChartModel>, List<CalendarLink>>(
+                    lstGnattModel, lstCalendarLink);
+                return JsonConvert.SerializeObject(projectInfo);
+            }
+            catch(Exception ex)
+            {
+                return string.Empty;
+            }            
         }
 
         public async Task<IActionResult> GetScheduledDetailsByIdAsync(int scheduledId)
@@ -295,24 +310,28 @@ namespace Benaa2018.Controllers
 
         public async Task<JsonResult> GetBaselineView(int projectId, string selectedDate = "")
         {
-            List<CalendarScheduledItemViewModel> lstCalendarItem = new List<CalendarScheduledItemViewModel>();
-
-            DateTime currentDate = DateTime.MinValue;
-            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
-            var scheduledItems = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
-
-            DateTime MinStartDate = scheduledItems.Min(a => Convert.ToDateTime(a.StartDate));
-            DateTime MaxStartDate = scheduledItems.Max(a => Convert.ToDateTime(a.EndDate));
-            int totaldate = 0;
-            foreach (var item in scheduledItems)
+            try
             {
-                DateDifference(Convert.ToDateTime(item.StartDate), Convert.ToDateTime(item.EndDate), ref totaldate);
+                List<CalendarScheduledItemViewModel> lstCalendarItem = new List<CalendarScheduledItemViewModel>();
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                var scheduledItems = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+                DateTime MinStartDate = scheduledItems.Min(a => Convert.ToDateTime(a.StartDate));
+                DateTime MaxStartDate = scheduledItems.Max(a => Convert.ToDateTime(a.EndDate));
+                int totaldate = 0;
+                foreach (var item in scheduledItems)
+                {
+                    DateDifference(Convert.ToDateTime(item.StartDate), Convert.ToDateTime(item.EndDate), ref totaldate);
+                }
+                var totalDuration = scheduledItems.Sum(a => a.Duration);
+                var projectInfo = new Tuple<List<CalendarScheduledItemViewModel>, DateTime, DateTime, int, int>(
+                scheduledItems, MinStartDate, MaxStartDate, totaldate, totalDuration);
+                return Json(projectInfo);
             }
-            var totalDuration = scheduledItems.Sum(a => a.Duration);
-
-            var projectInfo = new Tuple<List<CalendarScheduledItemViewModel>, DateTime, DateTime, int, int>(
-            scheduledItems, MinStartDate, MaxStartDate, totaldate, totalDuration);
-            return Json(projectInfo);
+            catch(Exception ex)
+            {
+                return Json(string.Empty);
+            }            
         }
 
         public void DateDifference(DateTime startDate, DateTime endDate, ref int totaldate)
@@ -322,26 +341,33 @@ namespace Benaa2018.Controllers
 
         public async Task<JsonResult> GetPhasesListAsync(int projectId, string selectedDate = "")
         {
-            DateTime currentDate = DateTime.MinValue;
-            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
-            var scheduledList = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
-            var phaseList = scheduledList.Select(a => a.PhaseId).Distinct();
-            List<Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>> lstphase =
-                new List<Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>>();
-            foreach (var item in phaseList)
+            try
             {
-                int phaseId = item;
-                string phaseName = scheduledList.Where(a => a.PhaseId == item).Select(a => a.PhaseName).FirstOrDefault();
-                DateTime minDate = scheduledList.Min(a => Convert.ToDateTime(a.StartDate));
-                DateTime maxDate = scheduledList.Max(a => Convert.ToDateTime(a.EndDate));
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                var scheduledList = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+                var phaseList = scheduledList.Select(a => a.PhaseId).Distinct();
+                List<Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>> lstphase =
+                    new List<Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>>();
+                foreach (var item in phaseList)
+                {
+                    int phaseId = item;
+                    string phaseName = scheduledList.Where(a => a.PhaseId == item).Select(a => a.PhaseName).FirstOrDefault();
+                    DateTime minDate = scheduledList.Min(a => Convert.ToDateTime(a.StartDate));
+                    DateTime maxDate = scheduledList.Max(a => Convert.ToDateTime(a.EndDate));
 
-                int statusCompleted = scheduledList.Where(a => a.Status == 6).Count();
-                int statusNotCompleted = scheduledList.Where(a => a.Status != 6).Count();
-                var phaseLst = scheduledList.Where(a => a.PhaseId == item).ToList();
-                lstphase.Add(new Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>
-                    (phaseId, phaseName, minDate, maxDate, statusNotCompleted, statusCompleted, phaseLst));
+                    int statusCompleted = scheduledList.Where(a => a.Status == 6).Count();
+                    int statusNotCompleted = scheduledList.Where(a => a.Status != 6).Count();
+                    var phaseLst = scheduledList.Where(a => a.PhaseId == item).ToList();
+                    lstphase.Add(new Tuple<int, string, DateTime, DateTime, int, int, List<CalendarScheduledItemViewModel>>
+                        (phaseId, phaseName, minDate, maxDate, statusNotCompleted, statusCompleted, phaseLst));
+                }
+                return Json(lstphase);
             }
-            return Json(lstphase);
+            catch(Exception ex)
+            {
+                return Json(string.Empty);
+            }            
         }
 
         public async Task<string> GetFilteredScheduleAsync(int projectId,
