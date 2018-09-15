@@ -490,7 +490,10 @@ $(window).load(function () {
     var innerexport = $('div.dataTableConatainer').children('span').html();
     $('#example_toppager_left').html(innerexport);
     $('#export').remove();
+    //var widthofContainer = $('.dataTableConatainer').innerWidth();
+    //$('.ui-jqgrid-view').css('width', '1235px');
     $('.datepicker-dropdown').hide();
+    $('<div id="topScrollbarWrapper" ><div id="topScrollbar" style="width: 1312px;"></div></div>').insertAfter('#example_toppager');
 });
 
 var createExcelFromGrid = function (gridID, filename) {

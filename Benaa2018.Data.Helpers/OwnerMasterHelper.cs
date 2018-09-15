@@ -55,37 +55,41 @@ namespace Benaa2018.Helper
 
         public async Task<int> UpdateOwnerMaster(int projectID, OwnerMasterViewModel OwnerMasterModel)
         {
+            int ownerId = 0;
             var owner = await _ownerMasterRepoisitory.GetAllAsync();
-            var ownerMasterInfo = owner.Where(a => a.Project_ID == projectID).FirstOrDefault();
-            //var ownerMasterInfo = await _ownerMasterRepoisitory.GetAllAsync().Result.Where(a => a.Project_ID == projectID).ToList().FirstOrDefault();
+            var ownerMasterInfo = owner.Where(a => a.Project_ID == projectID).FirstOrDefault();            
             if (ownerMasterInfo == null)
             {
-                await SaveOwnerMasterAsync(projectID, OwnerMasterModel);
+                ownerId = await SaveOwnerMasterAsync(projectID, OwnerMasterModel);
             }
-            ownerMasterInfo.State = OwnerMasterModel.State;
-            ownerMasterInfo.Zip = OwnerMasterModel.Zip;
-            ownerMasterInfo.Email = OwnerMasterModel.Email;
-            ownerMasterInfo.AccessMethod = OwnerMasterModel.AccessMethod;
-            ownerMasterInfo.Active = OwnerMasterModel.Active;
-            ownerMasterInfo.Address = OwnerMasterModel.Address;
-            ownerMasterInfo.AllowLockedSelections = OwnerMasterModel.AllowLockedSelections;
-            ownerMasterInfo.AllowOrderRequests = OwnerMasterModel.AllowOrderRequests;
-            ownerMasterInfo.AllowPaymentsTab = OwnerMasterModel.AllowPaymentsTab;
-            ownerMasterInfo.AllowWarrantyClaims = OwnerMasterModel.AllowWarrantyClaims;
-            ownerMasterInfo.City = OwnerMasterModel.City;
-            ownerMasterInfo.Mobile_No = OwnerMasterModel.MobileNo;
-            ownerMasterInfo.Org_ID = OwnerMasterModel.OwnerID;
-            ownerMasterInfo.OwnerActivation = OwnerMasterModel.OwnerActivation;
-            ownerMasterInfo.OwnerCalendar = OwnerMasterModel.OwnerCalendar;
-            ownerMasterInfo.OwnerInformation = OwnerMasterModel.OwnerInformation;
-            ownerMasterInfo.Owner_Name = OwnerMasterModel.OwnerName;
-            //ownerMasterInfo.Profile_Picture = OwnerMasterModel.ProfilePicture;
-            ownerMasterInfo.ShowBudgetPurchaseOrders = OwnerMasterModel.ShowBudgetPurchaseOrders;
-            ownerMasterInfo.ShowProjectPrice = OwnerMasterModel.ShowProjectPrice;
-            ownerMasterInfo.Telephone = OwnerMasterModel.Telephone;
-            ownerMasterInfo.Project_ID = projectID;
-            var ownerInfo = await _ownerMasterRepoisitory.UpdateAsync(ownerMasterInfo);
-            return ownerInfo.Owner_ID;
+            else
+            {
+                ownerMasterInfo.State = OwnerMasterModel.State;
+                ownerMasterInfo.Zip = OwnerMasterModel.Zip;
+                ownerMasterInfo.Email = OwnerMasterModel.Email;
+                ownerMasterInfo.AccessMethod = OwnerMasterModel.AccessMethod;
+                ownerMasterInfo.Active = OwnerMasterModel.Active;
+                ownerMasterInfo.Address = OwnerMasterModel.Address;
+                ownerMasterInfo.AllowLockedSelections = OwnerMasterModel.AllowLockedSelections;
+                ownerMasterInfo.AllowOrderRequests = OwnerMasterModel.AllowOrderRequests;
+                ownerMasterInfo.AllowPaymentsTab = OwnerMasterModel.AllowPaymentsTab;
+                ownerMasterInfo.AllowWarrantyClaims = OwnerMasterModel.AllowWarrantyClaims;
+                ownerMasterInfo.City = OwnerMasterModel.City;
+                ownerMasterInfo.Mobile_No = OwnerMasterModel.MobileNo;
+                ownerMasterInfo.Org_ID = OwnerMasterModel.OwnerID;
+                ownerMasterInfo.OwnerActivation = OwnerMasterModel.OwnerActivation;
+                ownerMasterInfo.OwnerCalendar = OwnerMasterModel.OwnerCalendar;
+                ownerMasterInfo.OwnerInformation = OwnerMasterModel.OwnerInformation;
+                ownerMasterInfo.Owner_Name = OwnerMasterModel.OwnerName;
+                //ownerMasterInfo.Profile_Picture = OwnerMasterModel.ProfilePicture;
+                ownerMasterInfo.ShowBudgetPurchaseOrders = OwnerMasterModel.ShowBudgetPurchaseOrders;
+                ownerMasterInfo.ShowProjectPrice = OwnerMasterModel.ShowProjectPrice;
+                ownerMasterInfo.Telephone = OwnerMasterModel.Telephone;
+                ownerMasterInfo.Project_ID = projectID;
+                var ownerInfo = await _ownerMasterRepoisitory.UpdateAsync(ownerMasterInfo);
+                ownerId = ownerInfo.Owner_ID;
+            }
+            return ownerId;
         }
 
         public async Task<OwnerMasterViewModel> GetOwnerInfoByInfo(int projectID)
