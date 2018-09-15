@@ -1,4 +1,5 @@
 ﻿@model Benaa2018.Helper.ViewModels.ToDoAllViewModel
+
 <style>
     #addphase .customPopup,
     #addtag .customPopup {
@@ -20,7 +21,7 @@
         padding: 0px;
     }
 </style>
-
+@using Benaa2018.Custom_Helpers
 <div class="modal-dialog modal-lg">
 
     <div id="messageSaveStatus"></div>
@@ -36,6 +37,7 @@
                         <input type="submit" name="" value="Save" id="btnSaveToDo" class="blueButton">
                         <input type="submit" name="" value="Save &amp; New" id="btnSaveAndNewToDo" class="blueButton">
                     </div>
+                    @*@Custom_Helper_Class.Create_Lable("This is Custom Label")*@
                     <div class="jobsitetext" style="font-size: 12px; text-align: right">
                         <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_lblJobsites"></span>
                         @Html.HiddenFor(a => a.ToDoDetails.Project_ID, new { @id = "hdnProjectIdToDo" })
@@ -58,8 +60,8 @@
                             else if (Model.Operation == "Update")
                             {
                                 <div class="col-md-6 leftDiv">
-                                    @Html.EditorFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
-                                    @Html.EditorFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
+                                    @Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
+                                    @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
                                 </div>
                             }
                         }
@@ -110,9 +112,9 @@
                                                             }
                                                         }
                                                     </optgroup>
-                                                                }
-                                                            }
-                                                            }
+                                                }
+                                            }
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -354,7 +356,7 @@
                                             <input type="text" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf(item)].ToDoCheckListTitle" rows="2" cols="20" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" />
                                             <span id="linedescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
                                         </div>
-                                        <div class="liColumn1" title="" style="display:none">
+                                        <div class="liColumn1 liddl" title="" style="display:none">
                                             <a class="chosen-single"></a>
                                             <select asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf(item)].ToDoCheckListUserId" class="ddldropdown">
                                                 @for (var j = 1; j < 4; j++)
@@ -380,13 +382,13 @@
                                                                     }
                                                                 }
                                                             </optgroup>
-                                                         }
-                                                     }
-                                                 }
+                                                        }
+                                                    }
+                                                }
                                             </select>
                                         </div>
                                     </div>
-                                 }
+                                }
                                 <div id="appendTextData"></div>
                             </div>
                             <a class="add-check-list" href="javascript:void(0);">
