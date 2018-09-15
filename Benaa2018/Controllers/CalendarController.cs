@@ -140,15 +140,22 @@ namespace Benaa2018.Controllers
                     status = a.Status.ToString()
                 });
             });
-            return Newtonsoft.Json.JsonConvert.SerializeObject(lstEvenets);
+            return JsonConvert.SerializeObject(lstEvenets);
         }
 
         public async Task<string> GetScheduledItemsByProjectId(int projectId, string selectedDate = "")
         {
-            DateTime currentDate = DateTime.MinValue;
-            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
-            var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
-            return ScheduledEvents(scheduledItem);
+            try
+            {
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                var scheduledItem = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+                return ScheduledEvents(scheduledItem);
+            }
+            catch(Exception ex)
+            {
+                return string.Empty;
+            }
         }
 
         public async Task<List<CalendarScheduledItemViewModel>> GetScheduledItems(int projectId, string selectedDate = "", int sortOrder = -1)
