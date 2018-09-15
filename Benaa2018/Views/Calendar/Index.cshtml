@@ -43,7 +43,6 @@
                                     <div class="col-sm-3 form-group">
                                         <span>Performed By</span>
                                         <select id="PerformedBy" name="PerformedBy" multiple="multiple" class="withCheckbox required">
-                                            <option value="" selected="selected">Select</option>
                                             @foreach (var item in baseModel.UserMasterViewModels)
                                             {
                                                 <option value="@item.UserID">@item.FullName</option>
@@ -66,7 +65,10 @@
                                     <div class="col-sm-3 form-group">
                                         <span>Tags</span>
                                         <select class="withCheckbox required" multiple="multiple" id="ProjectTag" name="ProjectTag">
-                                            <option value="" selected="selected">Select</option>
+                                           @foreach (var item in Model.CalendarTagModels)
+                                           {
+                                            <option value="@item.TagId">@item.TagName</option>
+                                           }
                                         </select>
                                     </div>
                                 </div>
@@ -74,8 +76,11 @@
                                     <div class="col-sm-3 form-group">
                                         <label>Projects Phases</label>
                                         <div class="input-group">
-                                            <select class="withCheckbox required" multiple="multiple" id="ProjectPhases" name="ProjectPhases">
-                                                <option value="" selected="selected">Select</option>
+                                            <select class="withCheckbox required" multiple="multiple" id="ProjectPhases" name="ProjectPhases">                                                
+                                                @foreach (var item in Model.CalendarPhaseModels)
+                                                {
+                                                    <option value="@item.PhaseId">@item.PhaseName</option>
+                                                }
                                             </select>
                                         </div>
                                     </div>
@@ -83,7 +88,6 @@
                                         <label>Other Items</label>
                                         <div class="input-group">
                                             <select class="withCheckbox required" multiple="multiple" id="ProjectOtherItem" name="ProjectOtherItem">
-                                                <option value="" selected="selected">Select</option>
                                                 <option value="1">Bid Packages</option>
                                                 <option value="2">Change Orders</option>
                                                 <option value="3">Daily Logs</option>

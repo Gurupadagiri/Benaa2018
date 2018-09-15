@@ -345,21 +345,62 @@ namespace Benaa2018.Controllers
         }
 
         public async Task<string> GetFilteredScheduleAsync(int projectId,
-            string searchText, string performedBy, string status, string tags,
-            string projectPhases, string otherItems, string selectedDate = "")
+            string searchText, string[] performedBy, int[] status, int[] tags,
+            int[] projectPhases, string[] otherItems, string selectedDate = "")
         {
-            DateTime currentDate = DateTime.MinValue;
-            if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
-            var scheduledList = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
-            if (!string.IsNullOrEmpty(searchText))
+            try
             {
-                scheduledList = scheduledList.Where(a => a.Title.ToLower().StartsWith(searchText.ToLower())).ToList();
+                List<CalendarScheduledItemViewModel> lstScheduledmodel = new List<CalendarScheduledItemViewModel>();
+                DateTime currentDate = DateTime.MinValue;
+                if (selectedDate != string.Empty) currentDate = Convert.ToDateTime(selectedDate);
+                var scheduledList = await _calendarScheduleHelper.GetAllScheduledItems(1, projectId, currentDate);
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    scheduledList = scheduledList.Where(a => a.Title.ToLower().StartsWith(searchText.ToLower())).ToList();
+                    lstScheduledmodel.AddRange(scheduledList);
+                }
+                if (performedBy.Length > 0 && performedBy[0] != null)
+                {
+                    foreach (var item in performedBy)
+                    {
+                        scheduledList = scheduledList.Where(a => a.AssignedTo.Contains(item)).ToList();
+                        lstScheduledmodel.AddRange(scheduledList);
+                    }
+                }
+                if (tags.Length > 0 && tags[0] != 0)
+                {
+                    foreach (var item in tags)
+                    {
+                        scheduledList = scheduledList.Where(a => a.TagId == item).ToList();
+                        lstScheduledmodel.AddRange(scheduledList);
+                    }
+                }
+                if (projectPhases.Length > 0 && projectPhases[0] != 0)
+                {
+                    foreach (var item in projectPhases)
+                    {
+                        scheduledList = scheduledList.Where(a => a.PhaseId == item).ToList();
+                        lstScheduledmodel.AddRange(scheduledList);
+                    }
+                }
+                if (status.Length > 0 && status[0] != 0)
+                {
+                    foreach (var item in projectPhases)
+                    {
+                        scheduledList = scheduledList.Where(a => a.Status == item).ToList();
+                        lstScheduledmodel.AddRange(scheduledList);
+                    }
+                }
+                if (lstScheduledmodel.Count == 0)
+                {
+                    lstScheduledmodel = scheduledList;
+                }
+                return ScheduledEvents(lstScheduledmodel.Distinct().ToList());
             }
-            if (!string.IsNullOrEmpty(performedBy))
+            catch(Exception ex)
             {
-                scheduledList = scheduledList.Where(a => a.AssignedTo.Contains(performedBy)).ToList();
+                return string.Empty;
             }
-            return ScheduledEvents(scheduledList);
         }
     }
 }
