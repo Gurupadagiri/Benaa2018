@@ -68,5 +68,20 @@ namespace Benaa2018.Helper
             });
             return lstSubContractor;
         }
+
+        public async Task<ProjectSubcontractorMasterViewModel> GetSubContractorBySubcontractId(int ownerId)
+        {
+            ProjectSubcontractorMasterViewModel userInfo = new ProjectSubcontractorMasterViewModel();
+            var user = await _subContractorMasterRepository.GetByIdAsync(ownerId);
+            if (user != null)
+            {
+                userInfo = new ProjectSubcontractorMasterViewModel
+                {
+                    SubContractorID = user.SubContractor_ID,
+                    Name = user.Name
+                };
+            }
+            return userInfo;
+        }
     }
 }

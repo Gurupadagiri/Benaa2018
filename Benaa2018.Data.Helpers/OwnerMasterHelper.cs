@@ -147,5 +147,21 @@ namespace Benaa2018.Helper
             }
             return lstOwnerMasterModel;
         }
+
+
+        public async Task<OwnerMasterViewModel> GetOwnerByOwnerId(int ownerId)
+        {
+            OwnerMasterViewModel userInfo = new OwnerMasterViewModel();
+            var user = await _ownerMasterRepoisitory.GetByIdAsync(ownerId);
+            if (user != null)
+            {
+                userInfo = new OwnerMasterViewModel
+                {
+                    OwnerID = user.Owner_ID,
+                    OwnerName = user.Owner_Name
+                };
+            }
+            return userInfo;
+        }
     }
 }

@@ -11,5 +11,7 @@ namespace Benaa2018.Helper
         Task<OwnerMasterViewModel> GetOwnerInfoByInfo(int projectID);
         Task<int> SaveOwnerMasterAsync(int projectID, OwnerMasterViewModel OwnerMasterModel);
         Task<int> UpdateOwnerMaster(int projectID, OwnerMasterViewModel OwnerMasterModel);
+
+        Task<OwnerMasterViewModel> GetOwnerByOwnerId(int ownerId);
     }
 }

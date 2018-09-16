@@ -1091,10 +1091,34 @@ namespace Benaa2018.Controllers
 
                             if (lstAssignModels.Count > 0)
                             {
+                                //foreach (var itemUser in lstAssignModels)
+                                //{
+                                //    var Users = _userMasterHelper.GetUserByUserId(itemUser.UserID);
+                                //    UserDetails = Users.Result.UserName + " ," + UserDetails;
+                                //}
+                                //UserDetailsCount = lstAssignModels.Count - 1;
+
                                 foreach (var itemUser in lstAssignModels)
                                 {
-                                    var Users = _userMasterHelper.GetUserByUserId(itemUser.UserID);
-                                    UserDetails = Users.Result.UserName + " ," + UserDetails;
+                                    switch (itemUser.ToDoUserAssignTypeId)
+                                    {
+                                        case 1:
+                                            var UserOwner = await _ownerMasterHelper.GetOwnerByOwnerId(itemUser.UserID);
+                                            UserDetails = UserOwner.OwnerName + " ," + UserDetails;
+                                            break;
+                                        case 2:
+                                            var users = await _userMasterHelper.GetUserByUserId(itemUser.UserID);
+                                            UserDetails = users.UserName + " ," + UserDetails;
+                                            break;
+
+                                        case 3:
+                                            var subContract = await _subContractorHelper.GetSubContractorBySubcontractId(itemUser.UserID);
+                                            UserDetails = subContract.Name + " ," + UserDetails;
+                                            break;
+                                    }
+
+                                    //var Users = _userMasterHelper.GetUserByUserId(itemUser.UserID);
+                                    //UserDetails = Users.Result.UserName + " ," + UserDetails;
                                 }
                                 UserDetailsCount = lstAssignModels.Count - 1;
                             }
