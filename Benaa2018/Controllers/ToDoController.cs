@@ -201,6 +201,40 @@ namespace Benaa2018.Controllers
                     };
                     var objToDoCheckList = await SaveToDochecklistDetails(toDoCheckListViewModel);
 
+
+
+                    if(toDoAllView.lstCheckListDetail.Count>0)
+                    {
+                        foreach(var item in toDoAllView.lstCheckListDetail)
+                        {
+                            var userDetails = lstDifferentUserWithType.FindAll(a => a.DifferentUserWithTypeId == item.ToDoCheckListUserId);
+
+                            ToDochecklistDetailsViewModel toDoCheckListDetailsViewModel = new ToDochecklistDetailsViewModel
+                            {
+                                ToDoCheckListId = objToDoCheckList.ToDoCheckListId,
+                                ToDoIsCheckList = item.ToDoIsCheckList,
+                                ToDoCheckListTitle = item.ToDoCheckListTitle,
+                                ToDoCheckListUserType = userDetails[0].DifferentUserWithTypewithTypeId,
+                                ToDoCheckListUserId = userDetails[0].DifferentUserWithTypeOriginalId
+
+                            };
+                            var objToDoDetailsList = await _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDoCheckListDetailsViewModel);
+
+                        }
+                    }
+                    //ToDochecklistDetailsViewModel toDoCheckListDetailsViewModel = new ToDochecklistDetailsViewModel
+                    //{
+                    //    ToDoCheckListId = objToDoCheckList.ToDoCheckListId,
+                    //    ToDoIsCheckList = true,
+                    //    ToDoCheckListTitle = "test",
+                    //    ToDoCheckListUserType = 1,
+                    //    ToDoCheckListUserId = 1
+
+                    //};
+
+                    ////var objToDoDetailsList = _toDoCheckListDetailsHelper.SaveToDochecklistDetailsDescription(toDoCheckListDetailsViewModel);
+
+                   // var objToDoDetailsList = SaveToDochecklistDetailDetails(toDoCheckListDetailsViewModel);
                     #endregion
 
                     toDoAllView.ToDoAllModels = await GetAllToDoDetails(toDoAllView.ToDoDetails.Project_ID);
@@ -415,6 +449,9 @@ namespace Benaa2018.Controllers
 
                         //  var objToDoCheckList = _toDoCheckListHelper.SaveToDochecklistDetails(toDoCheckListViewModel);
                         var objToDoCheckList = await SaveToDochecklistDetails(toDoCheckListViewModel);
+
+
+
 
                         for (int k = 0; k < toDoAllView.ToDoCheckListItemIndex; k++)
                         {
@@ -1548,6 +1585,7 @@ namespace Benaa2018.Controllers
                         toDoView.lstAssigns = lstAssignModels;
                         toDoView.lstCheckLists = lstChecklistModels;
                         toDoView.lstCheckListDetails = lstCheckListDetails;
+                        toDoView.lstCheckListDetail = lstCheckListDetails;
                         lstToDos.Add(toDoView);
 
                     }

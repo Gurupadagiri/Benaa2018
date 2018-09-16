@@ -407,11 +407,30 @@
     </div>
 </div>
 <script type="text/javascript">
+    $(document).on("click", "#addRemoveButton", function (event) {
+        if ($(this).val() == "Remove Checklist") {
+            $('.permanentNot').remove();
+            $('.cloneingboxholder').hide();
+        }
+        else {
+        
+            $('.multiInputHolder').show();
+        }
+
+    
+    });
+
     $(document).ready(function () {
+
+        
         $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title']", function () {
+            //$('.multiInputHolder').show();
             var ids = $(this).find('a').attr('dataids');
             var postData = { "ToDoDetailsId": parseInt(ids) };
             $("#ToDoUpdate").load('ToDo/PopulateTodoInfo', postData);
+            //$("#frmSubmitToDoMaster").load('ToDo/PopulateTodoInfo', postData);
+            //$('.cloneingboxholder').show();
+           // $('.multiInputHolder').show();
         });
         $(document).on('click', '.type1', function () {
             var ids = $(this).attr('dataids');
