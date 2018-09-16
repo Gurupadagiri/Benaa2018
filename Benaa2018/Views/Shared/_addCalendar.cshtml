@@ -421,6 +421,9 @@
                 if ($("#frmPredecessor").find("#Hourly").prop('checked')) {
                     $("#frmPredecessor").find(".timeHolder").show();
                 }
+                $('#AssignedTo').multiselect({
+                    includeSelectAllOption: true
+                });
             });
         </script>
     }
