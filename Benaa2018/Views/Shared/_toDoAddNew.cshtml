@@ -36,10 +36,9 @@
                     <div class="btnHolder pull-left">
                         <input type="button" value="Save" id="btnSaveToDo" class="blueButton">
                         <input type="button" value="Save &amp; New" id="btnSaveAndNewToDo" class="blueButton">
+                        <span id="lblJobsites" style="float:right"></span>
                     </div>
-                    @*@Custom_Helper_Class.Create_Lable("This is Custom Label")*@
-                    <div class="jobsitetext" style="font-size: 12px; text-align: right">
-                        <span id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_lblJobsites"></span>
+                    <div class="jobsitetext" style="font-size: 12px; text-align: right">                       
                         @Html.HiddenFor(a => a.ToDoDetails.Project_ID, new { @id = "hdnProjectIdToDo" })
                         @Html.HiddenFor(a => a.ToDoCheckListItemIndex, new { @id = "hdnCheckListIndex" })
                     </div>
@@ -225,7 +224,6 @@
                                                     <div class="bt-whole-number">
                                                         <label class="bt-whole-number--label" data-bind="text: title, visible: title().length > 0" style="display: none;"></label>
                                                         <input asp-for="ToDoDetails.LinkToUnit" class="bt-whole-number--value form-control input-sm" type="number">
-
                                                     </div>
                                                     <span class="valMessage" data-bind="btValidationMessage: value" style="display: none;"></span>
                                                 </div>
@@ -352,7 +350,7 @@
                                             <input type="checkbox" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf(item)].ToDoIsCheckList" />
                                             <label for="lstCheckListDetail_@(Model.lstCheckListDetail.IndexOf(item))__ToDoIsCheckList" class="lineItemCheck"></label>
                                         </div>
-                                        <div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">
+                                        <div class="liColumn1">
                                             <input type="text" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf(item)].ToDoCheckListTitle" rows="2" cols="20" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" />
                                             <span id="linedescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>
                                         </div>

@@ -1544,6 +1544,7 @@ body .panel-body {
         background: url(../images/lineItemToDoCheckBox.png) 0 0 no-repeat;
         margin-left: 10px;
         cursor: pointer;
+        margin-top:9px;
     }
 
     .liColumn input[type="checkbox"]:checked + label.lineItemCheck {
@@ -3817,3 +3818,80 @@ body .dropdown .btn-success {
 }*/
 
 /*===== end jQtable ====*/
+body .ui-jqgrid > .ui-jqgrid-view button {
+    background: transparent;
+    border: 0;
+}
+#frmSubmitToDoMaster .buttonContainer {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+#frmSubmitToDoMaster .buttonContainer .btnHolder {
+   padding:15px 0 0;
+}
+#frmSubmitToDoMaster .jobsitetext {
+    float: right;
+    margin-top: -4px;
+    margin-bottom: 9px;
+}
+body .ms-options-wrap > .ms-options {
+    left: auto;
+    width:275px;
+    right: 15px;
+}
+body .ms-options-wrap > .ms-options > ul > li.optgroup {
+    padding: 0;
+}
+    body .ms-options-wrap > .ms-options > ul > li.optgroup > span {
+        text-align: center;
+        background: #d3d3d3;
+        font-weight: 400 !important;
+        border-bottom: 1px solid;
+        border-top: 1px solid;
+        font-size: 11px !important;
+        border-radius: 0;
+        padding: 5px 0 !important;
+    }
+body .ms-options-wrap > .ms-options > ul > li.optgroup ul li {
+    clear: both;
+    font-size: .9em;
+    padding-right: 3px;
+}
+body .ms-options-wrap > .ms-options > ul > li.optgroup ul li label {
+    cursor: default;
+    display: block;
+    border: 1px solid transparent;
+    padding: 3px 1px;
+    font-weight: 400;
+    font-size: 11px;
+}
+body .ms-options-wrap > .ms-options > ul > li.optgroup ul li label span {
+    font-size: 11px;
+    padding-left: 8px;
+    height: 25px;
+    cursor: pointer;
+    font-family: Arial;
+}
+body .ms-options-wrap > .ms-options > ul > li.optgroup ul li input {
+    position:relative;
+}
+.cloneingboxholder {
+    width: 100%;
+    float: left;
+    padding: 15px 10px 15px 0;
+    border-top: 1px solid #eeeeee;
+}
+.liColumn1 .ddldropdown {
+    margin: 10px 0 0;
+    width: 50%;
+    height: 29px;
+    border: 1px solid #ccc;
+    padding: 0 0 0 6px;
+}
+.liColumn1 {
+    border:0!important;
+}
+.liColumn1 .flatTextBox {
+    width: 98% !important;
+    float: right;
+}

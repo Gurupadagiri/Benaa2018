@@ -506,7 +506,7 @@
                 innerhtml += '<input type="checkbox" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf['+i+'].ToDoIsCheckList" />';
             
             innerhtml +='<label  class="lineItemCheck"></label>';
-            innerhtml +='</div><div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">';
+            innerhtml +='</div><div class="liColumn1" style="">';
                 innerhtml += '<input type="text" id="lstCheckListDetail_(0)__ToDoCheckListTitle"  name="lstCheckListDetail[' + i +'].ToDoCheckListTitle" rows="2" cols="20" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" />';
             innerhtml +='<span id="linedescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>';
             innerhtml += '</div>';
@@ -593,7 +593,7 @@
             $('#calendarpage').hide();
             $('.todoAreaVisible').show();
             $("#projectname").text($(this).text());
-            $('#ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_lblJobsites').text($(this).text());
+            $('#lblJobsites').text($(this).text());
             var projectId = $(this).attr('data-projectid');
             $('#ProjectId').val(projectId);
             $('#hdnProjectIdToDo').val(projectId);
