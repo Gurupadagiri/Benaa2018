@@ -1,5 +1,8 @@
 ﻿@model Benaa2018.Helper.ViewModels.ToDoAllViewModel
-
+@using Benaa2018.Controllers
+@{
+    Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+}
 <style>
     #addphase .customPopup,
     #addtag .customPopup {
@@ -38,42 +41,33 @@
                         <input type="button" value="Save &amp; New" id="btnSaveAndNewToDo" class="blueButton">
                         <span id="lblJobsites" style="float:right"></span>
                     </div>
-                    <div class="jobsitetext" style="font-size: 12px; text-align: right">                       
+                    <div class="jobsitetext" style="font-size: 12px; text-align: right">
                         @Html.HiddenFor(a => a.ToDoDetails.Project_ID, new { @id = "hdnProjectIdToDo" })
                         @Html.HiddenFor(a => a.ToDoCheckListItemIndex, new { @id = "hdnCheckListIndex" })
+                        @Html.HiddenFor(a => a.ToDoDetails.TodoDetailsID, new { @id = "hdnTodoDetailsId" })
                     </div>
                 </div>
                 <div class="row1">
                     <div class="topSection">
+                        <div class="col-md-6 leftDiv">
+                            @Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
+                            @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
+                        </div>
 
-                        @if (Model != null)
-                        {
-                            @if (Model.Operation == null)
-                            {
-                                <div class="col-md-6 leftDiv">
-                                    @Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
-                                    @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
-                                </div>
-
-                            }
-                            else if (Model.Operation == "Update")
-                            {
-                                <div class="col-md-6 leftDiv">
-                                    @Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
-                                    @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
-                                </div>
-                            }
-                        }
-                        else
-                        {
-                            <div class="col-md-6 leftDiv">
-                                @Html.TextBoxFor(a => a.ToDoDetails.Title, new { @class = "flatTextBox top_small_textbox", @placeholder = "Title..", @title = "Title..", @style = "width: 100%; font-size: 12px; font-weight: bold;" })
-                                @Html.TextAreaFor(a => a.ToDoDetails.TypeNote, new { @class = "flatTextBox bottom_small_textbox", @placeholder = "Type note...", @title = "Type note...", @style = "width:100%;height: 80px; resize: vertical;" })
-                            </div>
-
-                        }
                         <div class="col-md-6 rightDiv">
+                            @if (Model.Operation == "Update")
+                            {
+                                <div class="formHolder">
+                                    <div class="leftFormHeading">
+                                        Created By: <span>@Html.TextBoxFor(m => m.ToDoDetails.CreatedBy, new { @readonly = "readonly", @style = "height:30%" })</span>
+                                        on <span>@Html.TextBoxFor(a => a.ToDoDetails.CreatdDate, new { @readonly = "readonly", @style = "height:30%" })</span>
+                                    </div>
+                                </div>
+                            }
                             <div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
+
+
+
                                 <div class="to-do-holder">
                                     <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
                                     @Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @class = "single-to-do-check" })
@@ -84,6 +78,7 @@
                                 </div>
                                 <div style="clear: both"></div>
                             </div>
+
                             <div class="formHolder">
                                 <div class="leftFormHeading">Assigned To:</div>
                                 <div class="rightFormText">
@@ -336,6 +331,7 @@
                                 </div>
                             </div>
                         </h2>
+
                         <div class="multiInputHolder">
                             <div class="cloneMainContainer" id="checkListAppend">
                                 @foreach (var item in Model.lstCheckListDetail)
@@ -393,6 +389,7 @@
                                 <img class="btnCheckList" src="images/expandHeader.png" alt="" title="" id="btnAddExtra" />
                             </a>
                         </div>
+
                     </div>
                 </div>
                 <div class="row1">
@@ -425,3 +422,18 @@
         </div>
     </div>
 </div>
+@{
+    if (baseModel.IsAjaxRequest)
+    {
+        <script>
+            $(document).ready(function () {
+
+                $('.multiInputHolder').show();
+               
+                $('#UserMasters').multiselect({
+                    includeSelectAllOption: true
+                });
+            });
+        </script>
+    }
+}
