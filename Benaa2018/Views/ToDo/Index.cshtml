@@ -407,18 +407,18 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).on("click", "#addRemoveButton", function (event) {
-        if ($(this).val() == "Remove Checklist") {
-            $('.permanentNot').remove();
-            $('.cloneingboxholder').hide();
-        }
-        else {
+    //$(document).on("click", "#addRemoveButton", function (event) {
+    //    if ($(this).val() == "Remove Checklist") {
+    //        $('.permanentNot').remove();
+    //        $('.cloneingboxholder').hide();
+    //    }
+    //    else {
         
-            $('.multiInputHolder').show();
-        }
+    //        $('.multiInputHolder').show();
+    //    }
 
     
-    });
+    //});
 
     $(document).ready(function () {
 
@@ -514,7 +514,7 @@
             }
         });
         $('#btnAddExtra').click(function () {
-            var startindex = $('#checkListAppend .cloneingboxholder').length ;
+            var startindex = $('#checkListAppend .cloneingboxholder').length-3 ;
             var maxindex = startindex + 3;
             for (var i = startindex; i < maxindex; i++)
             {
@@ -522,8 +522,7 @@
             innerhtml = '<div class="cloneingboxholder permanentNot">';
             innerhtml +='<div class="grabHandle dragHandle grabbable ui-sortable-handle">';
             innerhtml +='<span id=""><img src="images/drag.png" id="" style="border-width: 0px; height: 30px;"></span></div><div class="liColumn">';
-                innerhtml += '<input type="checkbox" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf['+i+'].ToDoIsCheckList" />';
-            
+            innerhtml += '<input type="checkbox" asp-for="lstCheckListDetail[' + i +'].ToDoIsCheckList" />';
             innerhtml +='<label  class="lineItemCheck"></label>';
             innerhtml +='</div><div class="liColumn1" style="">';
                 innerhtml += '<input type="text" id="lstCheckListDetail_(0)__ToDoCheckListTitle"  name="lstCheckListDetail[' + i +'].ToDoCheckListTitle" rows="2" cols="20" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" />';
@@ -666,6 +665,7 @@
                     for (var i = 0; i < selectedIDs.length; i++) {
                         result += selectedIDs[i] + ",";
                     }
+                    var ProjectId = $('#ProjectId').val();
                     $.ajax({
                         url: "@(Url.Action("SaveToDoIsComplete", "ToDo", null))",
                         type: 'GET',
@@ -673,9 +673,15 @@
                             'Accept': 'application/json',
                             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                         },
-                        data: { ToDoDetailsId: result },
-                        success: function (result) {
-                            alert('success');
+                        data: { ToDoDetailsId: result, projectId: ProjectId},
+                        success: function (data) {
+                            if (data == "Success") {
+                                alert("Marked complete");
+                                $('#todoinfoModal').show();
+                            }
+                            else {
+                                alert("Some problem occurred!! Please try again");
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(errorThrown);
