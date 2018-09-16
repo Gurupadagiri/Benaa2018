@@ -247,7 +247,7 @@ namespace Benaa2018.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> UpdateTodo(int todoDetailsId = 0)
+        public async Task<IActionResult> PopulateTodoInfo(int todoDetailsId = 0)
         {
             ToDoAllViewModel toDoAllView = new ToDoAllViewModel();
             var tagsList = await GetAllTags();
@@ -278,11 +278,6 @@ namespace Benaa2018.Controllers
             string result = string.Empty;
             try
             {
-
-                //var objToDoPrimary = await _todoMasterDetailsHelper.UpdateToDoMasterDetails(toDoAllView.ToDoDetails);
-
-
-                //var objTags = await _tagToDoHelper.GetAllTags(objToDoPrimary.TodoDetailsID);
                 var objTags = await _tagToDoHelper.GetAllTags(toDoAllView.ToDoDetails.TodoDetailsID);
                 string AllTagNames = string.Empty;
                 //List<ToDoTagViewModel> lstTagMasters = new List<ToDoTagViewModel>();
@@ -352,13 +347,10 @@ namespace Benaa2018.Controllers
 
                         ToDoAssignViewModel todoAssignViewModel = new ToDoAssignViewModel
                         {
-
                             TodoDetailsID = todoDetailsId,
                             ToDoAssignID = 1,
                             ToDoUserAssignTypeId = 1
-
                         };
-                        //  var objToUserAssign =  _toDoAssignHelper.SaveToDoAssignDetails(todoAssignViewModel);
                         var objToUserAssign = await SaveToDoAssignDetails(todoAssignViewModel);
                         #endregion
 
@@ -976,10 +968,6 @@ namespace Benaa2018.Controllers
                 var obj1 = await _userMasterHelper.GetFullUserName();
                 if (obj1.Count > 0)
                 {
-                    //    return lstUsers = new List<SelectListUser>
-                    //    {
-                    //        lstUsers.Add(obj1.SelectMany());
-                    //};
                     foreach (var item in obj1)
                     {
                         UserMasterViewModel selectListUser = new UserMasterViewModel
@@ -1005,8 +993,6 @@ namespace Benaa2018.Controllers
             try
             {
                 var obj1 = await _todoMasterDetailsHelper.GetAllToDoMasterDetails(projectId);
-
-
                 if (obj1.Count > 0)
                 {
                     foreach (var item in obj1)
@@ -1061,12 +1047,8 @@ namespace Benaa2018.Controllers
                                     lstTagMasters.Add(tagMaster);
                                     AllTagNames = AllTagNames + tagName + ", ";
                                 }
-
                             }
-
                             toDoView.TotalTagCount = objTags.Count;
-
-
                         }
 
                         #region GetAssign
@@ -1091,13 +1073,6 @@ namespace Benaa2018.Controllers
 
                             if (lstAssignModels.Count > 0)
                             {
-                                //foreach (var itemUser in lstAssignModels)
-                                //{
-                                //    var Users = _userMasterHelper.GetUserByUserId(itemUser.UserID);
-                                //    UserDetails = Users.Result.UserName + " ," + UserDetails;
-                                //}
-                                //UserDetailsCount = lstAssignModels.Count - 1;
-
                                 foreach (var itemUser in lstAssignModels)
                                 {
                                     switch (itemUser.ToDoUserAssignTypeId)
@@ -1116,9 +1091,6 @@ namespace Benaa2018.Controllers
                                             UserDetails = subContract.Name + " ," + UserDetails;
                                             break;
                                     }
-
-                                    //var Users = _userMasterHelper.GetUserByUserId(itemUser.UserID);
-                                    //UserDetails = Users.Result.UserName + " ," + UserDetails;
                                 }
                                 UserDetailsCount = lstAssignModels.Count - 1;
                             }

@@ -59,7 +59,7 @@ namespace Benaa2018.Helper
             List<ToDoAssignViewModel> lstToDoAssignViewModel = new List<ToDoAssignViewModel>();
             var toDoAssignByDetailsId= await _toDoAssignHelper.GetAllAsync();
             toDoAssignByDetailsId = toDoAssignByDetailsId.Where(a => a.TodoDetailsID == todoDetailsId).ToList();
-            if (toDoAssignByDetailsId != null)
+            if (toDoAssignByDetailsId.Count() > 0)
             {
                 toDoAssignByDetailsId.ToList().ForEach(item =>
                 {

@@ -32,21 +32,24 @@ namespace Benaa2018.Helper
         {
             List<ToDoMessageViewModel> lstToDoMessageModel = new List<ToDoMessageViewModel>();
             var toDoMessage = await _toDoMessageHelper.GetAllAsync();
-            toDoMessage = toDoMessage.Where(a => a.ToDo_Details_Id == todoDetailsId).ToList();
-            toDoMessage.ToList().ForEach(item =>
+            toDoMessage = toDoMessage?.Where(a => a.ToDo_Details_Id == todoDetailsId).ToList();
+            if(toDoMessage.Count() > 0)
             {
-                lstToDoMessageModel.Add(new ToDoMessageViewModel
+                toDoMessage.ToList().ForEach(item =>
                 {
-                    ToDoDetailsId=item.ToDo_Details_Id,
-                    ToDoMessageId=item.ToDo_Message_Id,
-                    ToDoMessageTitle=item.ToDo_Message_Title??string.Empty,
-                    IsOwner=item.Is_Owner,
-                    IsSub=item.Is_Sub,
-                   CreatdDate=DateTime.Today,
-                   CreatedBy="aaa"
+                    lstToDoMessageModel.Add(new ToDoMessageViewModel
+                    {
+                        ToDoDetailsId = item.ToDo_Details_Id,
+                        ToDoMessageId = item.ToDo_Message_Id,
+                        ToDoMessageTitle = item.ToDo_Message_Title ?? string.Empty,
+                        IsOwner = item.Is_Owner,
+                        IsSub = item.Is_Sub,
+                        CreatdDate = DateTime.Today,
+                        CreatedBy = "aaa"
 
+                    });
                 });
-            });
+            }            
             return lstToDoMessageModel;
         }
 

@@ -408,17 +408,10 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $(document).on('click', '.typeTitle', function (e) {
-            var ids = $(this).attr('dataids');
-            @*var url = '@Url.Action("UpdateTodo", "ToDo")';
-            url += '/?ToDoDetailsId=' + ids ;
-            $("#ToDoUpdate").load(url);
-            $('#ToDoUpdate').modal('show');*@
-
-            var postData = { "ToDoDetailsId": ids };
-            $("#ToDoUpdate").load('ToDo/UpdateTodo', postData);
-            $('#ToDoUpdate').addClass('in').css('display', 'block');
-            //$(e).preventDefault();
+        $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title']", function () {
+            var ids = $(this).find('a').attr('dataids');
+            var postData = { "ToDoDetailsId": parseInt(ids) };
+            $("#ToDoUpdate").load('ToDo/PopulateTodoInfo', postData);
         });
         $(document).on('click', '.type1', function () {
             var ids = $(this).attr('dataids');
@@ -464,7 +457,7 @@
                 success: function (data) {
                     if (data == "Success") {
                         alert("Todo Saved Successfully");
-                        location.reload(true);
+                        //location.reload(true);
                     }
                     else {
                         alert("Some problem occurred!! Please try again");
@@ -493,8 +486,6 @@
         $("#ddlUserDiffer0").removeAttr("style");
         $('#addRemoveButton').click(function () {
             if ($(this).val() == "Remove Checklist") {
-                //$('.cloneingboxholder').hide();
-                //$('#hdnCheckListIndex').val(3);
                 $('.permanentNot').remove();
                 $('.cloneingboxholder').hide();
             }
@@ -502,9 +493,6 @@
 
                 $('.cloneingboxholder').show();
             }
-        });
-        $('.infoEdit').on('click', function () {
-            $('#todoinfoModal').addClass('in').show();
         });
         $('#btnAddExtra').click(function () {
             var startindex = $('#checkListAppend .cloneingboxholder').length ;
@@ -516,30 +504,20 @@
             innerhtml +='<div class="grabHandle dragHandle grabbable ui-sortable-handle">';
             innerhtml +='<span id=""><img src="images/drag.png" id="" style="border-width: 0px; height: 30px;"></span></div><div class="liColumn">';
                 innerhtml += '<input type="checkbox" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf['+i+'].ToDoIsCheckList" />';
-                //innerhtml += '<input type="checkbox" id="lstCheckListDetail[' + i + '].ToDoIsCheckList" name="lstCheckListDetail[' + i + '].ToDoIsCheckList"/>';
-                //innerhtml += '<label for="lstCheckListDetail_2__ToDoIsCheckList" class="lineItemCheck" name="lstCheckListDetail[' + i +'].ToDoIsCheckList"></label>';
+            
             innerhtml +='<label  class="lineItemCheck"></label>';
             innerhtml +='</div><div class="liColumn1" style="border-top: 1px solid #e9e9e9 !important;">';
-           //innerhtml +='<input type="text" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf['+i+'].ToDoCheckListTitle" rows="2" cols="20" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" />';
                 innerhtml += '<input type="text" id="lstCheckListDetail_(0)__ToDoCheckListTitle"  name="lstCheckListDetail[' + i +'].ToDoCheckListTitle" rows="2" cols="20" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" />';
             innerhtml +='<span id="linedescription" style="color:Red;display:none;">Please enter a maximum of 256 characters</span>';
             innerhtml += '</div>';
                 innerhtml +='<div class="liColumn1" title="" style="display:none">';
                 innerhtml += '<a class="chosen-single"></a>';
-               // innerhtml += @Custom_Helper_Class.Create_Lable("This is Custom Label");
                 innerhtml += '<select id="lstCheckListDetail[' + i + '].ToDoCheckListUserId" class="ddldropdown1" name="lstCheckListDetail[' + i +'].ToDoCheckListUserId">';
                 var erty = $('#lstCheckListDetail_0__ToDoCheckListUserId').html();
                 innerhtml += erty;
                 innerhtml += '</select></div>';
-                //innerhtml += '</div>';
                 $('#checkListAppend').append(innerhtml);
-
-                //Model.lstCheckListDetail.length = 6;
-                //Model.lstCheckListDetail.items.add();
             }
-
-           // Model.lstCheckListDetail.items.length = maxindex - 1;
-           // Model.lstCheckListDetail.length = maxindex - 1;
         });
         $('#btnAddTag').click(function () {
             var title = $('#txtTag').val();
@@ -554,7 +532,6 @@
                 success: function (result) {
                     if (result == "success") {
                         alert('Success');
-                        location.reload();
                     }
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -575,8 +552,6 @@
                 userids: userSelected, ToDoDetailsId: $('#hdnAssignNewUsersRole').val() },
                 success: function (result) {
                     alert('assign user successfull');
-
-                    location.reload(true);
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
                     alert(errorThrown);
@@ -601,9 +576,6 @@
             }
         });
         $('.checkListUser').click(function () {
-            //$('#ddlUserDiffer1').multiselect();
-            //$('#ddlUserDiffer2').multiselect();
-            //$('#ddlUserDiffer0').multiselect();
             if ($(this).prop("checked") == true) {
                 $('.liddl').show();
                 $(".liColumn1").removeAttr("style");
@@ -660,7 +632,7 @@
             }
         });
         $('#btnCancelPostComment').click(function () {
-            location.reload(true);
+            //location.reload(true);
         });
         $('#ddlAssign').change(function () {
             var text = $(this).val();
@@ -684,11 +656,7 @@
                         },
                         data: { ToDoDetailsId: result },
                         success: function (result) {
-                            debugger;
-
                             alert('success');
-
-                            location.reload(true);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(errorThrown);
@@ -732,7 +700,7 @@
                         data: { ToDoDetailsId: result },
                         success: function (result) {
                             alert('success');
-                            location.reload(true);
+                            //location.reload(true);
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(errorThrown);
@@ -802,16 +770,6 @@
             }
         });
     }
-    function formatTitle(cellValue, options, rowObject) {
-        var dataid = rowObject.ToDoDetails.TodoDetailsID;
-        var linkMessage = "<a href='' data-toggle='modal'  class='typeTitle' dataids=" + dataid + ">" + cellValue + "<a/>";
-        return linkMessage;
-    }
-    function formatNumberOfMessages(cellValue, options, rowObject) {
-        var dataid = rowObject.ToDoDetails.TodoDetailsID;
-        var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";
-        return linkMessage;
-    };
     $(document).ready(function () {
         $('.bootstrap-switch-wrapper').click(function () {
             if ($(this).hasClass('bootstrap-switch-off')) {
@@ -958,20 +916,15 @@
     });
     function formatNumberOfMessages(cellValue, options, rowObject) {
         var dataid = rowObject.ToDoDetails.TodoDetailsID;
-        var linkMessage = "<a href='' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "<a/>";
+        var linkMessage = "<a href='#ToDoUpdate' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "</a>";
         return linkMessage;
     };
     function formatTitle(cellValue, options, rowObject) {
         var dataid = rowObject.ToDoDetails.TodoDetailsID;
-        var linkMessage = "<a href='' data-toggle='modal'  class='typeTitle' dataids=" + dataid + ">" + cellValue + "<a/>";
+        var linkMessage = "<a href='#ToDoUpdate' data-toggle='modal' class='typeTitle' dataids=" + dataid + ">" + cellValue + "</a>";
         return linkMessage;
     }
     $(document).ready(function () {
-        $(document).on('click', '.typeTitle', function () {
-            var postData = { "scheduledId": parseInt($(this).attr('dataids')) };
-            $("#ToDoUpdate").load('ToDo/UpdateTodo', postData);
-            $('#ToDoUpdate').addClass('in').css('display', 'block');
-        });
         $('.type1').click(function () {
             var ids = $(this).attr('dataids');
             $('#hiddenToDoDetailsId').val(ids);
@@ -1136,10 +1089,6 @@
         });
         var item = 3;
         var itemLength = item + 3;
-        //$('#addRemoveButton').click(function () {
-        //    var buttonText = $(this).text();
-        //    $('#appendTextData').empty();
-        //});
         $('.checkListUser').click(function () {
             if ($(".checkListUser").prop('checked') == true) {
                 $('.ddlCheckListUser').show();

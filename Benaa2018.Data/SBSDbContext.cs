@@ -1,5 +1,6 @@
 ﻿using Benaa2018.Data.Model;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Benaa2018.Data
@@ -41,20 +42,25 @@ namespace Benaa2018.Data
         public DbSet<CalendarTag> CalendarTags { get; set; }
         public DbSet<ActivityMaster> ActivityMasters { get; set; }
         public DbSet<MainActivityMaster> MainActivityMasters { get; set; }
-        public DbSet<GroupMaster> GroupMasters { get; set; }
         public DbSet<ToDoMessage> ToDoMessages { get; set; }
-
-
+        public DbSet<GroupMaster> GroupMasters { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            // EF Core 2 doesnt support Cascade on delete for in Memory Database
             base.OnModelCreating(builder);
+            var t = builder.Entity<ProjectMaster>();
+            t.HasKey(n => n.Project_ID);
+            t.Property(o => o.Project_ID).ValueGeneratedOnAdd();
+            //builder.Entity<ProjectMaster>().ToTable("ProjectMasters");
+            // EF Core 2 doesnt support Cascade on delete for in Memory Database
+            //base.OnModelCreating(builder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;");
+                .UseSqlServer(@"Data Source=kuttu;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;")
+                .EnableSensitiveDataLogging();
         }
     }
 }
