@@ -345,8 +345,7 @@
     </div>
 </div>
 <div class="modal fade" id="ToDoUpdate" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    @*<div class="modal fade" id="ToDoUpdate">*@
-    @*@Html.Partial("_toDoAddUpdate", Model)*@
+   
     @Html.Partial("_toDoAddNew", Model)
 </div>
 <div class="modal fade" id="Setup1">
@@ -367,9 +366,6 @@
         <div class="panel-body phase-list">
             <div class="btnHolder"><input type="button" id="btnAddPhase" class="blueButton" value="Save"></div>
             <div class="innerBodyholder">
-                @*<div class="header">
-                        Adding a schedule item Phase
-                    </div>*@
                 <div class="input-group">
                     <label>Phase Name</label>
                     <input type="text" id="PhaseName" class="form-control">
@@ -415,22 +411,15 @@
         else {
         
             $('.multiInputHolder').show();
-        }
-
-    
+        }    
     });
 
-    $(document).ready(function () {
-
-        
+    $(document).ready(function () {        
         $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title']", function () {
             //$('.multiInputHolder').show();
             var ids = $(this).find('a').attr('dataids');
             var postData = { "ToDoDetailsId": parseInt(ids) };
             $("#ToDoUpdate").load('ToDo/PopulateTodoInfo', postData);
-            //$("#frmSubmitToDoMaster").load('ToDo/PopulateTodoInfo', postData);
-            //$('.cloneingboxholder').show();
-           // $('.multiInputHolder').show();
         });
         $(document).on('click', '.type1', function () {
             var ids = $(this).attr('dataids');
@@ -771,24 +760,6 @@
             }
         });
     });
-    function BindGrid(projectId) {
-        $.ajax({
-            url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
-            type: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-            },
-            data: { projectId: projectId},
-            success: function (result) {
-                $('#internaluser').jqGrid('clearGridData');
-                $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
-            },
-            error: function (jqXHR, textStatus, errorThrown) {
-                alert(errorThrown);
-            }
-        });
-    }
     $(document).ready(function () {
         $('.bootstrap-switch-wrapper').click(function () {
             if ($(this).hasClass('bootstrap-switch-off')) {
@@ -1006,14 +977,12 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                data:
-                     $("#frmSubmitToDoMaster").serialize(),
+                data: $("#frmSubmitToDoMaster").serialize(),
                 success: function (data) {
                     if (data == "Success") {
                         alert("Todo Saved Successfully");
                         $('#todoinfoModal').show();
-                    }
-                    else {
+                    } else {
                         alert("Some problem occurred!! Please try again");
                     }
                 },
@@ -1032,24 +1001,24 @@
             },
             data: $("#frmSubmitToDoMaster").serialize(),
             success: function (data) {
-            if (data.success) {
-                $("#frmSubmitToDoMaster").find("input[type='text']").each(function (i, element) {
-                    $(this).val('');
-                });
-                if (data.toDoAllModels !== '') {
-                    $("#internaluser").jqGrid('setGridParam', { data: JSON.parse(data.toDoListContent) });
-                    // refresh the grid
-                    $("#internaluser").trigger('reloadGrid');
+                if (data.success) {
+                    $("#frmSubmitToDoMaster").find("input[type='text']").each(function (i, element) {
+                        $(this).val('');
+                    });
+                    if (data.toDoAllModels !== '') {
+                        $("#internaluser").jqGrid('setGridParam', { data: JSON.parse(data.toDoListContent) });
+                        // refresh the grid
+                        $("#internaluser").trigger('reloadGrid');
+                    }
+                    $('#todoinfoModal').removeClass('in').hide();
+                    alert("Todo Saved Successfully");
                 }
-                $('#todoinfoModal').removeClass('in').hide();
-                alert("Todo Saved Successfully");
-            }
-            else {
-                alert("Some problem occurred!! Please try again");
-            }
+                else {
+                    alert("Some problem occurred!! Please try again");
+                }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-            alert(errorThrown);
+                    alert(errorThrown);
             }
             });
         });

@@ -1055,26 +1055,20 @@ namespace Benaa2018.Controllers
                             TillingTime = item.TillingTime,
                             ReminderId = item.ReminderId,
                             CreatedBy = "Test User"
-
                         };
-
                         var objTags = await _tagToDoHelper.GetAllTags(item.TodoDetailsID);
                         string AllTagNames = string.Empty;
                         List<TagMasterViewModel> lstTagMasters = new List<TagMasterViewModel>();
-
                         if (objTags.Count > 0)
                         {
                             TagMasterViewModel TagsDetails = new TagMasterViewModel();
-
                             foreach (var tag in objTags)
                             {
-
                                 int tagids = tag.Tagid;
                                 List<TagMasterViewModel> lstTagMaster = new List<TagMasterViewModel>();
                                 lstTagMaster = await _tagMasterHelper.GetAllTagMasterDetails(tagids);
                                 if (lstTagMaster.Count > 0)
                                 {
-
                                     string tagName = lstTagMaster[0].TagName.ToString();
                                     TagMasterViewModel tagMaster = new TagMasterViewModel
                                     {
@@ -1082,12 +1076,11 @@ namespace Benaa2018.Controllers
                                         TagName = tagName
                                     };
                                     lstTagMasters.Add(tagMaster);
-                                    AllTagNames = AllTagNames + tagName + ", ";
+                                    AllTagNames = AllTagNames + tagName + ",";
                                 }
                             }
                             toDoView.TotalTagCount = objTags.Count;
                         }
-
                         #region GetAssign
                         string UserDetails = string.Empty;
                         int UserDetailsCount = 0;
@@ -1135,7 +1128,6 @@ namespace Benaa2018.Controllers
                         }
                         #endregion
                         #region Total number of messages
-
                         var objToDoMessage = await _toDoMessageHelper.GetAllToDoMessageDetailsById(item.TodoDetailsID);
                         if (objToDoMessage != null && objToDoMessage.Count > 0)
                         {
@@ -1145,11 +1137,10 @@ namespace Benaa2018.Controllers
                         toDoView.ToDoDetails = todoMasterDetails;
                         toDoView.TotalNumberOfMessages = totalNumberOfMessages;
                         toDoView.lstTags = lstTagMasters;
-                        toDoView.TagNames = AllTagNames;
-                        toDoView.UserNames = UserDetails;
+                        toDoView.TagNames = AllTagNames.TrimEnd(',');
+                        toDoView.UserNames = UserDetails.TrimEnd(',');
                         toDoView.TotalUserNameCount = UserDetailsCount;
                         lstToDos.Add(toDoView);
-
                     }
                 }
             }

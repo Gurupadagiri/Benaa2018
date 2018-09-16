@@ -1,5 +1,4 @@
 ﻿@model Benaa2018.Helper.ViewModels.ToDoAllViewModel
-@using Benaa2018.Controllers
 @{
     Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
 }
@@ -57,17 +56,14 @@
                         <div class="col-md-6 rightDiv">
                             @if (Model.Operation == "Update")
                             {
-                                <div class="formHolder">
+                                @*<div class="formHolder">
                                     <div class="leftFormHeading">
                                         Created By: <span>@Html.TextBoxFor(m => m.ToDoDetails.CreatedBy, new { @readonly = "readonly", @style = "height:30%" })</span>
                                         on <span>@Html.TextBoxFor(a => a.ToDoDetails.CreatdDate, new { @readonly = "readonly", @style = "height:30%" })</span>
                                     </div>
-                                </div>
+                                </div>*@
                             }
-                            <div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
-
-
-
+                            <div id="divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
                                 <div class="to-do-holder">
                                     <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
                                     @Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @class = "single-to-do-check" })
@@ -78,7 +74,6 @@
                                 </div>
                                 <div style="clear: both"></div>
                             </div>
-
                             <div class="formHolder">
                                 <div class="leftFormHeading">Assigned To:</div>
                                 <div class="rightFormText">
@@ -425,11 +420,14 @@
 @{
     if (baseModel.IsAjaxRequest)
     {
+        <script src="~/js/jquery.multiselect.js"></script>
         <script>
             $(document).ready(function () {
-
-                $('.multiInputHolder').show();
-               
+                alert('hi');
+                $('#ddlTag').multiselect({
+                    includeSelectAllOption: true
+                });
+                $('.multiInputHolder').show();               
                 $('#UserMasters').multiselect({
                     includeSelectAllOption: true
                 });
