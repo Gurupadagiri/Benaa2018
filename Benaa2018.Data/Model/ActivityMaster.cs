@@ -19,6 +19,6 @@ namespace Benaa2018.Data.Model
         public bool Status { get; set; }
         public string Sequence { get; set; }
         public bool Is_Deleted { get; set; }
-
+        public string ActivityDescription { get; set; }
     }
 }

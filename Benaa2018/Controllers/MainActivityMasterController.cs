@@ -145,36 +145,49 @@ namespace Benaa2018.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertMainActivityMaster(MainActivityMasterViewModel mainActivityMasterViewModel)
         {
-            MainActivityMasterViewModel mainActivityModel = new MainActivityMasterViewModel()
+            try
             {
-                MainActivityId= mainActivityMasterViewModel.MainActivityId,
-                GroupId =mainActivityMasterViewModel.GroupId,
-                MainActivityName= mainActivityMasterViewModel.MainActivityName,
-                OrgId = 1,
-                Sequence = mainActivityMasterViewModel.Sequence,
-                Status= mainActivityMasterViewModel.Status,
-                IsDeleted=false
-            };
-            var objSaveGroupMaster = await _mainActivityMasterHelper.SaveMainActivityMasterDetails(mainActivityModel);
 
-            #region DDL
-            var groupMasters = await _groupMasterHelper.GetGroupMasterViewModelDetails();
-            List<GroupMasterViewModel> lstGroupMaster = new List<GroupMasterViewModel>();
-            if (groupMasters != null)
-            {
-                foreach (var item in groupMasters)
+
+                MainActivityMasterViewModel mainActivityModel = new MainActivityMasterViewModel()
                 {
-                    lstGroupMaster.Add(new GroupMasterViewModel()
-                    {
-                        GroupId = item.GroupId,
-                        GroupName = item.GroupName
-                    });
+                    MainActivityId = mainActivityMasterViewModel.MainActivityId,
+                    GroupId = mainActivityMasterViewModel.GroupId,
+                    MainActivityName = mainActivityMasterViewModel.MainActivityName,
+                    OrgId = 1,
+                    Sequence = mainActivityMasterViewModel.Sequence,
+                    Status = mainActivityMasterViewModel.Status,
+                    IsDeleted = false
+                };
+                var objSaveGroupMaster = await _mainActivityMasterHelper.SaveMainActivityMasterDetails(mainActivityModel);
+
+                if (objSaveGroupMaster.MainActivityId > 0)
+                {
+                    mainActivityMasterViewModel.Success = true;
                 }
             }
-            ViewBag.listofGroup = lstGroupMaster;
+            catch (Exception ex)
+            {
+                mainActivityMasterViewModel.Success = false;
+            }
+            #region DDL
+            //var groupMasters = await _groupMasterHelper.GetGroupMasterViewModelDetails();
+            //List<GroupMasterViewModel> lstGroupMaster = new List<GroupMasterViewModel>();
+            //if (groupMasters != null)
+            //{
+            //    foreach (var item in groupMasters)
+            //    {
+            //        lstGroupMaster.Add(new GroupMasterViewModel()
+            //        {
+            //            GroupId = item.GroupId,
+            //            GroupName = item.GroupName
+            //        });
+            //    }
+            //}
+            //ViewBag.listofGroup = lstGroupMaster;
             #endregion
 
-            return View();
+            return Json(mainActivityMasterViewModel);
         }
 
         public async Task<ActionResult> DeleteMainActivityMaster(int main_activity_id)
@@ -185,7 +198,7 @@ namespace Benaa2018.Controllers
             var mainMasterItem = await _mainActivityMasterHelper.GetAllMainActivityMasterById(main_activity_id);
             if (mainMasterItem.Count > 0)
             {
-                mainActivityItem.MainActivityId= Convert.ToInt32(mainMasterItem[0].MainActivityId);
+                mainActivityItem.MainActivityId = Convert.ToInt32(mainMasterItem[0].MainActivityId);
                 mainActivityItem.GroupId = Convert.ToInt32(mainMasterItem[0].GroupId);
                 mainActivityItem.MainActivityName = mainMasterItem[0].MainActivityName;
                 mainActivityItem.OrgId = mainMasterItem[0].OrgId;
@@ -238,7 +251,7 @@ namespace Benaa2018.Controllers
         {
             MainActivityMasterViewModel mainActivityModel = new MainActivityMasterViewModel()
             {
-                MainActivityId= mainActivityMasterViewModel.MainActivityId,
+                MainActivityId = mainActivityMasterViewModel.MainActivityId,
                 GroupId = mainActivityMasterViewModel.GroupId,
                 MainActivityName = mainActivityMasterViewModel.MainActivityName,
                 OrgId = 1,

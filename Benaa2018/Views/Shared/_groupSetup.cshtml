@@ -1,0 +1,54 @@
+﻿@model Benaa2018.Helper.ViewModels.GroupMasterViewModel
+<div class="modal-dialog activityHolder">
+    <form id="frmGroupSetup" enctype="multipart/form-data" method="post">
+        <div class="panel panel-primary customPopup">
+            <div class="panel-heading themeColor">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel">Group Setup</h4>
+            </div>
+            <div class="panel-body">
+                <div class="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown" id="btnSaveGroupSetup">
+                        Save
+                    </button>
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="">
+                        Save &amp; New
+                    </button>
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                        Delete
+                    </button>
+                    <div class="activeCheckBox pull-right">
+                        <input type="checkbox" name="Status" asp-for="Status"><span>Active</span>
+                    </div>
+                </div>
+                <div class="tabsConatiner">
+                    <div class="mainTab">
+                        <div class="dataTableConatainer Predecessorlink">
+                            <h2 class="header">Adding a Group</h2>
+                            <div class="predecessoritem">
+                                <div class="form-group">
+                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                        <label>Group Code </label>
+                                        <input class="form-control" type="text" id="groupCode" asp-for="GroupCode">
+                                    </div>
+                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                        <label>Group Name</label>
+                                        <input class="form-control" type="text" id="groupName"  asp-for="GroupName ">
+                                    </div>
+                                    <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
+                                        <label>Sequence</label>
+                                        <input class="form-control" type="text" clas="groupSequence" asp-for="Sequence">
+                                    </div>
+                                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Details</label>
+                                        <textarea class="flatTextBox" rows="6" cols="20" asp-for="GroupDescription "></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

@@ -101,18 +101,32 @@ namespace Benaa2018.Controllers
         [HttpPost]
         public async Task<IActionResult> InsertGroupMaster(GroupMasterViewModel groupMasterViewModel)
         {
-            GroupMasterViewModel grpMaster = new GroupMasterViewModel
+            try
             {
 
-                GroupCode = groupMasterViewModel.GroupCode,
-                GroupName = groupMasterViewModel.GroupName,
-                Sequence = groupMasterViewModel.Sequence,
-                OrgId = 1,
-                Status = groupMasterViewModel.Status,
-                IsDeleted = false
-            };
-            var objSaveGroupMaster = await _groupMasterHelper.SaveGroupMasterViewModelDetails(grpMaster);
-            return View();
+
+                GroupMasterViewModel grpMaster = new GroupMasterViewModel
+                {
+
+                    GroupCode = groupMasterViewModel.GroupCode,
+                    GroupName = groupMasterViewModel.GroupName,
+                    Sequence = groupMasterViewModel.Sequence,
+                    OrgId = 1,
+                    Status = groupMasterViewModel.Status,
+                    IsDeleted = false
+                };
+                var objSaveGroupMaster = await _groupMasterHelper.SaveGroupMasterViewModelDetails(grpMaster);
+                if (objSaveGroupMaster.GroupId > 1)
+                {
+                    groupMasterViewModel.Success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                groupMasterViewModel.Success = false;
+            }
+           // ModelState.Clear();
+            return Json(groupMasterViewModel);
         }
 
         public async Task<IActionResult> GetGroupMasters(string sidx, string sort, int page, int rows)
@@ -177,7 +191,7 @@ namespace Benaa2018.Controllers
         {
             GroupMasterViewModel grpMaster = new GroupMasterViewModel
             {
-                GroupId= groupMasterView_Model.GroupId,
+                GroupId = groupMasterView_Model.GroupId,
                 GroupCode = groupMasterView_Model.GroupCode,
                 GroupName = groupMasterView_Model.GroupName,
                 Sequence = groupMasterView_Model.Sequence,

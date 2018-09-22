@@ -1,0 +1,88 @@
+﻿@model Benaa2018.Helper.ViewModels.ActivityMasterViewModel
+<div class="modal-dialog activityHolder">
+    <form id="frmActivitySetup" enctype="multipart/form-data" method="post">
+        <div class="panel panel-primary customPopup">
+            <div class="panel-heading themeColor">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel">Acityty setup</h4>
+            </div>
+
+            <div class="panel-body">
+
+                <div class="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown" id="btnActivitySave">
+                        Save
+                    </button>
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                        Save &amp; New
+                    </button>
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                        Delete
+                    </button>
+                    <div class="activeCheckBox pull-right">
+                        <input type="checkbox" name="Status"><span>Active</span>
+                    </div>
+                </div>
+
+                <div class="tabsConatiner">
+                    <div class="mainTab">
+                        <div class="dataTableConatainer Predecessorlink">
+                            <h2 class="header">Adding Activity</h2>
+                            <div class="predecessoritem">
+                                <div class="form-group">
+
+                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                        <label>Activity Code </label>
+                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                    </div>
+
+
+                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                        <label>Activity Name</label>
+                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                    </div>
+                                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Main Activity Name</label>
+                                        <input class="form-control" type="text" asp-for="ActivityName">
+                                    </div>
+
+                                    <!-- <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                                                                <label>Category</label>
+                                                                <select class="form-control required" data-val="true" data-val-required="The ProjectColorId field is required." id="PredecessorInformationModels_0__ScheduledItemId" name="PredecessorInformationModels[0].ScheduledItemId">
+                                                                    <option value="">-----------</option>
+                                                                            <option value="1">test .... 03-03-2018 to 25-04-2018</option>
+                                                                            <option value="2">Test Prede .... 01-04-2018 to 21-04-2018</option>
+                                                                            <option value="3">Test Again .... 03-03-2018 to 09-03-2018</option>
+                                                                            <option value="1002">Test Pre .... 07-03-2018 to 20-03-2018</option>
+                                                                            <option value="1003">teststs .... 07-04-2018 to 20-04-2018</option>
+                                                                            <option value="1004">pred .... 07-03-2018 to 15-03-2018</option>
+                                                                            <option value="1005">Link .... 10-04-2018 to 20-04-2018</option>
+                                                                            <option value="1006">ghfh .... 03-03-2018 to 04-03-2018</option>
+                                                                            <option value="1007">lunch time .... 10-03-2018 to 25-03-2018</option>
+                                                                            <option value="1008">fgb .... 05-04-2018 to 10-04-2018</option>
+                                                                </select>
+                                                            </div> -->
+                                    <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
+                                        <label>Sequence</label>
+                                        <input class="form-control" type="text" asp-for="Sequence">
+                                    </div>
+
+                                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                                        <label>Details</label>
+                                        <textarea class="flatTextBox" rows="6" cols="20" asp-for="ActivityDescription"></textarea>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+</form>
+</div>

@@ -79,6 +79,8 @@ namespace Benaa2018.Controllers
                 };
                 ViewBag.Basemodel = Basemodel;
             }
+
+
             base.OnActionExecuting(context);
             await next();
         }
