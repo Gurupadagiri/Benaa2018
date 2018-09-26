@@ -160,7 +160,8 @@ namespace Benaa2018.Controllers
                 ParentId = 1,
                 Sequence = activityMasterViewModel.Sequence,
                 Status = activityMasterViewModel.Status,
-                IsDeleted = false
+                IsDeleted = false,
+                ActivityDescription=activityMasterViewModel.ActivityDescription
             };
             var objSaveGroupMaster = await _activityMasterHelper.SaveActivityMasterDetails(mainActivityModel);
 

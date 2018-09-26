@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benaa2018", "Benaa2018\Bena
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benaa2018.Data", "Benaa2018.Data\Benaa2018.Data.csproj", "{B3C70CB7-CA4F-4754-8910-CECBDE2F4E08}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Benaa2018.Helper", "Benaa2018.Data.Helpers\Benaa2018.Helper.csproj", "{510DD152-F7A5-4ED5-8866-4BD514DEBF73}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Benaa2018.Helper", "Benaa2018.Data.Helpers\Benaa2018.Helper.csproj", "{510DD152-F7A5-4ED5-8866-4BD514DEBF73}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

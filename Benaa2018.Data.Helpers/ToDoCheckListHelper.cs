@@ -22,7 +22,7 @@ namespace Benaa2018.Helper
         {
             ToDochecklist todoCheckList = new ToDochecklist
             {
-                ToDoCheckListId = toDochecklistViewModel.ToDoCheckListId,
+                //ToDoCheckListId = toDochecklistViewModel.ToDoCheckListId,
                 TodoDetailsID = toDochecklistViewModel.TodoDetailsID,
                 //ToDoIsCheckList = toDochecklistViewModel.ToDoIsCheckList,
                 //ToDoCheckListTitle = toDochecklistViewModel.ToDoCheckListTitle,

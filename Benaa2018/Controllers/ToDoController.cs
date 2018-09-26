@@ -542,9 +542,9 @@ namespace Benaa2018.Controllers
             return Json(result);
         }
 
-        public async Task<IActionResult> SaveToDoIsComplete(string ToDoDetailsId = "1002")
+        public async Task<IActionResult> SaveToDoIsComplete(string ToDoDetailsId = "1002",int projectId=0)
         {
-            string result = string.Empty;
+            ToDoAllViewModel toDoAllView = new ToDoAllViewModel();
             try
             {
                 string[] toDoDetailsListForComplete = ToDoDetailsId.Split(',');
@@ -586,14 +586,21 @@ namespace Benaa2018.Controllers
 
                     }
                 }
+
+
+               
+                toDoAllView.ToDoAllModels = await GetAllToDoDetails(projectId);
+                toDoAllView.ToDoListContent = Newtonsoft.Json.JsonConvert.SerializeObject(toDoAllView.ToDoAllModels);
+                toDoAllView.Success = true;
+                ModelState.Clear();
             }
             catch (Exception ex)
             {
-
+                toDoAllView.Success = false;
             }
 
 
-            return Json(result);
+            return Json(toDoAllView);
         }
 
         public async Task<IActionResult> AssignToDoUser(string userids, string toDoDetailsId)

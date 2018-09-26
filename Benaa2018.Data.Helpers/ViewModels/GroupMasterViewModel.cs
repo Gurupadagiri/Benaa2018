@@ -13,5 +13,6 @@ namespace Benaa2018.Helper.ViewModels
         public int OrgId { get; set; }
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
+        public string GroupDescription { get; set; }
     }
 }

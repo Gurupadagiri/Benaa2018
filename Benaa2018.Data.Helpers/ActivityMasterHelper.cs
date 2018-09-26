@@ -94,6 +94,7 @@ namespace Benaa2018.Helper
                 Status = activityMasterViewModel.Status,
                 Sequence= activityMasterViewModel.Sequence,
                 Is_Deleted = activityMasterViewModel.IsDeleted,
+                ActivityDescription=activityMasterViewModel.ActivityDescription,
                 Created_By = "aaaa",
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,

@@ -18,6 +18,6 @@ namespace Benaa2018.Data.Model
         public int Org_Id { get; set; }
         public bool  Status { get; set; }
         public bool Is_Deleted { get; set; }
-
+        public string GroupMasterDescription { get; set; }
     }
 }

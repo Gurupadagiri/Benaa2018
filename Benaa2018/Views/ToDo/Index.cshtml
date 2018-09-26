@@ -345,7 +345,8 @@
     </div>
 </div>
 <div class="modal fade" id="ToDoUpdate" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-   
+    @*<div class="modal fade" id="ToDoUpdate">*@
+    @*@Html.Partial("_toDoAddUpdate", Model)*@
     @Html.Partial("_toDoAddNew", Model)
 </div>
 <div class="modal fade" id="Setup1">
@@ -366,6 +367,9 @@
         <div class="panel-body phase-list">
             <div class="btnHolder"><input type="button" id="btnAddPhase" class="blueButton" value="Save"></div>
             <div class="innerBodyholder">
+                @*<div class="header">
+                        Adding a schedule item Phase
+                    </div>*@
                 <div class="input-group">
                     <label>Phase Name</label>
                     <input type="text" id="PhaseName" class="form-control">
@@ -403,23 +407,30 @@
     </div>
 </div>
 <script type="text/javascript">
-    $(document).on("click", "#addRemoveButton", function (event) {
-        if ($(this).val() == "Remove Checklist") {
-            $('.permanentNot').remove();
-            $('.cloneingboxholder').hide();
-        }
-        else {
+    //$(document).on("click", "#addRemoveButton", function (event) {
+    //    if ($(this).val() == "Remove Checklist") {
+    //        $('.permanentNot').remove();
+    //        $('.cloneingboxholder').hide();
+    //    }
+    //    else {
         
-            $('.multiInputHolder').show();
-        }    
-    });
+    //        $('.multiInputHolder').show();
+    //    }
 
-    $(document).ready(function () {        
+    
+    //});
+
+    $(document).ready(function () {
+
+        
         $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title']", function () {
             //$('.multiInputHolder').show();
             var ids = $(this).find('a').attr('dataids');
             var postData = { "ToDoDetailsId": parseInt(ids) };
             $("#ToDoUpdate").load('ToDo/PopulateTodoInfo', postData);
+            //$("#frmSubmitToDoMaster").load('ToDo/PopulateTodoInfo', postData);
+            //$('.cloneingboxholder').show();
+           // $('.multiInputHolder').show();
         });
         $(document).on('click', '.type1', function () {
             var ids = $(this).attr('dataids');
@@ -503,7 +514,7 @@
             }
         });
         $('#btnAddExtra').click(function () {
-            var startindex = $('#checkListAppend .cloneingboxholder').length ;
+            var startindex = $('#checkListAppend .cloneingboxholder').length-3 ;
             var maxindex = startindex + 3;
             for (var i = startindex; i < maxindex; i++)
             {
@@ -511,8 +522,7 @@
             innerhtml = '<div class="cloneingboxholder permanentNot">';
             innerhtml +='<div class="grabHandle dragHandle grabbable ui-sortable-handle">';
             innerhtml +='<span id=""><img src="images/drag.png" id="" style="border-width: 0px; height: 30px;"></span></div><div class="liColumn">';
-                innerhtml += '<input type="checkbox" asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf['+i+'].ToDoIsCheckList" />';
-            
+            innerhtml += '<input type="checkbox" asp-for="lstCheckListDetail[' + i +'].ToDoIsCheckList" />';
             innerhtml +='<label  class="lineItemCheck"></label>';
             innerhtml +='</div><div class="liColumn1" style="">';
                 innerhtml += '<input type="text" id="lstCheckListDetail_(0)__ToDoCheckListTitle"  name="lstCheckListDetail[' + i +'].ToDoCheckListTitle" rows="2" cols="20" class="flatTextBox" style="width: 100%; white-space: normal; overflow: hidden; word-wrap: break-word; resize: horizontal; height: 32px;" />';
@@ -655,6 +665,7 @@
                     for (var i = 0; i < selectedIDs.length; i++) {
                         result += selectedIDs[i] + ",";
                     }
+                    var ProjectId = $('#ProjectId').val();
                     $.ajax({
                         url: "@(Url.Action("SaveToDoIsComplete", "ToDo", null))",
                         type: 'GET',
@@ -662,9 +673,15 @@
                             'Accept': 'application/json',
                             'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                         },
-                        data: { ToDoDetailsId: result },
-                        success: function (result) {
-                            alert('success');
+                        data: { ToDoDetailsId: result, projectId: ProjectId},
+                        success: function (data) {
+                            if (data == "Success") {
+                                alert("Marked complete");
+                                $('#todoinfoModal').show();
+                            }
+                            else {
+                                alert("Some problem occurred!! Please try again");
+                            }
                         },
                         error: function (jqXHR, textStatus, errorThrown) {
                             alert(errorThrown);
@@ -760,6 +777,24 @@
             }
         });
     });
+    function BindGrid(projectId) {
+        $.ajax({
+            url: "@(Url.Action("SearchToDobyProject", "ToDo", null))",
+            type: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+            },
+            data: { projectId: projectId},
+            success: function (result) {
+                $('#internaluser').jqGrid('clearGridData');
+                $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert(errorThrown);
+            }
+        });
+    }
     $(document).ready(function () {
         $('.bootstrap-switch-wrapper').click(function () {
             if ($(this).hasClass('bootstrap-switch-off')) {
@@ -977,12 +1012,14 @@
                     'Accept': 'application/json',
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
                 },
-                data: $("#frmSubmitToDoMaster").serialize(),
+                data:
+                     $("#frmSubmitToDoMaster").serialize(),
                 success: function (data) {
                     if (data == "Success") {
                         alert("Todo Saved Successfully");
                         $('#todoinfoModal').show();
-                    } else {
+                    }
+                    else {
                         alert("Some problem occurred!! Please try again");
                     }
                 },
@@ -1001,24 +1038,24 @@
             },
             data: $("#frmSubmitToDoMaster").serialize(),
             success: function (data) {
-                if (data.success) {
-                    $("#frmSubmitToDoMaster").find("input[type='text']").each(function (i, element) {
-                        $(this).val('');
-                    });
-                    if (data.toDoAllModels !== '') {
-                        $("#internaluser").jqGrid('setGridParam', { data: JSON.parse(data.toDoListContent) });
-                        // refresh the grid
-                        $("#internaluser").trigger('reloadGrid');
-                    }
-                    $('#todoinfoModal').removeClass('in').hide();
-                    alert("Todo Saved Successfully");
+            if (data.success) {
+                $("#frmSubmitToDoMaster").find("input[type='text']").each(function (i, element) {
+                    $(this).val('');
+                });
+                if (data.toDoAllModels !== '') {
+                    $("#internaluser").jqGrid('setGridParam', { data: JSON.parse(data.toDoListContent) });
+                    // refresh the grid
+                    $("#internaluser").trigger('reloadGrid');
                 }
-                else {
-                    alert("Some problem occurred!! Please try again");
-                }
+                $('#todoinfoModal').removeClass('in').hide();
+                alert("Todo Saved Successfully");
+            }
+            else {
+                alert("Some problem occurred!! Please try again");
+            }
             },
             error: function (jqXHR, textStatus, errorThrown) {
-                    alert(errorThrown);
+            alert(errorThrown);
             }
             });
         });
