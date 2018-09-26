@@ -16,7 +16,7 @@ namespace Benaa2018.Helper.Interface
 
         Task<ToDoMasterDetailsViewModel> DeleteToDoMasterDetails(string ids);
 
-        Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsById(int todoDetailsId);
+        Task<ToDoMasterDetailsViewModel> GetAllToDoMasterDetailsById(int todoDetailsId);
 
     }
 }

@@ -7,12 +7,16 @@
   <ItemGroup>
     <Compile Remove="Helper\**" />
     <Compile Remove="Models\**" />
+    <Compile Remove="wwwroot\gantt\packages\bryntum-gantt-pro\src\**" />
     <Content Remove="Helper\**" />
     <Content Remove="Models\**" />
+    <Content Remove="wwwroot\gantt\packages\bryntum-gantt-pro\src\**" />
     <EmbeddedResource Remove="Helper\**" />
     <EmbeddedResource Remove="Models\**" />
+    <EmbeddedResource Remove="wwwroot\gantt\packages\bryntum-gantt-pro\src\**" />
     <None Remove="Helper\**" />
     <None Remove="Models\**" />
+    <None Remove="wwwroot\gantt\packages\bryntum-gantt-pro\src\**" />
   </ItemGroup>
 
   <ItemGroup>

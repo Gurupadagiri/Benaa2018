@@ -1,5 +1,5 @@
-@import '../lib/prism.css';
-@import '../lib/DetailsPanel.css';
+@import '/gantt/lib/prism.css';
+@import '/gantt/lib/DetailsPanel.css';
 
 /**
  * Some of the examples make use of the Silk icon set by Mark James http://www.famfamfam.com/lab/icons/silk/

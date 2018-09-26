@@ -62,6 +62,7 @@ namespace Benaa2018.Controllers
         }
         public async Task<IActionResult> Index()
         {
+            ViewBag.leftMenuText = "calendarleftmenu";
             CalendarScheduledItemViewModel calendar = new CalendarScheduledItemViewModel
             {
                 CalendarScheduledItemModels = await _calendarScheduleHelper.GetAllScheduledItems(1, 1, DateTime.MinValue),

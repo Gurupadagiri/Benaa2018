@@ -14,6 +14,7 @@ namespace Benaa2018.Helper.ViewModels
             lstCheckLists = new List<ToDochecklistViewModel>();
             lstToDoDetails = new List<ToDoTagViewModel>();
             lstCheckListDetail = new List<ToDochecklistDetailsViewModel>();
+            //lstCheckListDetails = new List<ToDochecklistDetailsViewModel>();
             CalendarScheduledItemModel = new CalendarScheduledItemViewModel();
         }
         public ToDoMasterDetailsViewModel ToDoDetails { get; set; }

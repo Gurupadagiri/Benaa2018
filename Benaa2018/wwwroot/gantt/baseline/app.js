@@ -1,8 +1,8 @@
 Ext.application({
-    name: 'Gnt.examples.baseline',
+    name: 'Gnt.baseline',
 
     requires: [
-        'Gnt.examples.baseline.view.Gantt',
+        'Gnt.baseline.view.Gantt',
         'Sch.util.Date'
     ],
 
@@ -13,7 +13,7 @@ Ext.application({
             layout: 'border',
 
             items: [
-                Ext.create('Gnt.examples.baseline.view.Gantt', {
+                Ext.create('Gnt.baseline.view.Gantt', {
                     region  : 'center'
                 }),
                 {

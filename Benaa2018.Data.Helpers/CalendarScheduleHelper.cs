@@ -45,7 +45,7 @@ namespace Benaa2018.Helper
                 StartTime = calendarScheuledItem.StartTime,
                 CompanyId = companyId,
                 ProjectId = calendarScheuledItem.ProjectId,
-                Status= calendarScheuledItem.Status,
+                Status = calendarScheuledItem.Status,
                 IsNotify = calendarScheuledItem.IsNotify,
                 IsRequiredConfirmation = calendarScheuledItem.IsRequiredConfirmation
             };
@@ -84,14 +84,25 @@ namespace Benaa2018.Helper
             var scheduledItems = await _calendarScheduledItemRepoisitory.GetScheduledItemByProjectId(companyId, projectId, startDate);
             foreach (var a in scheduledItems)
             {
-                var assignedUser = await _userMasterRepository.GetByIdAsync(a.AssignedTo == null ? 0 : Convert.ToInt32(a.AssignedTo));
-                var phaseObj = a.PhaseId != null ? await _calendarPhaseRepository.GetByIdAsync(a.PhaseId) : null;
-                var tagObj = a.TagId != null ? await _calendarTagRepository.GetByIdAsync(a.TagId) : null;
+                string assignedUser = string.Empty;
+                if (a.AssignedTo != null)
+                {
+                    var itemArr = a.AssignedTo.Split(',');
+                    if (itemArr.Length > 0)
+                    {
+                        foreach (var item in itemArr)
+                        {
+                            assignedUser += await _userMasterRepository.GetByIdAsync(Convert.ToInt32(item));
+                        }
+                    }
+                }
+                var phaseObj = a.PhaseId != null && a.PhaseId != 0 ? await _calendarPhaseRepository.GetByIdAsync(a.PhaseId) : null;
+                var tagObj = a.TagId != null && a.TagId != 0 ? await _calendarTagRepository.GetByIdAsync(a.TagId) : null;
                 lstCalendarItems.Add(new CalendarScheduledItemViewModel
                 {
                     ScheduledItemId = a.ScheduledItemId,
                     Title = a.Title,
-                    AssignedTo = assignedUser == null ? string.Empty : assignedUser.FullName,
+                    AssignedTo = assignedUser,
                     ColorCode = a.ColorCode,
                     CreatdDate = a.Created_Date,
                     Duration = a.Duration,
@@ -110,10 +121,10 @@ namespace Benaa2018.Helper
                     TotalScheuleDay = a.EndDate.Subtract(a.StartDate).Days,
                     ScheuleDay = a.EndDate.Subtract(DateTime.Now).Days,
                 });
-            }            
+            }
             return lstCalendarItems;
         }
-      
+
         public async Task<CalendarScheduledItemViewModel> GetAllScheduledItem(int scheduledId)
         {
             var scheduledItems = await _calendarScheduledItemRepoisitory.GetScheduledItemByScheduleIdAsync(scheduledId);
@@ -153,10 +164,10 @@ namespace Benaa2018.Helper
             return predecessorObj.PredecessorId;
         }
         public async Task DeletePredecessorInformationAsync(int sourceScheduleId)
-        {            
+        {
             var predecessorObj = await _predecessorInformationRepository.GetAllAsync();
             predecessorObj = predecessorObj.Where(a => a.SourceScheuledId == sourceScheduleId);
-            foreach(var item in predecessorObj)
+            foreach (var item in predecessorObj)
             {
                 await _predecessorInformationRepository.DeleteAsync(item);
             }

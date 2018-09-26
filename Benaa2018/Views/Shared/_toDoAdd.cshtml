@@ -32,9 +32,8 @@
                         <div id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_divMarkedComplete" style="clear: both; width: 100%; margin-bottom: 10px;">
                             <div class="to-do-holder">
                                 <div class="to-do-label-status" style="font-weight: bold">Marked Complete:</div>
-                                @*<input id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" type="checkbox" name="ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1" onclick="MarkDirty();" class="single-to-do-check" data-off-text="Off" data-on-text="On">*@
-                                @Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @id = "ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1", @name = "ctl00$ctl00$BaseMain$MainContentHolder$ecToDos$chkStatusRedesign$Checkbox1", @onclick = "MarkDirty();", @class = "single-to-do-check" })
-                                <label for="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_chkStatusRedesign_Checkbox1" class="single-to-do-check"></label>
+                                @Html.CheckBoxFor(a => a.ToDoDetails.IsMarkedComplete, new { @onclick = "MarkDirty();", @class = "single-to-do-check" })
+                                <label for="ToDoDetails_IsMarkedComplete" class="single-to-do-check"></label>
                             </div>
                             <div class="to-do-completed-by" data-hasqtip="3">
                                 <br>
@@ -49,11 +48,7 @@
                                     <span class="ui-icon ui-icon-triangle-1-s"></span>
                                     <span>-- None Selected --</span>
                                 </button>
-                                @*@Html.DropDownListFor(x => x.UserMaster.UserID, new SelectList(ViewBag.UsersList, "UserID", "FullName"), "--0 User Selected--", new { id = "ddlPermission", @class = "form-control" })*@
                                 @Html.DropDownListFor(x => x.UserMasters, new SelectList(ViewBag.SubContractorsList, "UserOwnerDifferentTypeId", "UserOwnerDifferentTypeValue", "UserOriginaTypeText"), new { id = "ddlPermission", @class = "form-control" })
-
-                                @*@Html.DropDownList("SubContractorsList1")*@
-                                @*@Html.dr*@
                             </div>
                         </div>
 
@@ -70,8 +65,6 @@
                                 </button>
                             </div>
                         </div>
-
-
                         <div class="formHolder">
                             <div class="leftFormHeading">
                                 <div data-bind="visible: displayToggle" class=" bt-link-schedule-item--switch">

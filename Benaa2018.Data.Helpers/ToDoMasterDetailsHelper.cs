@@ -24,15 +24,12 @@ namespace Benaa2018.Helper
             DateTime dt2 = DateTime.Now;
             if (!string.IsNullOrEmpty(masterDetailsViewModel.DueDateFormat))
             {
-
-            
-            string dt1 = masterDetailsViewModel.DueDateFormat.ToString();
-            var datetoEnter = DateTime.ParseExact(dt1, "dd/mm/yyyy", CultureInfo.InvariantCulture);
-             dt2 = datetoEnter;
-}
+                string dt1 = masterDetailsViewModel.DueDateFormat.ToString();
+                var datetoEnter = DateTime.ParseExact(dt1, "dd/mm/yyyy", CultureInfo.InvariantCulture);
+                dt2 = datetoEnter;
+            }
             ToDoMasterDetails toDoMasterDetails = new ToDoMasterDetails()
             {
-               // TodoDetailsID = masterDetailsViewModel.TodoDetailsID,
                 Project_ID = masterDetailsViewModel.Project_ID,
                 Project_Site = masterDetailsViewModel.Title ?? string.Empty,
                 Title = masterDetailsViewModel.Title ?? string.Empty,
@@ -40,10 +37,8 @@ namespace Benaa2018.Helper
                 TypeNote = masterDetailsViewModel.TypeNote ?? string.Empty,
                 IsMarkedComplete = masterDetailsViewModel.IsMarkedComplete,
                 Priority = masterDetailsViewModel.Priority ?? string.Empty,
-               // Duedate = masterDetailsViewModel.Duedate,
-              // Duedate= Convert.ToDateTime(masterDetailsViewModel.DueDateFormat),
                 Duedate = dt2,
-            DueDatetime = masterDetailsViewModel.DueDatetime ?? string.Empty,
+                DueDatetime = masterDetailsViewModel.DueDatetime ?? string.Empty,
                 LinkToUnit = masterDetailsViewModel.LinkToUnit,
                 LinkToDaysStatus = masterDetailsViewModel.LinkToDaysStatus,
                 LinkToWorkId = masterDetailsViewModel.TillingWorkId,
@@ -56,26 +51,19 @@ namespace Benaa2018.Helper
                 Modified_Date = DateTime.Today
             };
             var userObj = await _toDoMasterDetailsHelper.CreateAsync(toDoMasterDetails);
-            //await Task.Delay(1000);
-            
             ToDoMasterDetailsViewModel toDoMasterDetailsViewModel = new ToDoMasterDetailsViewModel
             {
                 TodoDetailsID = Convert.ToInt32(userObj.TodoDetailsID)
             };
-            
             return toDoMasterDetailsViewModel;
         }
 
-
-
-
-
-        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetails(int projectId=0)
+        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetails(int projectId = 0)
         {
             List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
             var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
-            toDoInfo = toDoInfo.Where(a => a.DeletionStatus == false).ToList();
-            if(toDoInfo!=null && projectId>0)
+            toDoInfo = toDoInfo.Where(a => a.DeletionStatus == false && !a.IsMarkedComplete).ToList();
+            if (toDoInfo != null && projectId > 0)
             {
                 toDoInfo = toDoInfo.Where(a => a.Project_ID == projectId).ToList();
             }
@@ -105,36 +93,27 @@ namespace Benaa2018.Helper
             return lstToDoMasterModel;
         }
 
-
-
-        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsByTitle(int projectId = 0,string title = "", int status = 0, string priority = "")
+        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsByTitle(int projectId = 0, string title = "", int status = 0, string priority = "")
         {
             List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
             try
             {
                 var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
                 toDoInfo = toDoInfo.Where(a => a.DeletionStatus == false).ToList();
-                if (toDoInfo.Count()>0)
+                if (toDoInfo.Count() > 0)
                 {
                     toDoInfo = toDoInfo.Where(a => a.Project_ID == projectId).ToList();
                 }
                 if (toDoInfo.Count() > 0)
                 {
-
-
                     if (!string.IsNullOrEmpty(title))
                     {
-
                         toDoInfo = toDoInfo.Where(a => a.Title != null && a.Title.Contains(title)).ToList();
                     }
                 }
 
                 if (toDoInfo.Count() > 0)
                 {
-
-
-                    // if(status>0)
-                    //{
                     bool statusToDo = false;
                     if (status == 1)
                     {
@@ -145,20 +124,10 @@ namespace Benaa2018.Helper
                     {
                         toDoInfo = toDoInfo.Where(a => a.IsMarkedComplete == statusToDo).ToList();
                     }
-
-
-                    //}
                     if (!string.IsNullOrEmpty(priority))
                     {
-                        //if(priority== "Low" || priority == "High" || priority == "Highest" || priority == "None")
-                        //{
-
-                        //toDoInfo = toDoInfo.Where(a => a.Priority == priority).ToList();
-                        //}
-                        if (priority != "Select options" && priority!="4 selected")
+                        if (priority != "Select options" && priority != "4 selected")
                         {
-
-
                             List<string> lstPriorities = new List<string>();
                             string[] prioritySplit = priority.Split(',');
                             if (prioritySplit.Length > 0)
@@ -174,7 +143,6 @@ namespace Benaa2018.Helper
                             if (lstPriorities.Count == 1)
                             {
                                 toDoInfo = toDoInfo.Where(a => a.Priority == lstPriorities[0]).ToList();
-                                // toDoInfo = toDoInfo.Where(a => a.Priority.Contains(lstPriorities));
                             }
                             else if (lstPriorities.Count == 2)
                             {
@@ -185,10 +153,7 @@ namespace Benaa2018.Helper
                                 toDoInfo = toDoInfo.Where(a => a.Priority == lstPriorities[0] || a.Priority == lstPriorities[1] || a.Priority == lstPriorities[2]).ToList();
                             }
                         }
-                        // toDoInfo = toDoInfo.Where(a => a.Priority.Any(lstPriorities)).ToList();
                     }
-
-
                     if (toDoInfo.Count() > 0)
                     {
                         toDoInfo.ToList().ForEach(item =>
@@ -223,8 +188,6 @@ namespace Benaa2018.Helper
             return lstToDoMasterModel;
         }
 
-
-
         public async Task<ToDoMasterDetailsViewModel> UpdateToDoMasterDetails(ToDoMasterDetailsViewModel masterDetailsViewModel)
         {
             ToDoMasterDetails toDoMasterDetails1 = new ToDoMasterDetails()
@@ -250,9 +213,7 @@ namespace Benaa2018.Helper
                 Created_Date = DateTime.Today,
                 Modified_Date = DateTime.Today
             };
-            // storeContext.Entry(item).State = EntityState.Detached
             var userObj = await _toDoMasterDetailsHelper.UpdateAsync(toDoMasterDetails1);
-            await Task.Delay(2000);
             ToDoMasterDetailsViewModel toDoMasterDetailsViewModel = new ToDoMasterDetailsViewModel
             {
                 TodoDetailsID = Convert.ToInt32(userObj.TodoDetailsID)
@@ -277,39 +238,34 @@ namespace Benaa2018.Helper
             {
                 TodoDetailsID = Convert.ToInt32(userObj.TodoDetailsID)
             };
-
             return toDoMasterDetailsViewModel;
         }
 
-
-        public async Task<List<ToDoMasterDetailsViewModel>> GetAllToDoMasterDetailsById(int todoDetailsId)
+        public async Task<ToDoMasterDetailsViewModel> GetAllToDoMasterDetailsById(int todoDetailsId)
         {
-            List<ToDoMasterDetailsViewModel> lstToDoMasterModel = new List<ToDoMasterDetailsViewModel>();
-            var toDoInfo = await _toDoMasterDetailsHelper.GetAllAsync();
-            toDoInfo = toDoInfo.Where(a => a.TodoDetailsID == todoDetailsId).ToList();
-            toDoInfo.ToList().ForEach(item =>
+            ToDoMasterDetailsViewModel toDoMasterModel = null;
+            var toDoInfo = await _toDoMasterDetailsHelper.GetByIdAsync(todoDetailsId);
+            if (toDoInfo == null) return toDoMasterModel;
+            toDoMasterModel = new ToDoMasterDetailsViewModel
             {
-                lstToDoMasterModel.Add(new ToDoMasterDetailsViewModel
-                {
-                    TodoDetailsID = item.TodoDetailsID,
-                    Project_ID = item.Project_ID,
-                    Project_Site = item.Project_Site,
-                    Title = item.Title,
-                    Org_ID = item.Org_ID,
-                    TypeNote = item.TypeNote,
-                    IsMarkedComplete = item.IsMarkedComplete,
-                    Priority = item.Priority,
-                    Duedate = item.Duedate,
-                    DueDatetime = item.DueDatetime,
-                    LinkToUnit = item.LinkToUnit,
-                    LinkToDaysStatus = item.LinkToDaysStatus,
-                    TillingWorkId = item.LinkToWorkId,
-                    TillingDate = item.LinkToDate,
-                    TillingTime = item.LinkToTime,
-                    ReminderId = item.ReminderId
-                });
-            });
-            return lstToDoMasterModel;
+                TodoDetailsID = toDoInfo.TodoDetailsID,
+                Project_ID = toDoInfo.Project_ID,
+                Project_Site = toDoInfo.Project_Site,
+                Title = toDoInfo.Title,
+                Org_ID = toDoInfo.Org_ID,
+                TypeNote = toDoInfo.TypeNote,
+                IsMarkedComplete = toDoInfo.IsMarkedComplete,
+                Priority = toDoInfo.Priority,
+                Duedate = toDoInfo.Duedate,
+                DueDatetime = toDoInfo.DueDatetime,
+                LinkToUnit = toDoInfo.LinkToUnit,
+                LinkToDaysStatus = toDoInfo.LinkToDaysStatus,
+                TillingWorkId = toDoInfo.LinkToWorkId,
+                TillingDate = toDoInfo.LinkToDate,
+                TillingTime = toDoInfo.LinkToTime,
+                ReminderId = toDoInfo.ReminderId
+            };
+            return toDoMasterModel;
         }
     }
 }

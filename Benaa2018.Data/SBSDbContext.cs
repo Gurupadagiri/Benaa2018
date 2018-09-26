@@ -31,7 +31,7 @@ namespace Benaa2018.Data
         public DbSet<CalendarScheduledItem> CalendarScheduledItems { get; set; }
         public DbSet<PredecessorInformation> PredecessorInformations { get; set; }
         public DbSet<DetaildPermission> DetaildPermissions { get; set; }
-        public DbSet<ToDoMasterDetails> ToDoMasterDetailss { get; set; }
+        public DbSet<ToDoMasterDetails> ToDoMasterDetails { get; set; }
         public DbSet<TagMaster> TagMasterDetailss { get; set; }
         public DbSet<ToDoTag> ToDoTags { get; set; }
         public DbSet<ToDochecklistDetails> ToDochecklistDetails { get; set; }

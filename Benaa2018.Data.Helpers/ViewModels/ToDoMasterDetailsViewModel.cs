@@ -24,7 +24,7 @@ namespace Benaa2018.Helper.ViewModels
         public string TillingTime { get; set; }
         public int ReminderId { get; set; }
         public string  CreatedBy { get; set; }
-
+        public bool IsCheckedList { get; set; }
         public bool DeletionStatus { get; set; }
     }
 }

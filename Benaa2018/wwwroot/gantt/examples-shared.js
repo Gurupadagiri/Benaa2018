@@ -1,25 +1,16 @@
 /*global RC, Siesta, Kanban, Sch, Gnt, UberGrid, Cal */
 (function () {
-    if (window.location.href.match(/^file:\/\/\//)) {
-        alert('ERROR: You must run the examples in a web server (not using the file:/// protocol)');
-    }
+    // if (window.location.href.match(/^file:\/\/\//)) {
+        // alert('ERROR: You must run the examples in a web server (not using the file:/// protocol)');
+    // }
 
     window.__BRYNTUM_EXAMPLE = true;
 
     Ext.Loader.setConfig({
         enabled : true,
-        paths   : {
-            'Sch.locale'   : '../../packages/bryntum-gantt-pro/src/Sch/locale',
-            'Gnt.locale'   : '../../packages/bryntum-gantt-pro/src/Gnt/locale',
-            'Gnt.examples' : '../',
-            'Sch.examples' : '../', // for DetailsPanel
-            'Ext.ux'       : 'https://www.bryntum.com/examples/extjs-6.5.3/packages/ux/classic/src',
-            'Robo'         : '../../packages/bryntum-gantt-pro/src/Robo',
-            'Sch'          : '../../packages/bryntum-gantt-pro/src/Sch',
-            'Gnt'          : '../../packages/bryntum-gantt-pro/src/Gnt',
-            'Cal'          : '../../../Calendar1.x/packages/bryntum-calendar/src/Cal',
-            'interact'     : '../../../Calendar1.x/packages/bryntum-calendar/src/interact.js',
-            'Kanban'       : '../../../TaskBoard2.x/packages/bryntum-taskboard/src/Kanban'
+        paths   : {           
+            'Gnt': '/gantt/',
+            'Sch': '/gantt/', // for DetailsPanel
         }
     });
 
@@ -31,7 +22,7 @@
     if (document.location.href.match(/\?.*bundle/g)) {
 
         // include gnt-all-debug
-        var bundles = ['../../gnt-all-debug.js'],
+        var bundles = ['/gantt/gnt-all-debug.js'],
             match;
 
         // and extra bundle urls from "bundles" parameter (if provided)
@@ -61,7 +52,7 @@
 
     Ext.require([
         // load before logging starts to avoid logging...
-        'Sch.examples.lib.DetailsPanel'
+        'Sch.lib.DetailsPanel'
     ]);
 
     Ext.Loader.loadScripts = function (params) {
@@ -119,7 +110,7 @@
             return;
         }
 
-        var suiteRe         = /\/examples\/([a-z]+)-latest\/examples/,
+        var suiteRe         = /([a-z]+)-latest\/examples/,
             mainApplication = location.href.match(suiteRe) && location.href.match(suiteRe)[ 1 ] || 'unknown',
             recordVideo     = location.search.indexOf('video=1') >= 0;
 

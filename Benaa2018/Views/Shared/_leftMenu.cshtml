@@ -93,7 +93,8 @@
     </a>
     @foreach (var item in Model.ProjectMasterModels.Where(a=>a.ProjectName != null))
     {
-        <a data-projectid="@item.ProjectID" class="list-group-item allProject" href="javascript:void(0)">@item.ProjectName</a>
+        var leftMenuText = ViewBag.leftMenuText;
+        <a data-projectid="@item.ProjectID" class="list-group-item allProject @leftMenuText" href="javascript:void(0)">@item.ProjectName</a>
     }
 </div>
 

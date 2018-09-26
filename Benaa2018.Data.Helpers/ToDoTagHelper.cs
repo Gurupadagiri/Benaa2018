@@ -85,9 +85,6 @@ namespace Benaa2018.Helper
                 if (TodoDetailID > 0)
                 {
                     lstToDoTag = lstToDoTag.Where(a => a.TodoDetailsID == TodoDetailID).ToList();
-
-
-
                     if (lstToDoTag != null)
                     {
                         foreach (var item in lstToDoTag)

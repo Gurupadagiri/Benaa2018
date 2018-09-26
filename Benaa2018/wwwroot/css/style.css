@@ -3895,3 +3895,73 @@ body .ms-options-wrap > .ms-options > ul > li.optgroup ul li input {
     width: 98% !important;
     float: right;
 }
+body .ui-jqgrid tr.jqfoot > td, 
+body .ui-jqgrid tr.jqgroup > td, 
+body .ui-jqgrid tr.jqgrow > td {
+    padding: 8px 2px 8px 2px;
+    /*text-align: center !important;*/
+}
+body .ui-jqgrid tr.jqgrow > td:nth-child(6),
+body .ui-jqgrid tr.jqgrow > td:nth-child(5) {
+    text-align: center !important;
+}
+/*.jqgrow td input[type="checkbox"].single-to-do-check + label.single-to-do-check {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: url(../images/lineItemToDoCheckBox.png) 0 0 no-repeat;
+    margin-left: 10px;
+    cursor: pointer;
+    margin-top: 9px;
+    /*background-size:cover;
+}*/
+.asignToToggleHolder,
+.toggleHolder {
+    width: 100%;
+    float: left;
+}
+.toggleHolder .mainName {
+    width:70%;
+    float:left;
+}
+.toggleHolder .asignToRightHolder {
+    width: 30%;
+    float: right;
+}
+.toggleHolder .asignToRightHolder .assignedTo {
+    float: left;
+}
+.toggleHolder .asignToRightHolder .mainTdToggleBtn {
+    float: right;
+    color: #8888;
+    border: 1px solid #888;
+    padding: 0 4px;
+    line-height: 4px;
+    margin: 0;
+    vertical-align: middle;
+    font-size: 13px;
+    display: block;
+    height: 13px;
+    font-weight: 700;
+}
+.toggleBody {
+    width: 100%;
+    float: left;
+    display:none;
+}
+.toggleBody ul {
+    padding:0;
+}
+.toggleBody ul li {
+    list-style: none;
+    width: 100%;
+    float: left;
+    margin: 3px 0;
+}
+
+tr.strikeout {
+    text-decoration: line-through;
+}
+.state_active {
+    text-decoration: line-through;
+}
