@@ -12,6 +12,6 @@ namespace Benaa2018.Helper.ViewModels
 
         public string ToDoCheckListTitle { get; set; }
         public int ToDoCheckListUserType { get; set; }
-        public int ToDoCheckListUserId { get; set; }
+        public string[] ToDoCheckListUserId { get; set; }
     }
 }

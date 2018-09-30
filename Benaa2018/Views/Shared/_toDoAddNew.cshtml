@@ -1,6 +1,8 @@
 ﻿@model Benaa2018.Helper.ViewModels.ToDoAllViewModel
 @{
     Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+    var listItem = (List<Benaa2018.Helper.ViewModels.UserOwnerDifferentTypeViewModel>)ViewBag.SubContractorsList;
+    var listItemToDo = listItem.GroupBy(a => a.UserOriginaTypeId).ToList();
 }
 <style>
     #addphase .customPopup,
@@ -13,12 +15,10 @@
         height: 300px;
         top: 20%;
     }
-
-        #addphase .customPopup .panel-body,
-        #addtag .customPopup .panel-body {
-            height: auto !important;
-        }
-
+    #addphase .customPopup .panel-body,
+    #addtag .customPopup .panel-body {
+        height: auto !important;
+    }
     #calendarmodal .btn-group-lg > .btn, .btn-lg {
         padding: 0px;
     }
@@ -77,33 +77,16 @@
                             <div class="formHolder">
                                 <div class="leftFormHeading">Assigned To:</div>
                                 <div class="rightFormText">
-                                    <select multiple="multiple" asp-for="UserMasters">
-                                        @for (var j = 1; j < 4; j++)
+                                    <select multiple="multiple" asp-for="ToDoDetails.AssignedUsers">                                       
+                                        @foreach (var pitem in listItemToDo)
                                         {
-                                            var ert = 0;
-                                            @foreach (var pitem in ViewBag.SubContractorsList)
+                                            <optgroup label="@pitem.FirstOrDefault().UserOriginaTypeText">
+                                            @foreach (var item in pitem)
                                             {
-                                                if (pitem.UserOriginaTypeId == j && j > ert)
-                                                {
-                                                    ert = j;
-                                                    <optgroup label="@pitem.UserOriginaTypeText">
-                                                        @{
-                                                            var childitemfilter = pitem.UserOwnerDifferentTypeId;
-                                                            if (childitemfilter != null)
-                                                            {
-                                                                foreach (var citem in ViewBag.SubContractorsList)
-                                                                {
-                                                                    if (citem.UserOriginaTypeId == j)
-                                                                    {
-                                                                        <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
-                                                                    }
-                                                                }
-                                                            }
-                                                        }
-                                                    </optgroup>
-                                                                }
-                                                            }
-                                                            }
+                                                <option value="@(item.UserOriginalId +"|"+ item.UserOriginaTypeId)">@item.UserOwnerDifferentTypeValue</option>
+                                            }
+                                            </optgroup>
+                                        }
                                     </select>
                                 </div>
                             </div>
@@ -294,7 +277,7 @@
                                     </a>
                                 </div>
                                 <div class="rightFormText">
-                                    @Html.DropDownListFor(x => x.TagIds, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTag", @class = "form-control", @multiple = "multiple" })
+                                    @Html.DropDownListFor(x => x.ToDoDetails.AssignedTags, new SelectList(ViewBag.TagsList, "TagId", "TagName"), "--Select--", new { id = "ddlTag", @class = "form-control", @multiple = "multiple" })
                                 </div>
                             </div>
                         </div>
@@ -347,44 +330,26 @@
                                         </div>
                                         <div class="liColumn1 liddl" title="" style="display:none">
                                             <a class="chosen-single"></a>
-                                            <select asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf(item)].ToDoCheckListUserId" class="ddldropdown">
-                                                @for (var j = 1; j < 4; j++)
+                                            <select asp-for="lstCheckListDetail[Model.lstCheckListDetail.IndexOf(item)].ToDoCheckListUserId" class="ddldropdown">     
+                                                @foreach (var pitem in listItemToDo)
                                                 {
-                                                    var ert = 0;
-                                                    @foreach (var pitem in ViewBag.SubContractorsList)
-                                                    {
-                                                        @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                                    <optgroup label="@pitem.FirstOrDefault().UserOriginaTypeText">
+                                                        @foreach (var user in pitem)
                                                         {
-                                                            ert = j;
-                                                            <optgroup label="@pitem.UserOriginaTypeText">
-                                                                @{
-                                                                    var childitemfilter = pitem.UserOwnerDifferentTypeId;
-                                                                    if (childitemfilter != null)
-                                                                    {
-                                                                        foreach (var citem in ViewBag.SubContractorsList)
-                                                                        {
-                                                                            if (citem.UserOriginaTypeId == j)
-                                                                            {
-                                                                                <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                }
-                                                            </optgroup>
-                                                                    }
-                                                                    }
-                                                                    }
+                                                            <option value="@(user.UserOriginalId +"|"+ user.UserOriginaTypeId)">@user.UserOwnerDifferentTypeValue</option>
+                                                        }
+                                                    </optgroup>
+                                                }                                         
                                             </select>
                                         </div>
                                     </div>
-                                                                    }
+                                 }
                                 <div id="appendTextData"></div>
                             </div>
                             <a class="add-check-list" href="javascript:void(0);">
                                 <img class="btnCheckList" src="images/expandHeader.png" alt="" title="" id="btnAddExtra" />
                             </a>
                         </div>
-
                     </div>
                 </div>
                 <div class="row1">

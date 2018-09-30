@@ -13,4 +13,11 @@ namespace Benaa2018.Helper.ViewModels
         public string UserOwnerDifferentTypeValue { get; set; }
 
     }
+
+    public enum AssignedUserType
+    {
+        Owner,
+        SubContractor,
+        InternalUser
+    }
 }

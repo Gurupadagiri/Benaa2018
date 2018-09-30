@@ -54,7 +54,10 @@ namespace Benaa2018.Data.Repository
         public async Task<T> GetByIdAsync(int id)
         {            
             var entityItem = await _context.Set<T>().FindAsync(id);
-            _context.Entry(entityItem).State = EntityState.Detached;
+            if(entityItem != null)
+            {
+                _context.Entry(entityItem).State = EntityState.Detached;
+            }            
             return entityItem;
         }
         
