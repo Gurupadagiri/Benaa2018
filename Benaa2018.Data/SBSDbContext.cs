@@ -44,7 +44,10 @@ namespace Benaa2018.Data
         public DbSet<MainActivityMaster> MainActivityMasters { get; set; }
         public DbSet<ToDoMessage> ToDoMessages { get; set; }
         public DbSet<GroupMaster> GroupMasters { get; set; }
-        
+        public DbSet<CostCategory> CostCategorys { get; set; }
+        public DbSet<CostCode> CostCodes { get; set; }
+        public DbSet<VarianceMaster> VarianceMasters { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
