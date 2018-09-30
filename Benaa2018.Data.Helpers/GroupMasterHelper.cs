@@ -27,7 +27,7 @@ namespace Benaa2018.Helper
             List<GroupMasterViewModel> lstgroupMasterModel = new List<GroupMasterViewModel>();
             var grpMasterInfo = await _groupMasterDetailsHelper.GetAllAsync();
             grpMasterInfo = grpMasterInfo.Where(a => a.Is_Deleted == false).ToList();
-            if(groupMasterDetailsId>1)
+            if (groupMasterDetailsId > 1)
             {
                 grpMasterInfo = grpMasterInfo.Where(a => a.Group_Id == groupMasterDetailsId).ToList();
             }
@@ -52,24 +52,40 @@ namespace Benaa2018.Helper
             throw new NotImplementedException();
         }
 
-        public async Task<List<GroupMasterViewModel>> GetGroupMasterViewModelDetails()
+        public async Task<List<GroupMasterViewModel>> GetGroupMasterViewModelDetails(string groupCode = "", int caseStat = 0)
         {
             List<GroupMasterViewModel> lstgroupMasterModel = new List<GroupMasterViewModel>();
             var grpMasterInfo = await _groupMasterDetailsHelper.GetAllAsync();
             grpMasterInfo = grpMasterInfo.Where(a => a.Is_Deleted == false).ToList();
-            grpMasterInfo.ToList().ForEach(item =>
+            if (caseStat == 0)
             {
-                lstgroupMasterModel.Add(new GroupMasterViewModel
+                if (!string.IsNullOrEmpty(groupCode))
                 {
-                    GroupId = item.Group_Id,
-                    GroupCode = item.Group_Code,
-                    GroupName = item.Group_Name,
-                    Sequence = item.Sequence,
-                    OrgId = item.Org_Id,
-                    Status = item.Status,
-                    IsDeleted = item.Is_Deleted
+                    grpMasterInfo = grpMasterInfo.Where(a => a.Group_Code == groupCode).ToList();
+                }
+            }
+            else
+            {
+                grpMasterInfo = grpMasterInfo.Where(a => a.Status = true).ToList();
+            }
+            if (grpMasterInfo?.Count() > 0)
+            {
+
+
+                grpMasterInfo.ToList().ForEach(item =>
+                {
+                    lstgroupMasterModel.Add(new GroupMasterViewModel
+                    {
+                        GroupId = item.Group_Id,
+                        GroupCode = item.Group_Code,
+                        GroupName = item.Group_Name,
+                        Sequence = item.Sequence,
+                        OrgId = item.Org_Id,
+                        Status = item.Status,
+                        IsDeleted = item.Is_Deleted
+                    });
                 });
-            });
+            }
             return lstgroupMasterModel;
         }
 
@@ -86,7 +102,8 @@ namespace Benaa2018.Helper
                 Created_By = "aaaa",
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,
-                Modified_Date = DateTime.Today
+                Modified_Date = DateTime.Today,
+                GroupMasterDescription = grpMasterViewModel.GroupDescription
             };
 
             var grouppMaster = await _groupMasterDetailsHelper.CreateAsync(grpMaster);

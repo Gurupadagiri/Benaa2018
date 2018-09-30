@@ -1,49 +1,43 @@
 ﻿$(document).ready(function () {
-    $('#btnSaveGroupSetup').click(function () {
+    $(document).on('click', '.groupCode1', function () {
+        var groupId = $(this).attr("data-id");
+        $.get("/GroupMaster/SaveGroupMaster", { groupId: groupId}, function (partialView) {
+            $("#groupSetup").html(partialView);
+        });
+    });
+    $(document).on('click','#groupSetuppop', function () {
+        $.get("/GroupMaster/SaveGroupMaster", null, function (partialView) {
+            $("#groupSetup").html(partialView);
+        });
+
+    });
+    $(document).on('click', '#btnSaveGroupSetup', function () {
        // alert('Hi ');
-        var car = { href: "GroupMaster/InsertGroupMaster", data: $("#frmGroupSetup").serialize() };
-        var result = contentDisp(car);
-        console.log('result from child' + result);
-        if (result) {
-            alert('Data Saved successfully');
-            $('#groupSetup').modal('hide');
-            $('.ulHolder').css("display", "none");
-
-            var ert = '<div class=\"col-md-4\">';
-            ert += '<h2 class=\"header1\" > Variances</h2 >';
-            ert += '<div class=\"costCodeList costCodeListOdd\">';
-            ert += '<a href="javascript:void(0);" class="newActionBtn">0 - 9 Plans</a>';
-            ert += '</div></div>';
-            $("#contentDetails").append(ert);
-            if ($("#contentDetails div:last-child").hasClass("costCodeListOdd")) {
-                var ert = '<div class=\"costCodeList costCodeListOdd\">';
-                ert += '<a href="javascript:void(0);" class="newActionBtn">0 - 9 Plans</a>';
-                ert += '</div>';
-                $("#contentDetails").append(ert);
-            }
-            else {
-
-            }
-        }
-        else {
-            alert('Data did not saved successfully');
-        }
+        var car = { href: "/GroupMaster/InsertGroupMaster", data: $("#frmGroupSetup").serialize(), operation:"1" };
+        var result;
+        result = contentDisp(car);
+        
 
     });
 
-    $('#btnSaveGroupSetupandOpen').click(function () {
-        alert('Hi ');
+   
+        $(document).on('click', '#btnSaveGroupSetupandOpen', function () {
+        
+        var car = { href: "GroupMaster/InsertGroupMaster", data: $("#frmGroupSetup").serialize(), operation: "2" };
+        var result;
+        result = contentDisp(car);
     });
-
-    $('#btnDeleteGroupSetup').click(function () {
-        alert('Hi ');
+    $(document).on('click', '#btnDeleteGroupSetup', function () {
+        var car = { href: "GroupMaster/DeleteGroupMaster", data: $("#frmGroupSetup").serialize(), operation: "1" };
+        var result;
+        result = contentDisp(car);
     })
 
 
     //Main activity setup page
     $('#btnSaveMainActivitySetup').click(function () {
         debugger;
-        alert('hi');
+        //alert('hi');
         var car = { href: "MainActivityMaster/InsertMainActivityMaster", data: $("#frmMainActivitySetup").serialize() };
         var result = contentDisp(car);
         console.log('result from child' + result);
@@ -71,33 +65,70 @@
         }
     });
 
-        function contentDisp(obj) {
-            var successresult = 0;
-            var someurl = $(obj).attr("href");
-            var postData = $(obj).attr("data");
-            console.log('---------------------');
-            console.log(obj);
+  
 
+  
+    function contentDisp(obj) {
+        var successresult = 0;
+        var someurl = $(obj).attr("href");
+        var postData = $(obj).attr("data");
+        var operation = $(obj).attr("operation");
+        
+        console.log('---------------------');
+        console.log(obj);
 
-            $.ajax({
-                url: someurl,
-                type: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
-                },
-                data: postData,
-                success: function (data) {
+        $.post(someurl, postData, function (data) {
+            console.log('----------result-----------');
+            console.log(data.success + ';' + data.message + ';' + data.operation);
+
+            if (operation == '1') {
+                //if (data.success == 'true') {
+                if (data.success) {
                     debugger;
-                    return true;
-                },
-                error: function (data) {
-                    return false;
+                    console.log(data.message);
+                    //alert('1 st time');
+                    alert(data.message);
+                    $('#groupSetup').modal('toggle');
+                    PopUPCostCode();
+                    //$('.activityHolder').fadeOut(500);
+                    //PopUpShow();
                 }
-            });
-            debugger;
-            return true;
-        }
+                else {
+                    alert(data.message + '!!!!!');
+                }
+            }
+            else if (operation == '2') {
+                if (data.success) {
+                    debugger;
+                    console.log(data.message);
+                    //alert('2nd time;');
+                    alert(data.message);
+                    $("#frmGroupSetup").trigger("reset");
+                   
+                   
+                }
+                else {
+                    alert(data.message + '!!!!!');
+                }
+            }
+            else {
+                alert('deletr')
+            }
 
+            
+            return data;
+        });
+    }
+    function PopUpShow(){
+        $('#groupSetup').modal('hide');
+        $('.ulHolder').css("display", "none");
+    }
+
+    function PopUPCostCode() {
+        var caseStat = '';
+        $.get("/MainActivityMaster/CostCode", { caseStat: "10" }, function (partialView) {
+            $("#costCode2").html(partialView);
+        });
+    }
 
     });

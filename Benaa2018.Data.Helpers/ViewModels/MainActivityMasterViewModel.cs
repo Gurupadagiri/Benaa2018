@@ -11,6 +11,7 @@ namespace Benaa2018.Helper.ViewModels
         public string GroupName { get; set; }
 
         public string MainActivityName { get; set; }
+        public string MainActivityCode { get; set; }
         public int OrgId { get; set; }
         public string Sequence { get; set; }
         public bool Status { get; set; }

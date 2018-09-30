@@ -1,49 +1,52 @@
-﻿@model Benaa2018.Helper.ViewModels.ActivityMasterViewModel
+﻿@model Benaa2018.Helper.ViewModels.VarianceMasterViewModel
 <div class="modal-dialog activityHolder">
-    <form id="frmActivitySetup" enctype="multipart/form-data" method="post">
+    <form id="frmVarianceSetup" enctype="multipart/form-data" method="post">
         <div class="panel panel-primary customPopup">
             <div class="panel-heading themeColor">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="panel-title" id="contactLabel">Acityty setup</h4>
+                <h4 class="panel-title" id="contactLabel">Variance setup</h4>
             </div>
 
             <div class="panel-body">
 
                 <div class="dropdown">
-                    <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown" id="btnActivitySave">
+                    <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown" id="btnVarianceSave">
                         Save
                     </button>
-                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnVarianceSaveNew">
                         Save &amp; New
                     </button>
-                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnVarianceDelete">
                         Delete
                     </button>
                     <div class="activeCheckBox pull-right">
-                        <input type="checkbox" name="Status"><span>Active</span>
+                        <input type="checkbox" name="Status" asp-for="Status"><span>Active</span>
                     </div>
                 </div>
 
                 <div class="tabsConatiner">
                     <div class="mainTab">
                         <div class="dataTableConatainer Predecessorlink">
-                            <h2 class="header">Adding Activity</h2>
+                            <h2 class="header">Adding Variance</h2>
                             <div class="predecessoritem">
                                 <div class="form-group">
-                                    <input type="hidden" asp-for="MainActivityId" />
+                                    <input type="hidden" asp-for="VarianceId" />
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                        <label>Activity Code </label>
-                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                        <label>Variance Code </label>
+                                        <input class="form-control" type="text" asp-for="VarianceCode">
                                     </div>
 
 
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                        <label>Activity Name</label>
-                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                        <label>Variance Name</label>
+                                        <input class="form-control" type="text" asp-for="VarianceName">
                                     </div>
                                     <div class="input-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Main Activity Name</label>
-                                        <input class="form-control" type="text" asp-for="ActivityName">
+                                        @*<input class="form-control" type="text" asp-for="ActivityName">*@
+                                        <select asp-for="MainActivityId"
+                                                class="form-control"
+                                                asp-items="@(new SelectList(Model.lstMainActivityMaster,"MainActivityId", "MainActivityCode"))"></select>
                                     </div>
                                     <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                         <label>Sequence</label>
@@ -52,7 +55,7 @@
 
                                     <div class="input-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Details</label>
-                                        <textarea class="flatTextBox" rows="6" cols="20" asp-for="ActivityDescription"></textarea>
+                                        <textarea class="flatTextBox" rows="6" cols="20" asp-for="VarianceDescription"></textarea>
                                     </div>
 
 
@@ -67,5 +70,6 @@
             </div>
 
         </div>
-</form>
+    </form>
 </div>
+

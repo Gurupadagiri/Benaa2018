@@ -94,9 +94,33 @@ namespace Benaa2018.Controllers
             return View(lstGrpMasters);
         }
 
+        public async Task<IActionResult> SaveGroupMaster(int groupId = 0)
+        {
+            GroupMasterViewModel grpItem = new GroupMasterViewModel();
+            if (groupId > 0)
+            {
+
+
+                var groupMasterItem = await _groupMasterHelper.GetGroupMasterViewModelById(groupId);
+                if (groupMasterItem.Count > 0)
+                {
+
+                    grpItem.GroupId = Convert.ToInt32(groupMasterItem[0].GroupId);
+                    grpItem.GroupCode = groupMasterItem[0].GroupCode;
+                    grpItem.GroupName = groupMasterItem[0].GroupName;
+                    grpItem.Sequence = groupMasterItem[0].Sequence;
+                    grpItem.Status = groupMasterItem[0].Status;
+                    grpItem.IsDeleted = true;
+                    grpItem.GroupDescription = groupMasterItem[0].GroupDescription;
+                }
+            }
+            return PartialView("SaveGroupMaster", grpItem);
+        }
+
         public async Task<IActionResult> InsertGroupMaster()
         {
-            return View();
+            GroupMasterViewModel grpMaster = new GroupMasterViewModel();
+            return PartialView("_groupSetup", grpMaster);
         }
         [HttpPost]
         public async Task<IActionResult> InsertGroupMaster(GroupMasterViewModel groupMasterViewModel)
@@ -107,25 +131,74 @@ namespace Benaa2018.Controllers
 
                 GroupMasterViewModel grpMaster = new GroupMasterViewModel
                 {
-
+                    GroupId = groupMasterViewModel.GroupId,
                     GroupCode = groupMasterViewModel.GroupCode,
                     GroupName = groupMasterViewModel.GroupName,
                     Sequence = groupMasterViewModel.Sequence,
                     OrgId = 1,
                     Status = groupMasterViewModel.Status,
-                    IsDeleted = false
+                    IsDeleted = false,
+                    GroupDescription = groupMasterViewModel.GroupDescription
+
                 };
-                var objSaveGroupMaster = await _groupMasterHelper.SaveGroupMasterViewModelDetails(grpMaster);
-                if (objSaveGroupMaster.GroupId > 1)
+                #region validaate group code
+                var groupMasterList = await _groupMasterHelper.GetGroupMasterViewModelDetails(grpMaster.GroupCode);
+                #endregion
+
+                if (grpMaster.GroupId == 0)
                 {
-                    groupMasterViewModel.Success = true;
+                    if (groupMasterList?.Count == 0)
+                    {
+                        var objSaveGroupMaster = await _groupMasterHelper.SaveGroupMasterViewModelDetails(grpMaster);
+                        if (objSaveGroupMaster.GroupId > 0)
+                        {
+                            groupMasterViewModel.Operation = "Insert";
+                            groupMasterViewModel.Success = true;
+                            groupMasterViewModel.Message = "Group code saved successfully!!!!!";
+                        }
+                        else
+                        {
+                            groupMasterViewModel.Success = false;
+                            groupMasterViewModel.Message = "Group code did not saved successfully!!!!!";
+                        }
+                    }
+                    else
+                    {
+                        groupMasterViewModel.Success = false;
+                        groupMasterViewModel.Message = "Group code already exists!!!";
+                    }
                 }
+                else
+                {
+                    if (groupMasterList?.Count < 2)
+                    {
+                        var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpMaster);
+                        if (objSaveGroupMaster.GroupId > 0)
+                        {
+                            groupMasterViewModel.Operation = "Insert";
+                            groupMasterViewModel.Success = true;
+                            groupMasterViewModel.Message = "Group code saved successfully!!!!!";
+                        }
+                        else
+                        {
+                            groupMasterViewModel.Success = false;
+                            groupMasterViewModel.Message = "Group code did not saved successfully!!!!!";
+                        }
+                    }
+                    else
+                    {
+                        groupMasterViewModel.Success = false;
+                        groupMasterViewModel.Message = "Group code already exists!!!";
+                    }
+                }
+
             }
             catch (Exception ex)
             {
                 groupMasterViewModel.Success = false;
+                groupMasterViewModel.Message = "Group code did not saved successfully!!!!";
             }
-           // ModelState.Clear();
+            // ModelState.Clear();
             return Json(groupMasterViewModel);
         }
 
@@ -224,6 +297,37 @@ namespace Benaa2018.Controllers
             }
             var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpItem);
             return Json(result);
+        }
+
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteGroupMaster(GroupMasterViewModel groupMasterViewModel)
+        {
+            string result = string.Empty;
+            GroupMasterViewModel grpItem = new GroupMasterViewModel()
+            {
+                GroupId = Convert.ToInt32(groupMasterViewModel.GroupId),
+                GroupCode = groupMasterViewModel.GroupCode,
+                GroupName = groupMasterViewModel.GroupName,
+                Sequence = groupMasterViewModel.Sequence,
+                Status = groupMasterViewModel.Status,
+                IsDeleted = true
+            };
+
+            var objDeleteGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpItem);
+            if (objDeleteGroupMaster.GroupId > 0)
+            {
+                groupMasterViewModel.Operation = "Insert";
+                groupMasterViewModel.Success = true;
+                groupMasterViewModel.Message = "Group code deleted successfully!!!!!";
+            }
+            else
+            {
+                groupMasterViewModel.Success = false;
+                groupMasterViewModel.Message = "Group code did not deleted successfully!!!!!";
+            }
+
+            return Json(groupMasterViewModel);
         }
     }
 }

@@ -8,7 +8,7 @@ namespace Benaa2018.Helper.Interface
     {
         Task<GroupMasterViewModel> SaveGroupMasterViewModelDetails(GroupMasterViewModel mainActivityMasterViewModel);
 
-        Task<List<GroupMasterViewModel>> GetGroupMasterViewModelDetails();
+        Task<List<GroupMasterViewModel>> GetGroupMasterViewModelDetails(string groupCode = "", int caseStat = 0);
 
         Task<List<GroupMasterViewModel>> GetGroupMasterViewModelByParam(string title = "", int status = 0, string priority = "");
 

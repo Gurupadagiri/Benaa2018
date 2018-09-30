@@ -8,7 +8,7 @@ namespace Benaa2018.Helper.Interface
     {
         Task<MainActivityMasterViewModel> SaveMainActivityMasterDetails(MainActivityMasterViewModel mainActivityMasterViewModel);
 
-        Task<List<MainActivityMasterViewModel>> GetAllMainActivityMasterDetails();
+        Task<List<MainActivityMasterViewModel>> GetAllMainActivityMasterDetails(string mainActivityCode = "", int mainActivityId = 0, int caseType = 0);
 
         Task<List<MainActivityMasterViewModel>> GetAllMainActivityMasterByParam(string title = "", int status = 0, string priority = "");
 

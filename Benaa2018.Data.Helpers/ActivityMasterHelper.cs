@@ -60,25 +60,47 @@ namespace Benaa2018.Helper
             throw new NotImplementedException();
         }
 
-        public async Task<List<ActivityMasterViewModel>> GetAllActivityMasterDetails()
+        public async Task<List<ActivityMasterViewModel>> GetAllActivityMasterDetails(string activityCode = "", int activityId = 0, int caseUpdate = 0)
         {
             List<ActivityMasterViewModel> lstactivityMasterModel = new List<ActivityMasterViewModel>();
             var activityMasterInfo = await _activityMasterDetailsHelper.GetAllAsync();
             activityMasterInfo = activityMasterInfo.Where(a => a.Is_Deleted == false).ToList();
-            activityMasterInfo.ToList().ForEach(item =>
+            if (caseUpdate == 0)
             {
-
-                lstactivityMasterModel.Add(new ActivityMasterViewModel
+                if (!string.IsNullOrEmpty(activityCode))
                 {
-                    ActivityId = item.Activity_Id,
-                    MainActivityId = item.Main_Activity_Id,
-                    ActivityName = item.Activity_Name,
-                    ParentId = item.Parent_Id,
-                    OrgId = item.Org_Id,
-                    Status = item.Status,
-                    IsDeleted = item.Is_Deleted
+                    activityMasterInfo = activityMasterInfo.Where(a => a.Activity_Code == activityCode).ToList();
+                }
+            }
+            else if(caseUpdate==10)
+            {
+                activityMasterInfo = activityMasterInfo.Where(a => a.Status == true).ToList();
+            }
+            else
+            {
+                activityMasterInfo = activityMasterInfo.Where(a => a.Activity_Id == activityId).ToList();
+            }
+            if (activityMasterInfo?.Count() > 0)
+            {
+                activityMasterInfo.ToList().ForEach(item =>
+                {
+
+                    lstactivityMasterModel.Add(new ActivityMasterViewModel
+                    {
+                        ActivityId = item.Activity_Id,
+                        MainActivityId = item.Main_Activity_Id,
+                        ActivityName = item.Activity_Name,
+                        ActivityCode = item.Activity_Code,
+                        ParentId = item.Parent_Id,
+                        OrgId = item.Org_Id,
+                        Status = item.Status,
+                        IsDeleted = item.Is_Deleted,
+                        Sequence=item.Sequence,
+                        ActivityDescription=item.ActivityDescription
+                    });
                 });
-            });
+            }
+
             return lstactivityMasterModel;
         }
 
@@ -86,15 +108,16 @@ namespace Benaa2018.Helper
         {
             ActivityMaster acttivity = new ActivityMaster()
             {
-               // Activity_Id = activityMasterViewModel.ActivityId,
+                // Activity_Id = activityMasterViewModel.ActivityId,
                 Main_Activity_Id = activityMasterViewModel.MainActivityId,
                 Activity_Name = activityMasterViewModel.ActivityName,
+                Activity_Code = activityMasterViewModel.ActivityCode,
                 Parent_Id = activityMasterViewModel.ParentId,
                 Org_Id = activityMasterViewModel.OrgId,
                 Status = activityMasterViewModel.Status,
-                Sequence= activityMasterViewModel.Sequence,
+                Sequence = activityMasterViewModel.Sequence,
                 Is_Deleted = activityMasterViewModel.IsDeleted,
-                ActivityDescription=activityMasterViewModel.ActivityDescription,
+                ActivityDescription = activityMasterViewModel.ActivityDescription,
                 Created_By = "aaaa",
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,
@@ -104,7 +127,7 @@ namespace Benaa2018.Helper
             var activityMaster = await _activityMasterDetailsHelper.CreateAsync(acttivity);
             ActivityMasterViewModel activityMastersViewModel = new ActivityMasterViewModel()
             {
-               ActivityId = activityMaster.Activity_Id
+                ActivityId = activityMaster.Activity_Id
             };
 
             return activityMastersViewModel;
@@ -129,10 +152,10 @@ namespace Benaa2018.Helper
             };
 
             var activityMaster = await _activityMasterDetailsHelper.UpdateAsync(acttivity);
-           ActivityMasterViewModel activityMastersViewModel = new ActivityMasterViewModel()
+            ActivityMasterViewModel activityMastersViewModel = new ActivityMasterViewModel()
             {
                 ActivityId = activityMaster.Activity_Id
-           };
+            };
             return activityMastersViewModel;
         }
     }
