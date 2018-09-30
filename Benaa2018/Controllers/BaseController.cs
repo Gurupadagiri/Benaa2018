@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Benaa2018.Infrastructure;
 
+
 namespace Benaa2018.Controllers
 {
     public abstract partial class BaseController : Controller
@@ -23,6 +24,8 @@ namespace Benaa2018.Controllers
         private readonly ISubContractorHelper _subContractorHelper;
         private readonly IUserMasterHelper _userMasterHelper;
         private readonly ICompanyMasterHelper _companyMasterHelper;
+       
+
         public BaseViewModel Basemodel = null;
         public BaseController(IMenuMasterHelper menuMasterHelper,
             IOwnerMasterHelper ownerMasterHelper,
@@ -33,6 +36,7 @@ namespace Benaa2018.Controllers
             IProjectStatusMasterHelper projectStatusMasterHelper,
             ISubContractorHelper subContractorHelper,
             IUserMasterHelper userMasterHelper,
+            
             ICompanyMasterHelper companyMasterHelper)
         {
             _menuMasterHelper = menuMasterHelper;
@@ -45,6 +49,7 @@ namespace Benaa2018.Controllers
             _subContractorHelper = subContractorHelper;
             _userMasterHelper = userMasterHelper;
             _companyMasterHelper = companyMasterHelper;
+          
         }
         public async override Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
@@ -68,6 +73,9 @@ namespace Benaa2018.Controllers
                 Basemodel.ProjectModelJsonString = Newtonsoft.Json.JsonConvert.SerializeObject(Basemodel.ProjectGridModels);
                 ViewBag.Basemodel = Basemodel;
                 ViewBag.UsersList = Basemodel.UserMasterViewModels;
+
+                
+
             }
             else
             {

@@ -14,6 +14,7 @@ namespace Benaa2018.Data.Model
         public int Main_Activity_Id { get; set; }
         public int Group_Id { get; set; }
         public string Main_Activity_Name { get; set; }
+        public string Main_Activity_Code { get; set; }
         public int Org_Id { get; set; }
         public string Sequence { get; set; }
         public bool Status { get; set; }

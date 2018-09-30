@@ -1,49 +1,49 @@
-﻿@model Benaa2018.Helper.ViewModels.ActivityMasterViewModel
+﻿@model Benaa2018.Helper.ViewModels.MainActivityMasterViewModel
 <div class="modal-dialog activityHolder">
-    <form id="frmActivitySetup" enctype="multipart/form-data" method="post">
+    <form id="frmMainActivitySetup" enctype="multipart/form-data" method="post">
         <div class="panel panel-primary customPopup">
             <div class="panel-heading themeColor">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="panel-title" id="contactLabel">Acityty setup</h4>
+                <h4 class="panel-title" id="contactLabel">Main activity setup</h4>
             </div>
 
             <div class="panel-body">
 
                 <div class="dropdown">
-                    <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown" id="btnActivitySave">
+                    <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown" id="btnMainActivitySave">
                         Save
                     </button>
-                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnMainActivitySaveNew">
                         Save &amp; New
                     </button>
-                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnMainActivityDelete">
                         Delete
                     </button>
                     <div class="activeCheckBox pull-right">
-                        <input type="checkbox" name="Status"><span>Active</span>
+                        <input type="checkbox" name="Status" asp-for="Status"><span>Active</span>
                     </div>
                 </div>
 
                 <div class="tabsConatiner">
                     <div class="mainTab">
                         <div class="dataTableConatainer Predecessorlink">
-                            <h2 class="header">Adding Activity</h2>
+                            <h2 class="header">Adding Main Activity</h2>
                             <div class="predecessoritem">
                                 <div class="form-group">
                                     <input type="hidden" asp-for="MainActivityId" />
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                        <label>Activity Code </label>
-                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                        <label>Main Activity Code</label>
+                                        <input class="form-control" type="text" asp-for="MainActivityCode">
                                     </div>
-
-
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
-                                        <label>Activity Name</label>
+                                        <label>Main Activity Name</label>
                                         <input class="form-control" type="text" asp-for="MainActivityName">
                                     </div>
-                                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
-                                        <label>Main Activity Name</label>
-                                        <input class="form-control" type="text" asp-for="ActivityName">
+                                    <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
+                                        <label>Group Name</label>
+                                        <select asp-for="GroupId"
+                                                class="form-control"
+                                                asp-items="@(new SelectList(Model.lstGroupMaster,"GroupId", "GroupName"))"></select>
                                     </div>
                                     <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                         <label>Sequence</label>
@@ -52,20 +52,15 @@
 
                                     <div class="input-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Details</label>
-                                        <textarea class="flatTextBox" rows="6" cols="20" asp-for="ActivityDescription"></textarea>
+                                        <textarea class="flatTextBox" rows="6" cols="20" asp-for="MainActivityDescription "></textarea>
                                     </div>
-
-
                                 </div>
                             </div>
                         </div>
-
                     </div>
-
                 </div>
-
             </div>
-
         </div>
-</form>
+    </form>
 </div>
+

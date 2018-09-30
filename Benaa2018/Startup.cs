@@ -93,7 +93,8 @@ namespace Benaa2018
             services.AddScoped<IMainActivityMasterRepository, MainActivityMasterRepository>();
             services.AddScoped<IActivityMasterRepository, ActivityMasterRepository>();
             services.AddScoped<IToDoMessageRepository, ToDoMessageRepository>();
-            
+            services.AddScoped<IVarianceMasterRepository, VarianceMasterRepository>();
+
             services.AddScoped<IMenuMasterHelper, MenuMasterHelper>();
             services.AddScoped<IOwnerMasterHelper, OwnerMasterHelper>();
             services.AddScoped<IProjectColorHelper, ProjectColorHelper>();
@@ -117,6 +118,7 @@ namespace Benaa2018
             services.AddScoped<IMainActivityMasterHelper, MainActivityMasterHelper>();
             services.AddScoped<IActivityMasterHelper, ActivityMasterHelper>();
             services.AddScoped<IToDoMessageHelper, ToDoMessageHelper>();
+            services.AddScoped<IVarianceMasterHelper, VarianceMasterHelper>();
             services.AddMvc();
         }
 

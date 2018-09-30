@@ -39,7 +39,7 @@
 </head>
 <body>
     @*@model Benaa2018.Helper.ViewModels.CalendarPhaseViewModel
-    @model Benaa2018.Helper.ViewModels.CalendarTagViewModel*@
+        @model Benaa2018.Helper.ViewModels.CalendarTagViewModel*@
     @{
         Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
         Benaa2018.Helper.ViewModels.UserPreferenceViewModel baseModel1 = ViewBag.Basemodel1;
@@ -48,6 +48,10 @@
         Benaa2018.Helper.ViewModels.MainActivityMasterViewModel baseModel4 = ViewBag.Basemodel3;
 
         Benaa2018.Helper.ViewModels.ActivityMasterViewModel baseModel5 = ViewBag.BaseModel5;
+
+        Benaa2018.Helper.ViewModels.CostCodeViewModel baseModel6 = ViewBag.Basemode6;
+
+        Benaa2018.Helper.ViewModels.CostCategoryViewModel baseModel7 = ViewBag.BaseModel7;
     }
     @if (baseModel != null)
     {
@@ -231,10 +235,10 @@
                                             </a>
                                         </div>
                                         <div class="col-md-4 setupNoPadding">
-                                            <a href="javascript:void(0);" class="setupButton" data-toggle="modal" data-target="#costCode" data-original-title>
+                                            <a href="javascript:void(0);" id="costCodes34" data-toggle="modal" data-target="#costCode2" class="setupButton" data-original-title>
                                                 <div class="setupBox">
                                                     <i class="glyphicon glyphicon-info-sign"></i>
-                                                    <span class="caption">
+                                                    <span class="caption costCode1">
                                                         Cost Codes
                                                     </span>
                                                 </div>
@@ -519,114 +523,22 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade in" id="costCode" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
-            <div class="modal-dialog modalWidth1200">
-                <div class="panel panel-primary customPopup">
-                    <div class="panel-heading themeColor">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="panel-title" id="contactLabel">BDS Setup</h4>
-                    </div>
-                    <div class="panel-body">
-                        <a href="javascript:void(0);" class="backButton" data-dismiss="modal">Back</a>
-                        <hr>
-                        <div class="topCostBtnHolder">
-                            <div class="ccNewHolderLeft">
-                                <a href="#" class="newBtn">New</a>
-                                <div class="ulHolder">
-                                    <ul>
-                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#groupSetup" data-original-title>Group</a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#mainActivity" data-original-title>Main Activity  </a></li>
-                                        <li><a href="#" data-toggle="modal" data-target="#activity" data-original-title>Activity</a></li>
-                                        <li><a href="#">Variance</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="ccNewHolderRight">
-                                <a href="javascript:void(0);" class="newActionBtn">Cost Code Actions</a>
-                                <div class="ulHolder">
-                                    <ul>
-                                        <li><a href="#">Import NAHB  Codes</a></li>
-                                        <li><a href="#">Import NAHB Variance Code</a></li>
-                                        <li><a href="#">Export Code</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4" id="contentDetails">
-                            <h2 class="header1">Costs</h2>
-                            <div class="costCodeList costCodeListOdd">
-                                <a href="javascript:void(0);" class="newActionBtn">0A Earth Works</a>
-                                <div class="innercaotHolder">
-                                    <ul>
-                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#groupActivity" data-original-title>Ear489 Excavation</a></li>
-                                        <li>
-                                            <a href="#">execa</a>
-                                            <ul><li><a href="#">block works</a></li></ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="costCodeList">
-                                <a href="javascript:void(0);" class="newActionBtn">0B Building Frame</a>
-                                <div class="innercaotHolder">
-                                    <ul>
-                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#groupActivity" data-original-title>  Block works</a></li>
-                                        <li>
-                                            <a href="#">  raj1</a>
-                                            <ul><li><a href="#">pla</a></li></ul>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4">
-                            <h2 class="header1">Variances</h2>
-                            <div class="costCodeList costCodeListOdd">
-                                <a href="javascript:void(0);" class="newActionBtn">0 - 9 Plans</a>
-                                <div class="innercaotHolder">
-                                    <ul>
-                                        <li>
-                                            <a href="#">01 - Dimensioning Error</a>
-                                            <ul><li><a href="#">varcode</a></li></ul>
-                                        </li>
-                                        <li><a href="#">02 - Unclear detailr</a></li>
-                                        <li><a href="#">03 - Code violation</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div class="costCodeList">
-                                <a href="javascript:void(0);" class="newActionBtn">10 - 19 Estimating</a>
-                                <div class="innercaotHolder">
-                                    <ul>
-                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#groupActivity" data-original-title>  11 - Omitted from estimate</a></li>
-                                        <li><a href="#"> 12 - Data entry error (typo)</a></li>
-                                        <li><a href=#>13 - Take-off error</a></li>
-                                        <li><a href="#">14 - Missed in EPO review</a></li>
-                                        <li><a href="#">vartest</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 pull-right">
-                            <input id="" type="checkbox" name="" data-off-text="Off" data-on-text="On">
-                            <span class="chkText">Show Inactive Codes</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="modal fade in" id="costCode2" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+            @*@Html.Partial("_costCode")*@
         </div>
 
         <div class="modal fade in" id="groupSetup" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
-            @*@Html.Partial("_groupSetup", Model)*@
-            @Html.Partial("_groupSetup", baseModel2)
+
         </div>
         <div class="modal fade in" id="mainActivity" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
-            @Html.Partial("_mainActivitySetup", baseModel4)
+
         </div>
         <div class="modal fade in" id="activity" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
             @Html.Partial("_activitySetup", baseModel4)
         </div>
+        <div class="modal fade in" id="varianceSetUp" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
 
+        </div>
         <div class="modal fade" id="userPreference" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
             @Html.Partial("_userPreference", baseModel5);
         </div>
@@ -740,6 +652,11 @@
         </script>
     }
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBp3o2rdap0Zdw_CU0x6UQHOY-dG0vwOwg"></script>
+
     <script src="~/js/groupsetup.js"></script>
+    <script src="~/js/mainActivitysetup.js"></script>
+    <script src="~/js/activitySetup.js"></script>
+    <script src="~/js/varianceSetup.js"></script>
+
 </body>
 </html>

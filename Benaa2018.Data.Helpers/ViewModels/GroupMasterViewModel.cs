@@ -14,5 +14,6 @@ namespace Benaa2018.Helper.ViewModels
         public bool Status { get; set; }
         public bool IsDeleted { get; set; }
         public string GroupDescription { get; set; }
+        public string Operation { get; set; }
     }
 }

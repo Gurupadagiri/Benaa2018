@@ -13,14 +13,14 @@
                     <button class="btn btn-success btn-sm dropdown-toggle btncalendar" type="button" data-toggle="dropdown" id="btnActivitySave">
                         Save
                     </button>
-                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnActivitySaveNew">
                         Save &amp; New
                     </button>
-                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown">
+                    <button class="btn btn-success btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnActivityDelete">
                         Delete
                     </button>
                     <div class="activeCheckBox pull-right">
-                        <input type="checkbox" name="Status"><span>Active</span>
+                        <input type="checkbox" name="Status" asp-for="Status"><span>Active</span>
                     </div>
                 </div>
 
@@ -30,20 +30,23 @@
                             <h2 class="header">Adding Activity</h2>
                             <div class="predecessoritem">
                                 <div class="form-group">
-                                    <input type="hidden" asp-for="MainActivityId" />
+                                    <input type="hidden" asp-for="ActivityId" />
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                         <label>Activity Code </label>
-                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                        <input class="form-control" type="text" asp-for="ActivityCode">
                                     </div>
 
 
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                         <label>Activity Name</label>
-                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                        <input class="form-control" type="text" asp-for="ActivityName">
                                     </div>
                                     <div class="input-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Main Activity Name</label>
-                                        <input class="form-control" type="text" asp-for="ActivityName">
+                                        @*<input class="form-control" type="text" asp-for="ActivityName">*@
+                                        <select asp-for="MainActivityId"
+                                                class="form-control"
+                                                asp-items="@(new SelectList(Model.lstMainActivityMaster,"MainActivityId", "MainActivityCode"))"></select>
                                     </div>
                                     <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                         <label>Sequence</label>
@@ -67,5 +70,5 @@
             </div>
 
         </div>
-</form>
+    </form>
 </div>
