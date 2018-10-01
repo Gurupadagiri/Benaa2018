@@ -13,7 +13,7 @@
     });
 });
 $(document).ready(function () {
-    $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title']", function () {
+    $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title'],.typeTitle", function () {
         var ids = $(this).find('a').attr('data-ids');
         var postData = { "ToDoDetailsId": parseInt(ids) };
         $("#todoinfoModal").load('ToDo/PopulateTodoInfo', postData, function (result) {
@@ -26,13 +26,13 @@ $(document).ready(function () {
             $('#ddlTag').multiselect();
         });
     });
-    $(document).on("click", ".typeTitle", function () {
-        var ids = $(this).attr('data-ids');
-        var postData = { "ToDoDetailsId": parseInt(ids) };
-        $("#todoinfoModal").load('ToDo/PopulateTodoInfo', postData, function (result) {
-            $('#todoinfoModal').modal('show');
-        });
-    });
+    //$(document).on("click", ".typeTitle", function () {
+    //    var ids = $(this).attr('data-ids');
+    //    var postData = { "ToDoDetailsId": parseInt(ids) };
+    //    $("#todoinfoModal").load('ToDo/PopulateTodoInfo', postData, function (result) {
+    //        $('#todoinfoModal').modal('show');
+    //    });
+    //});
     $(document).on('click', '#btnAddExtraUpdate', function (e) {
         for (var j = 3; j < 6; j++) {
             var index = 'cloneingboxholder' + j;
