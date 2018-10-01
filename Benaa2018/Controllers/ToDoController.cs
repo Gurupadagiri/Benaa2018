@@ -188,12 +188,15 @@ namespace Benaa2018.Controllers
                 toDoAllView = lstToDoModel[0];
             }
 
-            for (int i = 0; i <= 2; i++)
+            if (toDoAllView.lstCheckListDetail.Count == 0)
             {
-                toDoAllView.lstCheckListDetail.Add(new ToDochecklistDetailsViewModel
+                for (int i = 0; i <= 2; i++)
                 {
-                    ToDoCheckListId = i,
-                });
+                    toDoAllView.lstCheckListDetail.Add(new ToDochecklistDetailsViewModel
+                    {
+                        ToDoCheckListId = i,
+                    });
+                }
             }
             toDoAllView.CalendarScheduledItemModel.CalendarScheduledItemModels = await _calendarScheduleHelper.GetAllScheduledItems(1, 1, DateTime.MinValue);
             toDoAllView.CalendarScheduledItemModel.CalendarPhaseModels = await _calendarScheduleHelper.GetAllPhaseAsync(1, 1);
