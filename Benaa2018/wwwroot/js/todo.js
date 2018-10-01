@@ -23,6 +23,7 @@ $(document).ready(function () {
             $('#lstCheckListDetail_1__ToDoCheckListUserId').multiselect();
             $('#lstCheckListDetail_2__ToDoCheckListUserId').multiselect();
             $('#ScheduleItems').multiselect();
+            $('#ddlTag').multiselect();
         });
     });
     $(document).on("click", ".typeTitle", function () {

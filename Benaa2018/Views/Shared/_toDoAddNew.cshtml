@@ -261,8 +261,8 @@
                                         <option value="Just Before">Just Before</option>
                                         <option value="1 Hour"> 1 Hour</option>
                                     </select>
-                                    <a href="javascript:void(0);" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_Tooltip2_hrefToolTip" class="ToolTip " data-tooltip="The <b>Reminder</b>, when selected, will alert the assigned user prior to the due date/time of this item.  Alerts will be sent to users via email (and text message if setup).  Reminders are sent at 8am unless an hourly reminder is selected." data-hasqtip="1" aria-describedby="qtip-1">
-                                        <img src="~/images/iconToolTip.png" id="ctl00_ctl00_BaseMain_MainContentHolder_ecToDos_Tooltip2_imgToolTipIcon" border="0" align="absmiddle">
+                                    <a href="javascript:void(0);" id="hrefToolTip" class="ToolTip " data-tooltip="The <b>Reminder</b>, when selected, will alert the assigned user prior to the due date/time of this item.  Alerts will be sent to users via email (and text message if setup).  Reminders are sent at 8am unless an hourly reminder is selected.">
+                                        <img src="~/images/iconToolTip.png" id="imgToolTipIcon" border="0">
                                     </a>
                                 </div>
                             </div>
@@ -383,19 +383,21 @@
     </div>
 </div>
 @{
+
     if (baseModel.IsAjaxRequest)
     {
-        <script src="~/js/jquery.multiselect.js"></script>
-        <script>
-            $(document).ready(function () {
-                $('#ddlTag').multiselect({
-                    includeSelectAllOption: true
-                });
-                $('.multiInputHolder').show();
-                $('#UserMasters').multiselect({
-                    includeSelectAllOption: true
-                });
-            });
-        </script>
+        var ss = Model.ToDoDetails.AssignedUsers;
+        if (Model.ToDoDetails.AssignedUsers != null)
+        {
+            <script>
+                setmultiselectvalue('todoinfoModal', 'ToDoDetails_AssignedUsers', @(Model.ToDoDetails.AssignedUsers));               
+            </script>
+        }
+        if (Model.ToDoDetails.AssignedTags != null)
+        {
+            <script>               
+                setmultiselectvalue('todoinfoModal', 'ddlTag', @(Model.ToDoDetails.AssignedTags));
+            </script>
+        }
     }
 }
