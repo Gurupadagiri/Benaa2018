@@ -45,8 +45,8 @@ namespace Benaa2018.Helper
                 LinkToDate = masterDetailsViewModel.TillingDate,
                 LinkToTime = masterDetailsViewModel.TillingTime ?? string.Empty,
                 ReminderId = masterDetailsViewModel.ReminderId,
-                AssignedTags = string.Join(",", masterDetailsViewModel.AssignedTags),
-                AssignedUsers = string.Join(",", masterDetailsViewModel.AssignedUsers),
+                AssignedTags = masterDetailsViewModel.AssignedTags == null ? string.Empty : string.Join(",", masterDetailsViewModel.AssignedTags),
+                AssignedUsers = masterDetailsViewModel.AssignedUsers == null ? string.Empty : string.Join(",", masterDetailsViewModel.AssignedUsers),
             };
             var userObj = await _toDoMasterDetailsHelper.CreateAsync(toDoMasterDetails);
             ToDoMasterDetailsViewModel toDoMasterDetailsViewModel = new ToDoMasterDetailsViewModel
@@ -214,27 +214,16 @@ namespace Benaa2018.Helper
             {
                 TodoDetailsID = Convert.ToInt32(userObj.TodoDetailsID)
             };
-
             return toDoMasterDetailsViewModel;
         }
 
-        public async Task<ToDoMasterDetailsViewModel> DeleteToDoMasterDetails(string ids)
+        public async Task DeleteToDoMasterDetails(string ids)
         {
             ToDoMasterDetails toDoMasterDetails = new ToDoMasterDetails()
             {
                 TodoDetailsID = Convert.ToInt32(ids),
-                DeletionStatus = true,
-                Created_By = "aaaa",
-                Modified_By = "aaa",
-                Created_Date = DateTime.Today,
-                Modified_Date = DateTime.Today
             };
-            var userObj = await _toDoMasterDetailsHelper.UpdateAsync(toDoMasterDetails);
-            ToDoMasterDetailsViewModel toDoMasterDetailsViewModel = new ToDoMasterDetailsViewModel
-            {
-                TodoDetailsID = Convert.ToInt32(userObj.TodoDetailsID)
-            };
-            return toDoMasterDetailsViewModel;
+            await _toDoMasterDetailsHelper.DeleteAsync(toDoMasterDetails);
         }
 
         public async Task<ToDoMasterDetailsViewModel> GetAllToDoMasterDetailsById(int todoDetailsId)

@@ -3905,16 +3905,7 @@ body .ui-jqgrid tr.jqgrow > td:nth-child(6),
 body .ui-jqgrid tr.jqgrow > td:nth-child(5) {
     text-align: center !important;
 }
-/*.jqgrow td input[type="checkbox"].single-to-do-check + label.single-to-do-check {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    background: url(../images/lineItemToDoCheckBox.png) 0 0 no-repeat;
-    margin-left: 10px;
-    cursor: pointer;
-    margin-top: 9px;
-    /*background-size:cover;
-}*/
+
 .asignToToggleHolder,
 .toggleHolder {
     width: 100%;
@@ -3959,8 +3950,17 @@ body .ui-jqgrid tr.jqgrow > td:nth-child(5) {
     margin: 3px 0;
 }
 
-tr.strikeout {
-    text-decoration: line-through;
+tr.strikeout td:before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    border-bottom: 1px solid #111;
+    width: 100%;
+}
+tr.strikeout td:after {
+    content: "\00B7";
+    font-size: 1px;
 }
 .state_active {
     text-decoration: line-through;

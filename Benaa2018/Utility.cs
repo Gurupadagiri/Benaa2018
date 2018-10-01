@@ -2,21 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
-using System.Threading.Tasks;
 
 namespace Benaa2018
 {
     public class Utility
     {
-        public static string GenerateAssignedTemplate()
-        {
-
-            return string.Empty;
-        }
-
         public static async void SendMail(string fromEmail, string subject, string emailBody)
         {
             try

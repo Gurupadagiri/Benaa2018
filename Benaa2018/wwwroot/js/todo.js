@@ -16,9 +16,14 @@ $(document).ready(function () {
     $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title']", function () {
         var ids = $(this).find('a').attr('data-ids');
         var postData = { "ToDoDetailsId": parseInt(ids) };
-        $("#todoinfoModal").load('ToDo/PopulateTodoInfo', postData, function(result) {
+        $("#todoinfoModal").load('ToDo/PopulateTodoInfo', postData, function (result) {
             $('#todoinfoModal').modal('show');
-        });        
+            $('#ToDoDetails_AssignedUsers').multiselect(); 
+            $('#lstCheckListDetail_0__ToDoCheckListUserId').multiselect();
+            $('#lstCheckListDetail_1__ToDoCheckListUserId').multiselect();
+            $('#lstCheckListDetail_2__ToDoCheckListUserId').multiselect();
+            $('#ScheduleItems').multiselect();
+        });
     });
     $(document).on("click", ".typeTitle", function () {
         var ids = $(this).attr('data-ids');
@@ -53,19 +58,16 @@ $(document).ready(function () {
     $('.todoAreaVisible').hide();
     $("#projectname").text('To-Do');
     $('#ddltravelmode111').multiselect();
-    //$('#ddlUserDiffer1').multiselect();
-    //$('#ddlUserDiffer2').multiselect();
     $('#ToDoDetails_AssignedUsers').multiselect();
     $('#lstCheckListDetail_0__ToDoCheckListUserId').multiselect();
     $('#lstCheckListDetail_1__ToDoCheckListUserId').multiselect();
     $('#lstCheckListDetail_2__ToDoCheckListUserId').multiselect();
-    //$('#ddlUserDiffer0').multiselect();
     $('#ddlPermissionUserAssign').multiselect();
     $('#ddltravelmodeSearchFilter').multiselect();
     $("#ddlUserDiffer1").removeAttr("style");
     $("#ddlUserDiffer2").removeAttr("style");
     $("#ddlUserDiffer0").removeAttr("style");
-    $('#addRemoveButton').click(function () {
+    $(document).on('click', '#addRemoveButton', function () {
         if ($(this).val() == "Remove Checklist") {
             $('.permanentNot').remove();
             $('.cloneingboxholder').hide();
@@ -73,7 +75,7 @@ $(document).ready(function () {
             $('.cloneingboxholder').show();
         }
     });
-    $('#btnAddExtra').click(function () {
+    $(document).on('click', '#btnAddExtra', function () {
         var startindex = $('#checkListAppend .cloneingboxholder').length;
         var maxindex = startindex + 3;
         for (var i = startindex; i < maxindex; i++) {
@@ -96,7 +98,7 @@ $(document).ready(function () {
             $('#checkListAppend').append(innerhtml);
         }
     });
-    $('#btnAddTag').click(function () {
+    $(document).on('click', '#btnAddTag', function () {
         var title = $('#txtTag').val();
         $.post("ToDo/SaveTag", { tagTitle: title }, function (result) {
             if (result == "success") {
@@ -104,31 +106,39 @@ $(document).ready(function () {
             }
         });
     });
-    $('#btnAssignNewUsers').click(function () {
-        var userSelected = $('#ddlPermissionUserAssign').val();
-        var isNotify = $('#chkNotifyNewUser').prop('checked');
-        $.post("ToDo/AssignToDoUser", { userids: userSelected, ToDoDetailsId: $('#hdnAssignNewUsersRole').val(), isNotify: isNotify }, function (result) {
-            alert('assign user successfull');
+    $(document).on('click', '#btnAssignNewUsers', function () {
+        $.post("ToDo/AssignToDoUser", {
+            userids: $('#ddlPermissionUserAssign').val(),
+            toDoDetailsId: $('#hdnAssignNewUsersRole').val(),
+            isNotify: $('#chkNotifyNewUser').prop('checked'),
+            projectId: parseInt($('#hdnProjectIdToDo').val())
+        }, function (result) {
+            if (result != '') {
+                BindToDoGrid(result);
+                selectedRow = new Array();
+                alert('assign user successfull');
+                $('#todoAssignNewUsers').modal('hide');
+            }            
         });
     });
-    $('.multipleSelectBoxes .mainButton').click(function () {
+    $(document).on('click', '.multipleSelectBoxes .mainButton', function () {
         $('.multiCheckBoxHolder, .multiInputHolder').slideToggle();
         if ($(this).val() == "Add Checklist")
             $(this).val("Remove Checklist")
         else
             $(this).val("Add Checklist");
     });
-    $('.cloneBtnHolder').click(function () {
+    $(document).on('click', '.cloneBtnHolder', function () {
         $(".cloneMainContainer").clone().prependTo(".cloneBtnHolder");
     });
-    $(".checkboxAssignChecklist input[type=checkbox]").change(function () {
+    $(document).on('change', '.checkboxAssignChecklist input[type=checkbox]', function () {
         if (this.checked) {
             $('.chosen-container.chosen-container-single').show();
         } else {
             $('.chosen-container.chosen-container-single').hide();
         }
     });
-    $('.checkListUser').click(function () {
+    $(document).on('click', '.checkListUser', function () {
         if ($(this).prop("checked") == true) {
             $('.liddl').show();
             $(".liColumn1").removeAttr("style");
@@ -139,7 +149,7 @@ $(document).ready(function () {
             $(".ddldropdown1").hide();
         }
     });
-    $('.todoleftmenu').click(function () {
+    $(document).on('click', '.todoleftmenu', function () {
         $('a.todoleftmenu').removeClass('selected-project');
         $(this).addClass('selected-project');
         $('#todoContain').show();
@@ -161,7 +171,7 @@ $(document).ready(function () {
     $('#ToCompletion').hide();
     $('#FromDue').hide();
     $('#TomDue').hide();
-    $('#ddlDueDate').click(function () {
+    $(document).on('click', '#ddlDueDate', function () {
         var dueDate = $(this).val();
         if (dueDate == 2) {
             $('#FromDue').show();
@@ -171,8 +181,8 @@ $(document).ready(function () {
             $('#FromDue').hide();
             $('#TomDue').hide();
         }
-    });
-    $('#ddlCompletionDate').click(function () {
+        });
+    $(document).on('click', '#ddlCompletionDate', function () {
         var completionDate = $(this).val();
         if (completionDate == 2) {
             $('#FromCompletion').show();
@@ -184,44 +194,67 @@ $(document).ready(function () {
         }
     });
     $('#btnCancelPostComment').click(function () {
-        //location.reload(true);
+
     });
-    $('#ddlAssign').change(function () {
-        var text = $(this).val();
-        var result = "";
+    var selectedRow = new Array();
+    $(document).on('change', 'input[type="checkbox"]', function () {
+        var selecteditem = parseInt($(this).parent().next().text());
+        if ($(this).prop('checked')) {
+            selectedRow.push(selecteditem);
+        } else {
+            var index = selectedRow.indexOf(selecteditem);
+            if (index > -1) {
+                selectedRow.splice(index, 1);
+            }
+        }        
+    });
+
+    $(document).on('change', '#ddlAssign', function () {
+        var text = $(this).val();        
         var rowKey = $("#internaluser").jqGrid('getGridParam', 'selrow');
         if (!rowKey) {
+            $(this).val('');
             alert("No rows are selected");
             return false;
-        } 
-        result = rowKey;
+        }
         $(this).val('');
         if (text == "3") {
-            $.post("ToDo/SaveToDoIsComplete", { ToDoDetailsId: result }, function (result) {
+            $.post("ToDo/SaveToDoIsComplete", { ToDoDetailsId: selectedRow }, function (result) {
                 if (result != '') {
                     BindToDoGrid(result);
-                    alert('success');
+                    selectedRow = new Array();
+                    alert('ToDo is Completed !!');
                 }
             });
         } else if (text == "2") {
+            var result = '';
+            for (var i = 0; i < selectedRow.length; i++) {
+                result += selectedRow[i] + ',';
+            }
+            result = result.replace(/,\s*$/, "");
             $('#hdnAssignNewUsersRole').val(result);
+            selectedRow = new Array();
             $('#todoAssignNewUsers').modal('show');
         } else if (text == "5") {
-            $.post("ToDo/DeleteToDo", { ToDoDetailsId: result }, function (result) {
-                alert('success');
+            $.post("ToDo/DeleteToDo", { ToDoDetailsId: selectedRow, projectId: parseInt($('#hdnProjectIdToDo').val()) }, function (result) {
+                if (result != '') {
+                    BindToDoGrid(result);
+                    selectedRow = new Array();
+                    alert('Deleted ToDo Successfully!!');
+                }
             });
         } else if (text == "4") {
-            $.post("ToDo/CopyToDo", { ToDoDetailsId: result }, function (result) {
-                alert('success');
-                $('#hdnProjectIdToDo').val(projectId);
-                $.post("ToDo/SearchToDobyProject", { projectId: parseInt($('#hdnProjectIdToDo')) }, function (result) {
+            $.post("ToDo/CopyToDo", { todoDetailIds: selectedRow, projectId: parseInt($('#hdnProjectIdToDo').val())}, function (result) {
+                if (result != '') {
                     BindToDoGrid(result);
-                });
+                    selectedRow = new Array();
+                    alert('Copied todo list.');
+                }
             });
-        }
+        }  
     });
 
-    $('.bootstrap-switch-wrapper').click(function () {
+    $(document).on('click', '.bootstrap-switch-wrapper', function () {
         if ($(this).hasClass('bootstrap-switch-off')) {
             $(this).removeClass('bootstrap-switch-off');
             $(this).addClass('bootstrap-switch-on');
@@ -250,8 +283,7 @@ $(document).ready(function () {
     $(document).on('click', '.mainTdToggleBtn', function () {
         $(this).parents('.asignToToggleHolder').find('.toggleBody').toggle().slow();
     });
-
-    $('#btnPostComment').click(function () {
+    $(document).on('click', '#btnPostComment', function () {
         var textComment = $('#titleMessage').val();
         var owner = $('input[name="chkOwner"]').prop('checked');
         var notify = $('input[name="chkNotify"]').prop('checked');
@@ -272,7 +304,7 @@ $(document).ready(function () {
     $('#ddlTagUpdate').multiselect({
         includeSelectAllOption: true
     });
-    $('#btnSaveAndNewToDo').click(function () {
+    $(document).on('click', '#btnSaveAndNewToDo', function () {
         $.post("ToDo/SaveToDo", $("#frmSubmitToDoMaster").serialize(), function (result) {
             if (data == "Success") {
                 alert("Todo Saved Successfully");
@@ -282,7 +314,7 @@ $(document).ready(function () {
             }
         });
     });
-    $("#btnSaveToDo").click(function () {
+    $(document).on('click', '#btnSaveToDo', function () {
         $.post("ToDo/SaveToDo", $("#frmSubmitToDoMaster").serialize(), function (data) {
             if (data.success) {
                 $("#frmSubmitToDoMaster").find("input[type='text']").each(function (i, element) {
@@ -301,7 +333,7 @@ $(document).ready(function () {
             }
         });
     });
-    $('#btnUpdatetodoResults').click(function (e) {
+    $(document).on('click', '#btnUpdatetodoResults', function () {
         var Keywords = $('#txtToDoKeyWords').val();
         var AssignedTo = $('#ddlAssignedToToDoSearch :selected').val();
         var usersAssignedTo = $('#ddlToDoAssignToDoSearch :selected').val();
@@ -321,7 +353,7 @@ $(document).ready(function () {
     $('#ToCompletion').hide();
     $('#FromDue').hide();
     $('#TomDue').hide();
-    $('#ddlDueDate').click(function () {
+    $(document).on('click', '#ddlDueDate', function () {
         var dueDate = $(this).val();
         if (dueDate == 2) {
             $('#FromDue').show();
@@ -332,7 +364,7 @@ $(document).ready(function () {
             $('#TomDue').hide();
         }
     });
-    $('#ddlCompletionDate').click(function () {
+    $(document).on('click', '#ddlCompletionDate', function () {
         var completionDate = $(this).val();
         if (completionDate == 2) {
             $('#FromCompletion').show();
@@ -345,14 +377,14 @@ $(document).ready(function () {
     });
     var item = 3;
     var itemLength = item + 3;
-    $('.checkListUser').click(function () {
+    $(document).on('click', '.checkListUser', function () {
         if ($(".checkListUser").prop('checked') == true) {
             $('.ddlCheckListUser').show();
         }
         else {
             $('.ddlCheckListUser').hide();
         }
-    });   
+    });
 });
 
 function BindToDoGridInitial(response) {
@@ -409,7 +441,7 @@ function BindToDoGridInitial(response) {
                 var postData = { "todoId": parseInt(rowData["ToDoDetails.TodoDetailsID"]), "projectId": parseInt($('#ProjectId').val()) };
                 $.post("ToDo/IsToDoComplete", postData, function (result) {
                     if (result !== '') {
-                        $('#' + rowid).delay(2500).addClass('strikeout').show().slideUp(1000);
+                        $('#' + rowid).addClass('strikeout').delay(2500).show().slideUp(1000);
                         BindToDoGrid(result);
                     }
                 });
