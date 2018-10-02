@@ -125,7 +125,7 @@ namespace Benaa2018.Controllers
         }
 
 
-        public async Task<IActionResult> SaveMainActivity(int mainActivityId=0)
+        public async Task<IActionResult> SaveMainActivity(int mainActivityId = 0)
         {
             var groupMasters = await _groupMasterHelper.GetGroupMasterViewModelDetails();
             List<GroupMasterViewModel> lstGroupMaster = new List<GroupMasterViewModel>();
@@ -141,10 +141,10 @@ namespace Benaa2018.Controllers
                 }
             }
             MainActivityMasterViewModel mainAcitivity = new MainActivityMasterViewModel();
-            if (mainActivityId>0)
+            if (mainActivityId > 0)
             {
-                var mainActivities = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails("",mainActivityId,1);
-                if(mainActivities!=null)
+                var mainActivities = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails("", mainActivityId, 1);
+                if (mainActivities != null)
                 {
                     mainAcitivity.MainActivityId = mainActivities[0].MainActivityId;
                     mainAcitivity.GroupId = mainActivities[0].GroupId;
@@ -154,7 +154,7 @@ namespace Benaa2018.Controllers
                     mainAcitivity.Sequence = mainActivities[0].Sequence;
                     mainAcitivity.Status = mainActivities[0].Status;
                     mainAcitivity.MainActivityDescription = mainActivities[0].MainActivityDescription;
-                    
+
                 }
             }
             mainAcitivity.lstGroupMaster = lstGroupMaster;
@@ -188,15 +188,15 @@ namespace Benaa2018.Controllers
         //    return PartialView("SaveMainActivity", mainActivityModel);
         //}
 
-        public async Task<IActionResult> CostCode(int caseStat=0)
+        public async Task<IActionResult> CostCode(int caseStat = 0)
         {
             var groupMasters = await _groupMasterHelper.GetGroupMasterViewModelDetails();
-            var mainActivities = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails("",0, caseStat);
+            var mainActivities = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails("", 0, caseStat);
             var activityMasterList = await _activityMasterHelper.GetAllActivityMasterDetails("", 0, caseStat);
-            var varianceMasterList = await _varianceMasterHelper.GetAllVarianceMasterDetails("",0, caseStat);
+            var varianceMasterList = await _varianceMasterHelper.GetAllVarianceMasterDetails("", 0, caseStat);
 
             List<VarianceMasterViewModel> lstVarianceMaster = new List<VarianceMasterViewModel>();
-            if(varianceMasterList?.Count>0)
+            if (varianceMasterList?.Count > 0)
             {
                 varianceMasterList.ForEach(item =>
                 {
@@ -210,7 +210,7 @@ namespace Benaa2018.Controllers
                         Status = item.Status,
                         IsDeleted = item.IsDeleted,
                         VarianceDescription = item.VarianceDescription,
-                        MainActivityId=item.MainActivityId
+                        MainActivityId = item.MainActivityId
                     });
                 });
             }
@@ -279,7 +279,7 @@ namespace Benaa2018.Controllers
                 });
             }
             bool checkStatus = false;
-            if(caseStat==0)
+            if (caseStat == 0)
             {
                 checkStatus = true;
             }
@@ -287,14 +287,14 @@ namespace Benaa2018.Controllers
             {
                 checkStatus = false;
             }
-           
+
             CostListsModel costLists = new CostListsModel()
             {
-                lstGroupMaster= lstGrpMaster,
-                lstMainActivityMaster= lstMainMaster,
-                lstActivityMaster= lstActivityMaster,
-                lstVarianceMaster= lstVarianceMaster,
-                chkStatus= checkStatus
+                lstGroupMaster = lstGrpMaster,
+                lstMainActivityMaster = lstMainMaster,
+                lstActivityMaster = lstActivityMaster,
+                lstVarianceMaster = lstVarianceMaster,
+                chkStatus = checkStatus
             };
             return PartialView("CostCode", costLists);
         }
@@ -343,9 +343,10 @@ namespace Benaa2018.Controllers
                 var mainActivityMasterList = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails(mainActivityModel.MainActivityCode);
 
                 #endregion
-                if (mainActivityMasterList?.Count == 0)
+
+                if (mainActivityModel.MainActivityId > 0)
                 {
-                    if(mainActivityModel.MainActivityId>0)
+                    if (mainActivityMasterList?.Count < 2)
                     {
                         var objUpdateGroupMaster = await _mainActivityMasterHelper.UpdateMainActivityMasterDetails(mainActivityModel);
                         if (objUpdateGroupMaster.MainActivityId > 0)
@@ -353,8 +354,17 @@ namespace Benaa2018.Controllers
                             mainActivityMasterViewModel.Success = true;
                             mainActivityMasterViewModel.Message = "Main  activity master saved successfully!!!!!";
                         }
+
                     }
                     else
+                    {
+                        mainActivityMasterViewModel.Success = false;
+                        mainActivityMasterViewModel.Message = "Main  activity master code already exists!!!";
+                    }
+                }
+                else
+                {
+                    if (mainActivityMasterList?.Count == 0)
                     {
                         var objSaveGroupMaster = await _mainActivityMasterHelper.SaveMainActivityMasterDetails(mainActivityModel);
                         if (objSaveGroupMaster.MainActivityId > 0)
@@ -363,12 +373,13 @@ namespace Benaa2018.Controllers
                             mainActivityMasterViewModel.Message = "Main  activity master saved successfully!!!!!";
                         }
                     }
+                    else
+                    {
+                        mainActivityMasterViewModel.Success = false;
+                        mainActivityMasterViewModel.Message = "Main  activity master code already exists!!!";
+                    }
                 }
-                else
-                {
-                    mainActivityMasterViewModel.Success = false;
-                    mainActivityMasterViewModel.Message = "Main  activity master code already exists!!!";
-                }
+
 
             }
             catch (Exception ex)
@@ -411,18 +422,19 @@ namespace Benaa2018.Controllers
             string result = string.Empty;
             //var mainMasterItem = await _mainActivityMasterHelper.GetAllMainActivityMasterById(main_activity_id);
             //if (mainMasterItem.Count > 0)
-            MainActivityMasterViewModel mainActivityItem = new MainActivityMasterViewModel() {
+            MainActivityMasterViewModel mainActivityItem = new MainActivityMasterViewModel()
+            {
 
-            MainActivityId = Convert.ToInt32(mainActivityMasterViewModel.MainActivityId),
-            MainActivityCode= mainActivityMasterViewModel.MainActivityCode,
-           GroupId = Convert.ToInt32(mainActivityMasterViewModel.GroupId),
-            MainActivityName = mainActivityMasterViewModel.MainActivityName,
-            OrgId = mainActivityMasterViewModel.OrgId,
-            Sequence = mainActivityMasterViewModel.Sequence,
-            Status = mainActivityMasterViewModel.Status,
-            IsDeleted = true
+                MainActivityId = Convert.ToInt32(mainActivityMasterViewModel.MainActivityId),
+                MainActivityCode = mainActivityMasterViewModel.MainActivityCode,
+                GroupId = Convert.ToInt32(mainActivityMasterViewModel.GroupId),
+                MainActivityName = mainActivityMasterViewModel.MainActivityName,
+                OrgId = mainActivityMasterViewModel.OrgId,
+                Sequence = mainActivityMasterViewModel.Sequence,
+                Status = mainActivityMasterViewModel.Status,
+                IsDeleted = true
 
-        };
+            };
             var objSaveMainActivityMaster = await _mainActivityMasterHelper.UpdateMainActivityMasterDetails(mainActivityItem);
             if (objSaveMainActivityMaster.MainActivityId > 0)
             {

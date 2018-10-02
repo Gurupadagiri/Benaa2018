@@ -46,7 +46,7 @@ namespace Benaa2018.Data.Repository
             _context.Entry(entity).State = EntityState.Deleted;
             await _context.SaveChangesAsync();
         }
-        public async Task<IEnumerable<T>> GetAllAsync()
+        public virtual async Task<IEnumerable<T>> GetAllAsync()
         {
             return await Task.Factory.StartNew(() => _context.Set<T>());
         }
