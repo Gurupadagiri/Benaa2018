@@ -117,7 +117,7 @@ namespace Benaa2018.Controllers
 
             if (varianceId > 0)
             {
-                var varianceMasterList = await _varianceMasterHelper.GetAllVarianceMasterDetails("", varianceId, 0);
+                var varianceMasterList = await _varianceMasterHelper.GetAllVarianceMasterDetails("", varianceId, 1);
                 if (varianceMasterList != null)
                 {
                     variMasterModel.VarianceId = varianceMasterList[0].VarianceId;
