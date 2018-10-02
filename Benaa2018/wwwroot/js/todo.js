@@ -1,16 +1,6 @@
-﻿$(document).on("click", "#addRemoveButton", function (event) {
-    if ($(this).val() == "Remove Checklist") {
-        $('.permanentNot').remove();
-        $('.cloneingboxholder').hide();
-    }
-    else {
-
-        $('.multiInputHolder').show();
-    }
-});
-$(window).load(function () {
+﻿$(window).load(function () {
     $(document).on('click', '.type1', function () {
-        var ids = $(this).attr('dataids');
+        var ids = $(this).attr('data-ids');
         $('#hiddenToDoDetailsId').val(ids);
         var postData = { "ToDoDetailsId": parseInt(ids) };
         $.post("ToDo/SearchToDoMessage", postData, function (result) {
@@ -23,12 +13,19 @@ $(window).load(function () {
     });
 });
 $(document).ready(function () {
-    $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title']", function () {
-        var ids = $(this).find('a').attr('dataids');
+    $(document).on("click", "td[aria-describedby='internaluser_ToDoDetails.Title'],.typeTitle", function () {
+        var ids = $(this).find('a').attr('data-ids');
         var postData = { "ToDoDetailsId": parseInt(ids) };
-        $("#ToDoUpdate").load('ToDo/PopulateTodoInfo', postData);
+        $("#todoinfoModal").load('ToDo/PopulateTodoInfo', postData, function (result) {
+            $('#todoinfoModal').modal('show');
+            $('#ToDoDetails_AssignedUsers').multiselect(); 
+            $('#lstCheckListDetail_0__ToDoCheckListUserId').multiselect();
+            $('#lstCheckListDetail_1__ToDoCheckListUserId').multiselect();
+            $('#lstCheckListDetail_2__ToDoCheckListUserId').multiselect();
+            $('#ScheduleItems').multiselect();
+            $('#ddlTag').multiselect();
+        });
     });
-
     $(document).on('click', '#btnAddExtraUpdate', function (e) {
         for (var j = 3; j < 6; j++) {
             var index = 'cloneingboxholder' + j;
@@ -55,16 +52,16 @@ $(document).ready(function () {
     $('.todoAreaVisible').hide();
     $("#projectname").text('To-Do');
     $('#ddltravelmode111').multiselect();
-    $('#ddlUserDiffer1').multiselect();
-    $('#ddlUserDiffer2').multiselect();
-    $('#UserMasters').multiselect();
-    $('#ddlUserDiffer0').multiselect();
+    $('#ToDoDetails_AssignedUsers').multiselect();
+    $('#lstCheckListDetail_0__ToDoCheckListUserId').multiselect();
+    $('#lstCheckListDetail_1__ToDoCheckListUserId').multiselect();
+    $('#lstCheckListDetail_2__ToDoCheckListUserId').multiselect();
     $('#ddlPermissionUserAssign').multiselect();
     $('#ddltravelmodeSearchFilter').multiselect();
     $("#ddlUserDiffer1").removeAttr("style");
     $("#ddlUserDiffer2").removeAttr("style");
     $("#ddlUserDiffer0").removeAttr("style");
-    $('#addRemoveButton').click(function () {
+    $(document).on('click', '#addRemoveButton', function () {
         if ($(this).val() == "Remove Checklist") {
             $('.permanentNot').remove();
             $('.cloneingboxholder').hide();
@@ -72,7 +69,7 @@ $(document).ready(function () {
             $('.cloneingboxholder').show();
         }
     });
-    $('#btnAddExtra').click(function () {
+    $(document).on('click', '#btnAddExtra', function () {
         var startindex = $('#checkListAppend .cloneingboxholder').length;
         var maxindex = startindex + 3;
         for (var i = startindex; i < maxindex; i++) {
@@ -95,7 +92,7 @@ $(document).ready(function () {
             $('#checkListAppend').append(innerhtml);
         }
     });
-    $('#btnAddTag').click(function () {
+    $(document).on('click', '#btnAddTag', function () {
         var title = $('#txtTag').val();
         $.post("ToDo/SaveTag", { tagTitle: title }, function (result) {
             if (result == "success") {
@@ -103,31 +100,39 @@ $(document).ready(function () {
             }
         });
     });
-    $('#btnAssignNewUsers').click(function () {
-        var userSelected = $('#ddlPermissionUser').val();
-        var title = $('#txtTag').val();
-        $.post("ToDo/AssignToDoUser", { userids: userSelected, ToDoDetailsId: $('#hdnAssignNewUsersRole').val() }, function (result) {
-            alert('assign user successfull');
+    $(document).on('click', '#btnAssignNewUsers', function () {
+        $.post("ToDo/AssignToDoUser", {
+            userids: $('#ddlPermissionUserAssign').val(),
+            toDoDetailsId: $('#hdnAssignNewUsersRole').val(),
+            isNotify: $('#chkNotifyNewUser').prop('checked'),
+            projectId: parseInt($('#hdnProjectIdToDo').val())
+        }, function (result) {
+            if (result != '') {
+                BindToDoGrid(result);
+                selectedRow = new Array();
+                alert('assign user successfull');
+                $('#todoAssignNewUsers').modal('hide');
+            }            
         });
     });
-    $('.multipleSelectBoxes .mainButton').click(function () {
+    $(document).on('click', '.multipleSelectBoxes .mainButton', function () {
         $('.multiCheckBoxHolder, .multiInputHolder').slideToggle();
         if ($(this).val() == "Add Checklist")
             $(this).val("Remove Checklist")
         else
             $(this).val("Add Checklist");
     });
-    $('.cloneBtnHolder').click(function () {
+    $(document).on('click', '.cloneBtnHolder', function () {
         $(".cloneMainContainer").clone().prependTo(".cloneBtnHolder");
     });
-    $(".checkboxAssignChecklist input[type=checkbox]").change(function () {
+    $(document).on('change', '.checkboxAssignChecklist input[type=checkbox]', function () {
         if (this.checked) {
             $('.chosen-container.chosen-container-single').show();
         } else {
             $('.chosen-container.chosen-container-single').hide();
         }
     });
-    $('.checkListUser').click(function () {
+    $(document).on('click', '.checkListUser', function () {
         if ($(this).prop("checked") == true) {
             $('.liddl').show();
             $(".liColumn1").removeAttr("style");
@@ -138,7 +143,7 @@ $(document).ready(function () {
             $(".ddldropdown1").hide();
         }
     });
-    $('.todoleftmenu').click(function () {
+    $(document).on('click', '.todoleftmenu', function () {
         $('a.todoleftmenu').removeClass('selected-project');
         $(this).addClass('selected-project');
         $('#todoContain').show();
@@ -160,7 +165,7 @@ $(document).ready(function () {
     $('#ToCompletion').hide();
     $('#FromDue').hide();
     $('#TomDue').hide();
-    $('#ddlDueDate').click(function () {
+    $(document).on('click', '#ddlDueDate', function () {
         var dueDate = $(this).val();
         if (dueDate == 2) {
             $('#FromDue').show();
@@ -170,8 +175,8 @@ $(document).ready(function () {
             $('#FromDue').hide();
             $('#TomDue').hide();
         }
-    });
-    $('#ddlCompletionDate').click(function () {
+        });
+    $(document).on('click', '#ddlCompletionDate', function () {
         var completionDate = $(this).val();
         if (completionDate == 2) {
             $('#FromCompletion').show();
@@ -183,85 +188,67 @@ $(document).ready(function () {
         }
     });
     $('#btnCancelPostComment').click(function () {
-        //location.reload(true);
-    });
-    $('#ddlAssign').change(function () {
-        var text = $(this).val();
-        if (text == "3") {
-            var grid = $("#internaluser");
-            var rowKey = grid.getGridParam("selrow");
-            if (!rowKey)
-                alert("No rows are selected");
-            else {
-                var selectedIDs = grid.getGridParam("selarrrow");
-                var result = "";
-                for (var i = 0; i < selectedIDs.length; i++) {
-                    result += selectedIDs[i] + ",";
-                }
-                $.post("ToDo/SaveToDoIsComplete", { ToDoDetailsId: result }, function (result) {
-                    if (result != '') {
-                        BindToDoGrid(result);
-                        alert('success');
-                    }
-                });
-            }
-        }
-        else if (text == "2") {
-            var grid = $("#internaluser");
-            var rowKey = grid.getGridParam("selrow");
-            if (!rowKey)
-                alert("No rows are selected");
-            else {
-                var selectedIDs = grid.getGridParam("selarrrow");
-                var result = "";
-                for (var i = 0; i < selectedIDs.length; i++) {
-                    result += selectedIDs[i] + ",";
-                }
-                $('#hdnAssignNewUsersRole').val(result);
-                $('#todoAssignNewUsers').modal('show');
-            }
-        }
-        else if (text == "5") {
-            var grid = $("#internaluser");
-            var rowKey = grid.getGridParam("selrow");
-            if (!rowKey)
-                alert("No rows are selected");
-            else {
-                var selectedIDs = grid.getGridParam("selarrrow");
-                var result = "";
-                for (var i = 0; i < selectedIDs.length; i++) {
-                    result += selectedIDs[i] + ",";
-                }
-                $.post("ToDo/DeleteToDo", { ToDoDetailsId: result }, function (result) {
-                    alert('success');
-                });
-            }
-        }
-        else if (text == "4") {
-            var grid = $("#internaluser");
-            var rowKey = grid.getGridParam("selrow");
-            if (!rowKey)
-                alert("No rows are selected");
-            else {
-                var selectedIDs = grid.getGridParam("selarrrow");
-                var result = "";
-                for (var i = 0; i < selectedIDs.length; i++) {
-                    result += selectedIDs[i] + ",";
-                }
-                $.post("ToDo/CopyToDo", { ToDoDetailsId: result }, function (result) {
-                    alert('success');
-                    $('#hdnProjectIdToDo').val(projectId);
-                    $.post("ToDo/SearchToDobyProject", { projectId: parseInt($('#hdnProjectIdToDo')) }, function (result) {
-                        BindToDoGrid(result);
-                    });
-                });
-            }
-        }
-    });
-});
 
-$(document).ready(function () {
-    $('.bootstrap-switch-wrapper').click(function () {
+    });
+    var selectedRow = new Array();
+    $(document).on('change', 'input[type="checkbox"]', function () {
+        var selecteditem = parseInt($(this).parent().next().text());
+        if ($(this).prop('checked')) {
+            selectedRow.push(selecteditem);
+        } else {
+            var index = selectedRow.indexOf(selecteditem);
+            if (index > -1) {
+                selectedRow.splice(index, 1);
+            }
+        }        
+    });
+
+    $(document).on('change', '#ddlAssign', function () {
+        var text = $(this).val();        
+        var rowKey = $("#internaluser").jqGrid('getGridParam', 'selrow');
+        if (!rowKey) {
+            $(this).val('');
+            alert("No rows are selected");
+            return false;
+        }
+        $(this).val('');
+        if (text == "3") {
+            $.post("ToDo/SaveToDoIsComplete", { ToDoDetailsId: selectedRow }, function (result) {
+                if (result != '') {
+                    BindToDoGrid(result);
+                    selectedRow = new Array();
+                    alert('ToDo is Completed !!');
+                }
+            });
+        } else if (text == "2") {
+            var result = '';
+            for (var i = 0; i < selectedRow.length; i++) {
+                result += selectedRow[i] + ',';
+            }
+            result = result.replace(/,\s*$/, "");
+            $('#hdnAssignNewUsersRole').val(result);
+            selectedRow = new Array();
+            $('#todoAssignNewUsers').modal('show');
+        } else if (text == "5") {
+            $.post("ToDo/DeleteToDo", { ToDoDetailsId: selectedRow, projectId: parseInt($('#hdnProjectIdToDo').val()) }, function (result) {
+                if (result != '') {
+                    BindToDoGrid(result);
+                    selectedRow = new Array();
+                    alert('Deleted ToDo Successfully!!');
+                }
+            });
+        } else if (text == "4") {
+            $.post("ToDo/CopyToDo", { todoDetailIds: selectedRow, projectId: parseInt($('#hdnProjectIdToDo').val())}, function (result) {
+                if (result != '') {
+                    BindToDoGrid(result);
+                    selectedRow = new Array();
+                    alert('Copied todo list.');
+                }
+            });
+        }  
+    });
+
+    $(document).on('click', '.bootstrap-switch-wrapper', function () {
         if ($(this).hasClass('bootstrap-switch-off')) {
             $(this).removeClass('bootstrap-switch-off');
             $(this).addClass('bootstrap-switch-on');
@@ -276,80 +263,7 @@ $(document).ready(function () {
             $('.sheduleItemHolder').hide();
         }
     });
-    BindToDoGridInitial(response){
-        $("#internaluser").jqGrid({
-            colModel: [
-                { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, key: true, hidden: true },
-                { name: "ToDoDetails.IsCheckedList", label: "", width: 18, key: true, formatter: IsCheckedList },
-                {
-                    name: "ToDoDetails.Title", label: "Title", width: 53, formatter: formatTitle
-                },
-                {
-                    name: "TotalNumberOfMessages", label: "<img src='/images/miComments.png' />", width: 20, formatter: formatNumberOfMessages
-                },
-                {
-                    name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox',
-                    formatter: 'checkbox', formatoptions: { disabled: false }, width: 53, formatter: formatCheckBox
-                },
-                { name: "ToDoDetails.Priority", label: "Priority", width: 65, formatter: IsPriority },
-                { name: "UserNames", label: "AssignedTo", width: 70, formatter: formatAssignedTo },
-                { name: "ToDoDetails.AssignedTo", label: "Related Daily Log", width: 65 },
-                { name: "ToDoDetails.AssignedTo", label: "Files", width: 65 },
-                { name: "ToDoDetails.Duedate", label: "Due", width: 41 },
-                { name: "ToDoDetails.CreatedBy", label: "CreatedBy", width: 41 },
-                { name: "TagNames", label: "Tags", width: 65 }
-            ],
-            data: response,
-            iconSet: "fontAwesome",
-            idPrefix: "g5_",
-            rownumbers: false,
-            sortname: "Title",
-            sortorder: "desc",
-            threeStateSort: true,
-            sortIconsBeforeText: true,
-            headertitles: true,
-            rowList: [5, 10, 20, "10000:All"],
-            toppager: true,
-            multiselect: true,
-            toolbarfilter: true,
-            pager: true,
-            rowNum: 10,
-            height: 'auto',
-            viewrecords: true,
-            searching: {
-                defaultSearch: "cn"
-            },
-            cellEdit: true,
-            caption: "",
-            reload: false,
-            refresh: true,
-            onCellSelect: function (rowid, index, contents, event) {
-                var cm = $("#internaluser").jqGrid('getGridParam', 'colModel');
-                if (cm[index].name == "ToDoDetails.IsMarkedComplete") {
-                    var rowData = $('#internaluser').jqGrid('getRowData', rowid);
-                    var postData = { "todoId": parseInt(rowData["ToDoDetails.TodoDetailsID"]), "projectId": parseInt($('#ProjectId').val()) };
-                    $.post("ToDo/IsToDoComplete", postData, function (result) {
-                        if (result !== '') {
-                            $('#' + rowid).delay(2500).addClass('strikeout').show().slideUp(1000);
-                            BindToDoGrid(result);
-                        }
-                    });
-                }
-                if (cm[index].name == "TotalNumberOfMessages") {
-                    var rowData = $('#internaluser').jqGrid('getRowData', rowid);
-                    $('#hiddenToDoDetailsId').val(rowData["ToDoDetails.TodoDetailsID"]);
-                    var postData = { "ToDoDetailsId": parseInt(rowData["ToDoDetails.TodoDetailsID"]) };
-                    $.post("ToDo/SearchToDoMessage", postData, function (result) {
-                        $.each(JSON.parse(result), function (key, value) {
-                            var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy + " </span></div>"
-                            $('#messageId').append(items);
-                        });
-                        $('#messagepopup').modal('show');
-                    });
-                }
-            }
-        });
-    }
+
     $("#internaluser").jqGrid('navGrid', '#gridpager',
         { add: false, edit: false, del: false, search: false, refresh: true },
         { width: 5 });
@@ -363,59 +277,184 @@ $(document).ready(function () {
     $(document).on('click', '.mainTdToggleBtn', function () {
         $(this).parents('.asignToToggleHolder').find('.toggleBody').toggle().slow();
     });
-    function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
-        var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
-        var CSV = '';
-        //Set Report title in first row or line
-
-        CSV += ReportTitle + '\r\n\n';
-        //This condition will generate the Label/Header
-        if (ShowLabel) {
-            var row = "";
-            //This loop will extract the label from 1st index of on array
-            for (var index in arrData[0]) {
-
-                //Now convert each value to string and comma-seprated
-                row += index + ',';
+    $(document).on('click', '#btnPostComment', function () {
+        var textComment = $('#titleMessage').val();
+        var owner = $('input[name="chkOwner"]').prop('checked');
+        var notify = $('input[name="chkNotify"]').prop('checked');
+        var sub = $('input[name="chkSub"]').prop('checked');
+        var postData = { todoDetailsId: $('#hiddenToDoDetailsId').val(), titleMessage: textComment, owner: owner, notify: true, sub: sub };
+        $.post("ToDo/SaveToDoMessage", postData, function (result) {
+            if (result == "success") {
+                alert('sucees');
+                $('#titleMessage').val('');
+                $('#messageId').prepend("<div><span>" + textComment + "</span></div>");
             }
-            row = row.slice(0, -1);
-            //append Label row with line break
-            CSV += row + '\r\n';
-        }
-        //1st loop is to extract each row
-        for (var i = 0; i < arrData.length; i++) {
-            var row = "";
+        });
+    });
 
-            //2nd loop will extract each column and convert it in string comma-seprated
-            for (var index in arrData[i]) {
-                row += '"' + arrData[i][index] + '",';
+    $('#ddlTag').multiselect({
+        includeSelectAllOption: true
+    });
+    $('#ddlTagUpdate').multiselect({
+        includeSelectAllOption: true
+    });
+    $(document).on('click', '#btnSaveAndNewToDo', function () {
+        $.post("ToDo/SaveToDo", $("#frmSubmitToDoMaster").serialize(), function (result) {
+            if (data == "Success") {
+                alert("Todo Saved Successfully");
+                $('#todoinfoModal').show();
+            } else {
+                alert("Some problem occurred!! Please try again");
             }
-            row.slice(0, row.length - 1);
-            //add a line break after each row
-            CSV += row + '\r\n';
+        });
+    });
+    $(document).on('click', '#btnSaveToDo', function () {
+        $.post("ToDo/SaveToDo", $("#frmSubmitToDoMaster").serialize(), function (data) {
+            if (data.success) {
+                $("#frmSubmitToDoMaster").find("input[type='text']").each(function (i, element) {
+                    $(this).val('');
+                });
+                if (data.toDoAllModels !== '') {
+                    $('#internaluser').jqGrid('clearGridData');
+                    $("#internaluser").jqGrid('setGridParam', { data: JSON.parse(data.toDoListContent) });
+                    $("#internaluser").trigger('reloadGrid');
+                }
+                $('#todoinfoModal').removeClass('in').hide();
+                alert("Todo Saved Successfully");
+            }
+            else {
+                alert("Some problem occurred!! Please try again");
+            }
+        });
+    });
+    $(document).on('click', '#btnUpdatetodoResults', function () {
+        var Keywords = $('#txtToDoKeyWords').val();
+        var AssignedTo = $('#ddlAssignedToToDoSearch :selected').val();
+        var usersAssignedTo = $('#ddlToDoAssignToDoSearch :selected').val();
+        var status = $('#ddlToDoStatusToDoSearch :selected').val();
+        var priority = $('#ddlToDoPriorityToDoSearch').next().children('button').children().text();
+        var projectId = $('#ProjectId').val();
+        var selectedTags = $('#ddlTagToDoSearch').next().children('button').children().text();
+        var postdata = { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: priority, tags: selectedTags, selectedProjectId: projectId };
+        $.post("ToDo/SearchToDo", postdata, function (result) {
+            $('#internaluser').jqGrid('clearGridData');
+            $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
+        });
+    });
+    $('#ddlToDoPriorityToDoSearch').multiselect();
+    $('#ddlTagToDoSearch').multiselect();
+    $('#FromCompletion').hide();
+    $('#ToCompletion').hide();
+    $('#FromDue').hide();
+    $('#TomDue').hide();
+    $(document).on('click', '#ddlDueDate', function () {
+        var dueDate = $(this).val();
+        if (dueDate == 2) {
+            $('#FromDue').show();
+            $('#TomDue').show();
         }
-        if (CSV == '') {
-            alert("Invalid data");
-            return;
+        else {
+            $('#FromDue').hide();
+            $('#TomDue').hide();
         }
-        //Generate a file name
-        var fileName = "MyReport_";
-        //this will remove the blank-spaces from the title and replace it with an underscore
-        fileName += ReportTitle.replace(/ /g, "_");
-        //Initialize file format you want csv or xls
-        var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
-        var link = document.createElement("a");
-        link.href = uri;
-        //set the visibility hidden so it will not effect on your web-layout
-        link.style = "visibility:hidden";
-        link.download = fileName + ".csv";
-        //this part will append the anchor tag and remove it after automatic click
-        console.log(document.body);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    };
+    });
+    $(document).on('click', '#ddlCompletionDate', function () {
+        var completionDate = $(this).val();
+        if (completionDate == 2) {
+            $('#FromCompletion').show();
+            $('#ToCompletion').show();
+        }
+        else {
+            $('#FromCompletion').hide();
+            $('#ToCompletion').hide();
+        }
+    });
+    var item = 3;
+    var itemLength = item + 3;
+    $(document).on('click', '.checkListUser', function () {
+        if ($(".checkListUser").prop('checked') == true) {
+            $('.ddlCheckListUser').show();
+        }
+        else {
+            $('.ddlCheckListUser').hide();
+        }
+    });
 });
+
+function BindToDoGridInitial(response) {
+    $("#internaluser").jqGrid({
+        colModel: [
+            { name: "ToDoDetails.TodoDetailsID", label: "TodoDetailsID", width: 53, key: true, hidden: true },
+            { name: "ToDoDetails.IsCheckedList", label: "", width: 18, key: true, formatter: IsCheckedList },
+            {
+                name: "ToDoDetails.Title", label: "Title", width: 53, formatter: formatTitle
+            },
+            {
+                name: "TotalNumberOfMessages", label: "<img src='/images/miComments.png' />", width: 20, formatter: formatNumberOfMessages
+            },
+            {
+                name: "ToDoDetails.IsMarkedComplete", label: "Complete", editable: true, sortable: true, edittype: 'checkbox',
+                formatter: 'checkbox', formatoptions: { disabled: false }, width: 53, formatter: formatCheckBox
+            },
+            { name: "ToDoDetails.Priority", label: "Priority", width: 65, formatter: IsPriority },
+            { name: "UserNames", label: "AssignedTo", width: 70, formatter: formatAssignedTo },
+            { name: "ToDoDetails.AssignedTo", label: "Related Daily Log", width: 65 },
+            { name: "ToDoDetails.AssignedTo", label: "Files", width: 65 },
+            { name: "ToDoDetails.Duedate", label: "Due", width: 41 },
+            { name: "ToDoDetails.CreatedBy", label: "CreatedBy", width: 41 },
+            { name: "TagNames", label: "Tags", width: 65 }
+        ],
+        data: response,
+        iconSet: "fontAwesome",
+        idPrefix: "g5_",
+        rownumbers: false,
+        sortname: "Title",
+        sortorder: "desc",
+        threeStateSort: true,
+        sortIconsBeforeText: true,
+        headertitles: true,
+        rowList: [5, 10, 20, "10000:All"],
+        toppager: true,
+        multiselect: true,
+        toolbarfilter: true,
+        pager: true,
+        rowNum: 10,
+        height: 'auto',
+        viewrecords: true,
+        searching: {
+            defaultSearch: "cn"
+        },
+        cellEdit: true,
+        caption: "",
+        reload: false,
+        refresh: true,
+        onCellSelect: function (rowid, index, contents, event) {
+            var cm = $("#internaluser").jqGrid('getGridParam', 'colModel');
+            if (cm[index].name == "ToDoDetails.IsMarkedComplete") {
+                var rowData = $('#internaluser').jqGrid('getRowData', rowid);
+                var postData = { "todoId": parseInt(rowData["ToDoDetails.TodoDetailsID"]), "projectId": parseInt($('#ProjectId').val()) };
+                $.post("ToDo/IsToDoComplete", postData, function (result) {
+                    if (result !== '') {
+                        $('#' + rowid).addClass('strikeout').delay(2500).show().slideUp(1000);
+                        BindToDoGrid(result);
+                    }
+                });
+            }
+            if (cm[index].name == "TotalNumberOfMessages") {
+                var rowData = $('#internaluser').jqGrid('getRowData', rowid);
+                $('#hiddenToDoDetailsId').val(rowData["ToDoDetails.TodoDetailsID"]);
+                var postData = { "ToDoDetailsId": parseInt(rowData["ToDoDetails.TodoDetailsID"]) };
+                $.post("ToDo/SearchToDoMessage", postData, function (result) {
+                    $.each(JSON.parse(result), function (key, value) {
+                        var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy + " </span></div>"
+                        $('#messageId').append(items);
+                    });
+                    $('#messagepopup').modal('show');
+                });
+            }
+        }
+    });
+}
 function BindToDoGrid(result) {
     $('#internaluser').jqGrid('clearGridData');
     $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result) }).trigger('reloadGrid');
@@ -461,115 +500,63 @@ function formatCheckBox(cellValue, options, rowObject) {
 }
 function formatNumberOfMessages(cellValue, options, rowObject) {
     var dataid = rowObject.ToDoDetails.TodoDetailsID;
-    var linkMessage = "<a href='javascript:void(0);' data-toggle='modal'  class='type1' dataids=" + dataid + ">" + cellValue + "</a>";
+    var linkMessage = "<a href='javascript:void(0);' data-toggle='modal'  class='type1' data-ids=" + dataid + ">" + cellValue + "</a>";
     return linkMessage;
 };
 function formatTitle(cellValue, options, rowObject) {
     var dataid = rowObject.ToDoDetails.TodoDetailsID;
-    var linkMessage = "<a href='#ToDoUpdate' data-toggle='modal' class='typeTitle' dataids=" + dataid + ">" + cellValue + "</a>";
+    var linkMessage = "<a href='javascript:void(0);' data-toggle='modal' class='typeTitle' data-ids=" + dataid + ">" + cellValue + "</a>";
     return linkMessage;
 }
-$(document).ready(function () {
-    $('#btnPostComment').click(function () {
-        var textComment = $('#titleMessage').val();
-        var owner = $('input[name="chkOwner"]').prop('checked');
-        var notify = $('input[name="chkNotify"]').prop('checked');
-        var sub = $('input[name="chkSub"]').prop('checked');
-        var postData = { todoDetailsId: $('#hiddenToDoDetailsId').val(), titleMessage: textComment, owner: owner, notify: true, sub: sub };
-        $.post("ToDo/SaveToDoMessage", postData, function (result) {
-            if (result == "success") {
-                alert('sucees');
-                $('#titleMessage').val('');
-                $('#messageId').prepend("<div><span>" + textComment + "</span></div>");
-            }
-        });
-    });
+function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
+    var arrData = typeof JSONData != 'object' ? JSON.parse(JSONData) : JSONData;
+    var CSV = '';
+    //Set Report title in first row or line
 
-    $('#ddlTag').multiselect({
-        includeSelectAllOption: true
-    });
-    $('#ddlTagUpdate').multiselect({
-        includeSelectAllOption: true
-    });
-    $('#btnSaveAndNewToDo').click(function (e) {
-        $.post("ToDo/SaveToDo", $("#frmSubmitToDoMaster").serialize(), function (result) {
-            if (data == "Success") {
-                alert("Todo Saved Successfully");
-                $('#todoinfoModal').show();
-            } else {
-                alert("Some problem occurred!! Please try again");
-            }
-        });
-    });
-    $("#btnSaveToDo").click(function (e) {
-        $.post("ToDo/SaveToDo", $("#frmSubmitToDoMaster").serialize(), function (data) {
-            if (data.success) {
-                $("#frmSubmitToDoMaster").find("input[type='text']").each(function (i, element) {
-                    $(this).val('');
-                });
-                if (data.toDoAllModels !== '') {
-                    $('#internaluser').jqGrid('clearGridData');
-                    $("#internaluser").jqGrid('setGridParam', { data: JSON.parse(data.toDoListContent) });
-                    $("#internaluser").trigger('reloadGrid');
-                }
-                $('#todoinfoModal').removeClass('in').hide();
-                alert("Todo Saved Successfully");
-            }
-            else {
-                alert("Some problem occurred!! Please try again");
-            }
-        });
-    });
-    $('#btnUpdatetodoResults').click(function (e) {
-        var Keywords = $('#txtToDoKeyWords').val();
-        var AssignedTo = $('#ddlAssignedToToDoSearch :selected').val();
-        var usersAssignedTo = $('#ddlToDoAssignToDoSearch :selected').val();
-        var status = $('#ddlToDoStatusToDoSearch :selected').val();
-        var priority = $('#ddlToDoPriorityToDoSearch').next().children('button').children().text();
-        var projectId = $('#ProjectId').val();
-        var selectedTags = $('#ddlTagToDoSearch').next().children('button').children().text();
-        var postdata = { keywords: Keywords, assignedto: AssignedTo, usersAssignedTo: parseInt(usersAssignedTo), status: parseInt(status), priority: priority, tags: selectedTags, selectedProjectId: projectId };
-        $.post("ToDo/SearchToDo", postdata, function (result) {
-            $('#internaluser').jqGrid('clearGridData');
-            $("#internaluser").jqGrid('setGridParam', { data: jQuery.parseJSON(result), datatype: 'local' }).trigger('reloadGrid');
-        });
-    });
-    $('#ddlToDoPriorityToDoSearch').multiselect();
-    $('#ddlTagToDoSearch').multiselect();
-    $('#FromCompletion').hide();
-    $('#ToCompletion').hide();
-    $('#FromDue').hide();
-    $('#TomDue').hide();
-    $('#ddlDueDate').click(function () {
-        var dueDate = $(this).val();
-        if (dueDate == 2) {
-            $('#FromDue').show();
-            $('#TomDue').show();
+    CSV += ReportTitle + '\r\n\n';
+    //This condition will generate the Label/Header
+    if (ShowLabel) {
+        var row = "";
+        //This loop will extract the label from 1st index of on array
+        for (var index in arrData[0]) {
+
+            //Now convert each value to string and comma-seprated
+            row += index + ',';
         }
-        else {
-            $('#FromDue').hide();
-            $('#TomDue').hide();
+        row = row.slice(0, -1);
+        //append Label row with line break
+        CSV += row + '\r\n';
+    }
+    //1st loop is to extract each row
+    for (var i = 0; i < arrData.length; i++) {
+        var row = "";
+
+        //2nd loop will extract each column and convert it in string comma-seprated
+        for (var index in arrData[i]) {
+            row += '"' + arrData[i][index] + '",';
         }
-    });
-    $('#ddlCompletionDate').click(function () {
-        var completionDate = $(this).val();
-        if (completionDate == 2) {
-            $('#FromCompletion').show();
-            $('#ToCompletion').show();
-        }
-        else {
-            $('#FromCompletion').hide();
-            $('#ToCompletion').hide();
-        }
-    });
-    var item = 3;
-    var itemLength = item + 3;
-    $('.checkListUser').click(function () {
-        if ($(".checkListUser").prop('checked') == true) {
-            $('.ddlCheckListUser').show();
-        }
-        else {
-            $('.ddlCheckListUser').hide();
-        }
-    });
-});
+        row.slice(0, row.length - 1);
+        //add a line break after each row
+        CSV += row + '\r\n';
+    }
+    if (CSV == '') {
+        alert("Invalid data");
+        return;
+    }
+    //Generate a file name
+    var fileName = "MyReport_";
+    //this will remove the blank-spaces from the title and replace it with an underscore
+    fileName += ReportTitle.replace(/ /g, "_");
+    //Initialize file format you want csv or xls
+    var uri = 'data:text/csv;charset=utf-8,' + escape(CSV);
+    var link = document.createElement("a");
+    link.href = uri;
+    //set the visibility hidden so it will not effect on your web-layout
+    link.style = "visibility:hidden";
+    link.download = fileName + ".csv";
+    //this part will append the anchor tag and remove it after automatic click
+    console.log(document.body);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}

@@ -158,7 +158,7 @@ namespace Benaa2018.Helper
                 userInfo = new OwnerMasterViewModel
                 {
                     OwnerID = user.Owner_ID,
-                    OwnerName = user.Owner_Name
+                    OwnerName = user.Owner_Name?? string.Empty
                 };
             }
             return userInfo;

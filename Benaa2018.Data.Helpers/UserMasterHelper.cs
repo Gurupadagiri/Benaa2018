@@ -122,7 +122,7 @@ namespace Benaa2018.Helper
                     FullName = user.FullName,
                     UserName = user.UserName,
                     CreatdDate = user.Created_Date,
-                    UserEmail = user.User_Email
+                    UserEmail = user.User_Email ?? string.Empty
                 };
             }
             return userInfo;

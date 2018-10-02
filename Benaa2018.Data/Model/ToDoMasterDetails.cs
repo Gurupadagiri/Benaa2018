@@ -12,7 +12,6 @@ namespace Benaa2018.Data.Model
     public class ToDoMasterDetails : BaseModel
     {
         [Key]
-        //[DbContextOptionsBuilder.]
         public int TodoDetailsID { get; set; }
         public int Project_ID { get; set; }
         public string Project_Site { get; set; }
@@ -30,6 +29,7 @@ namespace Benaa2018.Data.Model
         public string LinkToTime { get; set; }
         public int ReminderId { get; set; }
         public bool DeletionStatus { get; set; }
-        
+        public string AssignedUsers { get; set; }
+        public string AssignedTags { get; set; }
     }
 }

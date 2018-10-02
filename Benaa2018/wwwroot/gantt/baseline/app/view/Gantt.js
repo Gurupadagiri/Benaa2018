@@ -125,3 +125,42 @@ Ext.define('Gnt.baseline.view.Gantt', {
         dependencyStore.load();
     }
 });
+
+Ext.define('Gnt.baseline.view.taskAdd', {
+    extend: 'Gnt.panel.Gantt',
+    model: 'rms.model.assignmentModel',
+    storeId: 'assignmentStore',
+    autoLoad: false,
+    autoSync: true,
+    constructor: function () {
+        var me = this;
+        me.callParent(arguments);
+        this.resourceStore = Ext.create('rms.store.resource');
+    },
+
+    resourceStore: this.resourceStore,
+
+    proxy: {
+        type: 'ajax',
+        method: 'GET',
+        reader: new Ext.data.JsonReader({
+            root: 'assignmentdata',
+            type: 'json'
+        }),
+        writer: new Ext.data.JsonWriter({
+            root: 'assignmentdata',
+            type: 'json',
+            totalPropery: 'total',
+            successProperty: 'success',
+            idProperty: 'id',
+            encode: true,
+            writeAllFields: true
+        }),
+        api: {
+            read: 'assignment/GetAssignment.action',
+            create: 'assignment/CreateAssignment.action',
+            update: 'assignment/UpdateAssignment.action',
+            destroy: 'assignment/DeleteAssignment.action'
+        }
+    }
+});

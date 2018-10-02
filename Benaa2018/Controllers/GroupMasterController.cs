@@ -32,8 +32,7 @@ namespace Benaa2018.Controllers
         private readonly IToDoCheckListHelper _toDoCheckListHelper;
         private readonly IToDoCheckListDetailsHelper _toDoCheckListDetailsHelper;
         private readonly IGroupMasterHelper _groupMasterHelper;
-
-
+        
         public GroupMasterController(IMenuMasterHelper menuMasterHelper,
             IOwnerMasterHelper ownerMasterHelper,
             IProjectColorHelper projectColorHelper,
@@ -52,17 +51,9 @@ namespace Benaa2018.Controllers
            IToDoCheckListHelper toDoCheckListHelper,
            IToDoCheckListDetailsHelper toDoCheckListDetailsHelper,
            IGroupMasterHelper groupMasterHelper,
-            ICompanyMasterHelper companyMasterHelper) : base(menuMasterHelper,
-            ownerMasterHelper,
-            projectColorHelper,
-            projectGroupHelper,
-            projectMasterHelper,
-            projectScheduleMasterHelper,
-            projectStatusMasterHelper,
-            subContractorHelper,
-            userMasterHelper,
-
-            companyMasterHelper)
+            ICompanyMasterHelper companyMasterHelper) : base(menuMasterHelper, ownerMasterHelper, projectColorHelper,
+            projectGroupHelper, projectMasterHelper, projectScheduleMasterHelper, projectStatusMasterHelper,
+            subContractorHelper, userMasterHelper, companyMasterHelper)
         {
             _menuMasterHelper = menuMasterHelper;
             _ownerMasterHelper = ownerMasterHelper;
@@ -81,16 +72,12 @@ namespace Benaa2018.Controllers
             _toDoCheckListHelper = toDoCheckListHelper;
             _toDoCheckListDetailsHelper = toDoCheckListDetailsHelper;
             _groupMasterHelper = groupMasterHelper;
-
-
         }
         public async Task<IActionResult> Index()
         {
             var groupMasterList = await _groupMasterHelper.GetGroupMasterViewModelDetails();
             List<GroupMasterViewModel> lstGrpMasters = new List<GroupMasterViewModel>();
             lstGrpMasters = groupMasterList;
-            //ViewBag.DataSource = JsonConvert.SerializeObject(lstGrpMasters);
-            //  ViewBag.DataSource = lstGrpMasters;
             return View(lstGrpMasters);
         }
 
@@ -99,12 +86,9 @@ namespace Benaa2018.Controllers
             GroupMasterViewModel grpItem = new GroupMasterViewModel();
             if (groupId > 0)
             {
-
-
                 var groupMasterItem = await _groupMasterHelper.GetGroupMasterViewModelById(groupId);
                 if (groupMasterItem.Count > 0)
                 {
-
                     grpItem.GroupId = Convert.ToInt32(groupMasterItem[0].GroupId);
                     grpItem.GroupCode = groupMasterItem[0].GroupCode;
                     grpItem.GroupName = groupMasterItem[0].GroupName;
@@ -127,8 +111,6 @@ namespace Benaa2018.Controllers
         {
             try
             {
-
-
                 GroupMasterViewModel grpMaster = new GroupMasterViewModel
                 {
                     GroupId = groupMasterViewModel.GroupId,
@@ -139,7 +121,6 @@ namespace Benaa2018.Controllers
                     Status = groupMasterViewModel.Status,
                     IsDeleted = false,
                     GroupDescription = groupMasterViewModel.GroupDescription
-
                 };
                 #region validaate group code
                 var groupMasterList = await _groupMasterHelper.GetGroupMasterViewModelDetails(grpMaster.GroupCode);
@@ -191,48 +172,23 @@ namespace Benaa2018.Controllers
                         groupMasterViewModel.Message = "Group code already exists!!!";
                     }
                 }
-
             }
             catch (Exception ex)
             {
                 groupMasterViewModel.Success = false;
                 groupMasterViewModel.Message = "Group code did not saved successfully!!!!";
             }
-            // ModelState.Clear();
             return Json(groupMasterViewModel);
         }
 
         public async Task<IActionResult> GetGroupMasters(string sidx, string sort, int page, int rows)
         {
-
-
             sort = (sort == null) ? "" : sort;
             int pageIndex = Convert.ToInt32(page) - 1;
             int pageSize = rows;
-
             var groupMasterList = await _groupMasterHelper.GetGroupMasterViewModelDetails();
-            //var StudentList = db.Students.Select(
-            //        t => new
-            //        {
-            //            t.ID,
-            //            t.Name,
-            //            t.FatherName,
-            //            t.Gender,
-            //            t.ClassName,
-            //            t.DateOfAdmission
-            //        });
             int totalRecords = groupMasterList.Count;
             var totalPages = (int)Math.Ceiling((float)totalRecords / (float)rows);
-            //if (sort.ToUpper() == "DESC")
-            //{
-            //    groupMasterList = groupMasterList.OrderByDescending(t => t);
-            //    groupMasterList = groupMasterList.Skip(pageIndex * pageSize).Take(pageSize);
-            //}
-            //else
-            //{
-            //    StudentList = StudentList.OrderBy(t => t.Name);
-            //    StudentList = StudentList.Skip(pageIndex * pageSize).Take(pageSize);
-            //}
             var jsonData = new
             {
                 total = totalPages,
@@ -249,13 +205,11 @@ namespace Benaa2018.Controllers
             var groupMasterItem = await _groupMasterHelper.GetGroupMasterViewModelById(group_id);
             if (groupMasterItem.Count > 0)
             {
-
                 grpItem.GroupId = Convert.ToInt32(groupMasterItem[0].GroupId);
                 grpItem.GroupCode = groupMasterItem[0].GroupCode;
                 grpItem.GroupName = groupMasterItem[0].GroupName;
                 grpItem.Sequence = groupMasterItem[0].Sequence;
                 grpItem.Status = groupMasterItem[0].Status;
-
             }
             return View(grpItem);
         }
@@ -274,10 +228,7 @@ namespace Benaa2018.Controllers
             };
             var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpMaster);
             return View();
-
         }
-
-
         public async Task<ActionResult> DeleteGroupMaster(int group_id)
         {
             string result = string.Empty;
@@ -286,19 +237,16 @@ namespace Benaa2018.Controllers
             var groupMasterItem = await _groupMasterHelper.GetGroupMasterViewModelById(group_id);
             if (groupMasterItem.Count > 0)
             {
-
                 grpItem.GroupId = Convert.ToInt32(groupMasterItem[0].GroupId);
                 grpItem.GroupCode = groupMasterItem[0].GroupCode;
                 grpItem.GroupName = groupMasterItem[0].GroupName;
                 grpItem.Sequence = groupMasterItem[0].Sequence;
                 grpItem.Status = groupMasterItem[0].Status;
                 grpItem.IsDeleted = true;
-
             }
             var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpItem);
             return Json(result);
         }
-
 
         [HttpPost]
         public async Task<ActionResult> DeleteGroupMaster(GroupMasterViewModel groupMasterViewModel)
@@ -313,7 +261,6 @@ namespace Benaa2018.Controllers
                 Status = groupMasterViewModel.Status,
                 IsDeleted = true
             };
-
             var objDeleteGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpItem);
             if (objDeleteGroupMaster.GroupId > 0)
             {
@@ -326,7 +273,6 @@ namespace Benaa2018.Controllers
                 groupMasterViewModel.Success = false;
                 groupMasterViewModel.Message = "Group code did not deleted successfully!!!!!";
             }
-
             return Json(groupMasterViewModel);
         }
     }

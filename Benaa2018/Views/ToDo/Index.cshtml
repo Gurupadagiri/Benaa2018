@@ -5,8 +5,10 @@
 }
 @{
     Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+    var listItem = (List<Benaa2018.Helper.ViewModels.UserOwnerDifferentTypeViewModel>)ViewBag.SubContractorsList;
+    var listItemToDo = listItem.GroupBy(a => a.UserOriginaTypeId).ToList();
 }
-
+<script src="~/js/todo.js"></script>
 @if (ViewBag.IsleftMenuVisible != false)
 {
     <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
@@ -73,34 +75,15 @@
                                             <div class="col-sm-3 form-group">
                                                 <span>Users Assigned To</span>
                                                 <select id="ddltravelmodeSearchFilter" multiple="multiple">
-                                                    @for (var j = 1; j < 4; j++)
+                                                    @foreach (var pitem in listItemToDo)
                                                     {
-                                                        var ert = 0;
-                                                        @foreach (var pitem in ViewBag.SubContractorsList)
-                                                        {
-                                                            @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                                        <optgroup label="@pitem.FirstOrDefault().UserOriginaTypeText">
+                                                            @foreach (var item in pitem)
                                                             {
-                                                                ert = j;
-                                                                <optgroup label="@pitem.UserOriginaTypeText">
-                                                                    @{
-                                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
-
-                                                                        if (childitemfilter != null)
-                                                                        {
-                                                                            foreach (var citem in ViewBag.SubContractorsList)
-                                                                            {
-                                                                                if (citem.UserOriginaTypeId == j)
-                                                                                {
-
-                                                                                    <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                    }
-                                                                </optgroup>
-                                                                        }
-                                                                        }
-                                                                        }
+                                                                <option value="@(item.UserOriginalId +"|"+ item.UserOriginaTypeId)">@item.UserOwnerDifferentTypeValue</option>
+                                                            }
+                                                        </optgroup>
+                                                    }
                                                 </select>
                                             </div>
                                             <div class="col-sm-3 form-group">
@@ -274,9 +257,7 @@
 <div class="modal fade" id="todoinfoModal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     @Html.Partial("_toDoAddNew", Model)
 </div>
-<div class="modal fade selectSedualedItem" id="selectSedualedItem" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    @Html.Partial("_toDoAddSchedule", Model)
-</div>
+
 <div class="modal fade" id="calendarmodal" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
     @Html.RenderPartialAsync("_addCalendar", Model.CalendarScheduledItemModel)
 </div>
@@ -292,43 +273,23 @@
                             <div class="leftFormHeading">Assigned To:</div>
                             <div class="rightFormText">
                                 <select id="ddlPermissionUserAssign" multiple="multiple" asp-for="UserMasters">
-                                    @for (var j = 1; j < 4; j++)
+                                    @foreach (var pitem in listItemToDo)
                                     {
-                                        var ert = 0;
-                                        @foreach (var pitem in ViewBag.SubContractorsList)
-                                        {
-
-                                            @if (@pitem.UserOriginaTypeId == j && j > ert)
+                                        <optgroup label="@pitem.FirstOrDefault().UserOriginaTypeText">
+                                            @foreach (var user in pitem)
                                             {
-                                                ert = j;
-                                                <optgroup label="@pitem.UserOriginaTypeText">
-                                                    @{
-                                                        var childitemfilter = pitem.UserOwnerDifferentTypeId;
-
-                                                        if (childitemfilter != null)
-                                                        {
-                                                            foreach (var citem in ViewBag.SubContractorsList)
-                                                            {
-                                                                if (citem.UserOriginaTypeId == j)
-                                                                {
-
-                                                                    <option value="@citem.UserOwnerDifferentTypeId">@citem.UserOwnerDifferentTypeValue</option>
-                                                                }
-                                                            }
-                                                        }
-                                                    }
-                                                </optgroup>
-                                                        }
-                                                        }
-                                                        }
+                                                <option value="@(user.UserOriginalId +"|"+ user.UserOriginaTypeId)">@user.UserOwnerDifferentTypeValue</option>
+                                            }
+                                        </optgroup>
+                                    }                                    
                                 </select>
                             </div>
-                            <div>
+                            <div class="notify-user">
                                 <input type="checkbox" id="chkNotifyNewUser" />Notify new assigned users
                             </div>
-                            <div>
+                            <div class="btnHolder">
                                 <input type="button" id="btnAssignNewUsers" value="Assign Users" />
-                                <input type="button" id="btnCancelAssignNewUsers" value="Assign Users" />
+                                <input type="button" id="btnCancelAssignNewUsers" value="Cancel" />
                             </div>
                         </div>
                     </div>
@@ -337,9 +298,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade" id="ToDoUpdate" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
-    @Html.Partial("_toDoAddNew", Model)
-</div>
+
 <div class="modal fade" id="messagepopup" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     @Html.Partial("_todoConversionDetails", Model)
 </div>
@@ -398,4 +357,3 @@
         BindToDoGridInitial(@Html.Raw(ViewBag.UserBaseToDoModel))
     });
 </script>
-<script src="~/js/todo.js"></script>

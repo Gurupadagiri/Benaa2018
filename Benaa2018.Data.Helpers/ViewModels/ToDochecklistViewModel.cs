@@ -8,12 +8,7 @@ namespace Benaa2018.Helper.ViewModels
     {
         public int ToDoCheckListId { get; set; }
         public int TodoDetailsID { get; set; }
-       
-  
         public bool ToDoAssignIsCheckListItem { get; set; }
         public bool ToDoAssignIFilesCheckListItem { get; set; }
-
-        //public int ToDoCheckListUserType { get; set; }
-        //public int ToDoCheckListUserId { get; set; }
     }
 }

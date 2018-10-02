@@ -1491,6 +1491,7 @@ body .panel-body {
 .modal-open .modal .modal-dialog .panel-body {
     height: 80vh;
     overflow-y: scroll;
+    color:#000;
 }
 .modal-open #infoModal.modal .modal-dialog {
     width: 95%;
@@ -3836,7 +3837,7 @@ body .ui-jqgrid > .ui-jqgrid-view button {
 }
 body .ms-options-wrap > .ms-options {
     left: auto;
-    width:275px;
+    width: 216px;
     right: 15px;
 }
 body .ms-options-wrap > .ms-options > ul > li.optgroup {
@@ -3905,16 +3906,7 @@ body .ui-jqgrid tr.jqgrow > td:nth-child(6),
 body .ui-jqgrid tr.jqgrow > td:nth-child(5) {
     text-align: center !important;
 }
-/*.jqgrow td input[type="checkbox"].single-to-do-check + label.single-to-do-check {
-    display: inline-block;
-    width: 15px;
-    height: 15px;
-    background: url(../images/lineItemToDoCheckBox.png) 0 0 no-repeat;
-    margin-left: 10px;
-    cursor: pointer;
-    margin-top: 9px;
-    /*background-size:cover;
-}*/
+
 .asignToToggleHolder,
 .toggleHolder {
     width: 100%;
@@ -3959,9 +3951,77 @@ body .ui-jqgrid tr.jqgrow > td:nth-child(5) {
     margin: 3px 0;
 }
 
-tr.strikeout {
-    text-decoration: line-through;
+tr.strikeout td:before {
+    content: " ";
+    position: absolute;
+    top: 50%;
+    left: 0;
+    border-bottom: 1px solid #111;
+    width: 100%;
+}
+tr.strikeout td:after {
+    content: "\00B7";
+    font-size: 1px;
 }
 .state_active {
     text-decoration: line-through;
+}
+/*Asign to new user*/
+.modal-open #todoAssignNewUsers.modal .modal-dialog {
+    width:340px;
+    margin-top:10%;
+}
+.notify-user,
+.btnHolder {
+    width: 100%;
+    float: left;
+}
+#todoAssignNewUsers .buttonContainer {
+    padding:0;
+}
+#todoAssignNewUsers .panel-title {
+    padding:15px;
+}
+#todoAssignNewUsers .customPopup .panel-heading.themeColor {
+    padding: 0;
+    border: 0;
+}
+.modal-open #todoAssignNewUsers.modal .modal-dialog .panel-body {
+    height: auto;
+    padding: 14px 17px 0;
+    border-radius: 0;
+}
+#todoAssignNewUsers .formHolder .rightFormText {
+    width: 60%;
+}
+.notify-user input{
+    margin-right:5px;
+}
+#todoAssignNewUsers .modal-dialog .close {
+    margin-top: 11px;
+    margin-right: 14px;
+}
+.btnHolder input[type=button] {
+    color: #fff !important;
+    background-color: #7c6e51 !important;
+    border-color: #7c6e51 !important;
+    display: inline-block;
+    padding: 5px 12px 6px;
+    margin-bottom: 0;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }

@@ -11,6 +11,6 @@ namespace Benaa2018.Helper.Interface
         Task<List<ToDochecklistDetailsViewModel>> GetAllCheclistDetailsDescription(int todoCheckListID = 0);
 
 
-        Task<ToDochecklistDetailsViewModel> DeleteToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel);
+        Task DeleteToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel);
     }
 }
