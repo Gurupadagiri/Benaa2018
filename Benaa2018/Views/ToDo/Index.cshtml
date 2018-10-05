@@ -352,6 +352,61 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="blogPopUp" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg">
+        <div class="panel panel-primary customPopup blogconversation">
+            <div class="panel-heading themeColor">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel"><span>1</span> Conversation Details</h4>
+            </div>
+            <div class="panel-body ">
+                <h2>test test <span>(To-Do)</span> <a href="#"><img src="/images/commentInfoIcon-Grey.svg" alt="" title="" style="height: 16px;"></a></h2>
+                <div class="conversationToggle">
+                    <div class="write-comment-container">
+                        <div class="comment-section" style="height: 28px; opacity: 1; padding: 5px; border-width: 1px; display: block; box-sizing: border-box;">Write a comment...</div>
+                        <div class="blogTextBox">
+                            <div class="blogTextBoxLmliHolder">
+                                <textarea class="textarea"></textarea>
+                                <p><span>1024</span>Characters Remaining.</p>
+                            </div>
+                            <hr>
+                            <div class="btnHolder">
+                                <div class="btnHolderLeft">
+                                    <p>Show<span><img src="/images/commentInfoIcon-Grey.svg" alt="" title="" style="height: 16px;"></span></p>
+                                    <label>Owner: <input type="checkbox" name=""></label>
+                                    <label>Sub:	<input type="checkbox" name=""></label>
+                                </div>
+                                <div class="btnHolderRight">
+                                    <input type="button" class="blueButton" value="Post Comment"><br>
+                                    <input type="button" class="mainButton" value="Cancel">
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="commentBox">
+                            <div class="commentContainer">
+                                <div class="delet">
+
+                                    <a href="#" class="iconImg delete"></a>
+                                </div>
+                                <div class="mainComment">
+                                    <p class="mainText"></p>
+                                    <p class="mainTextla"><span>aryan singh</span> <span>03/10/2018 at 08:56 PM</span></p>
+                                </div>
+                                <div class="mainCommentEdit">
+                                    <a href="#" class="iconImg"><img src="images/commentInfoIcon-Grey.svg" alt="" title="" style="height: 16px;"></a>
+                                    <a href="#" class="iconImg owner"></a>
+                                    <a href="#" class="iconImg subs"></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <script type="text/javascript">
     $(document).ready(function () {
         BindToDoGridInitial(@Html.Raw(ViewBag.UserBaseToDoModel))

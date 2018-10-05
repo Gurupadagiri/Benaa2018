@@ -9,12 +9,12 @@ Ext.application({
     launch: function () {
         Ext.QuickTips.init();
 
-        Ext.create('Ext.Viewport', {
+        Ext.create('Gnt.baseline.view.Gantt', {
             layout: 'border',
 
             items: [
                 Ext.create('Gnt.baseline.view.Gantt', {
-                    region  : 'center'
+                    region  : 'center',
                 }),
                 {
                     xtype: 'details'

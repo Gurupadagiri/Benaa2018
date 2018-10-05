@@ -52,5 +52,17 @@ namespace Benaa2018.Controllers
         {
             return View();
         }
+
+        public IActionResult DependencyStore()
+        {
+
+            return Json(string.Empty);
+        }
+
+        public IActionResult TaskStore()
+        {
+
+            return Json(string.Empty);
+        }
     }
 }

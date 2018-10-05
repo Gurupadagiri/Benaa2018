@@ -4,11 +4,11 @@
         $('#hiddenToDoDetailsId').val(ids);
         var postData = { "ToDoDetailsId": parseInt(ids) };
         $.post("ToDo/SearchToDoMessage", postData, function (result) {
-            $.each(JSON.parse(result), function (key, value) {
-                var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy + " </span></div>"
-                $('#messageId').append(items);
-            });
-            $('#messagepopup').modal('show');
+            //$.each(JSON.parse(result), function (key, value) {
+            //    var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy + " </span></div>"
+            //    $('#messageId').append(items);
+            //});
+            $('#blogPopUp').modal('show');
         });
     });
 });
@@ -379,6 +379,14 @@ $(document).ready(function () {
             $('.ddlCheckListUser').hide();
         }
     });
+    moveScroller();
+
+    $('.comment-section').click(function () {
+        $('.blogTextBox').fadeIn();
+    });
+    $('.mainButton').click(function () {
+        $('.blogTextBox').fadeOut();
+    });
 });
 
 function BindToDoGridInitial(response) {
@@ -445,11 +453,11 @@ function BindToDoGridInitial(response) {
                 $('#hiddenToDoDetailsId').val(rowData["ToDoDetails.TodoDetailsID"]);
                 var postData = { "ToDoDetailsId": parseInt(rowData["ToDoDetails.TodoDetailsID"]) };
                 $.post("ToDo/SearchToDoMessage", postData, function (result) {
-                    $.each(JSON.parse(result), function (key, value) {
-                        var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy + " </span></div>"
-                        $('#messageId').append(items);
-                    });
-                    $('#messagepopup').modal('show');
+                    //$.each(JSON.parse(result), function (key, value) {
+                    //    var items = "<div><span>" + value.ToDoMessageTitle + "</span> <span>" + value.CreatedBy + " </span></div>"
+                    //    $('#messageId').append(items);
+                    //});
+                    $('#blogPopUp').modal('show');
                 });
             }
         }
@@ -559,4 +567,29 @@ function JSONToCSVConvertor(JSONData, ReportTitle, ShowLabel) {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+}
+
+function moveScroller() {
+    var $anchor = $(".tabHolder");
+    var $scroller = $('.floatThead-container');
+
+    var move = function () {
+        var st = $(window).scrollTop();
+        var ot = $anchor.offset().top;
+        if (st > ot) {
+            $scroller.css({
+                position: "fixed",
+                top: "34px",
+                width: "93%",
+                left: "29px"
+            });
+        } else {
+            $scroller.css({
+                position: "relative",
+                top: ""
+            });
+        }
+    };
+    $(window).scroll(move);
+    move();
 }

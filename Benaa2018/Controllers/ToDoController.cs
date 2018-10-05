@@ -609,11 +609,7 @@ namespace Benaa2018.Controllers
                     {
                         sbMyValue.Append(item.DifferentUserWithTypeId + "," + item.DifferentUserWithTypewithTypeId + "," + item.DifferentUserWithTypeOriginalId + "|");
                     }
-
                 }
-                string userDetailsList = Convert.ToString(sbMyValue);
-                HttpContext.Response.Cookies.Append("UserDetailsListCookie", userDetailsList);
-
             }
             catch (System.Exception ex)
             {

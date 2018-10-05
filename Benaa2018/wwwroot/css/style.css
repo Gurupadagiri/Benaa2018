@@ -4025,3 +4025,183 @@ tr.strikeout td:after {
     border: 1px solid transparent;
     border-radius: 4px;
 }
+
+
+/*=== Blog Conversation ===*/
+.blogconversation h2 {
+    font-size: 20px;
+    text-align: center;
+}
+
+.blogconversation .write-comment-container {
+    width: 100%;
+    float: left;
+}
+
+.blogconversation .comment-section,
+.blogconversation .blogTextBox {
+    margin-right: auto;
+    margin-left: auto;
+    padding: 5px;
+    border: 1px solid #c5c5c5;
+    background: #fff;
+    color: #626262;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: text;
+    width: 55%;
+    display: block;
+}
+
+    .blogconversation .blogTextBox .blogTextBoxLmliHolder textarea {
+        width: 100%;
+        height: auto;
+        min-height: 50px;
+    }
+
+    .blogconversation .blogTextBox .blogTextBoxLmliHolder p {
+        text-align: right;
+    }
+
+        .blogconversation .blogTextBox .blogTextBoxLmliHolder p span {
+            margin-right: 10px;
+        }
+
+.blogconversation .btnHolder {
+    width: 100%;
+    float: left;
+}
+
+    .blogconversation .btnHolder .btnHolderLeft {
+        float: left;
+    }
+
+        .blogconversation .btnHolder .btnHolderLeft label {
+            width: 100%;
+        }
+
+.blogconversation .mainButton {
+    width: 100%;
+    margin-top: 10px;
+}
+
+.blogconversation .btnHolder .btnHolderRight {
+    float: right;
+}
+
+.commentBox {
+    margin-right: auto;
+    margin-left: auto;
+    color: #626262;
+    font-weight: normal;
+    font-size: 12px;
+    cursor: text;
+    width: 55%;
+    display: block;
+    position: relative;
+    margin-bottom: 22px;
+}
+
+    .commentBox .commentContainer {
+        position: relative;
+        padding: 5px;
+        border: 1px solid #c5c5c5;
+        background: #fff;
+        font-size: 12px;
+    }
+
+        .commentBox .commentContainer:before {
+            border-top: 16px solid #b6b6b6;
+            right: 50%;
+            margin-right: -8px;
+            border-right: 8px solid transparent;
+            border-left: 8px solid transparent;
+            content: '';
+            display: block;
+            position: absolute;
+            width: 0;
+            height: 0;
+            bottom: -17px;
+        }
+
+.blogconversation .blogTextBox {
+    display: none;
+    margin-top: -28px;
+    background: #fff;
+    margin-bottom: 20px;
+}
+
+.commentBox {
+    display: none;
+}
+
+.delet {
+    width: 30px;
+    float: left;
+}
+
+.mainCommentEdit {
+    width: 30px;
+    float: right;
+}
+
+.mainComment {
+    float: left;
+    width: 70%;
+}
+
+    .mainComment p span {
+        float: left;
+    }
+
+        .mainComment p span:last-child {
+            float: right;
+        }
+
+.iconImg {
+    display: block;
+    width: 25px;
+    height: 19px;
+    float: left;
+    margin-right: 8px;
+    opacity: 0;
+    transition: opacity .25s ease-in-out;
+}
+
+.commentBox:hover .iconImg {
+    opacity: 1;
+}
+
+.iconImg.delete {
+    background: url(../images/comments-spriteBig.png) no-repeat 0 0;
+    background-size: 92px 40px;
+}
+
+.iconImg.owner {
+    background: url(../images/comments-spriteBig.png) no-repeat -22px -19px;
+    background-size: 92px 40px;
+}
+
+.iconImg.subs {
+    background: url(../images/comments-spriteBig.png) no-repeat -71px -19px;
+    background-size: 92px 40px;
+}
+
+.commentContainer {
+    width: 100%;
+    float: left;
+    background: #fff;
+}
+
+.mainCommentEdit p {
+    width: 100%;
+    float: left;
+}
+
+.mainComment p.mainTextla {
+    position: absolute;
+    width: 85%;
+    bottom: 0;
+}
+
+/*=== End Blog Conversation ===*/
