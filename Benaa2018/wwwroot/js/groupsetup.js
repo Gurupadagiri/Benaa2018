@@ -1,28 +1,28 @@
 ﻿$(document).ready(function () {
     $(document).on('click', '.groupCode1', function () {
         var groupId = $(this).attr("data-id");
-        $.get("/GroupMaster/SaveGroupMaster", { groupId: groupId}, function (partialView) {
+        $.get("/GroupMaster/SaveGroupMaster", { groupId: groupId }, function (partialView) {
             $("#groupSetup").html(partialView);
         });
     });
-    $(document).on('click','#groupSetuppop', function () {
+    $(document).on('click', '#groupSetuppop', function () {
         $.get("/GroupMaster/SaveGroupMaster", null, function (partialView) {
             $("#groupSetup").html(partialView);
         });
 
     });
     $(document).on('click', '#btnSaveGroupSetup', function () {
-       // alert('Hi ');
-        var car = { href: "/GroupMaster/InsertGroupMaster", data: $("#frmGroupSetup").serialize(), operation:"1" };
+        // alert('Hi ');
+        var car = { href: "/GroupMaster/InsertGroupMaster", data: $("#frmGroupSetup").serialize(), operation: "1" };
         var result;
         result = contentDisp(car);
-        
+
 
     });
 
-   
-        $(document).on('click', '#btnSaveGroupSetupandOpen', function () {
-        
+
+    $(document).on('click', '#btnSaveGroupSetupandOpen', function () {
+
         var car = { href: "GroupMaster/InsertGroupMaster", data: $("#frmGroupSetup").serialize(), operation: "2" };
         var result;
         result = contentDisp(car);
@@ -43,17 +43,17 @@
         console.log('result from child' + result);
         if (result) {
             alert('Data Saved successfully');
-            
+
             $('#mainActivity').modal('hide');
             $('.ulHolder').css("display", "none");
         }
     });
-        
 
-    
+
+
     $('#btnActivitySave').click(function () {
         debugger;
-        
+
         var car = { href: "Activity/InsertActivityMaster", data: $("#frmActivitySetup").serialize() };
         var result = contentDisp(car);
         console.log('result from child' + result);
@@ -65,15 +65,15 @@
         }
     });
 
-  
 
-  
+
+
     function contentDisp(obj) {
         var successresult = 0;
         var someurl = $(obj).attr("href");
         var postData = $(obj).attr("data");
         var operation = $(obj).attr("operation");
-        
+
         console.log('---------------------');
         console.log(obj);
 
@@ -104,8 +104,8 @@
                     //alert('2nd time;');
                     alert(data.message);
                     $("#frmGroupSetup").trigger("reset");
-                   
-                   
+
+
                 }
                 else {
                     alert(data.message + '!!!!!');
@@ -115,11 +115,11 @@
                 alert('deletr')
             }
 
-            
+
             return data;
         });
     }
-    function PopUpShow(){
+    function PopUpShow() {
         $('#groupSetup').modal('hide');
         $('.ulHolder').css("display", "none");
     }
@@ -131,4 +131,19 @@
         });
     }
 
-    });
+
+    function FormValidation() {
+
+        var myObj;
+
+        myObj.prop = "data-error";
+
+
+
+        var textBox = $.trim($('input[type=text]').val())
+
+        if (textBox.prop == "") {
+            $("#error").show('slow');
+        }
+    }
+});

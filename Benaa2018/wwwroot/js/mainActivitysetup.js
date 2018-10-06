@@ -41,10 +41,45 @@
     });
     $(document).on('click', '#btnMainActivitySave', function () {
 
-        //alert('hi;');
-        var car = { href: "MainActivityMaster/InsertMainActivityMaster", data: $("#frmMainActivitySetup").serialize(), operation: "1" };
-        var result;
-        result = contentDisp(car);
+        //$('#frmMainActivitySetup input[type=text]').each(function () {
+        //    ///arrText.push($(this).val());
+
+        //    alert('Hi');
+        //})
+        debugger;
+        //$('.error').hide();
+        $('.error').remove();
+        $("#frmMainActivitySetup input[data-error]").each(function () {
+            //$('.error').hide();
+            if ($(this).is('input:text')) {
+                if ($(this).val() == '') {
+                    console.log($(this).val());
+                    $(this).after("<span style='color: red' class='error'>" + $(this).data('error')+"</span>");
+                }
+            }
+           
+        });
+
+        $('#frmMainActivitySetup select').each(function () {
+            if ($(this).attr('data-error')) {
+                ///alert('Hi ddl');
+                if ($(this).val() === "0") {
+                    alert('Hi ddl');
+                }
+            }
+            //alert('Hi ddl');
+            //if ($(this).is('input:select')) {
+            //    alert('hi ddl');
+            //}
+            //else {
+            //    alert('others');
+            //}
+
+        });
+    //    //alert('hi;');
+    //    //var car = { href: "MainActivityMaster/InsertMainActivityMaster", data: $("#frmMainActivitySetup").serialize(), operation: "1" };
+    //    //var result;
+    //    //result = contentDisp(car);
     });
 
     

@@ -157,6 +157,12 @@ namespace Benaa2018.Controllers
 
                 }
             }
+            GroupMasterViewModel grpitemdefault = new GroupMasterViewModel()
+            {
+                GroupId = 0,
+                GroupName = "---Select---"
+            };
+            lstGroupMaster.Insert(0, grpitemdefault);
             mainAcitivity.lstGroupMaster = lstGroupMaster;
             //MainActivityMasterViewModel mainActivityModel = new MainActivityMasterViewModel()
             //{

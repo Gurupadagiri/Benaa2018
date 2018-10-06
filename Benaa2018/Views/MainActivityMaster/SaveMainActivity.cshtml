@@ -33,21 +33,21 @@
                                     <input type="hidden" asp-for="MainActivityId" />
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                         <label>Main Activity Code</label>
-                                        <input class="form-control" type="text" asp-for="MainActivityCode">
+                                        <input class="form-control" type="text" asp-for="MainActivityCode" data-error="Please enter Main activity Code">
                                     </div>
                                     <div class="input-group col-md-6 col-sm-6 col-xs-12">
                                         <label>Main Activity Name</label>
-                                        <input class="form-control" type="text" asp-for="MainActivityName">
+                                        <input class="form-control" type="text" asp-for="MainActivityName" data-error="Please enter Main activity Name">
                                     </div>
                                     <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                         <label>Group Name</label>
                                         <select asp-for="GroupId"
                                                 class="form-control"
-                                                asp-items="@(new SelectList(Model.lstGroupMaster,"GroupId", "GroupName"))"></select>
+                                                asp-items="@(new SelectList(Model.lstGroupMaster,"GroupId", "GroupName"))" data-error="Please select group code"></select>
                                     </div>
                                     <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                         <label>Sequence</label>
-                                        <input class="form-control" type="text" asp-for="Sequence">
+                                        <input class="form-control" type="text" asp-for="Sequence" data-error="Please enter Sequence">
                                     </div>
 
                                     <div class="input-group col-md-12 col-sm-12 col-xs-12">
