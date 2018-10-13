@@ -61,6 +61,9 @@ namespace Benaa2018.Helper.ViewModels
         public CalendarScheduledItemViewModel CalendarScheduledItemModel { get; set; }
 
         public string ScheduleItems { get; set; }
+
+        public string AssignedUserDetails { get; set; }
+
         public class ToDoAllViewModelDetails
         {
             public List<ToDoAllViewModel> lstToDoAllViewModel { get; set; }

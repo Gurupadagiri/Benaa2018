@@ -44,6 +44,10 @@
                         @Html.HiddenFor(a => a.ToDoDetails.Project_ID, new { @id = "hdnProjectIdToDo" })
                         @Html.HiddenFor(a => a.ToDoCheckListItemIndex, new { @id = "hdnCheckListIndex" })
                         @Html.HiddenFor(a => a.ToDoDetails.TodoDetailsID, new { @id = "hdnTodoDetailsId" })
+                        @Html.HiddenFor(a => a.ToDoCheckList.ToDoCheckListId, new { @id = "hdnToDoCheckListId" })
+                        @Html.HiddenFor(a => a.ToDoDetails.AssignUserDetails, new { @id = "hdnAsignedUserDetails" })
+                        @Html.HiddenFor(a => a.AssignedUserDetails, new { @id = "hdnAsignedUserDetailsselected" })
+                        
                     </div>
                 </div>
                 <div class="row1">
@@ -80,7 +84,7 @@
                                     <select multiple="multiple" asp-for="ToDoDetails.AssignedUsers">                                       
                                         @foreach (var pitem in listItemToDo)
                                         {
-                                            <optgroup label="@pitem.FirstOrDefault().UserOriginaTypeText">
+                                            <optgroup label="@pitem.FirstOrDefault().UserOriginaTypeText" class="userDifferentCategory">
                                             @foreach (var item in pitem)
                                             {
                                                 <option value="@(item.UserOriginalId +"|"+ item.UserOriginaTypeId)">@item.UserOwnerDifferentTypeValue</option>
@@ -401,3 +405,4 @@
         }
     }
 }
+

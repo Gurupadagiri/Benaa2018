@@ -91,5 +91,29 @@ namespace Benaa2018.Helper
 
             return toDoCheckLst;
         }
+
+        public async Task<ToDochecklistViewModel> UpdateToDochecklistDetails(ToDochecklistViewModel toDochecklistViewModel)
+        {
+            ToDochecklist todoCheckList = new ToDochecklist
+            {
+                ToDoCheckListId = toDochecklistViewModel.ToDoCheckListId,
+                TodoDetailsID = toDochecklistViewModel.TodoDetailsID,
+                ToDoAssignIsCheckListItem = toDochecklistViewModel.ToDoAssignIsCheckListItem,
+                ToDoAssignIFilesCheckListItem = toDochecklistViewModel.ToDoAssignIFilesCheckListItem,
+                DeletionStatus = false,
+                Created_By = "aaaa",
+                Modified_By = "aaa",
+                Created_Date = DateTime.Today,
+                Modified_Date = DateTime.Today
+            };
+
+            var CheckLsitObj = await _toDchecklistHelper.UpdateAsync(todoCheckList);
+            ToDochecklistViewModel toDoCheckLst = new ToDochecklistViewModel
+            {
+                ToDoCheckListId = Convert.ToInt32(CheckLsitObj.ToDoCheckListId)
+            };
+
+            return toDoCheckLst;
+        }
     }
 }

@@ -231,6 +231,12 @@ namespace Benaa2018.Helper
             ToDoMasterDetailsViewModel toDoMasterModel = null;
             var toDoInfo = await _toDoMasterDetailsHelper.GetByIdAsync(todoDetailsId);
             if (toDoInfo == null) return toDoMasterModel;
+            string[] userAll=null;
+            if(toDoInfo.AssignedUsers!=null)
+            {
+                userAll = toDoInfo.AssignedUsers.Split(',');
+            }
+
             toDoMasterModel = new ToDoMasterDetailsViewModel
             {
                 TodoDetailsID = toDoInfo.TodoDetailsID,
@@ -248,7 +254,8 @@ namespace Benaa2018.Helper
                 TillingWorkId = toDoInfo.LinkToWorkId,
                 TillingDate = toDoInfo.LinkToDate,
                 TillingTime = toDoInfo.LinkToTime,
-                ReminderId = toDoInfo.ReminderId
+                ReminderId = toDoInfo.ReminderId,
+                AssignUserDetails = toDoInfo.AssignedUsers
             };
             return toDoMasterModel;
         }

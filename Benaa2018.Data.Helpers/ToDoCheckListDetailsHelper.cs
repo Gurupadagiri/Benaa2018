@@ -43,12 +43,12 @@ namespace Benaa2018.Helper
             return lstTagDetailsModel;
         }
 
-        public async Task<ToDochecklistDetailsViewModel> SaveToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel)
+        public async Task<ToDochecklistDetailsViewModel> SaveToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel,int todoCheckListID=0)
         {
             ToDochecklistDetails todoCheckDetl = new ToDochecklistDetails()
             {
 
-                ToDoCheckListId = toDochecklistViewModel.ToDoCheckListId,
+                ToDoCheckListId = todoCheckListID,
                 ToDoIsCheckList = toDochecklistViewModel.ToDoIsCheckList,
                 ToDoCheckListTitle = toDochecklistViewModel.ToDoCheckListTitle,
                 ToDoCheckListUserTypeId = toDochecklistViewModel.ToDoCheckListUserType,
@@ -72,9 +72,29 @@ namespace Benaa2018.Helper
                 ToDoIsCheckList = toDochecklistViewModel.ToDoIsCheckList,
                 ToDoCheckListTitle = toDochecklistViewModel.ToDoCheckListTitle,
                 ToDoCheckListUserTypeId = toDochecklistViewModel.ToDoCheckListUserType,
+                DeletionStatus = true,
                 ToDoCheckListUserId = string.Join(",", toDochecklistViewModel.ToDoCheckListUserId)
             };
             await _toDchecklistDetailsHelper.DeleteAsync(todoCheckDetl);
+        }
+
+        public async Task<ToDochecklistDetailsViewModel> UpdateToDochecklistDetailsDescription(ToDochecklistDetailsViewModel toDochecklistViewModel)
+        {
+            ToDochecklistDetails todoCheckDetl = new ToDochecklistDetails()
+            {
+
+                ToDoCheckListId = toDochecklistViewModel.ToDoCheckListId,
+                ToDoIsCheckList = toDochecklistViewModel.ToDoIsCheckList,
+                ToDoCheckListTitle = toDochecklistViewModel.ToDoCheckListTitle,
+                ToDoCheckListUserTypeId = toDochecklistViewModel.ToDoCheckListUserType,
+                ToDoCheckListUserId = toDochecklistViewModel.ToDoCheckListUserId == null ? string.Empty : string.Join(",", toDochecklistViewModel.ToDoCheckListUserId)
+            };
+            var userObj = await _toDchecklistDetailsHelper.UpdateAsync(todoCheckDetl);
+            ToDochecklistDetailsViewModel toDoMasterDetailsViewModel = new ToDochecklistDetailsViewModel
+            {
+                ToDochecklistDetailsViewModelId = Convert.ToInt32(userObj.ToDochecklistDetailsId)
+            };
+            return toDoMasterDetailsViewModel;
         }
     }
 }

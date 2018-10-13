@@ -9,5 +9,7 @@ namespace Benaa2018.Data.Repository
     public class ToDochecklistDetailsRepository : Repository<ToDochecklistDetails>, IToDochecklistDetailsRepository
     {
         public ToDochecklistDetailsRepository(SBSDbContext context) : base(context) { }
+
+
     }
 }

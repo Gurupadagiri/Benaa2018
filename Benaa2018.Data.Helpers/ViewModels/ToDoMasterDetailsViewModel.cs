@@ -28,5 +28,6 @@ namespace Benaa2018.Helper.ViewModels
         public bool DeletionStatus { get; set; }
         public string[] AssignedUsers { get; set; }
         public string[] AssignedTags { get; set; }
+        public string AssignUserDetails { get; set; }
     }
 }
