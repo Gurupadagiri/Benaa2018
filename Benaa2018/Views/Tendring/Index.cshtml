@@ -1,0 +1,1991 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    Benaa2018.Helper.ViewModels.BaseViewModel baseModel = ViewBag.Basemodel;
+    var listItem = (List<Benaa2018.Helper.ViewModels.UserOwnerDifferentTypeViewModel>)ViewBag.SubContractorsList;
+    // var listItemToDo = listItem.GroupBy(a => a.UserOriginaTypeId).ToList();
+}
+<script src="~/js/todo.js"></script>
+@if (ViewBag.IsleftMenuVisible != false)
+{
+    <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
+        @Html.Partial("_leftMenu", baseModel);
+    </div>
+}
+<div class="mainContentDiv todoMainHolder">
+    <div class="list-group-item  main-color-bg-pink">
+        <span>Tendring</span>
+    </div>
+    <div class="boqHolder">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="tab" href="#activityTendering">Activity Tendering</a></li>
+            <li><a data-toggle="tab" href="#qualifySubCont">Qualify SubCont./Supp.</a></li>
+            <li><a data-toggle="tab" href="#quotationRequest">Quotation Request</a></li>
+            <li><a data-toggle="tab" href="#quotationAnalysys">Quotation Analysys</a></li>
+            <li><a data-toggle="tab" href="#letterOfIntent">Letter of Intent</a></li>
+            <li><a data-toggle="tab" href="#contractsTerms">Contracts Terms</a></li>
+            <li><a data-toggle="tab" href="#paymentSchedule">Payment Schedule</a></li>
+        </ul>
+        <div class="tab-content">
+
+
+
+            <div id="activityTendering" class="tab-pane fade in active">
+                <!--div class="tableContainer todoHolder  todoHolderBOQ">
+
+                    <button id="exportExcel" class="btn btn-success btn-sm"><img src="images/excelIcon.png" alt="" title="" /></button>
+                    <div class="ccNewHolderRight">
+                        <a href="javascript:void(0);" class="newActionBtn">Import</a>
+                        <div class="ulHolder" style="display: none;">
+                          <ul>
+                            <li class="excel"><a href="#">Estimate From Excel</a></li>
+
+                          </ul>
+                        </div>
+                      </div>
+                </div-->
+                <div class="filterContainer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="http://localhost:64750/calendar#CalendarOne" aria-expanded="false" aria-controls="CalendarOne" class="collapsed">
+                                                FILTER YOUR RESULTS
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="CalendarOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-6 form-group">
+                                                    <span>Main Activity</span>
+
+                                                    <!-- Note the missing multiple attribute! -->
+                                                    <select id="example-multiple-selected" multiple="multiple">
+                                                        <option value="1">Option 1</option>
+                                                        <option value="2">Option 2</option>
+                                                        <!-- Option 3 will be selected in advance ... -->
+                                                        <option value="3">Option 3</option>
+                                                        <option value="4">Option 4</option>
+                                                        <option value="5">Option 5</option>
+                                                        <option value="6">Option 6</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6">
+                                                    <span class="blankSpan">&nbsp;</span>
+                                                    <button class="btn btn-primary btn-sm " type="button" id="btnCalendar">Update Results</button>&nbsp;
+                                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
+                                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" style="display:none" data-toggle="dropdown">Save Filter</button>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <h2>Test</h2> -->
+                <table id="grid2" class="estimateTable">
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>Main Activity</th>
+                            <th>Plan Start</th>
+                            <th>Plan End</th>
+                            <th>Dur(D)</th>
+
+                        </tr>
+
+                    </thead>
+                    <tbody>
+                        <tr class="mainTrActivityHolder">
+                            <td><span class="plus"></span></td>
+                            <td>Main Activity A</td>
+                            <td>16/10/2018</td>
+                            <td>16/10/2019</td>
+                            <td>30</td>
+
+                        </tr>
+                        <tr class="mainTrActivity" style="display: none;">
+                            <td></td>
+                            <td colspan="6">
+                                <table class="estiamteInnerTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Activity</th>
+                                            <th>Plan Start</th>
+                                            <th>Plan End</th>
+                                            <th>Dur(D)</th>
+                                            <th>Request For Proposal</th>
+                                            <th>Submittal</th>
+                                            <th>Sigining Contract</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Chaina</td>
+                                            <td>16/10/2018</td>
+                                            <td>16/10/2019</td>
+                                            <td>30</td>
+                                            <td>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control"><span class="input-group-addon"><img src="images/calendarIcon.png" /></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control"><span class="input-group-addon"><img src="images/calendarIcon.png" /></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control"><span class="input-group-addon"><img src="images/calendarIcon.png" /></span>
+                                                </div>
+                                            </td>
+
+                                            <td>10 <button class="save">Save</button><button class="edit">Edit</button></td>
+
+                                        </tr>
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr class="mainTrActivityHolder">
+                            <td><span class="plus"></span></td>
+                            <td>Main Activity A</td>
+                            <td>16/10/2018</td>
+                            <td>16/10/2019</td>
+                            <td>30</td>
+                        </tr>
+                        <tr class="mainTrActivity" style="display: none;">
+                            <td></td>
+                            <td colspan="6">
+                                <table class="estiamteInnerTable">
+                                    <thead>
+                                        <tr>
+                                            <th>Activity</th>
+                                            <th>Plan Start</th>
+                                            <th>Plan End</th>
+                                            <th>Dur(D)</th>
+                                            <th>Request For Proposal</th>
+                                            <th>Submittal</th>
+                                            <th>Sigining Contract</th>
+                                            <th>&nbsp;</th>
+
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Chaina</td>
+                                            <td>16/10/2018</td>
+                                            <td>16/10/2019</td>
+                                            <td>30</td>
+                                            <td>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control"><span class="input-group-addon"><img src="images/calendarIcon.png" /></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control"><span class="input-group-addon"><img src="images/calendarIcon.png" /></span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="input-group date">
+                                                    <input type="text" class="form-control"><span class="input-group-addon"><img src="images/calendarIcon.png" /></span>
+                                                </div>
+                                            </td>
+
+                                            <td>10 <button class="save">Save</button><button class="edit">Edit</button></td>
+
+                                        </tr>
+
+
+
+
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <!-- <tfoot>
+                        <tr>
+                            <td>&nbsp;</td>
+                            <td>Total</td>
+                            <td>SAR 22.22</td>
+                            <td>SAR 22.22</td>
+                            <td>SAR 22.22</td>
+                            <td>SAR 22.22</td>
+                            <td>SAR 22.22</td>
+
+                        </tr>
+                    </tfoot> -->
+                </table>
+            </div>
+            <div id="qualifySubCont" class="tab-pane ">
+                <div class="pull-left col-sm-8">
+                    <a href="javascript:void(0)" data-toggle="modal" id="infoEdit" data-target="#SubContSupp" data-original-title="" class="btn btn-success btn-sm">New SubCont./Supp.</a>
+                </div>
+                <div class="filterContainer">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="panel-group" id="accordion1" role="tablist" aria-multiselectable="true">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading" role="tab" id="headingOne1">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion1" href="http://localhost:64750/calendar#CalendarOne1" aria-expanded="false" aria-controls="CalendarOne1" class="collapsed">
+                                                FILTER YOUR RESULTS
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="CalendarOne1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne1">
+                                        <div class="panel-body">
+                                            <div class="row">
+                                                <div class="col-sm-3 form-group">
+                                                    <span>Main Activity</span>
+                                                    <select id="example-multiple-selected1" multiple="multiple">
+                                                        <option value="1">Option 1</option>
+                                                        <option value="2">Option 2</option>
+                                                        <!-- Option 3 will be selected in advance ... -->
+                                                        <option value="3">Option 3</option>
+                                                        <option value="4">Option 4</option>
+                                                        <option value="5">Option 5</option>
+                                                        <option value="6">Option 6</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-6" style="padding-left: 0;">
+                                                    <span class="blankSpan">&nbsp;</span>
+                                                    <a href="javascript:void(0)" data-toggle="modal" id="addRow" data-target="#addRowCont" data-original-title="" class="btn btn-success btn-sm">Add</a>
+                                                    <button class="btn btn-primary btn-sm " type="button" id="btnCalendar1">Update Results</button>&nbsp;
+                                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
+                                                    <button class="btn btn-default btn-sm dropdown-toggle" type="button" style="display:none" data-toggle="dropdown">Save Filter</button>
+                                                </div>
+
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive innerTable">
+                    <div class="dataTableConatainer">
+
+                        <div class="ui-jqgrid-jquery-ui ui-widget ui-widget-content ui-corner-all ui-jqgrid" id="gbox_example" dir="ltr" style="width: 572px;"><div class="ui-widget-overlay jqgrid-overlay" id="lui_example"></div><div class="ui-state-default ui-state-active loading" id="load_example" style="display: none;">Loading...</div><div class="ui-jqgrid-view" role="grid" aria-multiselectable="false" id="gview_example" style="width: 572px;"><div class="ui-widget-header ui-corner-top ui-jqgrid-titlebar ui-jqgrid-caption" style="display: none;"><span class="ui-jqgrid-title"></span><a role="link" class="ui-corner-all ui-jqgrid-titlebar-close" title="Toggle Expand Collapse Grid"><span class="fa fa-chevron-circle-up"></span></a></div><div id="example_toppager" class="ui-state-default ui-jqgrid-toppager ui-corner-top" dir="ltr" style="width: 572px;"><div id="pg_example_toppager" class="ui-pager-control" role="group"><table class="ui-pg-table" style="width:100%;table-layout:fixed;height:100%;"><tbody><tr><td id="example_toppager_left" class="ui-jqgrid-pg-left"></td><td id="example_toppager_center" class="ui-jqgrid-pg-center" style="width: 174px;"><table style="table-layout:auto;white-space: pre;margin-left:auto;margin-right:auto;" class="ui-pg-table"><tbody><tr><td role="button" tabindex="0" id="first_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="First Page"><span class="fa fa-fw fa-step-backward"></span></td><td role="button" tabindex="0" id="prev_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Previous Page"><span class="fa fa-fw fa-backward"></span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td dir="ltr">Page <input aria-label="Page No." class="ui-widget-content ui-pg-input" type="text" size="2" maxlength="7" value="0"> of <span id="sp_1_example_toppager">1</span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td role="button" tabindex="0" id="next_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Next Page"><span class="fa fa-fw fa-forward"></span></td><td role="button" tabindex="0" id="last_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Last Page"><span class="fa fa-fw fa-step-forward"></span></td></tr></tbody></table></td><td id="example_toppager_right" class="ui-jqgrid-pg-right"><span dir="ltr" style="text-align:right" class="ui-paging-info">View 1 - 3 of 3</span></td></tr></tbody></table></div></div><div class="ui-state-default ui-corner-top ui-jqgrid-hdiv" style="width: 572px;"><div class="ui-jqgrid-hbox" style="padding-right: 0px;"><table class="ui-jqgrid-htable" style="width:1px" role="presentation" aria-labelledby="gbox_example"><thead><tr class="ui-jqgrid-labels" role="row"><th id="example_rn" class="ui-state-default ui-th-column ui-th-ltr jqgh_rn" title="" style="width: 30px;"><div id="jqgh_example_rn" role="columnheader"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span></div></th><th id="example_ProjectName" class="ui-state-default ui-th-column ui-th-ltr" title="Project Name" style="width: 53px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_ProjectName" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Project Name</div></th><th id="example_StreetAddress" class="ui-state-default ui-th-column ui-th-ltr" title="Street Address" style="width: 75px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_StreetAddress" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Street Address</div></th><th id="example_City" class="ui-state-default ui-th-column ui-th-ltr" title="City" style="width: 65px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_City" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>City</div></th><th id="example_State" class="ui-state-default ui-th-column ui-th-ltr" title="State" style="width: 41px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_State" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>State</div></th><th id="example_Zip" class="ui-state-default ui-th-column ui-th-ltr" title="Zip" style="width: 41px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_Zip" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Zip</div></th><th id="example_ManagerName" class="ui-state-default ui-th-column ui-th-ltr" title="Proj. Manager" style="width: 51px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_ManagerName" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Proj. Manager</div></th><th id="example_OwnerName" class="ui-state-default ui-th-column ui-th-ltr" title="Owner" style="width: 59px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_OwnerName" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Owner</div></th><th id="example_Telephone" class="ui-state-default ui-th-column ui-th-ltr" title="Phone" style="width: 65px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_Telephone" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Phone</div></th><th id="example_MobileNo" class="ui-state-default ui-th-column ui-th-ltr" title="Cell" style="width: 41px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_MobileNo" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Cell</div></th><th id="example_Active" class="ui-state-default ui-th-column ui-th-ltr" title="Active" style="width: 51px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_Active" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Active</div></th></tr></thead><tbody><tr style="display:none;"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div><div class="ui-state-error ui-jqgrid-errorbar ui-jqgrid-errorbar-ltr" style="display:none;"><span class="ui-jqgrid-error"></span></div><div class="ui-jqgrid-bdiv" style="height: auto; width: 572px;"><div style="position:relative;"><div></div><table id="example" tabindex="0" role="presentation" aria-labelledby="gbox_example" class="ui-jqgrid-btable" style="width: 1px;"><tbody><tr class="ui-widget-content jqgfirstrow ui-row-ltr" role="row" style="height:auto"><td role="gridcell" style="height:0;width:30px;"></td><td role="gridcell" style="height:0;width:53px;"></td><td role="gridcell" style="height:0;width:75px;"></td><td role="gridcell" style="height:0;width:65px;"></td><td role="gridcell" style="height:0;width:41px;"></td><td role="gridcell" style="height:0;width:41px;"></td><td role="gridcell" style="height:0;width:51px;"></td><td role="gridcell" style="height:0;width:59px;"></td><td role="gridcell" style="height:0;width:65px;"></td><td role="gridcell" style="height:0;width:41px;"></td><td role="gridcell" style="height:0;width:51px;"></td></tr><tr role="row" id="g5_jqg3" tabindex="-1" class="ui-widget-content jqgrow ui-row-ltr"><td role="gridcell" class="ui-state-default jqgrid-rownum" style="text-align:center;width: 30px;" title="1" aria-describedby="example_rn">1</td><td role="gridcell" title="vdv" aria-describedby="example_ProjectName">vdv</td><td role="gridcell" title="xv" aria-describedby="example_StreetAddress">xv</td><td role="gridcell" title="xv" aria-describedby="example_City">xv</td><td role="gridcell" title="xv" aria-describedby="example_State">xv</td><td role="gridcell" title="xv" aria-describedby="example_Zip">xv</td><td role="gridcell" title="" aria-describedby="example_ManagerName">&nbsp;</td><td role="gridcell" title="gh" aria-describedby="example_OwnerName">gh</td><td role="gridcell" title="jmv" aria-describedby="example_Telephone">jmv</td><td role="gridcell" title="jmv" aria-describedby="example_MobileNo">jmv</td><td role="gridcell" aria-describedby="example_Active">false</td></tr><tr role="row" id="g5_jqg1" tabindex="-1" class="ui-widget-content jqgrow ui-row-ltr"><td role="gridcell" class="ui-state-default jqgrid-rownum" style="text-align:center;" title="2" aria-describedby="example_rn">2</td><td role="gridcell" title="gdg" aria-describedby="example_ProjectName">gdg</td><td role="gridcell" title="Ambedkar Veedhi, Sampangi Rama Nagar, Bengaluru, Karnataka, India" aria-describedby="example_StreetAddress">Ambedkar Veedhi, Sampangi Rama Nagar, Bengaluru, Karnataka, India</td><td role="gridcell" title="ghc" aria-describedby="example_City">ghc</td><td role="gridcell" title="h" aria-describedby="example_State">h</td><td role="gridcell" title="hj" aria-describedby="example_Zip">hj</td><td role="gridcell" title="" aria-describedby="example_ManagerName">&nbsp;</td><td role="gridcell" title="gh" aria-describedby="example_OwnerName">gh</td><td role="gridcell" title="jmv" aria-describedby="example_Telephone">jmv</td><td role="gridcell" title="jmv" aria-describedby="example_MobileNo">jmv</td><td role="gridcell" aria-describedby="example_Active">false</td></tr><tr role="row" id="g5_jqg2" tabindex="-1" class="ui-widget-content jqgrow ui-row-ltr"><td role="gridcell" class="ui-state-default jqgrid-rownum" style="text-align:center;" title="3" aria-describedby="example_rn">3</td><td role="gridcell" title="" aria-describedby="example_ProjectName">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_StreetAddress">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_City">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_State">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_Zip">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_ManagerName">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_OwnerName">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_Telephone">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_MobileNo">&nbsp;</td><td role="gridcell" aria-describedby="example_Active">false</td></tr></tbody></table></div></div></div><div class="ui-widget-header ui-jqgrid-resize-mark" id="rs_mexample">&nbsp;</div><div id="jqg4" class="ui-state-default ui-jqgrid-pager ui-corner-bottom" dir="ltr" style="width: 572px;"><div id="pg_jqg4" class="ui-pager-control" role="group"><table class="ui-pg-table" style="width:100%;table-layout:fixed;height:100%;"><tbody><tr><td id="jqg4_left" class="ui-jqgrid-pg-left"></td><td id="jqg4_center" class="ui-jqgrid-pg-center" style="width: 174px;"><table style="table-layout:auto;white-space: pre;margin-left:auto;margin-right:auto;" class="ui-pg-table"><tbody><tr><td role="button" tabindex="0" id="first_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="First Page"><span class="fa fa-fw fa-step-backward"></span></td><td role="button" tabindex="0" id="prev_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Previous Page"><span class="fa fa-fw fa-backward"></span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td dir="ltr">Page <input aria-label="Page No." class="ui-widget-content ui-pg-input" type="text" size="2" maxlength="7" value="0"> of <span id="sp_1_jqg4">1</span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td role="button" tabindex="0" id="next_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Next Page"><span class="fa fa-fw fa-forward"></span></td><td role="button" tabindex="0" id="last_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Last Page"><span class="fa fa-fw fa-step-forward"></span></td></tr></tbody></table></td><td id="jqg4_right" class="ui-jqgrid-pg-right"><span dir="ltr" style="text-align:right" class="ui-paging-info">View 1 - 3 of 3</span></td></tr></tbody></table></div></div></div>
+                    </div>
+                </div>
+
+
+            </div>
+            <div id="quotationRequest" class="tab-pane ">
+                <div class=" multiselect-native-select">
+                    <!--div id="jquery-script-menu">
+
+                    <div class="jquery-script-clear"></div>
+                    </div-->
+                    <!--select id="example-enableCollapsibleOptGroups" multiple="multiple"-->
+                    <select id="example-enableCollapsibleOptGroups" multiple="multiple">
+                        <optgroup label="Group 1" class="group-1">
+                            <option value="1-1">Option 1.1</option>
+                            <option value="1-2">Option 1.2</option>
+                            <option value="1-3">Option 1.3</option>
+                        </optgroup>
+                        <optgroup label="Group 2" class="group-2">
+                            <option value="2-1">Option 2.1</option>
+                            <option value="2-2">Option 2.2</option>
+                            <option value="2-3">Option 2.3</option>
+                        </optgroup>
+                    </select>
+                    <button type="button" class="submitBtn btn">Submit</button>
+
+                </div>
+                <div class="table-responsive innerTable">
+                    <!--table class="table">
+                      <thead>
+                        <tr>
+                          <th><input type="checkbox"></th>
+                          <th>Company</th>
+                          <th>Division</th>
+                          <th>Contact Person</th>
+                          <th>Mobile</th>
+                          <th>Phone</th>
+                          <th>E-mail</th>
+                          <th>Work Comp Exp</th>
+                          <th>Speciality</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td><input type="checkbox"></td>
+                          <td>ABC Company</td>
+                          <td>2</td>
+                          <td>Mr Khan</td>
+                          <td>959595959595</td>
+                          <td>124578963</td>
+                          <td>abcd@abc.com</td>
+                          <td>5</td>
+                          <td>Engineering</td>
+                        </tr>
+                         <tr>
+                          <td><input type="checkbox"></td>
+                          <td>ABC Company</td>
+                          <td>2</td>
+                          <td>Mr Khan</td>
+                          <td>959595959595</td>
+                          <td>124578963</td>
+                          <td>abcd@abc.com</td>
+                          <td>5</td>
+                          <td>Engineering</td>
+                        </tr>
+                         <tr>
+                          <td><input type="checkbox"></td>
+                          <td>ABC Company</td>
+                          <td>2</td>
+                          <td>Mr Khan</td>
+                          <td>959595959595</td>
+                          <td>124578963</td>
+                          <td>abcd@abc.com</td>
+                          <td>5</td>
+                          <td>Engineering</td>
+                        </tr>
+                         <tr>
+                          <td><input type="checkbox"></td>
+                          <td>ABC Company</td>
+                          <td>2</td>
+                          <td>Mr Khan</td>
+                          <td>959595959595</td>
+                          <td>124578963</td>
+                          <td>abcd@abc.com</td>
+                          <td>5</td>
+                          <td>Engineering</td>
+                        </tr>
+                      </tbody>
+                    </table-->
+                    <div class="dataTableConatainer">
+
+                        <div class="ui-jqgrid-jquery-ui ui-widget ui-widget-content ui-corner-all ui-jqgrid" id="gbox_example" dir="ltr" style="width: 572px;"><div class="ui-widget-overlay jqgrid-overlay" id="lui_example"></div><div class="ui-state-default ui-state-active loading" id="load_example" style="display: none;">Loading...</div><div class="ui-jqgrid-view" role="grid" aria-multiselectable="false" id="gview_example" style="width: 572px;"><div class="ui-widget-header ui-corner-top ui-jqgrid-titlebar ui-jqgrid-caption" style="display: none;"><span class="ui-jqgrid-title"></span><a role="link" class="ui-corner-all ui-jqgrid-titlebar-close" title="Toggle Expand Collapse Grid"><span class="fa fa-chevron-circle-up"></span></a></div><div id="example_toppager" class="ui-state-default ui-jqgrid-toppager ui-corner-top" dir="ltr" style="width: 572px;"><div id="pg_example_toppager" class="ui-pager-control" role="group"><table class="ui-pg-table" style="width:100%;table-layout:fixed;height:100%;"><tbody><tr><td id="example_toppager_left" class="ui-jqgrid-pg-left"></td><td id="example_toppager_center" class="ui-jqgrid-pg-center" style="width: 174px;"><table style="table-layout:auto;white-space: pre;margin-left:auto;margin-right:auto;" class="ui-pg-table"><tbody><tr><td role="button" tabindex="0" id="first_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="First Page"><span class="fa fa-fw fa-step-backward"></span></td><td role="button" tabindex="0" id="prev_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Previous Page"><span class="fa fa-fw fa-backward"></span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td dir="ltr">Page <input aria-label="Page No." class="ui-widget-content ui-pg-input" type="text" size="2" maxlength="7" value="0"> of <span id="sp_1_example_toppager">1</span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td role="button" tabindex="0" id="next_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Next Page"><span class="fa fa-fw fa-forward"></span></td><td role="button" tabindex="0" id="last_t_example_toppager" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Last Page"><span class="fa fa-fw fa-step-forward"></span></td></tr></tbody></table></td><td id="example_toppager_right" class="ui-jqgrid-pg-right"><span dir="ltr" style="text-align:right" class="ui-paging-info">View 1 - 3 of 3</span></td></tr></tbody></table></div></div><div class="ui-state-default ui-corner-top ui-jqgrid-hdiv" style="width: 572px;"><div class="ui-jqgrid-hbox" style="padding-right: 0px;"><table class="ui-jqgrid-htable" style="width:1px" role="presentation" aria-labelledby="gbox_example"><thead><tr class="ui-jqgrid-labels" role="row"><th id="example_rn" class="ui-state-default ui-th-column ui-th-ltr jqgh_rn" title="" style="width: 30px;"><div id="jqgh_example_rn" role="columnheader"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span></div></th><th id="example_ProjectName" class="ui-state-default ui-th-column ui-th-ltr" title="Project Name" style="width: 53px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_ProjectName" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Project Name</div></th><th id="example_StreetAddress" class="ui-state-default ui-th-column ui-th-ltr" title="Street Address" style="width: 75px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_StreetAddress" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Street Address</div></th><th id="example_City" class="ui-state-default ui-th-column ui-th-ltr" title="City" style="width: 65px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_City" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>City</div></th><th id="example_State" class="ui-state-default ui-th-column ui-th-ltr" title="State" style="width: 41px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_State" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>State</div></th><th id="example_Zip" class="ui-state-default ui-th-column ui-th-ltr" title="Zip" style="width: 41px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_Zip" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Zip</div></th><th id="example_ManagerName" class="ui-state-default ui-th-column ui-th-ltr" title="Proj. Manager" style="width: 51px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_ManagerName" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Proj. Manager</div></th><th id="example_OwnerName" class="ui-state-default ui-th-column ui-th-ltr" title="Owner" style="width: 59px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_OwnerName" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Owner</div></th><th id="example_Telephone" class="ui-state-default ui-th-column ui-th-ltr" title="Phone" style="width: 65px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_Telephone" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Phone</div></th><th id="example_MobileNo" class="ui-state-default ui-th-column ui-th-ltr" title="Cell" style="width: 41px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_MobileNo" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Cell</div></th><th id="example_Active" class="ui-state-default ui-th-column ui-th-ltr" title="Active" style="width: 51px;"><span class="ui-jqgrid-resize ui-jqgrid-resize-ltr">&nbsp;</span><div id="jqgh_example_Active" role="columnheader" class="ui-jqgrid-sortable"><span class="s-ico jqgrid-icons-first" style="display:none"><span class="ui-grid-ico-sort ui-icon-asc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-asc ui-sort-ltr"></span><span class="ui-grid-ico-sort ui-icon-desc ui-state-disabled ui-jqgrid-disablePointerEvents fa fa-lg fa-sort-desc ui-sort-ltr"></span></span>Active</div></th></tr></thead><tbody><tr style="display:none;"><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr></tbody></table></div></div><div class="ui-state-error ui-jqgrid-errorbar ui-jqgrid-errorbar-ltr" style="display:none;"><span class="ui-jqgrid-error"></span></div><div class="ui-jqgrid-bdiv" style="height: auto; width: 572px;"><div style="position:relative;"><div></div><table id="example" tabindex="0" role="presentation" aria-labelledby="gbox_example" class="ui-jqgrid-btable" style="width: 1px;"><tbody><tr class="ui-widget-content jqgfirstrow ui-row-ltr" role="row" style="height:auto"><td role="gridcell" style="height:0;width:30px;"></td><td role="gridcell" style="height:0;width:53px;"></td><td role="gridcell" style="height:0;width:75px;"></td><td role="gridcell" style="height:0;width:65px;"></td><td role="gridcell" style="height:0;width:41px;"></td><td role="gridcell" style="height:0;width:41px;"></td><td role="gridcell" style="height:0;width:51px;"></td><td role="gridcell" style="height:0;width:59px;"></td><td role="gridcell" style="height:0;width:65px;"></td><td role="gridcell" style="height:0;width:41px;"></td><td role="gridcell" style="height:0;width:51px;"></td></tr><tr role="row" id="g5_jqg3" tabindex="-1" class="ui-widget-content jqgrow ui-row-ltr"><td role="gridcell" class="ui-state-default jqgrid-rownum" style="text-align:center;width: 30px;" title="1" aria-describedby="example_rn">1</td><td role="gridcell" title="vdv" aria-describedby="example_ProjectName">vdv</td><td role="gridcell" title="xv" aria-describedby="example_StreetAddress">xv</td><td role="gridcell" title="xv" aria-describedby="example_City">xv</td><td role="gridcell" title="xv" aria-describedby="example_State">xv</td><td role="gridcell" title="xv" aria-describedby="example_Zip">xv</td><td role="gridcell" title="" aria-describedby="example_ManagerName">&nbsp;</td><td role="gridcell" title="gh" aria-describedby="example_OwnerName">gh</td><td role="gridcell" title="jmv" aria-describedby="example_Telephone">jmv</td><td role="gridcell" title="jmv" aria-describedby="example_MobileNo">jmv</td><td role="gridcell" aria-describedby="example_Active">false</td></tr><tr role="row" id="g5_jqg1" tabindex="-1" class="ui-widget-content jqgrow ui-row-ltr"><td role="gridcell" class="ui-state-default jqgrid-rownum" style="text-align:center;" title="2" aria-describedby="example_rn">2</td><td role="gridcell" title="gdg" aria-describedby="example_ProjectName">gdg</td><td role="gridcell" title="Ambedkar Veedhi, Sampangi Rama Nagar, Bengaluru, Karnataka, India" aria-describedby="example_StreetAddress">Ambedkar Veedhi, Sampangi Rama Nagar, Bengaluru, Karnataka, India</td><td role="gridcell" title="ghc" aria-describedby="example_City">ghc</td><td role="gridcell" title="h" aria-describedby="example_State">h</td><td role="gridcell" title="hj" aria-describedby="example_Zip">hj</td><td role="gridcell" title="" aria-describedby="example_ManagerName">&nbsp;</td><td role="gridcell" title="gh" aria-describedby="example_OwnerName">gh</td><td role="gridcell" title="jmv" aria-describedby="example_Telephone">jmv</td><td role="gridcell" title="jmv" aria-describedby="example_MobileNo">jmv</td><td role="gridcell" aria-describedby="example_Active">false</td></tr><tr role="row" id="g5_jqg2" tabindex="-1" class="ui-widget-content jqgrow ui-row-ltr"><td role="gridcell" class="ui-state-default jqgrid-rownum" style="text-align:center;" title="3" aria-describedby="example_rn">3</td><td role="gridcell" title="" aria-describedby="example_ProjectName">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_StreetAddress">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_City">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_State">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_Zip">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_ManagerName">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_OwnerName">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_Telephone">&nbsp;</td><td role="gridcell" title="" aria-describedby="example_MobileNo">&nbsp;</td><td role="gridcell" aria-describedby="example_Active">false</td></tr></tbody></table></div></div></div><div class="ui-widget-header ui-jqgrid-resize-mark" id="rs_mexample">&nbsp;</div><div id="jqg4" class="ui-state-default ui-jqgrid-pager ui-corner-bottom" dir="ltr" style="width: 572px;"><div id="pg_jqg4" class="ui-pager-control" role="group"><table class="ui-pg-table" style="width:100%;table-layout:fixed;height:100%;"><tbody><tr><td id="jqg4_left" class="ui-jqgrid-pg-left"></td><td id="jqg4_center" class="ui-jqgrid-pg-center" style="width: 174px;"><table style="table-layout:auto;white-space: pre;margin-left:auto;margin-right:auto;" class="ui-pg-table"><tbody><tr><td role="button" tabindex="0" id="first_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="First Page"><span class="fa fa-fw fa-step-backward"></span></td><td role="button" tabindex="0" id="prev_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Previous Page"><span class="fa fa-fw fa-backward"></span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td dir="ltr">Page <input aria-label="Page No." class="ui-widget-content ui-pg-input" type="text" size="2" maxlength="7" value="0"> of <span id="sp_1_jqg4">1</span></td><td class="ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents"><span class="ui-separator"></span></td><td role="button" tabindex="0" id="next_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Next Page"><span class="fa fa-fw fa-forward"></span></td><td role="button" tabindex="0" id="last_jqg4" class="ui-corner-all ui-pg-button ui-state-disabled ui-jqgrid-disablePointerEvents" title="Last Page"><span class="fa fa-fw fa-step-forward"></span></td></tr></tbody></table></td><td id="jqg4_right" class="ui-jqgrid-pg-right"><span dir="ltr" style="text-align:right" class="ui-paging-info">View 1 - 3 of 3</span></td></tr></tbody></table></div></div></div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="quotationAnalysys" class="tab-pane ">
+                <h2>33</h2>
+            </div>
+            <div id="letterOfIntent" class="tab-pane ">
+                <h2>44</h2>
+            </div>
+            <div id="contractsTerms" class="tab-pane ">
+                <h2>55</h2>
+            </div>
+            <div id="paymentSchedule" class="tab-pane ">
+                <h2>66</h2>
+            </div>
+
+
+
+        </div>
+    </div>
+</div>
+<div class="modal fade in" id="addRowCont" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <form id="frmSubmitToDoMaster" enctype="multipart/form-data" method="post">
+            <div class="panel panel-primary customPopup">
+                <div class="panel-heading themeColor">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="panel-title" id="contactLabel">Add SubCont./Supp.</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive customTable">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>&nbsp;</th>
+                                    <th>Company Name</th>
+                                    <th>Contact Person</th>
+                                    <th>Specility</th>
+                                    <th>Mobile</th>
+                                    <th>E-mail</th>
+                                    <th>City</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>ABC Company</td>
+                                    <td>Mr Khan</td>
+                                    <td>Engineering</td>
+                                    <td>959595959595</td>
+                                    <td>abcd@abc.com</td>
+                                    <td>Dubai</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="selectRow">Select</button>
+                                    </td>
+                                    <td>ABC Company</td>
+                                    <td>Mr Khan</td>
+                                    <td>Engineering</td>
+                                    <td>959595959595</td>
+                                    <td>abcd@abc.com</td>
+                                    <td>Dubai</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>ABC Company</td>
+                                    <td>Mr Khan</td>
+                                    <td>Engineering</td>
+                                    <td>959595959595</td>
+                                    <td>abcd@abc.com</td>
+                                    <td>Dubai</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="selectRow">Select</button>
+                                    </td>
+                                    <td>ABC Company</td>
+                                    <td>Mr Khan</td>
+                                    <td>Engineering</td>
+                                    <td>959595959595</td>
+                                    <td>abcd@abc.com</td>
+                                    <td>Dubai</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="selectRow">Select</button>
+                                    </td>
+                                    <td>ABC Company</td>
+                                    <td>Mr Khan</td>
+                                    <td>Engineering</td>
+                                    <td>959595959595</td>
+                                    <td>abcd@abc.com</td>
+                                    <td>Dubai</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        &nbsp;
+                                    </td>
+                                    <td>ABC Company</td>
+                                    <td>Mr Khan</td>
+                                    <td>Engineering</td>
+                                    <td>959595959595</td>
+                                    <td>abcd@abc.com</td>
+                                    <td>Dubai</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade in" id="SubContSupp" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <form id="frmSubmitToDoMaster" enctype="multipart/form-data" method="post">
+            <div class="panel panel-primary customPopup">
+                <div class="panel-heading themeColor">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                    <h4 class="panel-title" id="contactLabel">New SubCont./Supp.</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="buttonContainer">
+                        <div class="btnHolder pull-left">
+                            <input type="submit" name="" value="Save" id="btnSaveToDo" class="blueButton">
+
+                        </div>
+
+                        <label class="leftFormHeading pull-right">
+                            <input type="checkbox" class="checkAll" style="margin-top:2px;" checked>
+                            Active
+                        </label>
+
+                    </div>
+                    <div class="topSection ">
+                        <h2>Contractor/Supplier informtion</h2>
+                        <div class="topSectionRowHolder">
+                            <div class="col-md-6 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Company Name</label>
+                                    <input type="text" name="" class="form-control" placeholder="Company Name">
+                                </div>
+                            </div>
+                            <div class="col-md-6 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">CR No</label>
+                                    <input type="text" name="" class="form-control" placeholder="CR NO">
+                                </div>
+                            </div>
+                            <div class="col-md-6 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Contact Persion</label>
+                                    <input type="text" name="" class="form-control" placeholder="Contact Persion">
+                                </div>
+                            </div>
+                            <div class="col-md-6 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Beneficary</label>
+                                    <input type="text" name="" class="form-control" placeholder="Beneficary">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="topSection ">
+                        <h2>Specility Information</h2>
+                        <div class="topSectionRowHolder">
+
+                            <div class="col-md-6 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Specility</label>
+                                    <input type="text" name="" class="form-control" placeholder="Specility">
+                                </div>
+                            </div>
+                            <div class="col-md-6 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Division</label>
+                                    <div class="box">
+                                        <div class="box-body">
+                                            <form>
+                                                <div class="form-group">
+                                                    <select class="form-control selectpicker" id="select-country" data-live-search="true">
+                                                        <option data-tokens="china">China</option>
+                                                        <option data-tokens="malayasia">Malayasia</option>
+                                                        <option data-tokens="singapore">Singapore</option>
+                                                    </select>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="topSectionRowHolder">
+                            <div class="col-md-2 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Brand</label>
+                                    <select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-5 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Material Description</label>
+                                    <input type="text" name="" class="form-control" placeholder="Material Description">
+                                </div>
+                            </div>
+                            <div class="col-md-5 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Remarks</label>
+                                    <input type="text" name="" class="form-control" placeholder="Specility">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="topSection ">
+                        <h2>Contact Information</h2>
+                        <div class="topSectionRowHolder">
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Mobile</label>
+                                    <input type="text" name="" class="form-control" placeholder="Mobile">
+                                </div>
+                            </div>
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Tel1</label>
+                                    <input type="text" name="" class="form-control" placeholder="Tel1">
+                                </div>
+                            </div>
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Fax</label>
+                                    <input type="text" name="" class="form-control" placeholder="Fax">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="topSectionRowHolder">
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">E-Mail</label>
+                                    <input type="text" name="" class="form-control" placeholder="E-Mail">
+                                </div>
+                            </div>
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Country </label>
+                                    <select>
+                                        <option>Saudi Arabia</option>
+                                        <option>Dubai</option>
+                                        <option>India</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">City</label>
+                                    <input type="text" name="" class="form-control" placeholder="City">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="topSectionRowHolder">
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Post Box</label>
+                                    <input type="text" name="" class="form-control" placeholder="Post Box">
+                                </div>
+                            </div>
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">SubContractor Type </label>
+                                    <select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-4 suppFormHolder">
+                                <div class="formHolder">
+                                    <label class="leftFormHeading">Status</label>
+                                    <select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="calendarmodalgeneral" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <form id="frmSchedule" enctype="multipart/form-data" method="post">
+        <div class="modal-dialog modal-lg width94">
+            <div class="panel-heading themeColor">
+                <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="panel-title" id="contactLabel">Projects List</h4>
+            </div>
+            <div class="panel panel-primary customPopup">
+                <div class="modal-dialog modal-lg width94">
+                    <div class="row bt-calendar-quick-add--body-row">
+                        <div class="col-xs-4">
+                            <span class="fieldHeader">Date:</span>
+                        </div>
+                        <div class="col-xs-8">
+                            <label class="datetext">2018/09/08</label>
+                            <div style="display:none">
+                                <input type="text" class="form-control" value="" id="StartDate" name="StartDate">
+                                <input type="text" class="form-control" value="" id="EndDate" name="EndDate">
+                                <input type="hidden" class="form-control" value="1" data-val="true" data-val-required="The ProjectId field is required." id="ProjectId" name="ProjectId">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row bt-calendar-quick-add--body-row">
+                        <div class="col-xs-4">
+                            <span class="fieldHeader">Title*</span>
+                        </div>
+                        <div class="col-xs-8">
+                            <input type="text" class="form-control" id="Title" name="Title" value="">
+                        </div>
+                    </div>
+                    <div class="row bt-calendar-quick-add--body-row">
+                        <div class="col-xs-4">
+                            <span class="fieldHeader">Assigned To:</span>
+                        </div>
+                        <div class="col-xs-8">
+                            <select class="withCheckbox required jqmsLoaded" id="AssignedTo" multiple="multiple" name="AssignedTo" style="display: none;">
+                                <option value="1">admin</option>
+                            </select><div class="ms-options-wrap"><button type="button"><span>--Select--</span></button><div class="ms-options" style="min-height: 200px; max-height: 389px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64750/calendar#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li data-search-term="admin"><label for="ms-opt-36"><input type="checkbox" title="admin" id="ms-opt-36" value="1">admin</label></li></ul></div></div>
+                        </div>
+                    </div>
+                    <div class="row bt-calendar-quick-add--body-row notify" style="display:none">
+                        <div class="col-xs-4">
+                            <span class="fieldHeader">Notify?</span>
+                        </div>
+                        <div class="col-xs-8">
+                            <input type="checkbox" style="float:left;" data-val="true" data-val-required="The IsNotify field is required." id="IsNotify" name="IsNotify" value="true">
+                            <div class="confirmation" style="float:left;display:none;width:70%;">
+                                <div class="col-xs-10">
+                                    <span class="fieldHeader" style="margin-top:5px; padding-top:0;">Require Confirmation?</span>
+                                    <input type="checkbox" data-val="true" data-val-required="The IsRequiredConfirmation field is required." id="IsRequiredConfirmation" name="IsRequiredConfirmation" value="true">
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="row bt-calendar-quick-add--body-row">
+                        <div class="col-xs-4">
+                            <span class="fieldHeader">Color:</span>
+                        </div>
+                        <div class="col-xs-8">
+                            <select style="background-color:#442121" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required." id="ColorCode" name="ColorCode">
+                                <option value="#442121" style="background-color:#442121">Maroon</option>
+                                <option value="#572A2A" style="background-color:#572A2A">Merlot</option>
+                                <option value="#8C4343" style="background-color:#8C4343">Tuscan Red</option>
+                                <option value="#AD5252" style="background-color:#AD5252">Rose</option>
+                                <option value="#C78888" style="background-color:#C78888">Victoria</option>
+                                <option value="#542C10" style="background-color:#542C10">Brown</option>
+                                <option value="#6C3815" style="background-color:#6C3815">Coffee</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row bt-calendar-quick-add--body-row">
+                        <div class="col-xs-8 col-xs-offset-4" id="quickAddEditContainer">
+                            <input type="button" id="btnQuickAddSave" class="blueButton" value="Save">
+                            <a href="javascript:void(0)" id="btnQucikAddEditItem" data-bind="click: onEditClick">Edit schedule item »</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input name="__RequestVerificationToken" type="hidden" value="CfDJ8Lq1ml9TOvNGjhYqc4CjiHw0bes8D5vwdy8FSzVUXakTHpcKhE7nO3EcRrKAnJhFRd_OcFebDjVRa1Z1XiRrXUezX_AWUlyjs2YBK3T24MdoVwBAPqCZGYPolGbBSxoAW3mB58OS65DjjrkVHuIzVAM"><input name="IsNotify" type="hidden" value="false"><input name="IsRequiredConfirmation" type="hidden" value="false">
+    </form>
+</div>
+<div class="modal fade" id="addphase" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="panel panel-primary customPopup">
+        <div class="panel-heading themeColor ">
+            <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="panel-title" id="contactLabel">Phase List</h4>
+        </div>
+        <div class="panel-body phase-list">
+            <div class="btnHolder"><input type="button" id="btnAddPhase" class="blueButton" value="Save"></div>
+            <div class="innerBodyholder">
+                <div class="input-group">
+                    <label>Phase Name</label>
+                    <input type="text" id="PhaseName" class="form-control">
+                </div>
+                <div class="input-group">
+                    <label> Display Order</label>
+                    <input type="text" id="DisplayOrder" class="form-control">
+                </div>
+                <div class="input-group">
+                    <label class="">Color:</label>
+                    <select id="phasecolor" style="background-color:#442121" class="form-control color-select required" data-val="true" data-val-required="The ProjectColorId field is required.">
+                        <option value="#442121" style="background-color:#442121">Maroon</option>
+                        <option value="#572A2A" style="background-color:#572A2A">Merlot</option>
+                        <option value="#8C4343" style="background-color:#8C4343">Tuscan Red</option>
+                        <option value="#AD5252" style="background-color:#AD5252">Rose</option>
+                        <option value="#C78888" style="background-color:#C78888">Victoria</option>
+                        <option value="#542C10" style="background-color:#542C10">Brown</option>
+                        <option value="#6C3815" style="background-color:#6C3815">Coffee</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addtag" tabindex="-1" role="dialog" aria-labelledby="contactLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false" style="display: none;">
+    <div class="panel panel-primary customPopup">
+        <div class="panel-heading themeColor">
+            <button type="button" class="close infoclose" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="panel-title" id="contactLabel">Phase List</h4>
+        </div>
+        <div class="panel-body phase-list">
+            <input type="button" id="btnAddTag" class="blueButton" value="Save">
+            <div class="header">
+                Adding a schedule item tag
+            </div>
+            <input type="text" id="txtTag" class="form-control">
+        </div>
+    </div>
+</div>
+<div id="calendarpage" class="ContentContainer greyTableBorder" style="margin-left: 235px; display: none;">
+    <div class="mainheader">
+        Calendar <span id="jobsiteName">
+        </span>
+    </div>
+    <div id="pleaseselect" class="">
+        « Please Select a Project from the left menu to continue
+    </div>
+</div>
+<div class="non-working-day" style="display: none;">
+    <span>2018/09/07 is not a working day</span>
+</div>
+<div id="projectid" style="display:none">1</div>
+<link href="./Index - SBS2018_files/calendar.css" rel="stylesheet">
+<script type="text/javascript" src="./Index - SBS2018_files/loader.js.download"></script>
+<script src="./Index - SBS2018_files/moment.min.js(1).download"></script>
+<script src="./Index - SBS2018_files/fullcalendar.min.js.download"></script>
+<link rel="stylesheet" href="./Index - SBS2018_files/fullcalendar.min.css">
+<link rel="stylesheet" href="./Index - SBS2018_files/dhtmlxgantt.css">
+<script src="./Index - SBS2018_files/dhtmlxgantt.js.download"></script>
+<script src="./Index - SBS2018_files/dhtmlxgantt_critical_path.js.download"></script>
+<script src="./Index - SBS2018_files/calendarview.js.download"></script>
+
+<section class="footerContainer">
+    <div class="container-fluid">
+        <p class="smallTXT">
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+            printer took a galley of type and scrambled it to make a type specimen book. It has survived
+            not only five centuries, but also the leap into electronic typesetting, remaining essentially
+            unchanged. It was popularised in the 1960s with the release of Letraset sheets containing
+            Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker
+            including versions of Lorem Ipsum.
+        </p>
+    </div>
+</section>
+
+
+<!--- BOQ jquery ---->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<!--script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script-->
+<script src="js/jquery.bootstrap.treeselect.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('#productGroup').treeselect();
+
+        $('#btnCalendar1, .submitBtn, #btnCalendar2').click(function () {
+            $('.innerTable').slideDown();
+        });
+
+        $('.input-group.date').datepicker();
+        $('.estiamteInnerTable .save').click(function () {
+            $(this).hide();
+            $(this).next('.edit').show();
+        });
+
+        $('.textBoxHolderToggle button').click(function () {
+
+            if ($(this).find('.fa-inverse').hasClass('fa-caret-down')) {
+                $(this).find('.fa-inverse').removeClass('fa-caret-down');
+                $(this).find('.fa-inverse').addClass('fa-caret-up');
+            } else {
+                $(this).find('.fa-inverse').addClass('fa-caret-down');
+                $(this).find('.fa-inverse').removeClass('fa-caret-up');
+            }
+            $(this).parents().children('.textBoxHolder').slideToggle();
+        });
+        $('.textareaToggle a').click(function () {
+            $('.textBoxHolder').slideToggle();
+        });
+        $(".checkAll").click(function () {
+            $('.BOQcontentHolderFinalUl input:checkbox').not(this).prop('checked', this.checked).css('visibility', 'visible');
+        });
+        $('.boqMainActivityHolder, .checkDiv ').hide();
+
+        $('.toggleHolder').click(function () {
+            //$('.boqMainActivityHolder, .checkDiv ').slideUp();
+
+
+            //$(this).children('.plusIcon1').toggleClass('minusIcon');
+
+            if ($(this).children('.plusIcon1').hasClass('minusIcon')) {
+                $(this).children('.plusIcon1').removeClass('minusIcon');
+
+
+            } else {
+
+                $(this).children('.plusIcon1').addClass('minusIcon');
+            }
+            $(this).parents().children('.boqMainActivityHolder, .checkDiv ').slideToggle();
+        });
+        $('.selectpicker').selectpicker();
+
+        $('.newBtn, .newActionBtn').click(function (e) {
+            //alert(456);
+            $(this).parent().children('.ulHolder').slideToggle();
+            e.preventDefault();
+        });
+
+
+        $(".addNewBox").click(function () {
+
+            $(".boqHOlder .BOQcontentHolderFinal")
+                .eq(0)
+                .clone()
+                .find("input").val("").end() // ***
+                //.find(":selected").text().end()
+                .show()
+                .insertBefore(".boqHOlder .BOQcontentHolderFinal.emptyBoxHolder")
+            //.addClass('emptyBoxHolder');
+
+        });
+        $(".addNewBox1").click(function () {
+            alert('10');
+            $(".budgetHolder .BOQcontentHolderFinal")
+                .eq(0)
+                .clone()
+                .find("input").val("").end() // ***
+                //.find(":selected").text().end()
+                .show()
+                .insertBefore(".budgetHolder .BOQcontentHolderFinal.emptyBoxHolder")
+            //.addClass('emptyBoxHolder');
+
+        });
+
+        $('.mainTrActivityHolder .plus').click(function () {
+            $(this).toggleClass('minus');
+            $(this).closest('tr').next('.mainTrActivity').slideToggle();
+
+        });
+
+        $('.mainTrActivity .delete').click(function (e) {
+
+            $(this).parent().parent().remove();
+            e.stopPropagation();
+        });
+
+        $('.boqHolder .nav-tabs li').click(function () {
+            var titleText = $(this).text();
+
+            $('.list-group-item  span').text(titleText);
+
+        });
+
+
+
+
+
+    });
+</script>
+<!--- End BOQ ---->
+<!--Sample JSON Data-->
+<script src="https://www.igniteui.com/data-files/northwind.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+        /*----------------- Instantiation -------------------------*/
+        $("#grid2").igHierarchicalGrid({
+            features: [
+                {
+                    name: "Responsive",
+                    enableVerticalRendering: false,
+                    columnSettings: [
+                        {
+                            columnKey: "Title",
+                            classes: "ui-hidden-phone"
+                        },
+                        {
+                            columnKey: "Address",
+                            classes: "ui-hidden-phone"
+                        }
+                    ]
+                },
+                {
+                    name: "Updating",
+                    editMode: "dialog",
+                    rowEditDialogOptions: {
+                        height: "350px",
+                        width: "390px",
+                        containment: "window",
+                        showDoneCancelButtons: true
+                    },
+                    columnSettings:
+                        [{
+                            columnKey: "LastName",
+                            required: true
+                        }]
+                }
+            ],
+            width: "100%",
+            autoCommit: true,
+            dataSource: northwind,
+            dataSourceType: "json",
+            responseDataKey: "results",
+            autoGenerateColumns: false,
+            autofitLastColumn: false,
+            primaryKey: "EmployeeID",
+            columns: [
+                { key: "EmployeeID", headerText: "Employee ID", dataType: "number", width: "0%", hidden: true },
+                { key: "FirstName", headerText: "First Name", dataType: "string", width: "15%" },
+                { key: "LastName", headerText: "Last Name", dataType: "string", width: "15%" },
+                { key: "Title", headerText: "Title", dataType: "string", width: "25%" },
+                { key: "Address", headerText: "Address", dataType: "string", width: "25%" },
+                { key: "City", headerText: "City", dataType: "string", width: "20%" }
+            ],
+            childrenDataProperty: "Orders",
+            autoGenerateLayouts: false,
+            columnLayouts: [
+                {
+                    key: "Orders",
+                    width: "100%",
+                    autoGenerateColumns: false,
+                    autofitLastColumn: false,
+                    primaryKey: "OrderID",
+                    autoCommit: true,
+                    columns: [
+                        { key: "OrderID", headerText: "Order ID", dataType: "number", width: "0%", hidden: true },
+                        { key: "CustomerID", headerText: "Customer ID", dataType: "string", width: "0%", hidden: true },
+                        { key: "Freight", headerText: "Freight", dataType: "string", width: "15%" },
+                        { key: "ShipName", headerText: "Ship Name", dataType: "string", width: "20%" },
+                        { key: "ShipAddress", headerText: "Ship Address", dataType: "string", width: "25%" },
+                        { key: "ShipCity", headerText: "Ship City", dataType: "string", width: "20%" },
+                        { key: "ShipCountry", headerText: "Ship Country", dataType: "string", width: "20%" }
+                    ],
+                    features: [
+                        {
+                            name: "Responsive",
+                            enableVerticalRendering: false,
+                            columnSettings: [
+                                {
+                                    columnKey: "ShipAddress",
+                                    classes: "ui-hidden-phone"
+                                },
+                                {
+                                    columnKey: "ShipCity",
+                                    classes: "ui-hidden-phone"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Paging",
+                            pageSize: 10
+                        },
+                        {
+                            name: "Updating",
+                            enableAddRow: false,
+                            editMode: "dialog",
+                            rowEditDialogOptions: {
+                                height: "350px",
+                                width: "390px",
+                                containment: "window",
+                                showDoneCancelButtons: true
+                            },
+                            columnSettings:
+                                [
+                                    {
+                                        columnKey: "ShipName",
+                                        required: true
+                                    }
+                                ]
+                        }
+                    ]
+                }
+            ]
+        });
+    });
+</script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $(".plusIcon").on("click", function () {
+            var obj = $(this);
+            if (obj.hasClass("glyphicon-plus")) {
+                obj.hide();
+                obj.next().show();
+                obj.parent().parent().next().show();
+            } else {
+                obj.hide();
+                obj.prev().show();
+                obj.parent().parent().next().hide();
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+
+    $(document).on('click', '#usermasters_UserIsForumHandle', function (e) {
+        if ($(this).prop('checked')) {
+            //$('.chkEmailAllNotification').attr('checked', true);
+            $("#usermasters_UserForumHandle").prop("readonly", false);
+        }
+        else {
+            // $('.chkEmailAllNotification').attr('checked', false);
+            $("#usermasters_UserForumHandle").prop("readonly", true);
+        }
+    });
+    $(document).on('click', '#saveUserPreference', function (e) {
+        e.preventDefault();
+        //var infoForm = $("#frmSubmitUserPreferenceMaster");
+        //var postData = infoForm.serializeArray();
+        $('#usermasters_UserFirstName').removeAttr('style');
+        $('#usermasters_UserLastName').removeAttr('style');
+        $('#usermasters_UserName').removeAttr('style');
+        $('#usermasters_UserPassword').removeAttr('style');
+        $('#usermasters_UserForumHandle').removeAttr('style');
+
+        var firstName = $('#usermasters_UserFirstName').val().trim();
+        var lastName = $('#usermasters_UserLastName').val().trim();
+        var userName = $('#usermasters_UserName').val().trim();
+        var password = $('#usermasters_UserPassword').val().trim();
+        var forumValidate = '0';
+        if (!$('#usermasters_UserForumHandle').is('[readonly]')) {
+            forumValidate = '1';
+        }
+
+        var validate = '0';
+        if (firstName == '') {
+            $('#usermasters_UserFirstName').css('border-color', 'red');
+            validate = '1';
+        }
+        if (lastName == '') {
+            $('#usermasters_UserLastName').css('border-color', 'red');
+            validate = '1';
+        }
+        if (userName == '') {
+            $('#usermasters_UserName').css('border-color', 'red');
+            validate = '1';
+        }
+        if (password == '') {
+            $('#usermasters_UserPassword').css('border-color', 'red');
+            validate = '1';
+        }
+        if (forumValidate == '1') {
+            if ($('#usermasters_UserForumHandle').val().trim() == '')
+
+                $('#usermasters_UserForumHandle').css('border-color', 'red');
+
+        }
+
+
+
+        debugger;
+        if (validate == '0') {
+            //alert(JSON.stringify($('#frmSubmitUserPreferenceMaster').serializeArray()) );
+            $.ajax({
+                url: "/Home/UserPreferences",
+                type: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                data: $("#frmSubmitUserPreferenceMaster").serialize(),
+                success: function (result) {
+                    if (result == '1') {
+                        //infoForm.find("input[type='text']").each(function (i, element) {
+                        //    $(this).val('');
+                        //});
+                        alert("User Details Successfully Added");
+                        location.reload(true);
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        }
+    });
+
+    $(document).on('click', '#chkAllPermissionEmail', function (e) {
+        if ($('#chkAllPermissionEmail').prop('checked')) {
+            $('.chkEmailAllNotification').attr('checked', true);
+        }
+        else {
+            $('.chkEmailAllNotification').attr('checked', false);
+        }
+    });
+    $(document).ready(function () {
+        //$("#chkAllPermissionEmail").click(function (e) {
+        //    if ($('#chkAllPermissionEmail').prop('checked')) {
+        //        $('.chkEmailAllNotification').attr('checked', true);
+        //    }
+        //    else {
+        //        $('.chkEmailAllNotification').attr('checked', false);
+        //    }
+        //});
+
+        $("#chkAllPermissionText").click(function (e) {
+            if ($('#chkAllPermissionText').prop('checked')) {
+                $('.chkTextAllNotification').attr('checked', true);
+            }
+            else {
+                $('.chkTextAllNotification').attr('checked', false);
+            }
+        });
+
+        $("#chkAllPermissionPushOn").click(function (e) {
+            if ($('#chkAllPermissionPushOn').prop('checked')) {
+                $('.chkAllPushPermission').attr('checked', true);
+            }
+            else {
+                $('.chkAllPushPermission').attr('checked', false);
+            }
+        });
+
+        $("#chkAllPermissionAllUsers").click(function (e) {
+            if ($('#chkAllPermissionAllUsers').prop('checked')) {
+                $('.chkAUsersAllNotification').attr('checked', true);
+            }
+            else {
+                $('.chkAUsersAllNotification').attr('checked', false);
+            }
+        });
+        $("#chkAllView").click(function (e) {
+            if ($('#chkAllView').prop('checked')) {
+                $('.IsChkViewPermission').attr('checked', true);
+            } else {
+                $('.IsChkViewPermission').attr('checked', false);
+            }
+        });
+
+        $("#chkAllAdd").click(function (e) {
+            if ($('#chkAllAdd').prop('checked')) {
+                $('.IsChkAddPermission').attr('checked', true);
+            }
+            else {
+                $('.IsChkAddPermission').attr('checked', false);
+            }
+        });
+
+        $("#chkAllEdit").click(function (e) {
+            if ($('#chkAllEdit').prop('checked')) {
+                $('.IsChkEditPermission').attr('checked', true);
+            }
+            else {
+                $('.IsChkEditPermission').attr('checked', false);
+            }
+        });
+
+        $("#chkAllDelete").click(function (e) {
+            if ($('#chkAllDelete').prop('checked')) {
+                $('.IsChkDeletePermission').attr('checked', true);
+            }
+            else {
+                $('.IsChkDeletePermission').attr('checked', false);
+            }
+        });
+
+
+
+        $("#btnPermissionUser").click(function () {
+            var postData = $("#frmSubmitUserPreferenceMaster").serializeArray();
+            $.ajax({
+                url: "/Home/SetUserPreference",
+                type: 'Get',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },
+                data: {
+                    userPreferenceViewModel: postData,
+                    caseSet: 1,
+                    setUserId: 23
+                },
+                success: function (data) {
+                    if (data == true) {
+                        infoForm.find("input[type='text']").each(function (i, element) {
+                            infoForm.serialize();
+                        });
+                        alert("Project Details Successfully Added");
+                    }
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        });
+        $('[data-toggle="popover"]').popover({ html: true });
+        $(".closeModal").click(function () {
+            $("#groupAddModal").hide();
+        });
+        $(".closeModal").click(function () {
+            $("#groupMinusModal").hide();
+        });
+        $(".closeModal").click(function () {
+            $("#locationModal").hide();
+        });
+        var mmWidth = $(".mainContentDiv").outerWidth() + 10;
+        var lftNavWidth = $("#leftNavCon").outerWidth() + 10;
+        var curentmmWidth = mmWidth - lftNavWidth;
+        $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+        $('.openIcon').click(function () {
+            if ($(this).hasClass('openSlide')) {
+                $(".mainContentDiv").css({ marginLeft: "20px" });
+                $("#leftNavCon").css({ marginLeft: -lftNavWidth });
+                $(".openIcon").css({ right: '-23px' });
+                $(this).removeClass('openSlide').addClass('closeSlide');
+                $('.leftOuterBtn').show();
+            }
+            else {
+                $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+                $("#leftNavCon").css({ marginLeft: "0px" });
+                $(".openIcon").css({ right: '-8px' });
+                $(this).removeClass('closeSlide').addClass('openSlide');
+                $('.leftOuterBtn').hide();
+            }
+        });
+        $('.leftOuterBtn').click(function () {
+            $(".mainContentDiv").css({ marginLeft: lftNavWidth });
+            $("#leftNavCon").css({ marginLeft: "0px" });
+            $(".openIcon").css({ right: '-23px' });
+            $(".openIcon").removeClass('closeSlide').addClass('openSlide');
+            $(this).hide();
+
+        });
+        var date_input = $('.cal'); //our date input has the name "date"
+        var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        });
+        // tooltip demo
+        $('.tooltip-div').tooltip({
+            selector: "[data-toggle=tooltip]",
+            container: "body"
+        });
+        $('.withCheckbox').multiselect({
+            columns: 1,
+            placeholder: '--Select--',
+            search: true,
+            selectAll: true
+        });
+
+        $('.sort-me').sortable({ connectWith: '.sort-me' });
+        $('.sort-me').sortable({ handle: '.handle' }); // This one isn't connected back.
+        $('.sort-me1').sortable({ connectWith: '.sort-me1' });
+        $('.sort-me1').sortable({ handle: '.handle' }); // This one isn't connected back.
+
+        $('.myColse').click(function () {
+            $(this).parent().parent().parent().hide();
+        });
+        $('.grayClose').click(function (e) {
+            $(this).parent().parent().hide();
+        });
+        $(".myPlus").click(function (e) {
+            $(".myPlusContainer").show();
+            $(".myFilterContainer").hide();
+            $(".mySortContainer").hide();
+            e.stopPropagation();
+        });
+        $(".myPlusContainer").click(function (e) {
+            e.stopPropagation();
+        });
+        $(document).click(function () {
+            $(".myPlusContainer").hide();
+        });
+        $(".myFilter").click(function (e) {
+
+            $(".myFilterContainer").show();
+            $(".myPlusContainer").hide();
+            $(".mySortContainer").hide();
+            e.stopPropagation();
+        });
+        $(".myFilterContainer").click(function (e) {
+            e.stopPropagation();
+        });
+        $(document).click(function () {
+            $(".myFilterContainer").hide();
+        });
+        $(".mySort").click(function (e) {
+            $(".mySortContainer").show();
+            $(".myPlusContainer").hide();
+            $(".myFilterContainer").hide();
+            e.stopPropagation();
+        });
+        $(".mySortContainer").click(function (e) {
+            e.stopPropagation();
+        });
+        $(document).click(function () {
+            $(".mySortContainer").hide();
+        });
+        $('.allJobs').click(function (e) {
+            $('.view').show();
+            $('.projectNameContainer').hide();
+            $('.allJobs').addClass('active');
+            $('.allProject').removeClass('active');
+        });
+        $('.allProject').click(function (e) {
+            $('.projectNameContainer').show();
+            $('.view').hide();
+            $('.allProject').addClass('active');
+            $('.allJobs').removeClass('active');
+        });
+        $("ul.nav-tabs a").click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        });
+    });
+    $(function () {
+        $(document).off('click.bs.modal.data-api').on('click.bs.modal.data-api', '[data-toggle="modal"]', function (e) {
+            var $this = $(this),
+                href = $this.attr('href'),
+                $target = $($this.attr('data-target') || (href && href.replace(/.*(?=#[^\s]+$)/, ''))), //strip for ie7
+                option = $target.data('modal') ? 'toggle' : $.extend({ remote: !/#/.test(href) && href }, $target.data(), $this.data());
+
+            e.preventDefault();
+            $target
+                .modal(option)
+                .one('hide', function () {
+                    $this.focus();
+                });
+        });
+    });
+</script>
+<script>
+    $(document).ready(function () {
+        $("#saveJobInfo,.scratch-project-new").click(function () {
+            var infoForm = $("#frmSubmitProjectMaster");
+            if ($('#ProjectMasterModel_ProjectName').val() == '') {
+                $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'block');
+                $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                $('#set1').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set1") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#ProjectMasterModel_ProjectName').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#ProjectMasterModel_JobsitePrefix').val() == '') {
+                $('#ProjectMasterModel_JobsitePrefix').parent().find('.errormessege').css('display', 'block');
+                $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                $('#set1').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set1") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            }
+            else {
+                $('#ProjectMasterModel_JobsitePrefix').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#ProjectMasterModel_StreetAddress').val() == '') {
+                $('#ProjectMasterModel_StreetAddress').parent().find('.errormessege').css('display', 'block');
+                $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                $('#set1').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set1") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#ProjectMasterModel_StreetAddress').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#ProjectMasterModel_LotInfo').val() == '') {
+                $('#ProjectMasterModel_LotInfo').parent().find('.errormessege').css('display', 'block');
+                $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                $('#set1').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set1") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#ProjectMasterModel_LotInfo').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#OwnerMasterModel_OwnerName').val() == '') {
+                $('#OwnerMasterModel_OwnerName').parent().find('.errormessege').css('display', 'block');
+                $('.tab-content > .tab-pane').removeClass('in').removeClass('active');
+                $('#set2').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set2") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#OwnerMasterModel_OwnerName').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#OwnerMasterModel_Email').val() == '') {
+                $('#OwnerMasterModel_Email').parent().find('.errormessege').css('display', 'block');
+                $('#set2').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set2") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#OwnerMasterModel_Email').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#OwnerMasterModel_Telephone').val() == '') {
+                $('#OwnerMasterModel_Telephone').parent().find('.errormessege').css('display', 'block');
+                $('#set2').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set2") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#OwnerMasterModel_Telephone').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#OwnerMasterModel_MobileNo').val() == '') {
+                $('#OwnerMasterModel_MobileNo').parent().find('.errormessege').css('display', 'block');
+                $('#set2').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set2") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#OwnerMasterModel_MobileNo').parent().find('.errormessege').css('display', 'none');
+            }
+            if ($('#OwnerMasterModel_Address').val() == '') {
+                $('#OwnerMasterModel_Address').parent().find('.errormessege').css('display', 'block');
+                $('#set2').addClass('in').addClass('active');
+                $('.parentTabs > ul > li').each(function () {
+                    $(this).removeClass('active');
+                    if ($(this).find('a').attr('href') == "#set2") {
+                        $(this).addClass('active');
+                    }
+                });
+                return;
+            } else {
+                $('#OwnerMasterModel_Address').parent().find('.errormessege').css('display', 'none');
+            }
+            $('.required').each(function () {
+                var txtval = $(this).val();
+                if (txtval == '') {
+                    if ($(this).parent().find('.errormessege').length > 0) {
+                        $(this).parent().find('.errormessege').css('display', 'block');
+                        event.preventDefault();
+                        return false;
+                    }
+                }
+                else {
+                    $(this).parent().find('.errormessege').css('display', 'none');
+                }
+            });
+            var postData = infoForm.serialize();
+            $.post("home/SubmitProjectInfo", postData, function (data) {
+                if (data.success == true) {
+                    infoForm.find("input[type='text']").each(function (i, element) {
+                        $(this).val('');
+                    });
+                    if (data.projectModelJsonString !== '') {
+                        $("#example").jqGrid('setGridParam', { data: JSON.parse(data.projectModelJsonString) });
+                        // refresh the grid
+                        $("#example").trigger('reloadGrid');
+                    }
+                    //if ($(this).context.className !== "scratch-project-new") {
+                    $('#newProject').removeClass('in').hide();
+                    //}
+                    alert("Project Details Successfully Added");
+                } else {
+                    alert("Project Details not Saved");
+                }
+            });
+        });
+        $('.color-select').on('change', function () {
+            $(this).css('background-color', $(this).val());
+        });
+        //Filter Result
+        $('a.filterproject').on('click', function () {
+            var projectGroupId = $('#ddlProjectGroup').val();
+            var ManagerId = $('#ddlProjectManager').val();
+            var postData = { projectGroupId: projectGroupId, managerID: ManagerId };
+            $("#leftNavCon").load('/Home/FilterProjectDetailsAsync', postData);
+        });
+
+        //Filter Result
+        $(document).on('change', '#ddlToDoLost', function () {
+            var days = parseInt($(this).val());
+            var postData = { days: days };
+            $("#tbltodolist").load('/Home/FilterToDoListAsync', postData);
+        });
+
+        $(document).on('click', '#btnUpdateResults', function () {
+            var projectGroup = $('#ProjectMasterModel_ProjectGroupID').val();
+            var projectManager = $('#ProjectMasterModel_ProjectManagerID').val();
+            var projectStatus = $('#ProjectMasterModel_ProjectStatusID').val();
+            var projectType = $('#ProjectMasterModel_ProjectTypeID').val();
+            var searchKeyWord = $('#txtKeyWord').val();
+            var startDate = $('#ActualStartDate').val();
+            var endDate = $('#ActualEndDate').val();
+            var datainfo = {
+                projectGroups: projectGroup,
+                projectManagers: projectManager,
+                status: projectStatus,
+                projectTypes: projectType,
+                searchKeyWord: searchKeyWord,
+                startDate: startDate,
+                endDate: endDate
+            };
+            $.post("home/FilterProjectsAsync", datainfo, function (data) {
+                $('#example').jqGrid('clearGridData');
+                $("#example").jqGrid('setGridParam', { data: JSON.parse(data.projectModelJsonString) });
+                // refresh the grid
+                $("#example").trigger('reloadGrid');
+            });
+        });
+        $(document).on('click', '#btnResetInfo', function () {
+            setmultiselectvalue('infoModal', 'ProjectMasterModel_ProjectGroupID', ['']);
+            setmultiselectvalue('infoModal', 'ProjectMasterModel_ProjectManagerID', ['']);
+            setmultiselectvalue('infoModal', 'ProjectMasterModel_ProjectStatusID', ['']);
+            setmultiselectvalue('infoModal', 'ProjectMasterModel_ProjectTypeID', ['']);
+            $('#txtKeyWord').val('');
+            $('#ActualStartDate').val('');
+            $('#ActualEndDate').val('');
+        });
+        $('#btnProjectGroup').off('click').on('click', function () {
+            var jobGroupName = $('#Projectgroupname').val();
+            if (jobGroupName != '') {
+                var datainfo = { "jobGroupName": jobGroupName };
+                $.get("home/SaveProjectGroup", datainfo, function (data) {
+                    $('#newProject').find('#ProjectMasterModel_ProjectGroupID')
+                        .append($("<option></option>")
+                            .attr("value", data)
+                            .text(jobGroupName));
+                    var resjobstr = '<li data-search-term="' + jobGroupName + '"><label for="ms-opt-18"><input type="checkbox" title="' + jobGroupName + '" id="ms-opt-18" value="' + data + '">' + jobGroupName + '</label></li>'
+                    $('#newProject').find('#ProjectMasterModel_ProjectGroupID').next().find('ul').append(resjobstr);
+                    $('#groupAddModal').hide();
+                });
+            }
+        });
+        $('.btn-print').on('click', function () {
+            window.print();
+        });
+
+        $('span.MapCon > a').on('click', function () {
+            $('#locationModal').css('display', 'block');
+        });
+        $('input[id^=worksdays_]').change(function () {
+            var workdays = $('#ProjectScheduleMasterModel_WorkDays').val();
+            var arrworkDays = new Array();
+            if (workdays !== "") {
+                arrworkDays = workdays.split(',');
+            }
+            if (arrworkDays.indexOf($(this).val()) > -1) {
+                arrworkDays.splice(arrworkDays.indexOf($(this).val()));
+            }
+            else {
+                arrworkDays.push($(this).val());
+            }
+            var strDays = '';
+            for (var i = 0; i < arrworkDays.length; i++) {
+                strDays = strDays + arrworkDays[i] + ',';
+            }
+            $('#ProjectScheduleMasterModel_WorkDays').val(strDays.replace(/,\s*$/, ""));
+        });
+        $('.close').click(function () {
+            $('#existingower').hide();
+        });
+
+        $("#txtHomeSearch").keypress(function (e) {
+            if (e.which == 13) {
+                searchProject();
+            }
+        });
+        function searchProject() {
+            // Declare variables
+            var input, filter, listGroup, records, filteredRecord, i;
+            input = $("#txtHomeSearch");
+            filter = input.val().toUpperCase();
+            listGroup = $(".list-group");
+            records = listGroup.find("a.allProject");
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < records.length; i++) {
+                filteredRecord = records[i];
+                if (filteredRecord) {
+                    if (filteredRecord.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        records[i].style.display = "";
+                    } else {
+                        records[i].style.display = "none";
+                    }
+                }
+            }
+        }
+        $('#selectinfo').on('change', function () {
+            if ($(this).val() == "1") {
+                $("div.owner-existing-info").css('display', 'block');
+                $('#existingower').css('display', 'none');
+                $('.owner-existing-info input').each(function () {
+                    $(this).val('');
+                });
+            }
+            else if ($(this).val() == "2") {
+                $('#existingower').css('display', 'block');
+                $("div.owner-existing-info").css('display', 'none');
+            }
+            else {
+                $("div.owner-existing-info").css('display', 'none');
+                $('#existingower').css('display', 'none');
+                $('.owner-existing-info input').each(function () {
+                    $(this).val('');
+                });
+            }
+        });
+        $(document).on("click", "#export", function () {
+            createExcelFromGrid('example', 'test');
+        });
+        var createExcelFromGrid = function (gridID, filename) {
+            var grid = $('#' + gridID);
+            var rowIDList = grid.getDataIDs();
+            var row = grid.getRowData(rowIDList[0]);
+            var colNames = [];
+            var i = 0;
+            for (var cName in row) {
+                colNames[i++] = cName; // Capture Column Names
+            }
+            var html = "";
+            for (var j = 0; j < rowIDList.length; j++) {
+                row = grid.getRowData(rowIDList[j]); // Get Each Row
+                for (var i = 0; i < colNames.length; i++) {
+                    html += row[colNames[i]] + ';'; // Create a CSV delimited with ;
+                }
+                html += '\n';
+            }
+            html += '\n';
+            var a = document.createElement('a');
+            a.id = 'ExcelDL';
+            a.href = 'data:application/vnd.ms-excel,' + html;
+            a.download = filename ? filename + ".xls" : 'DataList.xls';
+            document.body.appendChild(a);
+            a.click(); // Downloads the excel document
+            document.getElementById('ExcelDL').remove();
+        }
+        $('.project-info').on('click', function () {
+            var projectId = $(this).attr('data-projectid');
+            var param = { "projectId": parseInt(projectId) }
+            $.ajax({
+                url: "/Home/GetProjectDetailsbyProjectIdAsync",
+                type: 'post',
+                data: param,
+                success: function (data) {
+                    $('#existingower').hide();
+                    $('div.owner-existing-info').show();
+                    $('#OwnerMasterModel_OwnerName').val(data.ownerMasterModel.ownerName);
+                    $('#OwnerMasterModel_Email').val(data.ownerMasterModel.email);
+                    $('#OwnerMasterModel_Telephone').val(data.ownerMasterModel.telephone);
+                    $('#OwnerMasterModel_MobileNo').val(data.ownerMasterModel.mobileNo);
+                    $('#OwnerMasterModel_Address').val(data.ownerMasterModel.address);
+                    $('#OwnerMasterModel_City').val(data.ownerMasterModel.city);
+                    $('#OwnerMasterModel_State').val(data.ownerMasterModel.state);
+                    $('#OwnerMasterModel_Zip').val(data.ownerMasterModel.zip);
+                },
+                error: function (jqXHR, textStatus, errorThrown) {
+                    alert(errorThrown);
+                }
+            });
+        });
+
+        $("#newProject").on('shown.bs.modal', function () {
+            $(this).find('input[type="text"]').focus();
+        });
+    });
+    $(window).load(function () {
+
+        $(document).on("click", "div.listmapCon > a", function () {
+            var projectId = parseInt($(this).attr('data-project'));
+            SetProjectDetails(projectId);
+        });
+        $(document).on("click", "td[aria-describedby='example_ProjectName']", function () {
+            var projectId = parseInt($(this).prev().prev().text());
+            SetProjectDetails(projectId);
+            //$('#newProject').addClass('in').css('display', 'block').css('padding-left', '17px');
+        });
+        $(document).on('click', '#projectclose', function () {
+            $('#newProject').removeClass('in').removeAttr('style').attr('style', 'display:none');
+        });
+        var innerexport = $('div.dataTableConatainer').children('span').html();
+        $('#example_toppager_left').html(innerexport);
+        $('#export').remove();
+        $('.datepicker-dropdown').hide();
+    });
+    function SetProjectDetails(projectId) {
+        var datainfo = { "projectID": projectId };
+        $.post("home/GetProjectInfoByProjectID", datainfo, function (data) {
+            $('#infoModal').show();
+            $('#leftNavCon').css("z-index", "000000");
+            $('#infoModal').css("z-index", "000000");
+
+            $("#ProjectMasterModel_ProjectName").val(data.item1.projectName);
+            $("#ProjectMasterModel_StreetAddress").val(data.item1.streetAddress);
+            $("#ProjectMasterModel_JobsitePrefix").val(data.item1.jobsitePrefix);
+            $("#ProjectMasterModel_LotInfo").val(data.item1.lotInfo);
+            $("#ProjectMasterModel_Permit").val(data.item1.permit);
+            $("#ProjectMasterModel_City").val(data.item1.city);
+            $("#ProjectMasterModel_State").val(data.item1.state);
+            $("#ProjectMasterModel_Zip").val(data.item1.zip);
+            $("#ProjectMasterModel_ContractPrice").val(data.item1.contractPrice);
+            $('#ProjectMasterModel_ProjectID').val(data.item1.projectID);
+            $("#ProjectMasterModel_Latitude").val(data.item1.latitude);
+            $("#ProjectMasterModel_Longitude").val(data.item1.longitude);
+            $('#ProjectMasterModel_ProjectTypeID').val(data.item1.projectTypeID);
+            setmultiselectvalue('newProject', 'ProjectMasterModel_ProjectGroupID', data.item1.projectGroupID);
+            setmultiselectvalue('newProject', 'ProjectMasterModel_ProjectManagerID', data.item1.projectManagerID);
+            setmultiselectvalue('newProject', 'ProjectMasterModel_ProjectStatusID', data.item1.projectStatusID);
+            if (data.item1.latitude != null) {
+                BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMap"));
+                BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMapEdit"));
+                BindAddress(data.item1.latitude, data.item1.longitude, document.getElementById("dvMapCluster"));
+            }
+
+            //Ownwr Schedule
+            $('.owner-existing-info').show();
+            $('#OwnerMasterModel_OwnerName').val(data.item2.ownerName);
+            $('#OwnerMasterModel_Address').val(data.item2.address);
+            $('#OwnerMasterModel_City').val(data.item2.city);
+            $('#OwnerMasterModel_State').val(data.item2.state);
+            $('#OwnerMasterModel_Zip').val(data.item2.zip);
+            $('#OwnerMasterModel_Telephone').val(data.item2.telephone);
+            $('#OwnerMasterModel_MobileNo').val(data.item2.mobileNo);
+            $('#OwnerMasterModel_Email').val(data.item2.email);
+            $('#OwnerMasterModel_AccessMethod').val(data.item2.accessMethod);
+            $('#OwnerMasterModel_OwnerCalendar').val(data.item2.ownerCalendar);
+            $('#OwnerMasterModel_ShowProjectPrice').prop('checked', data.item2.showProjectPrice)
+            $('#OwnerMasterModel_ShowBudgetPurchaseOrders').prop('checked', data.item2.showBudgetPurchaseOrders)
+            $('#OwnerMasterModel_AllowOrderRequests').prop('checked', data.item2.allowOrderRequests);
+            $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections)
+            $('#OwnerMasterModel_AllowLockedSelections').prop('checked', data.item2.allowLockedSelections);
+            $('#OwnerMasterModel_AllowPaymentsTab').prop('checked', data.item2.allowPaymentsTab);
+
+            //Schedule Info
+            $('#ProjectMasterModel_InternalNotes').val(data.item1.internalNotes);
+            $('#ProjectMasterModel_SubNotes').val(data.item1.subNotes);
+            $("#ProjectScheduleMasterModel_ProjectStart").datepicker("setDate", data.item1.projectScheduleMasterModel.projectStart);
+            $("#ProjectScheduleMasterModel_ActualStart").datepicker("setDate", data.item1.projectScheduleMasterModel.actualStart);
+            $("#ProjectScheduleMasterModel_ProjectCompletion").datepicker("setDate", data.item1.projectScheduleMasterModel.projectCompletion);
+            $("#ProjectScheduleMasterModel_ActualCompletion").datepicker("setDate", data.item1.projectScheduleMasterModel.actualCompletion);
+            $('#ProjectScheduleMasterModel_JobColorID').val(data.item1.projectScheduleMasterModel.jobColorID);
+            $('#ProjectScheduleMasterModel_JobColorID').css('background-color', data.item1.projectScheduleMasterModel.jobColorID)
+            $('.datepicker-dropdown').hide();
+            if (data.item1.projectScheduleMasterModel.workDays !== '' && data.item1.projectScheduleMasterModel.workDays !== null) {
+                var workdays = data.item1.projectScheduleMasterModel.workDays.split(',');
+                $('#newProject').find('.work-days input[type=checkbox]').prop('prop', false);
+                for (var i = 0; i < workdays; i++) {
+                    $('#newProject').find('.work-days input[type=checkbox]').each(function () {
+                        if ($(this).val() == workdays[i]) {
+                            $(this).prop('prop', true);
+                        }
+                    });
+                }
+            }
+        });
+    }
+    function setmultiselectvalue(parentid, id, values) {
+        var selectedtext = '';
+        $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').prop('checked', false);
+        $('#' + parentid).find('#' + id).next().find('button > span').text('--Select--');
+        for (var i = 0; i < values.length; i++) {
+            $('#' + parentid).find('#' + id).next().find('input[type=checkbox]').each(function () {
+                if ($(this).val() == values[i]) {
+                    $(this).click();
+                    selectedtext = selectedtext + $(this).attr('title') + ', ';
+                }
+            });
+        }
+    }
+    function formatColor(cellValue, options, rowObject) {
+        var linkMessage = '<div class="colorcode" style= "background-color: ' + cellValue + '; padding: 10px 47px; margin: -2px;"></div>';
+        return linkMessage;
+    };
+    function formatName(cellValue, options, rowObject) {
+        var linkMessage = '<a href="#newProject" data-toggle="modal">' + cellValue + '</a>';
+        return linkMessage;
+    };
+    function BindGrid(divId, jsondata) {
+        $("#" + divId).jqGrid({
+            colModel: [
+                { name: "ProjectId", label: "Project Id", width: 53, hidden: true },
+                { name: "ProjectColor", label: "", width: 15, formatter: formatColor },
+                { name: "ProjectName", label: "Project Name", width: 53, formatter: formatName },
+                {
+                    name: "StreetAddress", label: "Street Address", width: 75
+                },
+                { name: "City", label: "City", width: 65 },
+                { name: "State", label: "State", width: 41 },
+                { name: "Zip", label: "Zip", width: 41 },
+                { name: "ManagerName", label: "Proj. Manager", width: 51 },
+                { name: "OwnerName", label: "Owner", width: 59 },
+                { name: "Telephone", label: "Phone", width: 65 },
+                { name: "MobileNo", label: "Cell", width: 41 },
+                { name: "Active", label: "Active", width: 51 }
+            ],
+            data: jsondata,
+            iconSet: "fontAwesome",
+            idPrefix: "g5_",
+            rownumbers: false,
+            sortname: "ProjectName",
+            sortorder: "desc",
+            threeStateSort: true,
+            sortIconsBeforeText: true,
+            headertitles: true,
+            toppager: true,
+            pager: true,
+            rowNum: 10,
+            viewrecords: true,
+            searching: {
+                defaultSearch: "cn"
+            },
+            caption: ""
+        });
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        BindGrid('example', [{ "ProjectId": 1, "ProjectColor": "#8C4343", "ProjectName": "gdg", "StreetAddress": "Ambedkar Veedhi, Sampangi Rama Nagar, Bengaluru, Karnataka, India", "City": "ghc", "State": "h", "Zip": "hj", "ManagerName": "", "OwnerName": "gh", "Telephone": "jmv", "MobileNo": "jmv", "Active": false }, { "ProjectId": 1005, "ProjectColor": "#8C4343", "ProjectName": "ddd", "StreetAddress": "Nunegundlapalli, Ambedkar Veedhi, Sampangi Rama Nagar, Bengaluru, Karnataka 560001, India", "City": "xx", "State": "xx", "Zip": "xx", "ManagerName": "", "OwnerName": "gh", "Telephone": "jmv", "MobileNo": "jmv", "Active": false }, { "ProjectId": 2009, "ProjectColor": "#8C4343", "ProjectName": "new project pop up test", "StreetAddress": "Chinnaswamy Mudaliar Rd, Swamy Shivanandapuram, Shivaji Nagar, Bengaluru, Karnataka 560051, India", "City": "new project pop up test", "State": "new project pop up test", "Zip": "new project pop up test", "ManagerName": "guru", "OwnerName": "gh", "Telephone": "jmv", "MobileNo": "jmv", "Active": false }, { "ProjectId": 4002, "ProjectColor": "#C78888", "ProjectName": "test project", "StreetAddress": "test project", "City": "test project", "State": "test project", "Zip": "test project", "ManagerName": "guru", "OwnerName": "gh", "Telephone": "jmv", "MobileNo": "jmv", "Active": false }, { "ProjectId": 4003, "ProjectColor": "#C78888", "ProjectName": "new test 1", "StreetAddress": "new test 1", "City": "new test 1", "State": "new test 1", "Zip": "new test 1", "ManagerName": "guru", "OwnerName": "gh", "Telephone": "jmv", "MobileNo": "jmv", "Active": false }, { "ProjectId": 4004, "ProjectColor": "#C78888", "ProjectName": "test 1", "StreetAddress": "Unocoin, Suite G-A, Spl Enderley, 26, Cubbon Rd, Shivaji Nagar, Bengaluru, Karnataka 560001, India", "City": "test 1", "State": "test 1", "Zip": "test 1", "ManagerName": "guru,sumit", "OwnerName": "gh", "Telephone": "jmv", "MobileNo": "jmv", "Active": false }]);
+
+        BindAddress(12.9716, 77.5946, document.getElementById("dvMap"));
+        BindAddress(12.9716, 77.5946, document.getElementById("dvMapCluster"));
+        BindAddress(12.9716, 77.5946, document.getElementById("dvMapEdit"));
+        $('span.glyphicon-map-marker').on('click', function () {
+            var coordinate = $(this).attr('data-coordinate');
+            var lat = coordinate.split(',')[0];
+            var lan = coordinate.split(',')[1];
+            $('#dvMapEdit').empty().removeAttr('style');
+            BindAddress(lat, lan, document.getElementById("dvMapEdit"));
+        });
+    });
+    function BindAddress(latitude, longitude, mapCanvas) {
+        var myCenter = new google.maps.LatLng(latitude, longitude);
+        var mapOptions = {
+            center: myCenter,
+            zoom: 13
+        };
+        var map = new google.maps.Map(mapCanvas, mapOptions);
+        var marker = new google.maps.Marker({
+            position: myCenter,
+            draggable: true,
+            map: map,
+            title: "<div style='font-size:large; font-family: Arial Black; background-color:yellow; color:blue; text-align: center'>Your Current Location Coordinates:<br />Latitude: 12.9716° N<br />Longitude: 77.5946° E"
+        });
+        google.maps.event.addListener(marker, 'dragend', function (event) {
+            var lat = this.position.lat();
+            var lng = this.position.lng();
+            $('#ProjectMasterModel_Latitude').val(lat);
+            $('#ProjectMasterModel_Longitude').val(lng);
+            var latlng = new google.maps.LatLng(lat, lng);
+            var geocoder = new google.maps.Geocoder();
+            geocoder.geocode({ 'latLng': latlng }, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    if (results[1]) {
+                        $('#ProjectMasterModel_StreetAddress').val(results[1].formatted_address);
+                    }
+                }
+            });
+        });
+        marker.setMap(map);
+    }
+
+</script>
+
+<script src="./Index - SBS2018_files/js"></script>
+@*<div style="position: absolute; left: 0px; top: -2px; height: 1px; overflow: hidden; visibility: hidden; width: 1px;"><span style="position: absolute; font-size: 300px; width: auto; height: auto; margin: 0px; padding: 0px; font-family: Roboto, Arial, sans-serif;">BESbswy</span></div><div style="position: absolute; left: 0px; top: -2px; height: 1px; overflow: hidden; visibility: hidden; width: 1px;"><span style="position: absolute; font-size: 300px; width: auto; height: auto; margin: 0px; padding: 0px; font-family: Roboto, Arial, sans-serif;">BESbswy</span></div><div style="position: absolute; left: 0px; top: -2px; height: 1px; overflow: hidden; visibility: hidden; width: 1px;"><span style="position: absolute; font-size: 300px; width: auto; height: auto; margin: 0px; padding: 0px; font-family: Roboto, Arial, sans-serif;">BESbswy</span></div>                                                                   </body></html>*@
