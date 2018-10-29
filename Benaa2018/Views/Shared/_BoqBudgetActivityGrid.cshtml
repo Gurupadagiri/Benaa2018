@@ -1,0 +1,244 @@
+﻿@model List<Benaa2018.Helper.ViewModels.ProjectBoqBudgetMasterViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<div class="boqMainActivityHolder" id="Results">
+    <div class="toggleSectionHolder">
+        <div class="textareaToggle">
+            <a href="#" class="black-text no-outline ">
+                <i class="fa fa-sort" aria-hidden="true"></i>
+                Show/Hide Additional Info
+            </a>
+        </div>
+        <div class="BOQheadingHolder">
+            <ul>
+                <li><img src="~/images/del_line.gif" alt="" title="" /></li>
+                <li>Activity</li>
+                <li>Unit</li>
+                <!--li>Activity Type</li-->
+                <li>Original Quantity</li>
+
+                <li>&nbsp;</li>
+            </ul>
+        </div>
+    </div>
+    <!--This List of mapped Activities in BOQ.-->
+    
+    @foreach (var item in Model)
+    {
+        <div class="BOQcontentHolderFinal postionHereNext">
+            <ul class="BOQcontentHolderFinalUl">
+                <li>
+                    <label>
+                        <input type="checkbox"  style="margin-top:2px;">
+                    </label>
+                    <img src="~/images/del_line.gif" alt="" onclick="DeleteActivity('@item.Project_Boq_ID')" title="" />
+                </li>
+                <li>
+                    <span class="input-group-addon li-catalog">
+                        <a href="#" title="Link this line item to your cost catalog">
+                            <img alt="Selection Catalog" src="~/images/catalogWhite.png">
+                        </a>
+                    </span>
+                    <div class="box">
+                        <div class="box-body">
+
+                            <div class="form-group">
+                                <select class="form-control" disabled="disabled" data-live-search="true">
+                                    @{ var tempitemActivity = item.ActivityMasterModels.Where(x => x.MainActivityId == item.MainActivity_ID).ToList();
+                                    }
+
+                                    @foreach (var itemActivity in tempitemActivity)
+                                    {
+
+                                        if (itemActivity.ActivityId == item.Activity_ID)
+                                        {
+                                            <option value="@itemActivity.ActivityId" selected="selected">@itemActivity.ActivityName</option>
+
+                                        }
+                                        else
+                                        {
+                                            <option value="@itemActivity.ActivityId">@itemActivity.ActivityName</option>
+
+                                        }
+
+
+                                    }
+
+
+
+
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <select  class="form-control" disabled="disabled">
+                        @{ var tempitemUnit =  ViewBag.UnitMasterViewModels;
+                        }
+
+                        @foreach (var itemunit in tempitemUnit)
+                        {
+                          
+                        <option value="@itemunit.Unit_id" selected="selected">@itemunit.Unit_Name</option>
+
+                        }
+
+
+                    </select>
+                </li>
+                <!--li>Activity Type</li-->
+                <li><input type="text" name="Quantity" readonly="readonly" id="Quantity" value="@item.Quantity"></li>
+
+                <li><span class="plusePop"><img src="~/images/addRelatedPOs.png" alt="" title="" /></span></li>
+            </ul>
+            <div class="textBoxHolderToggle">
+                <button type="button" class="btn btn-link btn-xs" title="Toggle title, description, &amp; notes">
+                    <div class="toggle-state">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-caret-down fa-stack-1x fa-inverse toggle-icon"></i>
+                        </span>
+                    </div>
+                </button>
+            </div>
+            <div class="textBoxHolder">
+                <ul>
+                    <li>
+                        <textarea class="form-control input-sm" maxlength="50" placeholder="Title"> @item.Title</textarea>
+                    </li>
+                    <li>
+                        <textarea class="form-control input-sm" maxlength="50" placeholder="Description">@item.Description </textarea>
+                    </li>
+
+                </ul>
+            </div>
+
+
+        </div>
+
+
+
+
+    }
+    @{ 
+        List<Benaa2018.Helper.ViewModels.ActivityMasterViewModel> FinalActivityList =new List<Benaa2018.Helper.ViewModels.ActivityMasterViewModel>();//.Intersect(Model).any();
+        List<Benaa2018.Helper.ViewModels.ActivityMasterViewModel> TempActivityList;
+        if(Model.Count>0)
+        {
+            TempActivityList = Model[0].ActivityMasterModels;
+
+        }
+        else
+        {
+            TempActivityList = ViewBag.ActivityMasterList;
+            var Id = ViewBag.TempMainActivityId;
+
+            TempActivityList = TempActivityList.FindAll(MainId=>MainId.MainActivityId== Id);
+        }
+
+
+        //var result = TempActivityList.Where(p => Model.All(p2 => p2.Activity_ID != p.ActivityId));
+        //bool Contains=false;
+        foreach (var tempItem in TempActivityList)
+        {
+
+
+            FinalActivityList.Add(
+
+                new Benaa2018.Helper.ViewModels.ActivityMasterViewModel
+                {
+                    ActivityId = tempItem.ActivityId,
+                    MainActivityId = tempItem.MainActivityId,
+                    ActivityName = tempItem.ActivityName,
+                    OrgId = tempItem.OrgId,
+                    ParentId = tempItem.ParentId,
+                    Message = tempItem.Message
+
+                }
+                );
+
+
+            //    //index= TempActivityList.Select(x => x.ActivityId == tempItem.Activity_ID).;
+            //    //FinalActivityList.Add(tempItem.ActivityMasterModels.Where(x=>x.ActivityId!=tempItem.Activity_ID).First());
+            //    //if(Model.TrueForAll(x=>x.Activity_ID==tempItem.ActivityId))
+            //    //{
+            //    //    FinalActivityList.Remove(tempItem);
+
+            //    //}
+            //    //else
+            //    //{
+
+            //    //    FinalActivityList.RemoveAt(0);
+
+            //    //}
+            //    //FinalActivityList.Where(x => x.MainActivityId == tempItem.Activity_ID);
+
+
+
+        }
+
+
+        if(FinalActivityList.Count==0)
+        {
+
+            FinalActivityList.Add(
+
+                new Benaa2018.Helper.ViewModels.ActivityMasterViewModel
+                {
+                    ActivityId = 0,
+                    MainActivityId = Model[0].MainActivity_ID,
+                    ActivityName = "No Activity",
+                    OrgId = Model[0].Org_ID,
+                    ParentId = 0,
+                    Message = ""
+
+                }
+                );
+
+
+        }
+        else
+        {
+            foreach (var tempItem1 in Model)
+            {
+
+                FinalActivityList.RemoveAll(x => x.ActivityId == tempItem1.Activity_ID);
+            }
+
+
+        }
+    }
+    <!--New Element  Activities in BOQ.-->
+    @Html.Partial("_BoqBudgetActivityContent", FinalActivityList)
+
+</div>
+<script>
+    function DeleteActivity(projectBoqId)
+    {
+        if (confirm("Do you want to delete activity in BOQ?")) {
+            //alert(activityId);
+            //alert('Record has been deleted successfully.');
+            var Data = { projectBoqId: projectBoqId };
+            $.ajax({
+                type: "Post",
+                dataType: "json",
+                url: "/Home/DeleteBOQ",
+                data: Data,
+                success: function (response) {
+                    alert('Record has been deleted successfully.');
+                    window.location.reload();
+                }
+            });
+        }
+        else {
+            alert("Not deleted");
+        }
+     }
+
+</script>
+
+
+
+

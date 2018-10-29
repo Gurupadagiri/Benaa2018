@@ -1,0 +1,232 @@
+﻿@model Benaa2018.Helper.ViewModels.ProjectBoqBudgetMasterViewModel
+<div class="row mrgnRyt0">
+    <div class="mainContentDiv calenderHolder" style="margin-left: 235px; display: block; min-height: 500px;">
+        <div class="list-group-item  main-color-bg-pink">
+            <span> Budget - <span id="projectname">(al shatee)</span></span>
+        </div>
+        <div class="tableContainer todoHolder  todoHolderBOQ">
+            <button id="btnAddScheule" class="btn btn-success btn-sm">Add</button>
+            <button id="exportExcel" class="btn btn-success btn-sm"><img src="~/images/excelIcon.png" alt="" title="" /></button>
+            <div class="ccNewHolderRight">
+                <a href="javascript:void(0);" class="newActionBtn">Import</a>
+                <div class="ulHolder" style="display: none;">
+                    <ul>
+                        <li class="excel"><a href="#">Estimate From Excel</a></li>
+                        <li class="templatecel"><a href="#">Estimate From Template</a></li>
+                        <li class="softplan"><a href="#">Estimate From SoftPlan</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="filterContainer">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="headingOne">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="http://localhost:64750/calendar#CalendarOne" aria-expanded="false" aria-controls="CalendarOne" class="collapsed">
+                                        FILTER YOUR RESULTS
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="CalendarOne" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+                                <div class="panel-body">
+                                    <div class="row">
+                                        <div class="col-sm-3 form-group">
+                                            <span>Title</span>
+                                            <input class="form-control" id="Title" type="text">
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <span>Performed By</span>
+                                            <select id="PerformedBy" name="PerformedBy" multiple="multiple" class="withCheckbox required jqmsLoaded" style="display: none;">
+                                                <option value="" selected="selected">Select</option>
+                                                <option value="1">admin</option>
+                                            </select><div class="ms-options-wrap ms-has-selections"><button type="button"><span>Select</span></button><div class="ms-options" style="min-height: 200px; max-height: 389px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64750/calendar#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li class="default selected" data-search-term="select"><label for="ms-opt-17"><input type="checkbox" title="Select" id="ms-opt-17" value="">Select</label></li><li data-search-term="admin"><label for="ms-opt-18"><input type="checkbox" title="admin" id="ms-opt-18" value="1">admin</label></li></ul></div></div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <span>Status</span>
+                                            <select class="withCheckbox required jqmsLoaded" multiple="multiple" id="Status" name="Status" style="display: none;">
+                                                <option value="" selected="selected">All</option>
+                                                <option value="1">All</option>
+                                                <option value="2">None</option>
+                                                <option value="3">Upcoming</option>
+                                                <option value="4">In Progress</option>
+                                                <option value="5">Incompleted</option>
+                                                <option value="6">Past Due</option>
+                                                <option value="7">Unconfirmed</option>
+                                            </select><div class="ms-options-wrap ms-has-selections"><button type="button"><span>All</span></button><div class="ms-options" style="min-height: 200px; max-height: 389px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64750/calendar#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li class="default selected" data-search-term="all"><label for="ms-opt-19"><input type="checkbox" title="All" id="ms-opt-19" value="">All</label></li><li data-search-term="all"><label for="ms-opt-20"><input type="checkbox" title="All" id="ms-opt-20" value="1">All</label></li><li data-search-term="none"><label for="ms-opt-21"><input type="checkbox" title="None" id="ms-opt-21" value="2">None</label></li><li data-search-term="upcoming"><label for="ms-opt-22"><input type="checkbox" title="Upcoming" id="ms-opt-22" value="3">Upcoming</label></li><li data-search-term="in progress"><label for="ms-opt-23"><input type="checkbox" title="In Progress" id="ms-opt-23" value="4">In Progress</label></li><li data-search-term="incompleted"><label for="ms-opt-24"><input type="checkbox" title="Incompleted" id="ms-opt-24" value="5">Incompleted</label></li><li data-search-term="past due"><label for="ms-opt-25"><input type="checkbox" title="Past Due" id="ms-opt-25" value="6">Past Due</label></li><li data-search-term="unconfirmed"><label for="ms-opt-26"><input type="checkbox" title="Unconfirmed" id="ms-opt-26" value="7">Unconfirmed</label></li></ul></div></div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <span>Tags</span>
+                                            <select class="withCheckbox required jqmsLoaded" multiple="multiple" id="ProjectTag" name="ProjectTag" style="display: none;">
+                                                <option value="" selected="selected">Select</option>
+                                            </select><div class="ms-options-wrap ms-has-selections"><button type="button"><span>Select</span></button><div class="ms-options" style="min-height: 200px; max-height: 389px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64750/calendar#" class="ms-selectall global">Unselect all</a><ul style="column-count: 1; column-gap: 0px;"><li class="default selected" data-search-term="select"><label for="ms-opt-27"><input type="checkbox" title="Select" id="ms-opt-27" value="">Select</label></li></ul></div></div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3 form-group">
+                                            <label>Projects Phases</label>
+                                            <div class="input-group">
+                                                <select class="withCheckbox required jqmsLoaded" multiple="multiple" id="ProjectPhases" name="ProjectPhases" style="display: none;">
+                                                    <option value="" selected="selected">Select</option>
+                                                </select><div class="ms-options-wrap ms-has-selections"><button type="button"><span>Select</span></button><div class="ms-options" style="min-height: 200px; max-height: 389px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64750/calendar#" class="ms-selectall global">Unselect all</a><ul style="column-count: 1; column-gap: 0px;"><li class="default selected" data-search-term="select"><label for="ms-opt-28"><input type="checkbox" title="Select" id="ms-opt-28" value="">Select</label></li></ul></div></div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3 form-group">
+                                            <label>Other Items</label>
+                                            <div class="input-group">
+                                                <select class="withCheckbox required jqmsLoaded" multiple="multiple" id="ProjectOtherItem" name="ProjectOtherItem" style="display: none;">
+                                                    <option value="" selected="selected">Select</option>
+                                                    <option value="1">Bid Packages</option>
+                                                    <option value="2">Change Orders</option>
+                                                    <option value="3">Daily Logs</option>
+                                                    <option value="4">Owner Payments</option>
+                                                    <option value="5">RFIS</option>
+                                                </select><div class="ms-options-wrap ms-has-selections"><button type="button"><span>Select</span></button><div class="ms-options" style="min-height: 200px; max-height: 389px;"><div class="ms-search"><input type="text" value="" placeholder="Search"></div><a href="http://localhost:64750/calendar#" class="ms-selectall global">Select all</a><ul style="column-count: 1; column-gap: 0px;"><li class="default selected" data-search-term="select"><label for="ms-opt-29"><input type="checkbox" title="Select" id="ms-opt-29" value="">Select</label></li><li data-search-term="bid packages"><label for="ms-opt-30"><input type="checkbox" title="Bid Packages" id="ms-opt-30" value="1">Bid Packages</label></li><li data-search-term="change orders"><label for="ms-opt-31"><input type="checkbox" title="Change Orders" id="ms-opt-31" value="2">Change Orders</label></li><li data-search-term="daily logs"><label for="ms-opt-32"><input type="checkbox" title="Daily Logs" id="ms-opt-32" value="3">Daily Logs</label></li><li data-search-term="owner payments"><label for="ms-opt-33"><input type="checkbox" title="Owner Payments" id="ms-opt-33" value="4">Owner Payments</label></li><li data-search-term="rfis"><label for="ms-opt-34"><input type="checkbox" title="RFIS" id="ms-opt-34" value="5">RFIS</label></li></ul></div></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-6">
+                                            <button class="btn btn-primary btn-sm dropdown-toggle" type="button" data-toggle="dropdown" id="btnCalendar">Update Results</button>&nbsp;
+                                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" data-toggle="dropdown">Reset</button>&nbsp;
+                                            <button class="btn btn-default btn-sm dropdown-toggle" type="button" style="display:none" data-toggle="dropdown">Save Filter</button>
+                                        </div>
+                                    </div>
+                                    <br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       <div class="boqHolder">
+            <ul class="nav nav-tabs">
+                <li class="active"><a data-toggle="tab" href="#home2222">BOQ</a></li>
+                <li><a data-toggle="tab" href="#menu12222">Budget</a></li>
+                <li><a data-toggle="tab" href="#menu22222">Estimate</a></li>
+            </ul>
+            <div class="tab-content">
+                <div id="home2222" class="tab-pane fade in active">
+                    @foreach (var item in Model.ProjectPlaningViewModels)
+                    {
+                <div class="boqActivity">
+                    <div class="sectionSummary">
+                        <div class="totalHolder">
+                            <div class="totalSection">
+                                <div class="fieldHeader">Builder Cost</div>
+                                <div class="totalValue">ر.س.&rlm;22.00</div>
+                            </div>
+                            <div class="totalSection">
+                                <div class="fieldHeader">Markup</div>
+                                <div class="totalValue">ر.س.&rlm;0.00</div>
+                            </div>
+                            <div class="totalSection">
+                                <div class="fieldHeader">Owner Price</div>
+                                <div class="totalValue">ر.س.&rlm;22.00</div>
+                            </div>
+                        </div>
+                        <div class="generalItemHolder">
+                            <div class="topGen">
+                                <div class="toggleHolder">
+                                    <!--span class="plusIcon" style="display: none;">
+                        <img src="~/images/add.gif" alt="" title="" />
+                    </span-->
+                                    <span class="plusIcon1"></span>
+                                </div>
+                                <div class="text">@Model.MainActivityMasterModels.FirstOrDefault(temp => temp.MainActivityId == item.MainActivity_ID).MainActivityName</div>
+                            </div>
+                            <div class="checkDiv checkbox" data-bind="visible: estimatesExpanded">
+                                <label>
+                                    <input type="checkbox" class="checkAll" style="margin-top:2px;">Select all General Items
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @{ var tempActivityList = Model.ProjectBoqBudgetMasterViewModels.Where(x => x.MainActivity_ID == item.MainActivity_ID).ToList();
+                        ViewData["TempMainActivityId"] = item.MainActivity_ID;
+                        ViewData["TempOrgId"] = item.Org_ID;
+                    }
+
+                    @Html.Partial("_BoqBudgetActivityGrid", tempActivityList)
+
+
+
+                </div>
+
+}
+
+                    <div class="finalAggregateTotal">
+                        <ul>
+                            <li>
+                                <div class="fieldHeader">Execution Cost</div>
+                                <div class="aggTotal">
+                                    <span class="input-group-addon">SAR</span>
+                                    <input class="withSAR" type="text" name="" value="22.22">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fieldHeader">Markup</div>
+                                <div class="aggTotal">
+                                    <span class="input-group-addon">SAR</span>
+                                    <input class="withSAR" type="text" name="" value="22.22">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fieldHeader">Owner Price</div>
+                                <div class="aggTotal">
+                                    <span class="input-group-addon">SAR</span>
+                                    <input class="withSAR" type="text" name="" value="22.22">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+
+                </div>
+
+               <div id="menu12222" class="tab-pane fade budgetMainTabHolder">
+                   
+                   @{ var Budget = Model.ProjectBoqBudgetMasterViewModels.ToList();
+                    @Html.Partial("_BoqBudgetGrid", Budget)
+                        }
+                    <div class="finalAggregateTotal">
+                        <ul>
+                            <li>
+                                <div class="fieldHeader">Execution Cost</div>
+                                <div class="aggTotal">
+                                    <span class="input-group-addon">SAR</span>
+                                    <input class="withSAR" type="text" name="" value="22.22">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fieldHeader">Markup</div>
+                                <div class="aggTotal">
+                                    <span class="input-group-addon">SAR</span>
+                                    <input class="withSAR" type="text" name="" value="22.22">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="fieldHeader">Owner Price</div>
+                                <div class="aggTotal">
+                                    <span class="input-group-addon">SAR</span>
+                                    <input class="withSAR" type="text" name="" value="22.22">
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+               <div id="menu22222" class="tab-pane fade">
+
+                   @Html.Partial("_BoqEstimateGrid", Budget)
+                   @Html.Partial("_BoqEstimateEdit")
+               </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>

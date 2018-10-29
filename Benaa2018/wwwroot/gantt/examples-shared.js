@@ -182,6 +182,7 @@
                 // Detect and assign Kitchensink bugs to the correct app id
                 if (stack && stack.match('\/kitchensink\/')) {
                     data.applicationId = 'a37e444595168872f99d108d6bda96a2e26e0284';
+                  
                 }
 
                 data.tags    = tags;

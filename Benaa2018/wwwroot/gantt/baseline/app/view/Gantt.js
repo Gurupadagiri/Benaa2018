@@ -1,7 +1,7 @@
 /**
  * This example shows both the current plan and the original baseline.
  */
-Ext.define('Gnt.baseline.view.Gantt', {
+Ext.define('Gnt.examples.baseline.view.Gantt', {
     extend : 'Gnt.panel.Gantt',
 
     requires : [
@@ -66,7 +66,7 @@ Ext.define('Gnt.baseline.view.Gantt', {
         var taskStore = new Gnt.data.TaskStore({
             proxy : {
                 type   : 'ajax',
-                url: '/gantt/baseline/data/tasks.json'
+                url    : 'data/tasks.json'
             }
         });
 
@@ -74,7 +74,7 @@ Ext.define('Gnt.baseline.view.Gantt', {
             //autoLoad : true,
             proxy    : {
                 type   : 'ajax',
-                url: '/gantt/baseline/data/dependencies.json'
+                url    : 'data/dependencies.json'
             }
         });
 
@@ -123,44 +123,5 @@ Ext.define('Gnt.baseline.view.Gantt', {
         me.callParent();
 
         dependencyStore.load();
-    }
-});
-
-Ext.define('Gnt.baseline.view.taskAdd', {
-    extend: 'Gnt.panel.Gantt',
-    model: 'rms.model.assignmentModel',
-    storeId: 'assignmentStore',
-    autoLoad: false,
-    autoSync: true,
-    constructor: function () {
-        var me = this;
-        me.callParent(arguments);
-        this.resourceStore = Ext.create('rms.store.resource');
-    },
-
-    resourceStore: this.resourceStore,
-
-    proxy: {
-        type: 'ajax',
-        method: 'GET',
-        reader: new Ext.data.JsonReader({
-            root: 'assignmentdata',
-            type: 'json'
-        }),
-        writer: new Ext.data.JsonWriter({
-            root: 'assignmentdata',
-            type: 'json',
-            totalPropery: 'total',
-            successProperty: 'success',
-            idProperty: 'id',
-            encode: true,
-            writeAllFields: true
-        }),
-        api: {
-            read: 'assignment/GetAssignment.action',
-            create: 'assignment/CreateAssignment.action',
-            update: 'assignment/UpdateAssignment.action',
-            destroy: 'assignment/DeleteAssignment.action'
-        }
     }
 });

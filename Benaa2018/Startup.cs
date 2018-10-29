@@ -26,7 +26,7 @@ namespace Benaa2018
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;").EnableSensitiveDataLogging());
+            services.AddDbContext<SBSDbContext>(options => options.UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New-ThirdParty;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;").EnableSensitiveDataLogging());
             services.AddAuthentication("SBSSecurityScheme")
                     .AddCookie("SBSSecurityScheme", options =>
                     {
@@ -94,6 +94,15 @@ namespace Benaa2018
             services.AddScoped<IActivityMasterRepository, ActivityMasterRepository>();
             services.AddScoped<IToDoMessageRepository, ToDoMessageRepository>();
             services.AddScoped<IVarianceMasterRepository, VarianceMasterRepository>();
+            services.AddScoped<IProjectPlaningRepository, ProjectPlaningRepository>();
+            services.AddScoped<IProjectBoqBudgetMasterRepository, ProjectBoqBudgetMasterRepository>();
+            /*** Repository Added By Abhishek **************/
+            services.AddScoped<ITaxMasterRepository, TaxMasterRepository>();
+            services.AddScoped<IUnitMasterRepository, UnitMasterRepository>();
+            services.AddScoped<IMarkupMasterRepository, MarkupMasterRepository>();
+
+
+
 
             services.AddScoped<IMenuMasterHelper, MenuMasterHelper>();
             services.AddScoped<IOwnerMasterHelper, OwnerMasterHelper>();
@@ -119,6 +128,12 @@ namespace Benaa2018
             services.AddScoped<IActivityMasterHelper, ActivityMasterHelper>();
             services.AddScoped<IToDoMessageHelper, ToDoMessageHelper>();
             services.AddScoped<IVarianceMasterHelper, VarianceMasterHelper>();
+            services.AddScoped<IProjectBoqBudgetMasterHelper, ProjectBoqBudgetMasterHelper>();
+            services.AddScoped<IProjectPlaningHelper, ProjectPlaningHelper>();
+            services.AddScoped<IMainActivityMasterHelper, MainActivityMasterHelper>();
+            /** Services Added By Abhsihek**/
+            services.AddScoped<ITaxMasterHelper, TaxMasterHelper>();
+            services.AddScoped<IUnitMasterHelper, UnitMasterHelper>();
             services.AddMvc();
         }
 

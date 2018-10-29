@@ -368,7 +368,7 @@ input.form-control {
     }
 
 .bg {
-    background: url(../images/bg2.jpg) no-repeat 0 0;
+    background: url(../images/newBg.jpg) no-repeat 0 0;
     background-size: cover;
 }
 
@@ -4205,3 +4205,131 @@ tr.strikeout td:after {
 }
 
 /*=== End Blog Conversation ===*/
+
+
+/*=== LogIn ===*/
+
+.LoginContainer {
+    width: 100%;
+    float: left;
+}
+
+.container .formOuterContainer {
+    min-height: 100%;
+    box-shadow: 0px 0px 25px #666;
+    float: none;
+    margin: 11% auto 0;
+}
+
+.mainLoginHolder {
+    background: #fff;
+    padding: 50px;
+    width: 100%;
+    float: left;
+    height: 100%;
+}
+
+.leftLogIn {
+    text-align: center;
+}
+
+    .leftLogIn img {
+        width: 50%;
+    }
+
+.userLogIn {
+    position: relative;
+}
+
+.userLogIn {
+    border: 1px solid #86744c;
+    border-radius: 10px;
+    float:left;
+}
+
+    .userLogIn input {
+        float: left;
+        width: 70%;
+        border: 0;
+    }
+
+.LogIniconHolder {
+    float: left;
+    background: #dde1e0;
+    padding: 10px 0;
+    box-sizing: border-box;
+    width: 45px;
+    border-radius: 10px 0 0 10px;
+    text-align: center;
+}
+
+    .LogIniconHolder img {
+        width: 20px;
+    }
+
+.userLogIn input {
+    float: left;
+    width: 80%;
+    border: 0;
+    height: 41px;
+    font-size: 20px;
+}
+
+body .mainLoginHolder .loginBtn {
+    padding: 5px 34px;
+    font-size: 20px;
+    border-radius: 5px;
+    background: #88898e !important;
+    border: 1px solid #88898e;
+}
+.checkbox {
+    width:100%;
+    float:left;
+}
+
+.mainLoginHolder .checkbox input {
+    opacity:0;
+}
+
+    .form-group div[class^="col"] {
+        padding: 0;
+    }
+
+.mainLoginHolder .forgetPassword span,
+.mainLoginHolder .checkbox label {
+    font-size: 18px;
+    color: #b1b1b1;
+}
+
+    .mainLoginHolder .forgetPassword span a {
+        font-size: 17px;
+    }
+
+.mainLoginHolder .checkbox label {
+    background: url(../images/checkBoxIcon.jpg) no-repeat;
+    background-size: 16px;
+    background-position: 0px 4px;
+    padding-left: 26px;
+}
+
+.mainLoginHolder .checkbox #login-remember {
+    opacity: 0;
+}
+
+.mainLoginHolder .checkbox #login-remember:checked + label {
+    background: url(../images/checkBoxIconChecked.jpg) no-repeat;
+    background-size: 16px;
+    background-position: 0px 4px;
+    padding-left: 26px;
+}
+
+body .form-control:focus {
+    box-shadow: unset;
+}   
+
+@media (max-width: 767px) {
+    .leftLogIn img {
+        width: 40%;
+    }
+}
+/*=== End LogIn ===*/

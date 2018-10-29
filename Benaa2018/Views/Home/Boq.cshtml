@@ -1,0 +1,229 @@
+﻿@model Benaa2018.Helper.ViewModels.ProjectBoqBudgetMasterViewModel
+@{
+    ViewData["Title"] = "Boq Page";
+}
+@if (ViewBag.IsleftMenuVisible != false)
+{
+    Benaa2018.Helper.ViewModels.BaseViewModel baseBeena = ViewBag.Basemodel;
+    <div class="col-xs-12 col-sm-6 col-md-3  col-lg-2" id="leftNavCon">
+        @Html.Partial("_leftMenu", baseBeena)
+    </div>
+}
+<div class="mainContentDiv">
+    @Html.Partial("_BoqBudgetContent", Model)
+</div>
+<!--- BOQ jquery ---->
+<script src="~/js/jquery.unobtrusive-ajax.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.10.0/js/bootstrap-select.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.textBoxHolderToggle button').click(function () {
+
+            if ($(this).find('.fa-inverse').hasClass('fa-caret-down')) {
+                $(this).find('.fa-inverse').removeClass('fa-caret-down');
+                $(this).find('.fa-inverse').addClass('fa-caret-up');
+            } else {
+                $(this).find('.fa-inverse').addClass('fa-caret-down');
+                $(this).find('.fa-inverse').removeClass('fa-caret-up');
+            }
+            $(this).parents().children('.textBoxHolder').slideToggle();
+        });
+        $('.textareaToggle a').click(function () {
+            $('.textBoxHolder').slideToggle();
+        });
+        $(".checkAll").click(function () {
+            $('.BOQcontentHolderFinalUl input:checkbox').not(this).prop('checked', this.checked).css('visibility', 'visible');
+        });
+        $('.boqMainActivityHolder, .checkDiv ').hide();
+
+        $('.toggleHolder').click(function () {
+            //$('.boqMainActivityHolder, .checkDiv ').slideUp();
+
+
+            //$(this).children('.plusIcon1').toggleClass('minusIcon');
+
+            if ($(this).children('.plusIcon1').hasClass('minusIcon')) {
+                $(this).children('.plusIcon1').removeClass('minusIcon');
+
+
+            } else {
+
+                $(this).children('.plusIcon1').addClass('minusIcon');
+            }
+            $(this).parents().children('.boqMainActivityHolder, .checkDiv ').slideToggle();
+        });
+        $('.selectpicker').selectpicker();
+
+        $('.newBtn, .newActionBtn').click(function (e) {
+            //alert(456);
+            $(this).parent().children('.ulHolder').slideToggle();
+            e.preventDefault();
+        });
+
+
+        $(".addNewBox").click(function () {
+
+            $(".boqHOlder .BOQcontentHolderFinal")
+                .eq(0)
+                .clone()
+                .find("input").val("").end() // ***
+                //.find(":selected").text().end()
+                .show()
+                .insertBefore(".boqHOlder .BOQcontentHolderFinal.emptyBoxHolder")
+            //.addClass('emptyBoxHolder');
+
+        });
+        //$(".addNewBox1").click(function () {
+        //    $(".budgetHolder .BOQcontentHolderFinal")
+        //        .eq(0)
+        //        .clone()
+        //        .find("input").val("").end() // ***
+        //        //.find(":selected").text().end()
+        //        .show()
+        //        .insertBefore(".budgetHolder .BOQcontentHolderFinal.emptyBoxHolder")
+        //    //.addClass('emptyBoxHolder');
+
+        //});
+
+        $('.mainTrActivityHolder .plus').click(function () {
+            $(this).toggleClass('minus');
+            $(this).closest('tr').next('.mainTrActivity').slideToggle();
+
+        });
+
+        $('.mainTrActivity .delete').click(function (e) {
+
+            $(this).parent().parent().remove();
+            e.stopPropagation();
+        });
+
+        $('.boqHolder .nav-tabs li').click(function () {
+            var titleText = $(this).text();
+
+            $('.list-group-item  span').text(titleText);
+
+        });
+
+
+
+
+
+    });
+</script>
+<!--- End BOQ ---->
+
+<script type="text/javascript">
+
+    $(function () {
+        /*----------------- Instantiation -------------------------*/
+        $("#grid2").igHierarchicalGrid({
+            features: [
+                {
+                    name: "Responsive",
+                    enableVerticalRendering: false,
+                    columnSettings: [
+                        {
+                            columnKey: "Title",
+                            classes: "ui-hidden-phone"
+                        },
+                        {
+                            columnKey: "Address",
+                            classes: "ui-hidden-phone"
+                        }
+                    ]
+                },
+                {
+                    name: "Updating",
+                    editMode: "dialog",
+                    rowEditDialogOptions: {
+                        height: "350px",
+                        width: "390px",
+                        containment: "window",
+                        showDoneCancelButtons: true
+                    },
+                    columnSettings:
+                        [{
+                            columnKey: "LastName",
+                            required: true
+                        }]
+                }
+            ],
+            width: "100%",
+            autoCommit: true,
+            dataSource: northwind,
+            dataSourceType: "json",
+            responseDataKey: "results",
+            autoGenerateColumns: false,
+            autofitLastColumn: false,
+            primaryKey: "EmployeeID",
+            columns: [
+                { key: "EmployeeID", headerText: "Employee ID", dataType: "number", width: "0%", hidden: true },
+                { key: "FirstName", headerText: "First Name", dataType: "string", width: "15%" },
+                { key: "LastName", headerText: "Last Name", dataType: "string", width: "15%" },
+                { key: "Title", headerText: "Title", dataType: "string", width: "25%" },
+                { key: "Address", headerText: "Address", dataType: "string", width: "25%" },
+                { key: "City", headerText: "City", dataType: "string", width: "20%" }
+            ],
+            childrenDataProperty: "Orders",
+            autoGenerateLayouts: false,
+            columnLayouts: [
+                {
+                    key: "Orders",
+                    width: "100%",
+                    autoGenerateColumns: false,
+                    autofitLastColumn: false,
+                    primaryKey: "OrderID",
+                    autoCommit: true,
+                    columns: [
+                        { key: "OrderID", headerText: "Order ID", dataType: "number", width: "0%", hidden: true },
+                        { key: "CustomerID", headerText: "Customer ID", dataType: "string", width: "0%", hidden: true },
+                        { key: "Freight", headerText: "Freight", dataType: "string", width: "15%" },
+                        { key: "ShipName", headerText: "Ship Name", dataType: "string", width: "20%" },
+                        { key: "ShipAddress", headerText: "Ship Address", dataType: "string", width: "25%" },
+                        { key: "ShipCity", headerText: "Ship City", dataType: "string", width: "20%" },
+                        { key: "ShipCountry", headerText: "Ship Country", dataType: "string", width: "20%" }
+                    ],
+                    features: [
+                        {
+                            name: "Responsive",
+                            enableVerticalRendering: false,
+                            columnSettings: [
+                                {
+                                    columnKey: "ShipAddress",
+                                    classes: "ui-hidden-phone"
+                                },
+                                {
+                                    columnKey: "ShipCity",
+                                    classes: "ui-hidden-phone"
+                                }
+                            ]
+                        },
+                        {
+                            name: "Paging",
+                            pageSize: 10
+                        },
+                        {
+                            name: "Updating",
+                            enableAddRow: false,
+                            editMode: "dialog",
+                            rowEditDialogOptions: {
+                                height: "350px",
+                                width: "390px",
+                                containment: "window",
+                                showDoneCancelButtons: true
+                            },
+                            columnSettings:
+                                [
+                                    {
+                                        columnKey: "ShipName",
+                                        required: true
+                                    }
+                                ]
+                        }
+                    ]
+                }
+            ]
+        });
+    });
+</script>

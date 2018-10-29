@@ -1,4 +1,5 @@
 ﻿using Benaa2018.Helper;
+using Benaa2018.Helper.Interface;
 using Benaa2018.Helper.ViewModels;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -25,6 +26,11 @@ namespace Benaa2018.Controllers
         private readonly IWarrentyAlertHelper _warrentyAlertHelper;
         private readonly ICompanyMasterHelper _companyMasterHelper;
         private readonly IDetaildPermissionHelper _detaildPermissionHelper;
+        private readonly IProjectPlaningHelper _projectPlaningHelper;
+        private readonly IMainActivityMasterHelper _mainActivityMasterHelper;
+        private readonly IActivityMasterHelper _activityMasterHelper;
+        private readonly IProjectBoqBudgetMasterHelper _projectBoqBudgetMasterHelper;
+        private readonly IUnitMasterHelper _unitMasterHelper;
         private readonly IHostingEnvironment _environment;
         public HomeController(IMenuMasterHelper menuMasterHelper,
             IOwnerMasterHelper ownerMasterHelper, IProjectColorHelper projectColorHelper,
@@ -33,7 +39,7 @@ namespace Benaa2018.Controllers
             IProjectStatusMasterHelper projectStatusMasterHelper,
             ISubContractorHelper subContractorHelper, IToDoMasterHelper toDoMasterHelper,
             IUserMasterHelper userMasterHelper, IWarrentyAlertHelper warrentyAlertHelper,
-            ICompanyMasterHelper companyMasterHelper, IDetaildPermissionHelper detaildPermissionHelper, IHostingEnvironment environment) : base(menuMasterHelper,
+            ICompanyMasterHelper companyMasterHelper, IDetaildPermissionHelper detaildPermissionHelper, IHostingEnvironment environment, IProjectPlaningHelper projectPlaningHelper, IMainActivityMasterHelper mainActivityMasterHelper, IActivityMasterHelper activityMasterHelper, IProjectBoqBudgetMasterHelper projectBoqBudgetMasterHelper, IUnitMasterHelper unitMasterHelper) : base(menuMasterHelper,
             ownerMasterHelper, projectColorHelper, projectGroupHelper, projectMasterHelper, projectScheduleMasterHelper,
             projectStatusMasterHelper, subContractorHelper, userMasterHelper, companyMasterHelper)
         {
@@ -50,6 +56,11 @@ namespace Benaa2018.Controllers
             _warrentyAlertHelper = warrentyAlertHelper;
             _companyMasterHelper = companyMasterHelper;
             _detaildPermissionHelper = detaildPermissionHelper;
+            _projectPlaningHelper = projectPlaningHelper;
+            _mainActivityMasterHelper = mainActivityMasterHelper;
+            _activityMasterHelper = activityMasterHelper;
+            _projectBoqBudgetMasterHelper = projectBoqBudgetMasterHelper;
+            _unitMasterHelper = unitMasterHelper;
             _environment = environment;
         }
 
@@ -62,6 +73,153 @@ namespace Benaa2018.Controllers
             };
             return View(homeModel);
         }
+
+        public async Task<IActionResult> Boq()
+        {
+            ViewData["ProjectId"] = "1";
+            ProjectBoqBudgetMasterViewModel BoqBudgetModel = new ProjectBoqBudgetMasterViewModel
+            {
+
+                MainActivityMasterModels = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails(),
+                ActivityMasterModels = await _activityMasterHelper.GetAllActivityMasterDetails(),
+                //ProjectPlaningViewModels = await _projectPlaningHelper.GetAllRecords(1),
+                ProjectPlaningViewModels = await _projectPlaningHelper.GetAllRecords(12),
+                ProjectBoqBudgetMasterViewModels = await _projectBoqBudgetMasterHelper.GetAllRecords(),
+                UnitMasterViewModels = await _unitMasterHelper.GetAllRecords(),
+            };
+
+            ViewData["ActivityMasterList"] = BoqBudgetModel.ActivityMasterModels;
+            ViewData["MainActivityMasterList"] = BoqBudgetModel.MainActivityMasterModels;
+            ViewData["UnitMasterViewModels"] = BoqBudgetModel.UnitMasterViewModels;
+
+            return View(BoqBudgetModel);
+        }
+        [HttpPost]
+        public async Task<IActionResult> AddBOQ(ProjectBoqBudgetMasterViewModel model)
+        {
+
+
+            ProjectBoqBudgetMasterViewModel projectboqbudgetMaster = new ProjectBoqBudgetMasterViewModel
+            {
+
+                Project_ID = model.Project_ID,
+                MainActivity_ID = model.MainActivity_ID,
+                Activity_ID = model.Activity_ID,
+                Title = model.Title,
+                Description = model.Description,
+                Unit_ID = model.Unit_ID,
+                Unit_Cost = model.Unit_Cost,
+                Tax_ID = model.Tax_ID,
+                Quantity = model.Quantity,
+                Org_ID = model.Org_ID
+
+            };
+            var objSaveProjcetBQOMaster = await _projectBoqBudgetMasterHelper.SavePorjectBOQMaster(projectboqbudgetMaster);
+
+            //ProjectBoqBudgetMasterViewModel BoqBudgetModel = new ProjectBoqBudgetMasterViewModel
+            //{
+
+            //    MainActivityMasterModels = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails(),
+            //var ActivityMasterModels = await _activityMasterHelper.GetAllActivityMasterDetails();
+            ProjectBoqBudgetMasterViewModel BoqBudgetModel = new ProjectBoqBudgetMasterViewModel
+            {
+
+                MainActivityMasterModels = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails(),
+                ActivityMasterModels = await _activityMasterHelper.GetAllActivityMasterDetails(),
+                ProjectPlaningViewModels = await _projectPlaningHelper.GetAllRecords(1),
+                ProjectBoqBudgetMasterViewModels = await _projectBoqBudgetMasterHelper.GetAllRecords(),
+            };
+            var ActivityMasterModels = BoqBudgetModel.ProjectBoqBudgetMasterViewModels.FindAll(x => x.MainActivity_ID == model.MainActivity_ID);
+
+            //ActivityMasterModels.
+            //    ProjectPlaningViewModels = await _projectPlaningHelper.GetAllRecords(1),
+            //};
+            return PartialView("_BoqBudgetActivityGrid", ActivityMasterModels);
+        }
+
+        [HttpPost]
+        public IActionResult DeleteBOQ(string projectBoqId)
+        {
+            var result = _projectBoqBudgetMasterHelper.DeleteProjectBoqBudgetByProjectBoqId(Convert.ToInt32(projectBoqId));
+            //var projectboqbudgetList =await _projectBoqBudgetMasterHelper.GetBoqListByActivityId(Convert.ToInt32(ActivityID));
+
+            //List<ProjectBoqBudgetMasterViewModel> projectBoqBudgetViewModellst = new List<ProjectBoqBudgetMasterViewModel>();
+            //    ProjectBoqBudgetMasterViewModel projectboqbudgetMaster = new ProjectBoqBudgetMasterViewModel{
+            //        Project_Boq_ID=projectboqbudgetList.Project_Boq_ID,
+            //        Project_ID=projectboqbudgetList.Project_ID,
+            //        MainActivity_ID=projectboqbudgetList.MainActivity_ID,
+            //        Activity_ID = projectboqbudgetList.Activity_ID,
+            //        Org_ID=projectboqbudgetList.Org_ID,
+            //        Quantity=projectboqbudgetList.Quantity,
+            //        Status=projectboqbudgetList.Status
+
+
+
+            //    };
+            //projectBoqBudgetViewModellst.Add(projectboqbudgetMaster);
+            //await _projectBoqBudgetMasterHelper.UpdateProjectBoqBudgetConfig(projectBoqBudgetViewModellst);
+
+            //projectboqbudgetMaster
+            //{
+
+            //    Project_ID = model.Project_ID,
+            //    MainActivity_ID = model.MainActivity_ID,
+            //    Activity_ID = model.Activity_ID,
+            //    Title = model.Title,
+            //    Description = model.Description,
+            //    Unit_ID = model.Unit_ID,
+            //    Unit_Cost = model.Unit_Cost,
+            //    Tax_ID = model.Tax_ID,
+            //    Quantity = model.Quantity,
+            //    Org_ID = model.Org_ID
+
+            //};
+            //var objUpdateProjcetBQOMaster = await _projectBoqBudgetMasterHelper.UpdateProjectBoqBudgetConfig(projectBoqBudgetViewModellst);
+
+            //ProjectBoqBudgetMasterViewModel BoqBudgetModel = new ProjectBoqBudgetMasterViewModel
+            //{
+
+            //    MainActivityMasterModels = await _mainActivityMasterHelper.GetAllMainActivityMasterDetails(),
+            //var ActivityMasterModels = await _activityMasterHelper.GetAllActivityMasterDetails();
+            return Json(result);
+        }
+        [HttpPost]
+        public async Task<ActionResult> SaveProjectBoqDetail(ProjectBoqBudgetMasterViewModel model)
+        {
+            var result = await _projectBoqBudgetMasterHelper.UpdateProjectBoqBudgetConfig(model);
+            return Json(result);
+        }
+
+
+
+        //public async Task<ActionResult> DeleteGroupMaster(int group_id)
+        //{
+        //    string result = string.Empty;
+
+        //    GroupMasterViewModel grpItem = new GroupMasterViewModel();
+        //    var groupMasterItem = await _groupMasterHelper.GetGroupMasterViewModelById(group_id);
+        //    if (groupMasterItem.Count > 0)
+        //    {
+
+        //        grpItem.GroupId = Convert.ToInt32(groupMasterItem[0].GroupId);
+        //        grpItem.GroupCode = groupMasterItem[0].GroupCode;
+        //        grpItem.GroupName = groupMasterItem[0].GroupName;
+        //        grpItem.Sequence = groupMasterItem[0].Sequence;
+        //        grpItem.Status = groupMasterItem[0].Status;
+        //        grpItem.IsDeleted = true;
+
+        //    }
+        //    var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpItem);
+        //    return Json(result);
+        //}
+
+        public async Task<IActionResult> GetEstimateDetailByProjectBoqId(int projectBoqId)
+        {
+            var result = await _projectBoqBudgetMasterHelper.GetBoqListByActivityId(projectBoqId);
+            return PartialView("_BoqEstimateEdit", result);
+        }
+
+
 
         [HttpPost]
         public async Task<IActionResult> FilteredMainContentAsync(int projectId = 0)

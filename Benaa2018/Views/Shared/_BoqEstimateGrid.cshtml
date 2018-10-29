@@ -1,0 +1,181 @@
+﻿@model List<Benaa2018.Helper.ViewModels.ProjectBoqBudgetMasterViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    var MainActivityList = Model.Select(x =>
+    x.MainActivity_ID).Distinct();
+    List<Benaa2018.Helper.ViewModels.MainActivityMasterViewModel>
+   tempMainActivityList = ViewBag.MainActivityMasterList;
+
+
+
+
+    <table id="grid2" class="estimateTable">
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th>Activity</th>
+                <th>Exec Cost</th>
+                <th>Total Tax</th>
+                <th>Total Exec Cost</th>
+                <th>Total Markup</th>
+                <th>Owner Price</th>
+            </tr>
+            <!-- <tr>
+                <td></td>
+                <td colspan="6"><span></span><span>Main Activity c</span></td>
+            </tr> -->
+        </thead>
+        @foreach (int item in MainActivityList)
+        {
+            <tbody>
+                <tr class="mainTrActivityHolder">
+                    <td><span class="plus"></span></td>
+                    <td>@tempMainActivityList.FirstOrDefault(x => x.MainActivityId == item).MainActivityName</td>
+                    <td>SAR @Model.Where(x => x.MainActivity_ID == item).Select(x1 => x1.Execution_Cost).Sum() </td>
+                    <td>SAR @Model.Where(x => x.MainActivity_ID == item).Select(x1 => x1.Tax_Value).Sum()</td>
+                    <td>
+                        SAR  @{
+                            var a = Model.Where(x => x.MainActivity_ID == item).Select(x1 => x1.Execution_Cost).Sum();
+                            var b = Model.Where(x => x.MainActivity_ID == item).Select(x1 => x1.Tax_Value).Sum();
+                            var c = a + b;} @c
+                        </td>
+                        <td>SAR @Model.Where(x => x.MainActivity_ID == item).Select(x1 => x1.Total_Markup).Sum()</td>
+                        <td>SAR @Model.Where(x => x.MainActivity_ID == item).Select(x1 => x1.steakholder_Price).Sum()</td>
+                    </tr>
+                    <tr class="mainTrActivity">
+                        <td></td>
+                        <td colspan="6">
+                            <table class="estiamteInnerTable">
+                                <thead>
+                                    <tr>
+                                        <th>Activity</th>
+                                        <th>Exec Cost</th>
+                                        <th>Total Tax</th>
+                                        <th>Total Exec Cost</th>
+                                        <th>Total Markup</th>
+                                        <th>Owner Price</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @{
+                                        List<Benaa2018.Helper.ViewModels.ActivityMasterViewModel> TempActivityList;
+                                        TempActivityList = ViewBag.ActivityMasterList;
+                                        var tempBoQ = Model.Where(x => x.MainActivity_ID == item).ToList();
+
+                                        @foreach (var item1 in tempBoQ)
+                                        {
+                                            <tr>
+                                                <td  id="infoEdit"  data-original-title onclick="GetEstimateDetails(@item1.Project_Boq_ID)"> @TempActivityList.FirstOrDefault(x => x.ActivityId == item1.Activity_ID).ActivityName</td>
+                                                <td>@item1.Execution_Cost</td>
+                                                <td>@item1.Tax_Value</td>
+                                                <td>@item1.Execution_Cost</td>
+                                                <td>@item1.Total_Markup</td>
+                                                <td>@item1.steakholder_Price   <span class="delete" id="@Model.Where(x=>x.MainActivity_ID == item && x.Activity_ID == item1.Activity_ID).Select(x=>x.Project_Boq_ID).First()"><img src="~/images/delete.png" /></span></td>
+
+                                            </tr>
+
+                                        }
+
+
+                                    }
+
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+
+
+            }
+        <tfoot>
+            <tr>
+                <td>&nbsp;</td>
+                <td>Total</td>
+                <td>
+                    SAR @Model.Select(x =>
+                 x.Execution_Cost).Sum()
+                </td>
+                <td>
+                    SAR   SAR @Model.Select(x =>
+x.Tax_Value).Sum()
+                </td>
+                <td>
+                    SAR @{
+                        var exe = Model.Select(x =>
+x.Execution_Cost).Sum();
+                        var tax = Model.Select(x =>
+                x.Tax_Value).Sum();
+                        var totalvalue = exe + tax;
+                    }  @totalvalue
+                </td>
+                <td>
+                    SAR @Model.Select(x =>
+x.Markup_Value).Sum()
+                </td>
+                <td>
+                    SAR @Model.Select(x =>
+x.steakholder_Price).Sum()
+                </td>
+
+            </tr>
+        </tfoot>
+    </table>
+}
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $('.delete').click(function (e) {
+
+           
+            if (confirm("Do you want to delete selected record.")) {
+                var id = $(this).attr('id');
+                var Data = { projectBoqId: id };
+                //alert("deleted");
+                
+                console.log(Data);
+                $.ajax({
+                    type: "Post",
+                    dataType: "json",
+                    url: "/Home/DeleteBOQ",
+                    data: Data,
+                    success: function (response) {
+                        alert('Record has been deleted successfully.');
+                        window.location.reload();
+
+
+                    }
+                });
+
+
+            } else {
+                alert("Not deleted");
+
+            }
+        });
+    });
+
+    function GetEstimateDetails(projectBoqId) {
+        var Data = { projectBoqId: projectBoqId };
+        //alert("deleted");
+
+        console.log(Data);
+        $.ajax({
+            type: "Post",
+            dataType: "html",
+            url: "/Home/GetEstimateDetailByProjectBoqId",
+            data: Data,
+            success: function (response) {
+                $('#estimateDetail').replaceWith(response);
+               $('#estimateDetail').modal('show'); 
+            },
+            error: function (response) {
+                alert(response);
+            }
+        });
+
+    }
+</script>

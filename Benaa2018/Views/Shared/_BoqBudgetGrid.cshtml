@@ -1,0 +1,601 @@
+﻿@model List<Benaa2018.Helper.ViewModels.ProjectBoqBudgetMasterViewModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+
+<div class="boqActivity budgetHolder">
+    @{
+        var MainActivityList = Model.Select(x => x.MainActivity_ID).Distinct();
+        List<Benaa2018.Helper.ViewModels.MainActivityMasterViewModel> tempMainActivityList = ViewBag.MainActivityMasterList;
+        string UnitCost = "UnitCost";
+        string UnitCostFunction = "UnitCost()";
+        string executionCost = "ExcutionCost";
+        string Quantity = "Quanitity";
+        string taxdrop = "taxdrop";
+        string taxpercent = "taxpercent";
+        string taxunit = "taxunit";
+        string taxcost = "taxcost";
+        string Buildercost = "Buildercost";
+        string marupPercent = "marupPercent";
+        string markupValue = "markupValue";
+        string TotalMarkup = "TotalMarkup";
+        string SteakHolderPrice = "SteakHolderPrice";
+        string markupdrop = "markupdrop";
+        string projectBoqId = "projectBoqId";
+        string internalNotes = "internalNotes";
+        string addBtn = "addbtn";
+
+        @foreach(int item in MainActivityList)
+        {
+
+            <div class="sectionSummary">
+                <div class="totalHolder">
+                    <div class="totalSection">
+                        <div class="fieldHeader">Execution Cost</div>
+                        <div class="totalValue">ر.س.&rlm;22.00</div>
+                    </div>
+                    <div class="totalSection">
+                        <div class="fieldHeader">Markup</div>
+                        <div class="totalValue">ر.س.&rlm;0.00</div>
+                    </div>
+                    <div class="totalSection">
+                        <div class="fieldHeader">Owner Price</div>
+                        <div class="totalValue">ر.س.&rlm;22.00</div>
+                    </div>
+                </div>
+                <div class="generalItemHolder">
+                    <div class="topGen">
+                        <div class="toggleHolder">
+                            <!--span class="plusIcon" style="display: none;">
+                                <img src="~/images/add.gif" alt="" title="" />
+                            </span-->
+                            <span class="plusIcon1"></span>
+                        </div>
+                        <div class="text">
+                            @tempMainActivityList.FirstOrDefault(x => x.MainActivityId == item).MainActivityName
+
+                                            </div>
+                    </div>
+                    <div class="checkDiv checkbox" data-bind="visible: estimatesExpanded">
+                        <label>
+                            <input type="checkbox" class="checkAll" style="margin-top:2px;">Select all Activities
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="boqMainActivityHolder">
+                @{
+
+
+                    List<Benaa2018.Helper.ViewModels.ActivityMasterViewModel> TempActivityList;
+
+
+
+                    TempActivityList = ViewBag.ActivityMasterList;
+
+                    var tempBoQ = Model.Where(x => x.MainActivity_ID == item).ToList();
+
+            <div class="toggleSectionHolder">
+                <div class="textareaToggle">
+                    <a href="#" class="black-text no-outline ">
+                        <i class="fa fa-sort" aria-hidden="true"></i>
+                        Show/Hide Additional Info
+                    </a>
+                </div>
+                <div class="BOQheadingHolder">
+                    <ul>
+                        <li><img src="~/images/del_line.gif" alt="" title="" /></li>
+                        <li>Activity</li>
+                        <li>Unit Type</li>
+                        <!--li>Activity Type</li-->
+                        <li>Quantity</li>
+                        <li>Unit Cost</li>
+                        <li>Exec Cost</li>
+                        <li>Tax</li>
+
+                        <li>Tax (%)</li>
+                        <li>Tax Unit</li>
+                        <li>Total Tax</li>
+
+                        <li>Total Exec Cost</li>
+                        <li>Markup</li>
+                        <li>Markup (%)</li>
+                        <li>Markup Unit </li>
+                        <li>Total Markup</li>
+                        <li>Owner Price</li>
+                        <li>&nbsp;</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="rotateDiv">
+
+                @foreach (var item1 in tempBoQ)
+    {
+
+
+        UnitCost = item1.Activity_ID.ToString() + UnitCost;
+        //UnitCostFunction = item1.Activity_ID.ToString() + UnitCostFunction;
+        executionCost = item1.Activity_ID.ToString() + executionCost;
+        Quantity = item1.Activity_ID.ToString() + Quantity;
+	//added By Pankaj---------------//
+                            taxdrop = item1.Activity_ID.ToString() + taxdrop;
+                            taxpercent = item1.Activity_ID.ToString() + taxpercent;
+                            taxunit = item1.Activity_ID.ToString() + taxunit;
+                            taxcost = item1.Activity_ID.ToString() + taxcost;
+                            Buildercost = item1.Activity_ID.ToString() + Buildercost;
+                            marupPercent = item1.Activity_ID.ToString() + marupPercent;
+                            markupValue = item1.Activity_ID.ToString() + markupValue;
+                            TotalMarkup = item1.Activity_ID.ToString() + TotalMarkup;
+                            SteakHolderPrice = item1.Activity_ID.ToString() + SteakHolderPrice;
+                            markupdrop= item1.Activity_ID.ToString() + markupdrop;
+			    projectBoqId = item1.Activity_ID.ToString() + projectBoqId;
+                            internalNotes = item1.Activity_ID.ToString() + internalNotes;
+                            addBtn = item1.Activity_ID.ToString() + addBtn;
+            <div class="BOQcontentHolderFinal postionHereNext">
+                <ul class="BOQcontentHolderFinalUl">
+                    <li>
+                        <label>
+                            <input type="checkbox" class="checkAll" style="margin-top:2px;">
+                        </label>
+                        <img src="~/images/del_line.gif" alt="" title="" />
+                    </li>
+                    <li>
+                        <span class="input-group-addon li-catalog">
+                            <a href="#" title="Link this line item to your cost catalog">
+                                <img alt="Selection Catalog" src="~/images/catalogWhite.png">
+                            </a>
+                        </span>
+                        <div class="box">
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label>@TempActivityList.FirstOrDefault(x => x.ActivityId == item1.Activity_ID).ActivityName; </label>
+				 <input type="hidden" id="@projectBoqId" value="@item1.Project_Boq_ID" />
+
+                                </div>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <label>@item1.Unit_ID</label>
+
+                    </li>
+
+                                    <li>
+                                        <label id="@Quantity">@item1.Quantity</label>
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR classunitcost" type="text" id="@UnitCost" onkeyup="UnitCalculation('@Quantity', '@UnitCost','@executionCost');" value="@item1.Unit_Cost">
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR classexecutioncost" type="text" onkeyup="BudgetCalculation('@taxunit','@executionCost', '@taxcost', '@Buildercost','@marupPercent','@markupValue', '@TotalMarkup', '@SteakHolderPrice', '@UnitCost', '@taxpercent', '@Quantity','@taxdrop');" id="@executionCost" disabled="disabled" value="@item1.Execution_Cost">
+                                    </li>
+                                    <li>
+                                        <select id="@taxdrop" onchange="manageTaxbaxesEnable('@taxdrop', '@taxpercent', '@taxunit');">
+                                            <option>%</option>
+                                            <option>ر.س.‏/unit</option>
+                                            <option>ر.س.‏</option>
+                                            <option>-</option>
+                                        </select>
+                                    </li>
+
+                                    <li>
+                                        <input class="withSAR" type="text" id="@taxpercent" onkeyup="BudgetCalculation('@taxunit','@executionCost', '@taxcost', '@Buildercost','@markupdrop','@marupPercent','@markupValue', '@TotalMarkup', '@SteakHolderPrice', '@UnitCost', '@taxpercent', '@Quantity','@taxdrop');" name="" value="@item1.Tax_Percentage">
+                                        <span class="input-group-addon withPercentage">%</span>
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR" type="text" id="@taxunit" onkeyup="BudgetCalculation('@taxunit','@executionCost', '@taxcost', '@Buildercost','@markupdrop','@marupPercent','@markupValue', '@TotalMarkup', '@SteakHolderPrice', '@UnitCost', '@taxpercent', '@Quantity','@taxdrop');" name="" value="@item1.Tax_Unit">
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR" type="text" id="@taxcost" name="" onkeyup="BudgetCalculation('@taxunit','@executionCost', '@taxcost', '@Buildercost','@markupdrop','@marupPercent','@markupValue', '@TotalMarkup', '@SteakHolderPrice', '@UnitCost', '@taxpercent', '@Quantity','@taxdrop');" value="@item1.Tax_Cost">
+                                    </li>
+
+
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR" type="text" id="@Buildercost" onkeyup="BudgetCalculation('@taxunit','@executionCost', '@taxcost', '@Buildercost','@markupdrop','@marupPercent','@markupValue', '@TotalMarkup', '@SteakHolderPrice', '@UnitCost', '@taxpercent', '@Quantity','@taxdrop');" name="" value="@item1.Total_Builder_Cost">
+                                    </li>
+
+
+
+                                    <li>
+                                        <select id="@markupdrop" onchange="managemarkupTaxsEnable('@markupdrop', '@marupPercent', '@markupValue')">
+                                            <option>%</option>
+                                            <option>ر.س.‏/unit</option>
+                                            <option>ر.س.‏</option>
+                                            <option>-</option>
+                                        </select>
+                                    </li>
+                                    <li>
+                                        <input class="withSAR" type="text" id="@marupPercent" onkeyup="BudgetCalculation('@taxunit','@executionCost', '@taxcost', '@Buildercost','@markupdrop','@marupPercent','@markupValue', '@TotalMarkup', '@SteakHolderPrice', '@UnitCost', '@taxpercent', '@Quantity','@taxdrop');" name="" value="@item1.Markup_Percentage">
+                                        <span class="input-group-addon withPercentage">%</span>
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR" id="@markupValue" type="text" name="" value="@item1.Markup_Value">
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR" type="text" id="@TotalMarkup" onkeyup="BudgetCalculation('@taxunit','@executionCost', '@taxcost', '@Buildercost','@markupdrop','@marupPercent','@markupValue', '@TotalMarkup', '@SteakHolderPrice', '@UnitCost', '@taxpercent', '@Quantity','@taxdrop');" name="" value="@item1.Total_Markup">
+                                    </li>
+                                    <li>
+                                        <span class="input-group-addon">SAR</span>
+                                        <input class="withSAR" id="@SteakHolderPrice" type="text" name="" value="@item1.steakholder_Price">
+                                    </li>
+                                    <li>
+                                        @if (item1.IsBudget_Updated)
+                                        {
+                                            <span class="plusePop"><img src="~/images/addRelatedPOs.png" alt="" title="" /></span>
+                                        }
+                                        else
+                                        {
+                                            <span class="addNewBox1" onclick="SaveProjectBoqDetail(this)">Save</span>
+                                            <span class="plusePop" style="display:none"><img src="~/images/addRelatedPOs.png" alt="" title="" /></span>
+                                        }
+                                    </li>
+                                    @*<li><span class="plusePop"><img src="~/images/addRelatedPOs.png" alt="" title="" /></span></li>*@
+                                </ul>
+                                <div class="textBoxHolderToggle">
+                                    <button type="button" class="btn btn-link btn-xs" title="Toggle title, description, &amp; notes">
+                                        <div class="toggle-state">
+                                            <span class="fa-stack fa-lg">
+                                                <i class="fa fa-caret-down fa-stack-1x fa-inverse toggle-icon"></i>
+                                            </span>
+                                        </div>
+                                    </button>
+                                </div>
+                                <div class="textBoxHolder">
+                                    <ul>
+                                        <li>
+                                            <!-- <textarea class="form-control input-sm" maxlength="50" placeholder="Title"></textarea> -->
+                                            <label>Title</label>
+                                        </li>
+                                        <li>
+                                            <!-- <textarea class="form-control input-sm" maxlength="50" placeholder="Description"></textarea> -->
+                                            <label>Description</label>
+                                        </li>
+                                        <li>
+                                            <textarea class="form-control input-sm" maxlength="50" id="@internalNotes" placeholder="Internal Notes"> @item1.Notes</textarea>
+                                        </li>
+
+                    </ul>
+                </div>
+
+
+            </div>
+
+            @*<div class="BOQcontentHolderFinal odd postionHereNext emptyBoxHolder">
+        <ul class="BOQcontentHolderFinalUl">
+            <li>
+                <label>
+                    <input type="checkbox" class="checkAll" style="margin-top:2px;">
+                </label>
+                <img src="~/images/del_line.gif" alt="" title="" />
+            </li>
+            <li>
+                <span class="input-group-addon li-catalog">
+                    <a href="#" title="Link this line item to your cost catalog">
+                        <img alt="Selection Catalog" src="~/images/catalogWhite.png">
+                    </a>
+                </span>
+                <div class="box">
+                    <div class="box-body">
+                        <form>
+                            <div class="form-group">
+                                <label>china</label>
+                                <!--  <select class="form-control selectpicker" id="select-country" data-live-search="true" disabled="disabled">
+                        <option data-tokens="china">China</option>
+                        <option data-tokens="malayasia">Malayasia</option>
+                        <option data-tokens="singapore">Singapore</option>
+                    </select> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <label>1</label>
+                <!-- <select  disabled="disabled">
+        <option>1</option>
+        <option>2</option>
+    </select> -->
+            </li>
+            <!--li>Activity Type</li-->
+            <li><!-- <input type="text" name="" disabled="disabled">  --><label>5</label></li>
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value="">
+            </li>
+
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value="">
+            </li>
+            <li>
+                <select>
+                    <option selected="selected">-- selected --</option>
+                    <option>%</option>
+                    <option>ر.س.‏/unit</option>
+                    <option>ر.س.‏</option>
+                    <option>-</option>
+                </select>
+            </li>
+
+            <li>
+                <input class="withSAR" type="text" name="" value=" ">
+                <span class="input-group-addon withPercentage">%</span>
+            </li>
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value=" ">
+            </li>
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value=" ">
+            </li>
+
+
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value=" ">
+            </li>
+            <li>
+                <select>
+                    <option>%</option>
+                    <option>ر.س.‏/unit</option>
+                    <option>ر.س.‏</option>
+                    <option>-</option>
+                </select>
+            </li>
+            <li>
+                <input class="withSAR" type="text" name="" value="">
+                <span class="input-group-addon withPercentage">%</span>
+            </li>
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value="">
+            </li>
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value="">
+            </li>
+            <li>
+                <span class="input-group-addon">SAR</span>
+                <input class="withSAR" type="text" name="" value="">
+            </li>
+
+            <li><span class="addNewBox1">Add</span></li>
+        </ul>
+        <div class="textBoxHolderToggle">
+            <button type="button" class="btn btn-link btn-xs" title="Toggle title, description, &amp; notes">
+                <div class="toggle-state">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-caret-down fa-stack-1x fa-inverse toggle-icon"></i>
+                    </span>
+                </div>
+            </button>
+        </div>
+        <div class="textBoxHolder">
+            <ul>
+                <li>
+                    <textarea class="form-control input-sm" maxlength="50" placeholder="Title"></textarea>
+                </li>
+                <li>
+                    <textarea class="form-control input-sm" maxlength="50" placeholder="Description"></textarea>
+                </li>
+                <li>
+                    <textarea class="form-control input-sm" maxlength="50" placeholder="Internal Notes"></textarea>
+                </li>
+
+            </ul>
+        </div>
+
+
+    </div>*@
+
+            
+}
+            </div>
+                    }
+            </div>
+        }
+
+    }
+</div>
+
+<script>
+
+    function UnitCalculation(quantityid,unitcost,executioncost){
+        //alert(executioncost);
+        quantityid = '#' + quantityid;
+        unitcost = '#' + unitcost;
+        executioncost = '#' + executioncost;
+        //alert($(quantityid).val());
+        //alert($(unitcost).val());
+        var tempQuantity = $(quantityid).html();
+        var tempUnitCost = $(unitcost).val();
+        var tempExecustionCost = tempQuantity * tempUnitCost;
+        //alert(tempExecustionCost)
+        $(executioncost).val(tempExecustionCost);
+
+    }
+    //markupdrop, marupPercent.markupValue
+    function manageTaxbaxesEnable(taxdrop, taxpercent, taxunit) {
+        taxdrop = '#' + taxdrop;
+        taxpercent = '#' + taxpercent;
+        taxunit = '#' + taxunit;
+        var taxdropvalue = $(taxdrop).val();
+        if (taxdropvalue == "%") {
+            $(taxpercent).attr('disabled', false);
+            $(taxunit).prop('disabled', true);
+            $(taxunit).val(0);
+        }
+        else if (taxdropvalue == "ر.س.‏/unit") {
+            $(taxunit).attr('disabled', false);
+            $(taxpercent).attr('disabled', true);
+            $(taxpercent).val(0);
+        }
+        else {
+            $(taxunit).attr('disabled', false);
+            $(taxpercent).attr('disabled', false);
+        }
+
+     
+    }
+
+
+    function managemarkupTaxsEnable(markupdrop, marupPercent, markupValue) {
+        markupdrop = '#' + markupdrop;
+        marupPercent = '#' + marupPercent;
+        markupValue = '#' + markupValue;
+        var taxkupValu = $(markupdrop).val();
+        
+        if (taxkupValu == "%") {
+            $(marupPercent).attr('disabled', false);
+            $(markupValue).prop('disabled', true);
+            $(markupValue).val(0);
+        }
+        else if (taxkupValu == "ر.س.‏/unit") {
+            $(markupValue).attr('disabled', false);
+            $(marupPercent).attr('disabled', true);
+            $(marupPercent).val(0);
+        }
+        else {
+            $(markupValue).attr('disabled', false);
+            $(marupPercent).attr('disabled', false);
+        }
+    }
+
+   
+    //BudgetCalculation('2taxunit', '2ExcutionCost', '2taxcost', '2Buildercost', '2marupPercent', '2markupValue', '2TotalMarkup', '2SteakHolderPrice', '2UnitCost', '2taxpercent', '2Quanitity', '2taxdrop')
+
+    function BudgetCalculation(taxunit, executionCost, taxcost, Buildercost, markupdrop, marupPercent, markupValue, TotalMarkup, SteakHolderPrice, UnitCost, taxpercent, Quantity, taxdropvalue) {
+        alert(taxpercent);
+        taxunit = '#' + taxunit;
+        ExcutionCost = '#' + executionCost;
+        taxcost = '#' + taxcost;
+        Buildercost = '#' + Buildercost;
+        marupPercent = '#' + marupPercent;
+        TotalMarkup = '#' + TotalMarkup;
+        SteakHolderPrice = '#' + SteakHolderPrice;
+        UnitCost = '#' + UnitCost;
+        taxpercent = '#' + taxpercent;
+        Quantity = '#' + Quantity;
+        taxdropvalue = '#' + taxdropvalue;
+        markupdrop = '#' + markupdrop;
+        markupValue = '#' + markupValue;
+        var Temptaxdropvalue = $(taxdropvalue).val();
+        alert(Temptaxdropvalue);
+        var Temptaxpercent = $(taxpercent).val();
+        var TempMarkupPercent = $(marupPercent).val();
+        var TemMarkupdropvalue = $(markupdrop).val()
+
+        var Temptaxunit = $(UnitCost).val() * $(taxpercent).val() / 100;
+        //var TempExcutionCost = $(UnitCost).val() * $(Quantity).val();
+        var Temptotaltax = ($(ExcutionCost).val() * Temptaxpercent / 100);  // totaltax
+        $(taxcost).val(Temptotaltax.toFixed(2)); //Total Tax
+
+        var Temptaxperunit = Temptotaltax / parseInt($(Quantity).html()); //tax per unit
+
+        if (Temptaxdropvalue == "ر.س.‏/unit") {
+            $(taxunit).val(Temptaxperunit.toFixed(2));
+            var Newtaxpercent = $(taxunit).val(Temptaxunit) * 100 / $(UnitCost).val();
+            $(taxpercent).val(Newtaxpercent);
+        }
+        else if (Temptaxdropvalue == "%") {
+            $(taxunit).val(Temptaxunit.toFixed(2));
+        }
+
+
+
+        //$(taxunit).val(Temptaxunit.toFixed(2));
+        var TemptotalExecutioncost = parseInt($(ExcutionCost).val()) + parseInt(Temptotaltax); //Total Execution Cost
+        
+        var TempTotalMarkup = TemptotalExecutioncost * TempMarkupPercent / 100; // total markup
+   
+        var TempOwnerPrice = TempTotalMarkup + TemptotalExecutioncost; // Owner price
+       // $(taxunit).val(Temptaxunit); // tax unit
+
+
+        $(Buildercost).val(TemptotalExecutioncost.toFixed(2)); // Total Execution cost
+        $(TotalMarkup).val(TempTotalMarkup.toFixed(2)); // total Marup
+        $(SteakHolderPrice).val(TempOwnerPrice.toFixed(2)) // Total owner price
+
+        var TempMarkupunit = TempTotalMarkup / parseInt($(Quantity).html());
+
+        // $(markupValue).val(TempMarkupunit.toFixed(2));
+
+        if (TemMarkupdropvalue == "ر.س.‏/unit") {
+
+            var NewMarkuppercent = $(markupValue).val() * 100 / $(UnitCost).val();
+            $(marupPercent).val(NewMarkuppercent);
+        }
+        else if (TemMarkupdropvalue == "%") {
+            $(markupValue).val(TempMarkupunit.toFixed(2));
+
+        }
+
+    }
+
+    function SaveProjectBoqDetail(e) {
+        var parentElement = $(e).parents('div[class^="BOQcontentHolderFinal"]');
+
+        //var model = {
+        //    "Project_Boq_ID": parseInt($(parentElement).find('input[id*="projectBoqId"]').val()),
+        //    "Unit_Cost": $(parentElement).find('input[id*="UnitCost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="UnitCost"]').val()),
+        //    "Execution_Cost": $(parentElement).find('input[id*="ExcutionCost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="ExcutionCost"]').val()),
+        //    "Tax_Percentage": $(parentElement).find('input[id*="taxpercent"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="taxpercent"]').val()),
+        //    "Tax_Unit": $(parentElement).find('input[id*="taxunit"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="taxunit"]').val()),
+        //    "Tax_Cost": $(parentElement).find('input[id*="taxcost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="taxcost"]').val()),
+        //    "Total_Builder_Cost": $(parentElement).find('input[id*="Buildercost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="Buildercost"]').val()),
+        //    "Markup_Value": $(parentElement).find('input[id*="markupValue"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="markupValue"]').val()),
+        //    "Markup_Percentage": $(parentElement).find('input[id*="marupPercent"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="marupPercent"]').val()),
+        //    "Total_Markup": $(parentElement).find('input[id*="TotalMarkup"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="TotalMarkup"]').val()),
+        //    "Steakholder_Price": $(parentElement).find('input[id*="SteakHolderPrice"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="SteakHolderPrice"]').val()),
+        //    "Status": false
+        //}
+
+        var model = {
+            Project_Boq_ID: parseInt($(parentElement).find('input[id*="projectBoqId"]').val()),
+            Unit_Cost: $(parentElement).find('input[id*="UnitCost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="UnitCost"]').val()),
+            Execution_Cost: $(parentElement).find('input[id*="ExcutionCost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="ExcutionCost"]').val()),
+            Tax_Percentage: $(parentElement).find('input[id*="taxpercent"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="taxpercent"]').val()),
+            Tax_Unit: $(parentElement).find('input[id*="taxunit"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="taxunit"]').val()),
+            Tax_Cost: $(parentElement).find('input[id*="taxcost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="taxcost"]').val()),
+            Total_Builder_Cost: $(parentElement).find('input[id*="Buildercost"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="Buildercost"]').val()),
+            Markup_Value: $(parentElement).find('input[id*="markupValue"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="markupValue"]').val()),
+            Markup_Percentage: $(parentElement).find('input[id*="marupPercent"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="marupPercent"]').val()),
+            Total_Markup: $(parentElement).find('input[id*="TotalMarkup"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="TotalMarkup"]').val()),
+            Steakholder_Price: $(parentElement).find('input[id*="SteakHolderPrice"]').val() == "" ? 0 : parseFloat($(parentElement).find('input[id*="SteakHolderPrice"]').val()),
+            Status: false,
+            Notes: $(parentElement).find('textarea[id*="internalNotes"]').val()
+        }
+
+
+        console.log(JSON.stringify(model));
+        $.ajax({
+            type: "Post",
+            url: "/Home/SaveProjectBoqDetail",
+            data: model,
+            success: function (response) {
+                if (response) {
+                    $(e).hide();
+                    $(parentElement).find('span[class^="plusePop"]').first().show();
+                    alert("Saved successfully");
+                    window.location.reload();
+                }
+            }
+        });
+    }
+</script>
+
+
+
+

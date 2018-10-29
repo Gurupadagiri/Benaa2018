@@ -47,6 +47,12 @@ namespace Benaa2018.Data
         public DbSet<CostCategory> CostCategorys { get; set; }
         public DbSet<CostCode> CostCodes { get; set; }
         public DbSet<VarianceMaster> VarianceMasters { get; set; }
+        public DbSet<ProjectBoqBudgetMaster> ProjectBoqBudgetMasters { get; set; }
+        public DbSet<ProjectPlaning> ProjectPlanings { get; set; }
+
+        public DbSet<TaxMaster> TaxMasters { get; set; }
+        public DbSet<UnitMaster> UnitMasters { get; set; }
+        public DbSet<MarkupMaster> MarkupMasters { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -62,7 +68,7 @@ namespace Benaa2018.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder
-                .UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;")
+                .UseSqlServer(@"Data Source=DESKTOP-O2C68VT;Initial Catalog=SBS-2018-New-ThirdParty;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;MultipleActiveResultSets=True;")
                 .EnableSensitiveDataLogging();
         }
     }
