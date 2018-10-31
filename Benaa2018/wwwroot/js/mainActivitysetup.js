@@ -1,6 +1,6 @@
 ﻿$(document).ready(function () {
 
-    
+    ///$("#GroupId").select2();
     $(document).on('click', '#chkSetUp', function () {
         var caseStat = '';
         if ($(this).prop("checked") == true) {
@@ -16,6 +16,11 @@
             });
         }
     });
+
+    $("#GroupId").select2();
+
+
+
     $(document).on('click', '.mainActivityUpdate', function () {
         var mainActivityId = $(this).attr("data-id");
         $.get("/MainActivityMaster/SaveMainActivity", {
@@ -41,11 +46,6 @@
     });
     $(document).on('click', '#btnMainActivitySave', function () {
 
-        //$('#frmMainActivitySetup input[type=text]').each(function () {
-        //    ///arrText.push($(this).val());
-
-        //    alert('Hi');
-        //})
         debugger;
         //$('.error').hide();
         $('.error').remove();

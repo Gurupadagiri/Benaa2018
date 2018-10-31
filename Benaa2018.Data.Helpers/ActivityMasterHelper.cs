@@ -140,6 +140,7 @@ namespace Benaa2018.Helper
                 Activity_Id = activityMasterViewModel.ActivityId,
                 Main_Activity_Id = activityMasterViewModel.MainActivityId,
                 Activity_Name = activityMasterViewModel.ActivityName,
+                Activity_Code= activityMasterViewModel.ActivityCode,
                 Parent_Id = activityMasterViewModel.ParentId,
                 Org_Id = activityMasterViewModel.OrgId,
                 Status = activityMasterViewModel.Status,
@@ -148,7 +149,8 @@ namespace Benaa2018.Helper
                 Created_By = "aaaa",
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,
-                Modified_Date = DateTime.Today
+                Modified_Date = DateTime.Today,
+                ActivityDescription= activityMasterViewModel.ActivityDescription
             };
 
             var activityMaster = await _activityMasterDetailsHelper.UpdateAsync(acttivity);

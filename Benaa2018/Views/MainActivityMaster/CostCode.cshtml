@@ -23,11 +23,16 @@
                         </div>
                     </div>
                     <div class="ccNewHolderRight">
-                        <a href="javascript:void(0);" class="newActionBtn">Cost Code Actions</a>
+                        <a href="javascript:void(0);" class="newActionBtn">Break Down Structure Actions</a>
                         <div class="ulHolder">
+                            @*<ul>
+                                    <li><a href="#">Import NAHB  Codes</a></li>
+                                    <li><a href="#">Import NAHB Variance Code</a></li>
+                                    <li><a href="#">Export Code</a></li>
+                                </ul>*@
                             <ul>
-                                <li><a href="#">Import NAHB  Codes</a></li>
-                                <li><a href="#">Import NAHB Variance Code</a></li>
+                                <li><a href="#">Import From Beena</a></li>
+                                @*<li><a href="#">Import NAHB Variance Code</a></li>*@
                                 <li><a href="#">Export Code</a></li>
                             </ul>
                         </div>
@@ -100,72 +105,74 @@
                             </div>
                         </div>*@
 
-                    @if (Model != null)
-                    {
-                        foreach (var item in Model.lstGroupMaster)
+                   
+
+            @if (Model != null)
+            {
+                foreach (var item in Model.lstVarianceMaster)
+                {
+
+                    <div class="costCodeList costCodeListOdd">
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#varianceSetUp" class="newActionBtn VarianceUpdate" data-id="@item.VarianceId">@item.VarianceCode</a>
+                        @*@foreach (var item2 in Model.lstMainActivityMaster.Where(m => m.GroupId == item.GroupId))
                         {
-
-                            <div class="costCodeList costCodeListOdd">
-                                <a href="javascript:void(0);" data-toggle="modal" data-target="#groupSetup" class="newActionBtn groupCode1" data-id="@item.GroupId">@item.GroupCode</a>
-                                @foreach (var item2 in Model.lstMainActivityMaster.Where(m => m.GroupId == item.GroupId))
-                                {
-                                    <div class="innercaotHolder">
-                                        <ul>
-                                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#mainActivity" data-id="@item2.MainActivityId" data-original-title class="mainActivityUpdate">@item2.MainActivityCode</a></li>
-                                            <li>
-                                                <ul>
-                                                    @foreach (var item3 in Model.lstVarianceMaster.Where(m => m.MainActivityId == item2.MainActivityId))
-                                                    {
-                                                        @*<a href="#">execa</a>*@
-                                                        <li><a href="javascript:void(0);" data-toggle="modal" data-target="#varianceSetUp" data-id="@item3.VarianceId" class="VarianceUpdate">@item3.VarianceCode </a></li>
-
-                                                    }
-                                                </ul>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                }
-                            </div>
-                        }
-
-                    }
-                </div>
-                @*<div class="col-md-4">
-                        <h2 class="header1">Variances</h2>
-                        <div class="costCodeList costCodeListOdd">
-                            <a href="javascript:void(0);" class="newActionBtn">0 - 9 Plans</a>
                             <div class="innercaotHolder">
                                 <ul>
+                                    <li><a href="javascript:void(0);" data-toggle="modal" data-target="#mainActivity" data-id="@item2.MainActivityId" data-original-title class="mainActivityUpdate">@item2.MainActivityCode</a></li>
                                     <li>
-                                        <a href="#">01 - Dimensioning Error</a>
-                                        <ul><li><a href="#">varcode</a></li></ul>
+                                        <ul>
+                                            @foreach (var item3 in Model.lstVarianceMaster.Where(m => m.MainActivityId == item2.MainActivityId))
+                                            {
+                                               
+                                                <li><a href="javascript:void(0);" data-toggle="modal" data-target="#varianceSetUp" data-id="@item3.VarianceId" class="VarianceUpdate">@item3.VarianceCode </a></li>
+
+                                            }
+                                        </ul>
                                     </li>
-                                    <li><a href="#">02 - Unclear detailr</a></li>
-                                    <li><a href="#">03 - Code violation</a></li>
                                 </ul>
                             </div>
-                        </div>
-                        <div class="costCodeList">
-                            <a href="javascript:void(0);" class="newActionBtn">10 - 19 Estimating</a>
-                            <div class="innercaotHolder">
-                                <ul>
-                                    <li><a href="javascript:void(0);" data-toggle="modal" data-target="#groupActivity" data-original-title>  11 - Omitted from estimate</a></li>
-                                    <li><a href="#"> 12 - Data entry error (typo)</a></li>
-                                    <li><a href=#>13 - Take-off error</a></li>
-                                    <li><a href="#">14 - Missed in EPO review</a></li>
-                                    <li><a href="#">vartest</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>*@
-                <div class="col-md-3 pull-right">
-                    <input id="chkSetUp" type="checkbox" name="" data-off-text="Off" data-on-text="On" asp-for="chkStatus">
-                    <span class="chkText">Show Inactive Codes</span>
+                        }*@
+                    </div>
+                }
+
+            }
+        </div>
+        @*<div class="col-md-4">
+                <h2 class="header1">Variances</h2>
+                <div class="costCodeList costCodeListOdd">
+                    <a href="javascript:void(0);" class="newActionBtn">0 - 9 Plans</a>
+                    <div class="innercaotHolder">
+                        <ul>
+                            <li>
+                                <a href="#">01 - Dimensioning Error</a>
+                                <ul><li><a href="#">varcode</a></li></ul>
+                            </li>
+                            <li><a href="#">02 - Unclear detailr</a></li>
+                            <li><a href="#">03 - Code violation</a></li>
+                        </ul>
+                    </div>
                 </div>
-            </div>
+                <div class="costCodeList">
+                    <a href="javascript:void(0);" class="newActionBtn">10 - 19 Estimating</a>
+                    <div class="innercaotHolder">
+                        <ul>
+                            <li><a href="javascript:void(0);" data-toggle="modal" data-target="#groupActivity" data-original-title>  11 - Omitted from estimate</a></li>
+                            <li><a href="#"> 12 - Data entry error (typo)</a></li>
+                            <li><a href=#>13 - Take-off error</a></li>
+                            <li><a href="#">14 - Missed in EPO review</a></li>
+                            <li><a href="#">vartest</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>*@
+        <div class="col-md-3 pull-right">
+            <input id="chkSetUp" type="checkbox" name="" data-off-text="Off" data-on-text="On" asp-for="chkStatus">
+            <span class="chkText">Show Inactive Codes</span>
+        </div>
+</div>
         </div>
     </form>
-    <script src="~/js/common.js"></script>
-    @*<script src="~/js/activitySetup.js"></script>*@
+<script src="~/js/common.js"></script>
+@*<script src="~/js/activitySetup.js"></script>*@
 
 </div>

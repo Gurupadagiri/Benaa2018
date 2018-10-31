@@ -20,7 +20,7 @@
                         Delete
                     </button>
                     <div class="activeCheckBox pull-right">
-                        <input type="checkbox" name="Status" asp-for="Status"><span>Active</span>
+                        <input type="checkbox" name="Status" asp-for="Status" checked="checked"><span>Active</span>
                     </div>
                 </div>
 
@@ -31,26 +31,26 @@
                             <div class="predecessoritem">
                                 <div class="form-group">
                                     <input type="hidden" asp-for="VarianceId" />
-                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="input-group col-md-3 col-sm-3 col-xs-12">
                                         <label>Variance Code </label>
-                                        <input class="form-control" type="text" asp-for="VarianceCode">
+                                        <input class="form-control" type="text" asp-for="VarianceCode" onkeyup="this.value = this.value.toUpperCase();">
                                     </div>
 
 
-                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="input-group col-md-9 col-sm-9 col-xs-12">
                                         <label>Variance Name</label>
                                         <input class="form-control" type="text" asp-for="VarianceName">
                                     </div>
-                                    <div class="input-group col-md-12 col-sm-12 col-xs-12">
+                                    @*<div class="input-group col-md-12 col-sm-12 col-xs-12">
                                         <label>Main Activity Name</label>
-                                        @*<input class="form-control" type="text" asp-for="ActivityName">*@
+                                        <input class="form-control" type="text" asp-for="ActivityName">
                                         <select asp-for="MainActivityId"
                                                 class="form-control"
                                                 asp-items="@(new SelectList(Model.lstMainActivityMaster,"MainActivityId", "MainActivityCode"))"></select>
-                                    </div>
+                                    </div>*@
                                     <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                         <label>Sequence</label>
-                                        <input class="form-control" type="text" asp-for="Sequence">
+                                        <input class="form-control" type="number" asp-for="Sequence">
                                     </div>
 
                                     <div class="input-group col-md-12 col-sm-12 col-xs-12">

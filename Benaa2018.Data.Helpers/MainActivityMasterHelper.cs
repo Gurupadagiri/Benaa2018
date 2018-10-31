@@ -114,6 +114,7 @@ namespace Benaa2018.Helper
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,
                 Modified_Date = DateTime.Today
+
             };
             var mainActivityMaster = await _mainActivityMasterDetailsHelper.CreateAsync(mainActivity);
             MainActivityMasterViewModel mainActivityMastersViewModel = new MainActivityMasterViewModel()
@@ -139,7 +140,8 @@ namespace Benaa2018.Helper
                 Created_By = "aaaa",
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,
-                Modified_Date = DateTime.Today
+                Modified_Date = DateTime.Today,
+                MainActivityDescription= mainActivityMasterViewModel.MainActivityDescription
             };
             var mainActivityMaster = await _mainActivityMasterDetailsHelper.UpdateAsync(mainActivity);
             MainActivityMasterViewModel mainActivityMastersViewModel = new MainActivityMasterViewModel()

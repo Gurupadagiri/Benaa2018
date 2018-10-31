@@ -138,7 +138,7 @@ namespace Benaa2018.Controllers
                     lstMainActivityMaster.Add(new MainActivityMasterViewModel()
                     {
                         MainActivityId = item.MainActivityId,
-                        MainActivityCode = item.MainActivityCode
+                        MainActivityCode = item.MainActivityCode+"-"+item.MainActivityName
                     });
                 }
             }

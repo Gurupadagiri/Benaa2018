@@ -1,10 +1,16 @@
 ﻿@model Benaa2018.Helper.ViewModels.MainActivityMasterViewModel
 <div class="modal-dialog activityHolder">
+    <link href="~/css/select2.min.css" rel="stylesheet" />
+    <style type="text/css">
+        .select2-drop-active {
+            margin-top: -25px;
+        }
+    </style>
     <form id="frmMainActivitySetup" enctype="multipart/form-data" method="post">
         <div class="panel panel-primary customPopup">
             <div class="panel-heading themeColor">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="panel-title" id="contactLabel">Main activity setup</h4>
+                <h4 class="panel-title" id="contactLabel">Main activity setup 123456</h4>
             </div>
 
             <div class="panel-body">
@@ -20,7 +26,7 @@
                         Delete
                     </button>
                     <div class="activeCheckBox pull-right">
-                        <input type="checkbox" name="Status" asp-for="Status"><span>Active</span>
+                        <input type="checkbox" name="Status" asp-for="Status" checked="checked"><span>Active</span>
                     </div>
                 </div>
 
@@ -31,11 +37,11 @@
                             <div class="predecessoritem">
                                 <div class="form-group">
                                     <input type="hidden" asp-for="MainActivityId" />
-                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="input-group col-md-3 col-sm-3 col-xs-12">
                                         <label>Main Activity Code</label>
-                                        <input class="form-control" type="text" asp-for="MainActivityCode" data-error="Please enter Main activity Code">
+                                        <input class="form-control" type="text" asp-for="MainActivityCode" data-error="Please enter Main activity Code" onkeyup="this.value = this.value.toUpperCase();">
                                     </div>
-                                    <div class="input-group col-md-6 col-sm-6 col-xs-12">
+                                    <div class="input-group col-md-9 col-sm-9 col-xs-12">
                                         <label>Main Activity Name</label>
                                         <input class="form-control" type="text" asp-for="MainActivityName" data-error="Please enter Main activity Name">
                                     </div>
@@ -43,11 +49,13 @@
                                         <label>Group Name</label>
                                         <select asp-for="GroupId"
                                                 class="form-control"
-                                                asp-items="@(new SelectList(Model.lstGroupMaster,"GroupId", "GroupName"))" data-error="Please select group code"></select>
+                                                asp-items="@(new SelectList(Model.lstGroupMaster,"GroupId", "GroupName"))" data-error="Please select group code" style='width: 200px;'></select>
+                                        <br />
+                                            <div id='result'></div>
                                     </div>
                                     <div class="input-group Sequence col-md-3 col-sm-3 col-xs-12">
                                         <label>Sequence</label>
-                                        <input class="form-control" type="text" asp-for="Sequence" data-error="Please enter Sequence">
+                                        <input class="form-control" type="number" asp-for="Sequence" data-error="Please enter Sequence">
                                     </div>
 
                                     <div class="input-group col-md-12 col-sm-12 col-xs-12">
@@ -62,5 +70,11 @@
             </div>
         </div>
     </form>
+    <script src="~/js/select2.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#GroupId").select2();
+        });
+    </script>
 </div>
 

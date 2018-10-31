@@ -32,7 +32,7 @@ namespace Benaa2018.Controllers
         private readonly IToDoCheckListHelper _toDoCheckListHelper;
         private readonly IToDoCheckListDetailsHelper _toDoCheckListDetailsHelper;
         private readonly IGroupMasterHelper _groupMasterHelper;
-        
+
         public GroupMasterController(IMenuMasterHelper menuMasterHelper,
             IOwnerMasterHelper ownerMasterHelper,
             IProjectColorHelper projectColorHelper,
@@ -153,17 +153,45 @@ namespace Benaa2018.Controllers
                 {
                     if (groupMasterList?.Count < 2)
                     {
-                        var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpMaster);
-                        if (objSaveGroupMaster.GroupId > 0)
+                        if (groupMasterList.Count == 1)
                         {
-                            groupMasterViewModel.Operation = "Insert";
-                            groupMasterViewModel.Success = true;
-                            groupMasterViewModel.Message = "Group code saved successfully!!!!!";
+                            if (grpMaster.GroupCode == groupMasterList[0].GroupCode)
+                            {
+                                groupMasterViewModel.Success = false;
+                                groupMasterViewModel.Message = "Group code did not saved successfully!!!!!";
+                            }
+                            else
+                            {
+                                var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpMaster);
+                                if (objSaveGroupMaster.GroupId > 0)
+                                {
+                                    groupMasterViewModel.Operation = "Insert";
+                                    groupMasterViewModel.Success = true;
+                                    groupMasterViewModel.Message = "Group code saved successfully!!!!!";
+                                }
+                                else
+                                {
+                                    groupMasterViewModel.Success = false;
+                                    groupMasterViewModel.Message = "Group code did not saved successfully!!!!!";
+                                }
+                            }
                         }
                         else
                         {
-                            groupMasterViewModel.Success = false;
-                            groupMasterViewModel.Message = "Group code did not saved successfully!!!!!";
+
+
+                            var objSaveGroupMaster = await _groupMasterHelper.UpdateGroupMasterViewModelDetails(grpMaster);
+                            if (objSaveGroupMaster.GroupId > 0)
+                            {
+                                groupMasterViewModel.Operation = "Insert";
+                                groupMasterViewModel.Success = true;
+                                groupMasterViewModel.Message = "Group code saved successfully!!!!!";
+                            }
+                            else
+                            {
+                                groupMasterViewModel.Success = false;
+                                groupMasterViewModel.Message = "Group code did not saved successfully!!!!!";
+                            }
                         }
                     }
                     else

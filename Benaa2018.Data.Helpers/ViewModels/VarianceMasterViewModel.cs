@@ -16,6 +16,6 @@ namespace Benaa2018.Helper.ViewModels
         public string Sequence { get; set; }
         public bool IsDeleted { get; set; }
         public string VarianceDescription { get; set; }
-        public List<MainActivityMasterViewModel> lstMainActivityMaster { get; set; }
+        ///public List<MainActivityMasterViewModel> lstMainActivityMaster { get; set; }
     }
 }

@@ -132,7 +132,7 @@ namespace Benaa2018.Controllers
                     variMasterModel.VarianceDescription = varianceMasterList[0].VarianceDescription;
                 }
             }
-            variMasterModel.lstMainActivityMaster = lstMainActivityMaster;
+            //variMasterModel.lstMainActivityMaster = lstMainActivityMaster;
 
             return PartialView("SaveVarianceMaster", variMasterModel);
         }

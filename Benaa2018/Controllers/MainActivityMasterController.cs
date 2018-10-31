@@ -136,7 +136,7 @@ namespace Benaa2018.Controllers
                     lstGroupMaster.Add(new GroupMasterViewModel()
                     {
                         GroupId = item.GroupId,
-                        GroupName = item.GroupCode
+                        GroupName = item.GroupCode+"-"+item.GroupName
                     });
                 }
             }

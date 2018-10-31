@@ -129,7 +129,7 @@ namespace Benaa2018.Helper
             VarianceMaster variance = new VarianceMaster()
             {
 
-                Variance_Id = varianceMasterViewModel.MainActivityId,
+                Variance_Id = varianceMasterViewModel.VarianceId,
                 Variance_Name = varianceMasterViewModel.VarianceName,
                 Variance_Code = varianceMasterViewModel.VarianceCode,
                 Parent_Id = varianceMasterViewModel.ParentId,

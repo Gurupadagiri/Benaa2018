@@ -17,7 +17,7 @@
     $(document).on('click', '#btnVarianceSave', function () {
 
         ///alert('hi;');
-        var car = { href: "Variance/SaveVarianceMaster", data: $("#frmVarianceSetup").serialize(), operation: "1" };
+        var car = { href: "/Variance/SaveVarianceMaster", data: $("#frmVarianceSetup").serialize(), operation: "1" };
         var result;
         result = contentDisp(car);
     });
@@ -26,14 +26,14 @@
     $(document).on('click', '#btnVarianceDelete', function () {
 
         //alert('hi;');
-        var car = { href: "Variance/DeleteVarianceMaster", data: $("#frmVarianceSetup").serialize(), operation: "1" };
+        var car = { href: "/Variance/DeleteVarianceMaster", data: $("#frmVarianceSetup").serialize(), operation: "1" };
         var result;
         result = contentDisp(car);
     });
 
 
     $(document).on('click', '#btnVarianceSaveNew', function () {
-        var car = { href: "Variance/SaveVarianceMaster", data: $("#frmVarianceSetup").serialize(), operation: "1" };
+        var car = { href: "/Variance/SaveVarianceMaster", data: $("#frmVarianceSetup").serialize(), operation: "1" };
         var result;
         result = contentDisp(car);
     });

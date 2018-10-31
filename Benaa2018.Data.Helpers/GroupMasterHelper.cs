@@ -41,7 +41,8 @@ namespace Benaa2018.Helper
                     Sequence = item.Sequence,
                     OrgId = item.Org_Id,
                     Status = item.Status,
-                    IsDeleted = item.Is_Deleted
+                    IsDeleted = item.Is_Deleted,
+                    GroupDescription=item.GroupMasterDescription
                 });
             });
             return lstgroupMasterModel;
@@ -82,7 +83,8 @@ namespace Benaa2018.Helper
                         Sequence = item.Sequence,
                         OrgId = item.Org_Id,
                         Status = item.Status,
-                        IsDeleted = item.Is_Deleted
+                        IsDeleted = item.Is_Deleted,
+                        GroupDescription=item.GroupMasterDescription
                     });
                 });
             }
@@ -129,7 +131,8 @@ namespace Benaa2018.Helper
                 Created_By = "aaaa",
                 Modified_By = "aaa",
                 Created_Date = DateTime.Today,
-                Modified_Date = DateTime.Today
+                Modified_Date = DateTime.Today,
+                GroupMasterDescription=grpMasterViewModel.GroupDescription
             };
 
             var grouppMaster = await _groupMasterDetailsHelper.UpdateAsync(grpMaster);
